@@ -762,6 +762,22 @@ Note
 <ol start="2" type="1">
 <li>Using the package <code>Plot.jl</code>, plot the data.</li>
 </ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Use <code>names(dataset)</code> to get the list of data names. If <code>Time</code> is a name you can access to the associate data by <code>dataset.Time</code>.</p>
+</div>
+</div>
+</div>
 <div id="456f9071" class="cell" data-execution_count="26">
 <details class="code-fold">
 <summary>Show the answer</summary>
@@ -826,7 +842,7 @@ Note
 <li>Create the matrix <span class="math inline">X</span>, the vector <span class="math inline">\beta</span> and solve the normal equation with the operator <a href="https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/#Base.:\-Tuple%7BAbstractMatrix,%20AbstractVecOrMat%7D"><code>Base.\</code></a>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -835,7 +851,7 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Use <code>ones(m)</code> to generate a vector of 1 of length <span class="math inline">m</span>.</p>
 </div>

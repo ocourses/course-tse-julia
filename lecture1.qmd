@@ -508,6 +508,12 @@ Do not hesitate to visit the documentation of `CSV.jl` and `DataFrames.jl`.
 
 2. Using the package `Plot.jl`, plot the data. 
 
+::: {.callout-caution collapse="true"}
+## Hint
+
+Use `names(dataset)` to get the list of data names. If `Time` is a name you can access to the associate data by `dataset.Time`.
+:::
+
 ```{julia}
 #| code-fold: true
 #| code-summary: "Show the answer"
