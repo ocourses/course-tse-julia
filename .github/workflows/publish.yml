@@ -20,6 +20,7 @@ jobs:
       - name: Set up Julia
         uses: julia-actions/setup-julia@latest
       - run: julia --project -e 'using Pkg; Pkg.instantiate()'
+      - run: python3 -m pip install jupyter
       - run: quarto check jupyter
       
       - name: Render and Publish
