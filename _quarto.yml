@@ -15,3 +15,6 @@ format:
     page-layout: full
     template-partials: 
       - assets/html/title-block.html
+
+metadata-files:
+  - _website.yml

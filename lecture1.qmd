@@ -1,15 +1,11 @@
 ---
 title-block-banner: true
-title: "Julia course: Lecture 1"
+title: "Introduction to Julia ecosystem"
+subtitle: "Application to Simple Linear Regression"
 author: "Olivier Cots"
 date: last-modified
 jupyter: julia-1.11
 ---
-
-<div style="margin-bottom: 150px">
-<img height="140px" style="margin-right: 30px" src="assets/images/logo-INP.svg"/>
-<img height="160px" src="assets/images/logo-TSE-2019.png"/>
-</div>
 
 ## Julia ecosystem
 

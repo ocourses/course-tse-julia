@@ -5,4 +5,4 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - lecture1.qmd
