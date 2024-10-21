@@ -1,0 +1,8 @@
+---
+title-block-banner: true
+title: "Julia course"
+author: "Olivier Cots"
+date: last-modified
+---
+
+- [Lecture 1](lecture1.qmd)

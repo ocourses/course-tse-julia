@@ -1,0 +1,8 @@
+website:
+  title: "Julia course"
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd

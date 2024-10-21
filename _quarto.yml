@@ -1,0 +1,17 @@
+project:
+  type: website
+  output-dir: _output
+  resources: 
+    - "assets/json/*"
+
+format:
+  html:
+    theme: cosmo
+    css: assets/css/styles.css
+    toc: true
+    html-math-method: katex
+    number-sections: true
+    code-fold: false
+    page-layout: full
+    template-partials: 
+      - assets/html/title-block.html
