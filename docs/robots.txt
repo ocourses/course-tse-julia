@@ -1,1 +1,0 @@
-Sitemap: https://ocots.github.io/course-tse-julia-M1/sitemap.xml

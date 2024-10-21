@@ -7,6 +7,16 @@ date: last-modified
 jupyter: julia-1.11
 ---
 
+```{julia}
+#| echo: false
+using Pkg
+using Suppressor
+@suppress begin
+  Pkg.activate(".")
+end
+```
+<div style="margin-top:-20px"></div>
+
 ## Julia ecosystem
 
 [Wikipedia citation](https://en.wikipedia.org/wiki/Julia_(programming_language)):
@@ -36,7 +46,6 @@ Install the latest Julia version from the [Microsoft Store](https://www.microsof
 winget install julia -s msstore
 ```
 :::
-
 
 On the [Julia official webpage](https://julialang.org) one can find the following summary of Julia ecosystem.
 
