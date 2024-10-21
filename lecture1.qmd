@@ -498,7 +498,8 @@ You also need to download the csv file. Click on the following image.
 ```{julia}
 #| code-fold: true
 #| code-summary: "Show the answer"
-dataset = DataFrame(CSV.File("data/lecture1/data.csv"))
+path = "data/lecture1/data.csv" # update depending on the location of your file
+dataset = DataFrame(CSV.File(path))
 ```
 
 ::: {.callout-note}
