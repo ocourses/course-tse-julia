@@ -423,7 +423,7 @@ using LinearAlgebra
 </div>
 </div>
 
-I recommend to use [VS Code](https://www.julia-vscode.org). See the [Julia Visual Studio Code Documentation](https://www.julia-vscode.org/docs/stable/#Julia-Visual-Studio-Code-Documentation).
+I recommend to use [VS Code](https://www.julia-vscode.org). You can download it [here](https://code.visualstudio.com/download). See the [Julia Visual Studio Code Documentation](https://www.julia-vscode.org/docs/stable/#Julia-Visual-Studio-Code-Documentation).
 
 > Julia for Visual Studio Code is a powerful, free IDE for the Julia language. Visual Studio Code is a powerful and customizable editor. With a completely live environment, Julia for VS Code aims to take the frustration and guesswork out of programming and put the fun back in.  We build on Julia’s unique combination of ease-of-use and performance. Beginners and experts can build better software more quickly, and get to a result faster. Julia is an officially supported language on the [VS Code docs](https://code.visualstudio.com/docs/languages/julia).
 
