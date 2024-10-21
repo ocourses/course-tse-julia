@@ -9,9 +9,10 @@ jupyter: julia-1.11
 
 ```{julia}
 #| echo: false
-pkg"add DataFrames"
-pkg"add CSV"
-pkg"add Plots"
+using Pkg
+Pkg.add("DataFrames")
+Pkg.add("CSV")
+Pkg.add("Plots")
 ```
 
 ## Julia ecosystem
