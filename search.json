@@ -1,5 +1,19 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Julia course",
+    "section": "",
+    "text": "Back to top"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n\n\n Back to top"
+  },
+  {
     "objectID": "lecture1.html",
     "href": "lecture1.html",
     "title": "Introduction to Julia ecosystem",
@@ -47,12 +61,5 @@
     "title": "Introduction to Julia ecosystem",
     "section": "6 Exercise",
     "text": "6 Exercise\n\n6.1 Context: Least Squares Regression Line\nWe propose a first exercise about simple linear regression. The data are excerpted from this example and saved into data.csv. We propose an ordinary least squares formulation which is a type of linear least squares method for choosing the unknown parameters in a linear regression model by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being observed) in the input dataset and the output of the (linear) function of the independent variable.\n\nGiven a set of m data points y_{1}, y_{2}, \\dots, y_{m}, consisting of experimentally measured values taken at m values x_{1}, x_{2}, \\dots, x_{m} of an independent variable (x_i may be scalar or vector quantities), and given a model function y=f(x,\\beta), with \\beta =(\\beta_{1},\\beta_{2},\\dots ,\\beta_{n}), it is desired to find the parameters \\beta_j such that the model function “best” fits the data. In linear least squares, linearity is meant to be with respect to parameters \\beta_j, so \n  f(x, \\beta) = \\sum_{j=1}^n \\beta_j\\, \\varphi_j(x).\n In general, the functions \\varphi_j may be nonlinear. However, we consider linear regression, that is \n  f(x, \\beta) = \\beta_1 + \\beta_2 x.\n Ideally, the model function fits the data exactly, so \n  y_i = f(x_i, \\beta)\n for all i=1, 2, \\dots, m. This is usually not possible in practice, as there are more data points than there are parameters to be determined. The approach chosen then is to find the minimal possible value of the sum of squares of the residuals \n  r_i(\\beta) = y_i - f(x_i, \\beta), \\quad i=1, 2, \\dots, m\n so to minimize the function \n  S(\\beta) = \\sum_{i=1}^m r_i^2(\\beta).\n In the linear least squares case, the residuals are of the form \n  r(\\beta) = y - X\\, \\beta\n with y = (y_i)_{1\\le i\\le m} \\in \\mathbb{R}^m and X = (X_{ij})_{1\\le i\\le m, 1\\le j\\le n} \\in \\mathrm{M}_{mn}(\\mathbb{R}), where X_{ij} = \\varphi_j(x_i). Since we consider linear regression, the i-th row of the matrix X is given by \n  X_{i[:]} = [1 \\quad x_i].\n The objective function may be written \n  S(\\beta) = {\\Vert y - X\\, \\beta \\Vert}^2\n where the norm is the usual 2-norm. The solution to the linear least squares problem \n  \\underset{\\beta \\in \\mathbb{R}^n}{\\mathrm{minimize}}\\, {\\Vert y - X\\, \\beta \\Vert}^2\n is computed by solving the normal equation \n  X^\\top X\\, \\beta = X^\\top y,\n where X^\\top denotes the transpose of X.\n\n\n6.2 Questions\nTo answer the questions you need to import the following packages.\n\nusing DataFrames\nusing CSV\nusing Plots\n\nYou also need to download the csv file. Click on the following image.\n  \n\nUsing the packages DataFrames.jl and CSV.jl, load the dataset from data/lecture1/data.csv and save the result into a variable named dataset.\n\n\n\nShow the answer\npath = \"data/lecture1/data.csv\" # update depending on the location of your file\ndataset = DataFrame(CSV.File(path))\n\n\n5×2 DataFrame\n\n\n\nRow\nTime\nMass\n\n\n\nInt64\nInt64\n\n\n\n\n1\n5\n40\n\n\n2\n7\n120\n\n\n3\n12\n180\n\n\n4\n16\n210\n\n\n5\n20\n240\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nDo not hesitate to visit the documentation of CSV.jl and DataFrames.jl.\n\n\n\nUsing the package Plot.jl, plot the data.\n\n\n\n\n\n\n\nHint\n\n\n\n\n\nUse names(dataset) to get the list of data names. If Time is a name you can access to the associated data by dataset.Time.\n\n\n\n\n\nShow the answer\nplt = plot(\n  dataset.Time, \n  dataset.Mass,\n  seriestype=:scatter, \n  legend=false, \n  xlabel=\"Time\", \n  ylabel=\"Mass\"\n)\n\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCreate the matrix X, the vector \\beta and solve the normal equation with the operator Base.\\.\n\n\n\n\n\n\n\nHint\n\n\n\n\n\nUse ones(m) to generate a vector of 1 of length m.\n\n\n\n\n\nShow the answer\nm = length(dataset.Time)\nX = [ones(m) dataset.Time]\ny = dataset.Mass\nβ = X\\y\n\n\n2-element Vector{Float64}:\n 11.506493506493449\n 12.207792207792208\n\n\n\nPlot the linear model on the same plot as the data. Use the plot! function. See the basic concepts for plotting.\n\n\n\nShow the answer\nx = [5, 20]\ny = β[1] .+ β[2]*x\nplot!(plt, x, y)"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
   }
 ]
