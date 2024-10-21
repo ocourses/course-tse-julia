@@ -19,6 +19,7 @@ jobs:
 
       - name: Set up Julia
         uses: julia-actions/setup-julia@latest
+      - run: julia --project -e 'using Pkg; Pkg.instantiate()'
       
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
