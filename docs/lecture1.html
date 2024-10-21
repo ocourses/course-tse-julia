@@ -187,30 +187,39 @@ window.Quarto = {
 </header>
 <!-- content -->
 <header id="title-block-header" style="position: relative">
-  <!-- This is the div in which the particles will be included -->
-  <div id="particles-js"></div>
+  <div id="top-panel">
 
-  <!-- Actual content on top of the particles-->
-  <div class="title-block-content">
-    <img src="assets/images/julia-qr-code.svg" alt="https://gitlab.irit.fr/toc/etu-n7/julia" width="200px" height="200px" style="margin-bottom: 20px">
-        <h1 class="title">Introduction to Julia ecosystem</h1>
-         <p class="subtitle">Application to Simple Linear Regression</p>
-         <p class="author">Olivier Cots</p>
-         <p class="date">October 21, 2024</p>
-     
-    <div style="margin-top: 50px; margin-bottom: 50px;">
-      <img height="140px" style="margin-right: 30px" src="assets/images/logo-INP.svg">
-      <img height="160px" src="assets/images/logo-TSE-2019.png">
+    <div class="parallax-container">
+      <div class="parallax-image-container">
+
+        <!-- This is the div in which the particles will be included -->
+        <div id="particles-js"></div>
+
+        <!-- Actual content on top of the particles-->
+        <div class="title-block-content">
+          <img src="assets/images/julia-qr-code.svg" alt="https://gitlab.irit.fr/toc/etu-n7/julia" width="200px" height="200px" style="margin-bottom: 20px">
+                    <h1 class="title">Introduction to Julia ecosystem</h1>
+                     <p class="subtitle">Application to Simple Linear Regression</p>
+                     <p class="author">Olivier Cots</p>
+                     <p class="date">October 21, 2024</p>
+           
+          <div style="margin-top: 50px;">
+            <img height="140px" style="margin-right: 30px" src="assets/images/logo-INP.svg">
+            <img height="160px" src="assets/images/logo-TSE-2019.png">
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Particle.js script loaded from a CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- use the particle js library with our own config (json file). -->
+    <script>
+      particlesJS.load("particles-js", "assets/json/particles.json");
+    </script>
+
   </div>
-
-  <!-- Particle.js script loaded from a CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-
-  <!-- use the particle js library with our own config (json file). -->
-  <script>
-    particlesJS.load("particles-js", "assets/json/particles.json");
-  </script>
 </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
