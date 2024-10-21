@@ -487,6 +487,12 @@ using CSV
 using Plots
 ```
 
+You also need to download the csv file. Click on the following image.
+
+<a href="data/lecture1/data.csv" download>
+  <img src="assets/images/logo-csv-download.png" width="50">
+</a>
+
 1. Using the packages `DataFrames.jl` and `CSV.jl`, load the dataset from [data/lecture1/data.csv](data/lecture1/data.csv) and save the result into a variable named `dataset`.
 
 ```{julia}
