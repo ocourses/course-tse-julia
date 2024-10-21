@@ -4,9 +4,14 @@ project:
   resources: 
     - "assets/json/*"
 
+execute:
+  freeze: auto
+
 format:
   html:
-    theme: cosmo
+    theme:
+      light: flatly
+      dark: darkly
     css: assets/css/styles.css
     toc: true
     html-math-method: katex
