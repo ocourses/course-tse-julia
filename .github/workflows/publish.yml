@@ -17,10 +17,21 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Install Python and Dependencies
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - run: pip install jupyter
+
       - name: Set up Julia
         uses: julia-actions/setup-julia@latest
-      - run: julia --project -e 'using Pkg; Pkg.instantiate()'
-      - run: python3 -m pip install jupyter
+      - run: |
+          julia --project -e 'using Pkg; 
+                              Pkg.add("IJulia");
+                              Pkg.build("IJulia");
+                              using IJulia;
+                              Pkg.instantiate()'
       - run: quarto check jupyter
       
       - name: Render and Publish
