@@ -527,7 +527,7 @@ plt = plot(
 )
 ```
 
-3. Create the matrix $X$, the vector $\beta$ and solve the normal equation with the operator [`Base.\`](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/#Base.:\\-Tuple{AbstractMatrix,%20AbstractVecOrMat}).
+1. Create the matrix $X$, the vector $\beta$ and solve the normal equation with the operator [`Base.\`](https://tinyurl.com/juliadoc-base-backslash).
 
 ::: {.callout-caution collapse="true"}
 ## Hint
