@@ -7,14 +7,6 @@ date: last-modified
 jupyter: julia-1.11
 ---
 
-```{julia}
-#| echo: false
-using Pkg
-Pkg.add("DataFrames")
-Pkg.add("CSV")
-Pkg.add("Plots")
-```
-
 ## Julia ecosystem
 
 [Wikipedia citation](https://en.wikipedia.org/wiki/Julia_(programming_language)):

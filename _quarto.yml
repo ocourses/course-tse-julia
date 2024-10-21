@@ -5,7 +5,7 @@ project:
     - "assets/json/*"
 
 execute:
-  freeze: false
+  freeze: auto
 
 format:
   html:
