@@ -473,7 +473,7 @@ $$
 $$
 is computed by solving the *normal equation*
 $$
-  X^\top X = X^\top y,
+  X^\top X \beta = X^\top y,
 $$
 where $X^\top$ denotes the transpose of $X$.
 
