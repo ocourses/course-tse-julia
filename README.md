@@ -1,2 +1,3 @@
-# course-tse-julia-M1
-Julia course at TSE for M1
+# Julia course
+
+Julia course at [TSE](https://www.tse-fr.eu/fr) for Master 1 students.
