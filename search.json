@@ -14,6 +14,13 @@
     "text": "About this site\n\n\n\n Back to top"
   },
   {
+    "objectID": "data/lecture1/basic.html",
+    "href": "data/lecture1/basic.html",
+    "title": "Basic examples of code",
+    "section": "",
+    "text": "x = 1\n2x\n\n\nx = sqrt(2)\n\n\n# unicode is great\nx = √(2)\n\n\n😄 = sqrt(2)\n2😄\n\nSome functions.\n\n# this is a function\nfunction f(x)\n    return 2x+1\nend\n\n\n# this also\nf(x) = 2x+1\n\n\n# this also: but f is not available anymore\ng = x -&gt; 2x^2\n\n\n# be careful of the priorities\ng(1)\n\n\nx = [1 3 12]\nprintln(\"x[2] = \", x[2])\nx[2] = 5\nprintln(\"x[2] = \", x[2])\n\nThe following function has side effects that can be dangerous.\n\nfunction f(x, y)\n    x[1] = 42      # mutates x\n    y = 7 + sum(x) # new binding for y, no mutation\n    return y\nend\n\na = [4, 5, 6]\nb = 3\n\nprintln(\"f($a, $b) = \", f(a, b))\nprintln(\"a = \", a, \" # a[1] is changed to 42 by f\")\nprintln(\"b = \", b, \" # not changed\")\n\nWhen a function has side effects, please use the ! convention. See Argument Passing Behavior.\n\nfunction put_at_second_place!(x, value)\n  x[2] = value\n  return nothing\nend\n\nx = [1 3 12]\nprintln(\"x[2] = \", x[2])\n\nput_at_second_place!(x, 5)\nprintln(\"x[2] = \", x[2])\n\nput_at_second_place!(x[1:3], 15) # be careful if you give a slice\nprintln(\"x[2] = \", x[2])\n\nA function may have several methods.\n\nΣ(x::Float64, y::Float64) = 2x + y\n\n\nΣ(2.0, 3.0)\n\n\nΣ(2, 3.0)\n\n\nh(x::Number,  y::Number ) = 2x - y\nh(x::Int,     y::Int    ) = 2x * y\nh(x::Float64, y::Float64) = 2x + y\n\n\nprintln(\"h(2,   3.0) = \", h(2, 3.0))\nprintln(\"h(2,   3  ) = \", h(2, 3))\nprintln(\"h(2.0, 3.0) = \", h(2.0, 3.0))\n\n\n\n\n Back to top"
+  },
+  {
     "objectID": "lecture1.html#julia-ecosystem",
     "href": "lecture1.html#julia-ecosystem",
     "title": "Introduction to Julia ecosystem",
