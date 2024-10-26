@@ -21,5 +21,15 @@ format:
     template-partials: 
       - assets/html/title-block.html
 
-metadata-files:
-  - _website.yml
+website:
+  title: "Julia course"
+  navbar:
+    tools:
+      - icon: github
+        href: https://github.com/ocots/course-tse-julia-M1
+    background: primary
+    left:
+      - lecture1.qmd
+  back-to-top-navigation: true
+  page-footer: 
+    center: "Copyright 2024, Olivier Cots" 
