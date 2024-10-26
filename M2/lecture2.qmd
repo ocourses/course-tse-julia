@@ -1,0 +1,6 @@
+---
+title: "Lecture 2"
+page-layout: article
+---
+
+M2 - Lecture 2

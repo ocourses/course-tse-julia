@@ -1,0 +1,11 @@
+- title: Getting started
+  subtitle: Introduction to Julia ecosystem
+  links:
+    - text: Julia ecosystem
+      href: getting_started-julia_ecosystem.qmd
+    - text: Execute some code
+      href: getting_started-execute_some_code.qmd
+    - text: Foretaste of Julia code
+      href: getting_started-foretaste_of_julia_code.qmd
+    - text: "Example: Simple Linear Regression"
+      href: getting_started-exercice_simple_linear_regression.qmd

@@ -1,0 +1,132 @@
+---
+title: "Foretaste of Julia code"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+using Pkg
+using Suppressor
+@suppress begin
+  Pkg.activate(".")
+end
+```
+
+```{julia}
+x = 1
+2x
+```
+
+```{julia}
+x = sqrt(2)
+```
+
+```{julia}
+# unicode is great
+x = √(2)
+```
+
+```{julia}
+😄 = sqrt(2)
+2😄
+```
+
+Some functions.
+
+```{julia}
+# this is a function
+function f(x)
+  return 2x+1
+end
+```
+
+```{julia}
+# this also
+f(x) = 2x+1
+```
+
+```{julia}
+# this also: but f is not available anymore
+g = x -> 2x^2
+```
+
+```{julia}
+# be careful of the priorities
+g(1)
+```
+
+```{julia}
+Hello(name) = "Hello " * name * "!"
+Hello("Alban")
+```
+
+```{julia}
+x = [1 3 12]
+println("x[2] = ", x[2])
+x[2] = 5
+println("x[2] = ", x[2])
+```
+
+The following function has side effects that can be dangerous.
+
+```{julia}
+function f(x, y)
+    x[1] = 42      # mutates x
+    y = 7 + sum(x) # new binding for y, no mutation
+    return y
+end
+
+a = [4, 5, 6]
+b = 3
+
+println("f($a, $b) = ", f(a, b))
+println("a = ", a, " # a[1] is changed to 42 by f")
+println("b = ", b, " # not changed")
+```
+
+When a function has [side effects](https://en.wikipedia.org/wiki/Side_effect_(computer_science)), please use the `!` convention. See [Argument Passing Behavior](https://docs.julialang.org/en/v1/manual/functions/#man-argument-passing).
+
+```{julia}
+function put_at_second_place!(x, value)
+  x[2] = value
+  return nothing
+end
+
+x = [1 3 12]
+println("x[2] = ", x[2])
+
+put_at_second_place!(x, 5)
+println("x[2] = ", x[2])
+
+put_at_second_place!(x[1:3], 15) # be careful if you give a slice
+println("x[2] = ", x[2])
+```
+
+A function may have several methods.
+
+```{julia}
+Σ(x::Float64, y::Float64) = 2x + y
+```
+
+```{julia}
+Σ(2.0, 3.0)
+```
+
+```{julia}
+#| error: true
+Σ(2, 3.0)
+```
+
+
+```{julia}
+h(x::Number,  y::Number ) = 2x - y
+h(x::Int,     y::Int    ) = 2x * y
+h(x::Float64, y::Float64) = 2x + y
+```
+
+```{julia}
+println("h(2,   3.0) = ", h(2, 3.0))
+println("h(2,   3  ) = ", h(2, 3))
+println("h(2.0, 3.0) = ", h(2.0, 3.0))
+```

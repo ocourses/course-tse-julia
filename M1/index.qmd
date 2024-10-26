@@ -1,0 +1,12 @@
+---
+title: "Julia Master 1 course"
+subtitle: "Introduction to Julia programming language"
+page-layout: article
+listing:
+  id: M1-links
+  template: ../assets/ejs/links.ejs
+  contents: M1.yml
+---
+
+::: {#M1-links .column-screen-inset-right style="max-width: 850px;"}
+:::

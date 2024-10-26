@@ -2,24 +2,95 @@ project:
   type: website
   output-dir: docs
   resources: 
-    - "assets/json/*"
+    - assets/json/*
+  preview:
+    port: 4200
+    browser: true
+    watch-inputs: true
 
 execute:
   freeze: auto
 
+filters:
+  - auto-dark
+
 format:
   html:
     theme:
-      light: flatly
-      dark: darkly
-    css: assets/css/styles.css
+      light: [cosmo, assets/css/theme-quarto.scss]      
+    css: 
+      - assets/css/styles.css
     toc: true
+    code-copy: true
+    code-overflow: wrap
     html-math-method: katex
-    number-sections: true
+    number-sections: false
     code-fold: false
-    page-layout: full
-    template-partials: 
-      - assets/html/title-block.html
+    grid:
+      sidebar-width: 250px
+      body-width: 900px
+      margin-width: 300px
 
-metadata-files:
-  - _website.yml
+website:
+  title: "Julia course"
+  image: assets/images/logo-julia.png
+  favicon: assets/images/logo-julia.svg
+  open-graph: true
+  twitter-card: true
+  site-url: https://ocots.github.io/course-tse-julia-M1/
+  repo-url: https://github.com/ocots/course-tse-julia-M1
+  issue-url: https://github.com/ocots/course-tse-julia-M1/issues/new/choose
+  repo-actions: [edit, source, issue]
+  page-navigation: true
+  back-to-top-navigation: true
+  bread-crumbs: true
+  search: 
+    location: navbar
+    show-item-context: true
+    type: overlay
+    keyboard-shortcut: ["?", "H"]
+  page-footer: 
+    center: "Copyright 2024, Olivier Cots"
+  navbar:
+    background: light
+    logo: assets/images/logo-julia.svg
+    logo-alt: "Julia course."
+    title: false
+    tools:
+      - icon: github
+        href: https://github.com/ocots/course-tse-julia-M1
+    left:
+      - text: "Master 1"
+        href: M1/index.qmd
+      - text: "Master 2"
+        href: M2/index.qmd
+  sidebar:
+    - id: M1
+      style: "floating"
+      collapse-level: 3
+      contents:
+        - section: "Master 1"
+          href: M1/index.qmd
+          contents:
+            - section: "Getting started"
+              contents:
+                - text: Julia ecosystem
+                  href: M1/getting_started-julia_ecosystem.qmd
+                - text: Execute some code
+                  href: M1/getting_started-execute_some_code.qmd
+                - text: Foretaste of Julia code
+                  href: M1/getting_started-foretaste_of_julia_code.qmd
+                - text: "Exercice: Simple Linear Regression"
+                  href: M1/getting_started-exercice_simple_linear_regression.qmd
+            - text: "---"
+    - id: M2
+      collapse-level: 3
+      contents:
+        - section: "Master 2"
+          href: M2/index.qmd
+          contents:
+            - section: "Tutorials"
+              contents:
+                - M2/lecture1.qmd
+                - M2/lecture2.qmd
+            - text: "---"

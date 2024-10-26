@@ -1,0 +1,131 @@
+---
+title: "How to execute some Julia code"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+using Pkg
+using Suppressor
+@suppress begin
+  Pkg.activate(".")
+end
+```
+
+## Installation
+
+Julia can be easily downloaded and installed. See the [download page](https://julialang.org/downloads/) where we can find the following.
+
+::: {.panel-tabset}
+
+### Mac / Linux
+
+Install the latest Julia version by running this in your terminal:
+
+``` {.bash}
+curl -fsSL https://install.julialang.org | sh
+```
+
+### Windows
+
+Install the latest Julia version from the [Microsoft Store](https://www.microsoft.com/store/apps/9NJNWW8PVKMN) by running this in the command prompt:
+
+``` {.bash}
+winget install julia -s msstore
+```
+:::
+
+There are different ways to execute Julia code:
+
+- within a `.ipynb` file, that is a Jupyter notebook;
+- directly into the Julia REPL;
+- from a script file `.jl`, either in the REPL or in the terminal;
+- ...
+
+## Jupyter notebooks
+
+<img height="100px" style="margin-left:15px; margin-right:15px; float: right;" src="../assets/images/logo-jupyter.svg"/>
+
+You can write some Julia code inside a [Jupyter notebook](https://jupyter.org) and execute the code. To interact with the Julia language using Jupyter notebook, please install [IJulia.jl](https://github.com/JuliaLang/IJulia.jl).
+
+> **IJulia** is a [Julia-language](http://julialang.org/) backend
+combined with the [Jupyter](http://jupyter.org/) interactive
+environment (also used by [IPython](http://ipython.org/)).  This
+combination allows you to interact with the Julia language using
+Jupyter/IPython's powerful [graphical
+notebook](http://ipython.org/notebook.html), which combines code,
+formatted text, math, and multimedia in a single document.
+IJulia is a Jupyter language kernel and works with a variety of notebook
+user interfaces. In addition to the classic Jupyter Notebook, IJulia
+also works with [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/), a Jupyter-based
+integrated development environment for notebooks and code.
+The [nteract notebook desktop](https://nteract.io/) supports IJulia with
+detailed instructions for its [installation with nteract](https://nteract.io/kernels/julia).
+
+Try to execute the code of [example.ipynb](data/introduction/example.ipynb).
+
+## The Julia REPL
+
+Julia comes with a full-featured interactive [command-line REPL](https://docs.julialang.org/en/v1/stdlib/REPL/) (read-eval-print loop) built into
+the `julia` executable. In addition to allowing quick and easy evaluation of Julia statements,
+it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and
+shell modes. The REPL can be started by simply calling `julia` with no arguments or double-clicking
+on the executable:
+
+```{julia}
+#| echo: false
+using REPL
+io = IOBuffer()
+REPL.banner(io)
+banner = String(take!(io))
+import Markdown
+Markdown.parse("```julia\n\$ julia\n\n$(banner)\njulia>\n```")
+```
+
+After Julia is launched you can start computing.
+
+```{julia}
+1+1
+```
+
+Or print some text.
+
+```{julia}
+print("Hello!")
+```
+
+::: {.callout-important icon=false}
+The Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc.
+The different modes are:
+
+- The Julian mode
+- Help mode
+- Shell mode
+- Pkg mode
+- Search modes
+
+Visit the [command-line REPL page](https://docs.julialang.org/en/v1/stdlib/REPL/) for more details.
+:::
+
+## Julia scripts
+
+You can also write some code in a `.jl` script.
+
+```{julia}
+#| echo: false
+io = IOBuffer()
+disp(f) = for line in readlines(open(f)); println(io, line); end
+disp("data/introduction/example.jl")
+file_content = String(take!(io))
+import Markdown
+Markdown.parse("```julia\n\$ cat data/introduction/example.jl\n\n$(file_content)\n```")
+```
+
+and execute the code either in the REPL:
+
+```{julia}
+include("data/introduction/example.jl")
+```
+
+or in a terminal with the command `$ julia example.jl`.

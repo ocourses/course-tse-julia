@@ -1,0 +1,5 @@
+---
+title: "Julia Master 2 course"
+subtitle: "Introduction to Julia and Statistics"
+page-layout: article
+---
