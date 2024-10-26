@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Olivier Cots">
-<meta name="dcterms.date" content="2024-10-26">
 
-<title>Introduction to Julia ecosystem – Julia course</title>
+<title>Exercise: Simple Linear Regression – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,24 +57,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../M1/getting_started-foretaste_of_julia_code.html" rel="prev">
+<link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/quarto-auto-dark-mode-1.0.0/auto-dark-mode.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -85,11 +84,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
+    "?",
+    "H"
   ],
-  "show-item-context": false,
+  "show-item-context": true,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -152,18 +150,26 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<meta property="og:title" content="Exercise: Simple Linear Regression – Julia course">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
+<meta property="og:site_name" content="Julia course">
+<meta name="twitter:title" content="Exercise: Simple Linear Regression – Julia course">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Julia course</span>
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/images/logo-julia.svg" alt="Julia course." class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -173,529 +179,125 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./lecture1.html" aria-current="page"> 
-<span class="menu-text">Introduction to Julia ecosystem</span></a>
+    <a class="nav-link active" href="../M1/index.html" aria-current="page"> 
+<span class="menu-text">Master 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../M2/index.html"> 
+<span class="menu-text">Master 2</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
     <a href="https://github.com/ocots/course-tse-julia-M1" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/getting_started-julia_ecosystem.html">Getting started</a></li><li class="breadcrumb-item"><a href="../M1/getting_started-exercice_simple_linear_regression.html">Exercice: Simple Linear Regression</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" style="position: relative; height:100vh">
-
-    <!-- This is the div in which the particles will be included -->
-    <div id="particles-js"></div>
-
-    <!-- Actual content on top of the particles-->
-    <div class="title-block-content">
-      <img src="assets/images/julia-qr-code.svg" alt="https://gitlab.irit.fr/toc/etu-n7/julia" width="200px" height="200px" style="margin-bottom: 20px">
-            <h1 class="title">Introduction to Julia ecosystem</h1>
-             <p class="subtitle">Application to Simple Linear Regression</p>
-             <p class="author">Olivier Cots</p>
-             <p class="date">October 26, 2024</p>
-       
-      <div style="margin-top: 50px;">
-        <a href="https://www.enseeiht.fr/fr/index.html"><img height="140px" style="margin-right: 30px" src="assets/images/logo-INP.svg"></a>
-        <a href="https://www.tse-fr.eu/fr"><img height="160px" src="assets/images/logo-TSE-2019.png"></a>
-      </div>
-    </div> <!-- title-block-content -->
-
-    <!-- Particle.js script loaded from a CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-
-    <!-- use the particle js library with our own config (json file). -->
-    <script>
-      particlesJS.load("particles-js", "assets/json/particles.json");
-    </script>
-</header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../M1/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Master 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Getting started</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/getting_started-julia_ecosystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Julia ecosystem</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/getting_started-execute_some_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Execute some code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/getting_started-foretaste_of_julia_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foretaste of Julia code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/getting_started-exercice_simple_linear_regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Exercice: Simple Linear Regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#julia-ecosystem" id="toc-julia-ecosystem" class="nav-link active" data-scroll-target="#julia-ecosystem"><span class="header-section-number">1</span> Julia ecosystem</a></li>
-  <li><a href="#code-execution" id="toc-code-execution" class="nav-link" data-scroll-target="#code-execution"><span class="header-section-number">2</span> Code execution</a>
-  <ul class="collapse">
-  <li><a href="#jupyter-notebooks" id="toc-jupyter-notebooks" class="nav-link" data-scroll-target="#jupyter-notebooks"><span class="header-section-number">2.1</span> Jupyter notebooks</a></li>
-  <li><a href="#the-julia-repl" id="toc-the-julia-repl" class="nav-link" data-scroll-target="#the-julia-repl"><span class="header-section-number">2.2</span> The Julia REPL</a></li>
-  <li><a href="#julia-scripts" id="toc-julia-scripts" class="nav-link" data-scroll-target="#julia-scripts"><span class="header-section-number">2.3</span> Julia scripts</a></li>
-  </ul></li>
-  <li><a href="#basic-examples-of-code" id="toc-basic-examples-of-code" class="nav-link" data-scroll-target="#basic-examples-of-code"><span class="header-section-number">3</span> Basic examples of code</a></li>
-  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation"><span class="header-section-number">4</span> Documentation</a></li>
-  <li><a href="#editors-and-ides" id="toc-editors-and-ides" class="nav-link" data-scroll-target="#editors-and-ides"><span class="header-section-number">5</span> Editors and IDEs</a></li>
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">6</span> Exercise</a>
-  <ul class="collapse">
-  <li><a href="#context-least-squares-regression-line" id="toc-context-least-squares-regression-line" class="nav-link" data-scroll-target="#context-least-squares-regression-line"><span class="header-section-number">6.1</span> Context: Least Squares Regression Line</a></li>
-  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">6.2</span> Questions</a></li>
-  </ul></li>
+  <li><a href="#least-squares-regression-line" id="toc-least-squares-regression-line" class="nav-link active" data-scroll-target="#least-squares-regression-line">Least Squares Regression Line</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia-M1/edit/main/M1/getting_started-exercice_simple_linear_regression.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/blob/main/M1/getting_started-exercice_simple_linear_regression.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<style>
-  #particles-js {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-  }
-
-  .title-block-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 100px;
-    padding-bottom: 70px;
-  }
-</style>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/getting_started-julia_ecosystem.html">Getting started</a></li><li class="breadcrumb-item"><a href="../M1/getting_started-exercice_simple_linear_regression.html">Exercice: Simple Linear Regression</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Exercise: Simple Linear Regression</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<div style="margin-top:-20px">
-
-</div>
-<section id="julia-ecosystem" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="julia-ecosystem"><span class="header-section-number">1</span> Julia ecosystem</h2>
-<p><a href="https://en.wikipedia.org/wiki/Julia_(programming_language)">Wikipedia citation</a>:</p>
-<blockquote class="blockquote">
-<p>Julia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g.&nbsp;data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science.</p>
-</blockquote>
-<p><img height="100px" style="margin-left:20px; float: right;" src="assets/images/logo-julia.svg"></p>
-<p>The work on Julia began in 2009 when <a href="https://en.wikipedia.org/wiki/Jeff_Bezanson_(programmer)">Jeff Bezanson</a>, <a href="https://karpinski.org">Stefan Karpinski</a>, <a href="https://math.mit.edu/~edelman/">Alan Edelman</a> and <a href="https://en.wikipedia.org/wiki/Viral_B._Shah">Viral B. Shah</a> set out to create a free language that was both high-level and fast. The first public appearance is in 2012. Julia’s syntax is now considered stable, since version 1.0 in 2018.</p>
-<p>Julia can be easily downloaded and installed. See the <a href="https://julialang.org/downloads/">download page</a> where we can find the following.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Mac / Linux</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Windows</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Install the latest Julia version by running this in your terminal:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://install.julialang.org <span class="kw">|</span> <span class="fu">sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Install the latest Julia version from the <a href="https://www.microsoft.com/store/apps/9NJNWW8PVKMN">Microsoft Store</a> by running this in the command prompt:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">winget</span> install julia <span class="at">-s</span> msstore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-<p>On the <a href="https://julialang.org">Julia official webpage</a> one can find the following summary of Julia ecosystem.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Visualization</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">General</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Data Science</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">ML</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-5" role="tab" aria-controls="tabset-2-5" aria-selected="false">Scientific Domains</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-6" role="tab" aria-controls="tabset-2-6" aria-selected="false">Parallel</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p><img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="assets/images/waves.gif"></p>
-<section id="data-visualization-and-plotting" class="level4" data-number="1.0.1">
-<h4 data-number="1.0.1" class="anchored" data-anchor-id="data-visualization-and-plotting"><span class="header-section-number">1.0.1</span> Data Visualization and Plotting</h4>
-<p>Data visualization has a complicated history. Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.</p>
-<p><a href="https://github.com/JuliaPlots/Plots.jl">Plots.jl</a>&nbsp;is a visualization interface and toolset. It provides a common API across various&nbsp;<a href="https://docs.juliaplots.org/latest/backends/">backends</a>, like&nbsp;<a href="https://github.com/jheinen/GR.jl">GR.jl</a>,&nbsp;<a href="https://github.com/JuliaPy/PyPlot.jl">PyPlot.jl</a>, and&nbsp;<a href="https://github.com/JuliaPlots/PlotlyJS.jl">PlotlyJS.jl</a>.&nbsp;<a href="https://github.com/MakieOrg/Makie.jl">Makie.jl</a>&nbsp;is a sophisticated package for complex graphics and animations. Users who are used to “grammar of graphics” plotting APIs should take a look at&nbsp;<a href="https://github.com/GiovineItalia/Gadfly.jl">Gadfly.jl</a>.&nbsp;<a href="https://github.com/queryverse/VegaLite.jl">VegaLite.jl</a>&nbsp;provides the&nbsp;<a href="https://vega.github.io/vega-lite/">Vega-Lite</a>&nbsp;grammar of interactive graphics interface as a Julia package. For those who do not wish to leave the comfort of the terminal, there is also&nbsp;<a href="https://github.com/Evizero/UnicodePlots.jl">UnicodePlots.jl</a>.</p>
-</section>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p><img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="assets/images/minesweeper.png"></p>
-<section id="build-deploy-or-embed-your-code" class="level4" data-number="1.0.2">
-<h4 data-number="1.0.2" class="anchored" data-anchor-id="build-deploy-or-embed-your-code"><span class="header-section-number">1.0.2</span> Build, Deploy or Embed Your Code</h4>
-<p>Julia makes it possible to build complete applications. Write web UIs with&nbsp;<a href="https://github.com/plotly/Dash.jl">Dash.jl</a>&nbsp;and&nbsp;<a href="https://github.com/GenieFramework/Genie.jl">Genie.jl</a>&nbsp;or native UIs with&nbsp;<a href="https://github.com/JuliaGtk/Gtk4.jl">Gtk4.jl</a>. Pull data from&nbsp;<a href="https://juliadatabases.org/">a variety of databases</a>. Build shared libraries and executables with&nbsp;<a href="https://github.com/JuliaLang/PackageCompiler.jl">PackageCompiler</a>. Deploy on a webserver with&nbsp;<a href="https://github.com/JuliaWeb/HTTP.jl">HTTP.jl</a>&nbsp;or embedded devices. Powerful shell integration make it easy to&nbsp;<a href="https://docs.julialang.org/en/v1/manual/running-external-programs/">managing other processes</a>.</p>
-<p>Julia has foreign function interfaces for&nbsp;<a href="https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/">C, Fortran</a>,&nbsp;<a href="https://github.com/JuliaInterop/CxxWrap.jl">C++</a>,&nbsp;<a href="https://github.com/JuliaPy/PythonCall.jl">Python</a>,&nbsp;<a href="https://github.com/JuliaInterop/RCall.jl">R</a>,&nbsp;<a href="https://github.com/JuliaInterop/JavaCall.jl">Java</a>,&nbsp;<a href="https://github.com/JuliaInterop/MathLink.jl">Mathematica</a>,&nbsp;<a href="https://github.com/JuliaInterop/MATLAB.jl">Matlab</a>, and many other languages. Julia can also be embedded in other programs through its&nbsp;<a href="https://docs.julialang.org/en/v1/manual/embedding/">embedding API</a>. Julia’s&nbsp;<a href="https://github.com/JuliaLang/PackageCompiler.jl">PackageCompiler</a>&nbsp;makes it possible to build binaries from Julia programs that can be integrated into larger projects. Python programs can call Julia using&nbsp;<a href="https://github.com/JuliaPy/PythonCall.jl">juliacall</a>. R programs can do the same with&nbsp;<a href="https://cran.r-project.org/web/packages/JuliaCall/index.html">R’s JuliaCall</a>, which is demonstrated by&nbsp;<a href="https://rpubs.com/dmbates/377897">calling MixedModels.jl from R</a>. Mathematica supports&nbsp;<a href="https://reference.wolfram.com/language/ref/externalevaluationsystem/Julia.html">calling Julia through its External Evaluation System</a>.</p>
-</section>
-</div>
-<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<p><img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="assets/images/onlinestats.gif"></p>
-<section id="interact-with-your-data" class="level4" data-number="1.0.3">
-<h4 data-number="1.0.3" class="anchored" data-anchor-id="interact-with-your-data"><span class="header-section-number">1.0.3</span> Interact with your Data</h4>
-<p>The Julia data ecosystem provides&nbsp;<a href="https://github.com/JuliaData/DataFrames.jl">DataFrames.jl</a>&nbsp;to work with datasets, and perform common data manipulations.&nbsp;<a href="https://github.com/JuliaData/CSV.jl">CSV.jl</a>&nbsp;is a fast multi-threaded package to read CSV files and integration with the Arrow ecosystem is in the works with&nbsp;<a href="https://github.com/JuliaData/Arrow.jl">Arrow.jl</a>. Online computations on streaming data can be performed with&nbsp;<a href="https://github.com/joshday/OnlineStats.jl">OnlineStats.jl</a>. The&nbsp;<a href="https://www.queryverse.org/">Queryverse</a>&nbsp;provides query, file IO and visualization functionality. In addition to working with tabular data, the&nbsp;<a href="https://juliagraphs.org/">JuliaGraphs</a>&nbsp;packages make it easy to work with combinatorial data.</p>
-<p>Julia can work with almost all databases using&nbsp;<a href="https://github.com/JuliaDatabases/JDBC.jl">JDBC.jl</a>&nbsp;and&nbsp;<a href="https://github.com/JuliaDatabases/ODBC.jl">ODBC.jl</a>&nbsp;drivers. In addition, it also integrates with the Spark ecosystem through&nbsp;<a href="https://github.com/dfdx/Spark.jl">Spark.jl</a>.</p>
-</section>
-</div>
-<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
-<p><img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="assets/images/cartpole.gif"></p>
-<section id="scalable-machine-learning" class="level4" data-number="1.0.4">
-<h4 data-number="1.0.4" class="anchored" data-anchor-id="scalable-machine-learning"><span class="header-section-number">1.0.4</span> Scalable Machine Learning</h4>
-<p>The&nbsp;<a href="https://github.com/JuliaAI/MLJ.jl">MLJ.jl</a>&nbsp;package provides a unified interface to common machine learning algorithms, which include&nbsp;<a href="https://github.com/JuliaStats/GLM.jl">generalized linear models</a>,&nbsp;<a href="https://github.com/dmlc/XGBoost.jl">decision trees</a>, and&nbsp;<a href="https://github.com/JuliaStats/Clustering.jl">clustering</a>.&nbsp;<a href="https://github.com/FluxML/Flux.jl">Flux.jl</a>&nbsp;and&nbsp;<a href="https://github.com/LuxDL/Lux.jl">Lux.jl</a>&nbsp;are powerful packages for Deep Learning. Packages such as&nbsp;<a href="https://github.com/FluxML/Metalhead.jl">Metalhead.jl</a>,&nbsp;<a href="https://github.com/r3tex/ObjectDetector.jl">ObjectDetector.jl</a>, and&nbsp;<a href="https://github.com/JuliaText/TextAnalysis.jl">TextAnalysis.jl</a>&nbsp;provide ready to use pre-trained models for common tasks.&nbsp;<a href="https://github.com/jonathan-laurent/AlphaZero.jl">AlphaZero.jl</a>&nbsp;provides a high performance implementation of the reinforcement learning algorithms from AlphaZero.&nbsp;<a href="https://turinglang.org/">Turing.jl</a>&nbsp;is a best in class package for probabilistic programming.</p>
-</section>
-</div>
-<div id="tabset-2-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-5-tab">
-<p><img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="assets/images/lorenz.gif"></p>
-<section id="rich-ecosystem-for-scientific-computing" class="level4" data-number="1.0.5">
-<h4 data-number="1.0.5" class="anchored" data-anchor-id="rich-ecosystem-for-scientific-computing"><span class="header-section-number">1.0.5</span> Rich Ecosystem for Scientific Computing</h4>
-<p>Julia is designed from the ground up to be very good at numerical and scientific computing. This can be seen in the abundance of scientific tooling written in Julia, such as the state-of-the-art differential equations ecosystem&nbsp;<a href="https://github.com/SciML/DifferentialEquations.jl">(DifferentialEquations.jl)</a>, optimization tools (<a href="https://github.com/jump-dev/JuMP.jl">JuMP.jl</a>&nbsp;and&nbsp;<a href="https://github.com/JuliaNLSolvers/Optim.jl">Optim.jl</a>), iterative linear solvers&nbsp;<a href="https://github.com/JuliaMath/IterativeSolvers.jl">(IterativeSolvers.jl)</a>, Fast Fourier transforms&nbsp;<a href="https://github.com/JuliaMath/AbstractFFTs.jl">(AbstractFFTs.jl)</a>, and much more. General purpose simulation frameworks are available for&nbsp;<a href="https://sciml.ai/">Scientific Machine Learning</a>,&nbsp;<a href="https://github.com/QuantumBFS/Yao.jl">Quantum computing</a>&nbsp;and much more.</p>
-<p>Julia also offers a number of domain-specific ecosystems, such as in biology&nbsp;<a href="https://github.com/BioJulia">(BioJulia)</a>, operations research&nbsp;<a href="https://jump.dev/">(JuMP Dev)</a>, image processing&nbsp;<a href="https://juliaimages.github.io/latest/">(JuliaImages)</a>, quantum physics&nbsp;<a href="https://github.com/QuantumBFS">(QuantumBFS)</a>, nonlinear dynamics&nbsp;<a href="https://github.com/JuliaDynamics">(JuliaDynamics)</a>, quantitative economics&nbsp;<a href="https://github.com/QuantEcon">(QuantEcon)</a>, astronomy&nbsp;<a href="https://juliaastro.github.io/">(JuliaAstro)</a>&nbsp;and ecology&nbsp;<a href="https://github.com/EcoJulia">(EcoJulia)</a>. With a set of highly enthusiastic developers and maintainers, the scientific ecosystem in Julia continues to grow rapidly.</p>
-</section>
-</div>
-<div id="tabset-2-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-6-tab">
-<p><img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="assets/images/parallel-prefix.png"></p>
-<section id="parallel-and-heterogeneous-computing" class="level4" data-number="1.0.6">
-<h4 data-number="1.0.6" class="anchored" data-anchor-id="parallel-and-heterogeneous-computing"><span class="header-section-number">1.0.6</span> Parallel and Heterogeneous Computing</h4>
-<p>Julia is designed for parallelism, and provides built-in primitives for parallel computing at every level:&nbsp;<a href="https://github.com/chriselrod/LoopVectorization.jl">instruction level parallelism</a>,&nbsp;<a href="https://docs.julialang.org/en/v1/manual/multi-threading/">multi-threading</a>,&nbsp;<a href="https://juliagpu.org/">GPU computing</a>, and&nbsp;<a href="https://docs.julialang.org/en/v1/manual/distributed-computing/">distributed computing</a>. The&nbsp;<a href="https://github.com/jeff-regier/Celeste.jl">Celeste.jl</a>&nbsp;project&nbsp;<a href="https://arxiv.org/pdf/1801.10277.pdf" title="PDF paper on Cataloging the Visible Universe through Bayesian Inference at Petascale hosted on arxiv.org">achieved 1.5 PetaFLOP/s</a>&nbsp;on the&nbsp;<a href="https://cs.lbl.gov/news-media/news/2016/celeste-enhancements-create-new-opportunities-in-sky-surveys/">Cori supercomputer at NERSC</a>&nbsp;using 650,000 cores.</p>
-<p>The Julia compiler can also generate native code for&nbsp;<a href="https://juliagpu.org/">GPUs</a>. Packages such as&nbsp;<a href="https://github.com/JuliaParallel/DistributedArrays.jl">DistributedArrays.jl</a>&nbsp;and&nbsp;<a href="https://github.com/JuliaParallel/Dagger.jl">Dagger.jl</a>&nbsp;provide higher levels of abstraction for parallelism. Distributed Linear Algebra is provided by packages like&nbsp;<a href="https://github.com/JuliaParallel/Elemental.jl">Elemental.jl</a>&nbsp;and&nbsp;<a href="https://github.com/JuliaLinearAlgebra/TSVD.jl">TSVD.jl</a>. MPI style parallelism is also available through&nbsp;<a href="https://github.com/JuliaParallel/MPI.jl">MPI.jl</a>.</p>
-</section>
-</div>
-</div>
-</div>
-<p>Julia is a modern language and comes with cloud computing and more, see <a href="https://juliahub.com">JuliaHub webpage</a> and the <a href="https://help.juliahub.com/juliahub/stable/">JuliaHub help page</a>.</p>
-<blockquote class="blockquote">
-<p><strong>The Modern Platform for Technical Computing.</strong> A single place for modeling, simulation, and user built applications with the Julia language. Designed with access to CPUs and GPUs for multi-threading, parallel and distributed computing, JuliaHub’s supercomputing infrastructure allows teams to model breakthrough science and technology.</p>
-</blockquote>
-<p>The Julia programming language has its own conference, see the <a href="https://juliacon.org/2024/">JuliaCon 2024</a>.</p>
-<blockquote class="blockquote">
-<p>Welcome to JuliaCon 2024, the premier annual conference for the Julia programming language community! This exciting event brings together developers, researchers, and enthusiasts from around the globe to celebrate and explore the power and versatility of Julia.</p>
-</blockquote>
-<p><img width="100%" src="assets/images/juliacon-2023.jpg"></p>
-</section>
-<section id="code-execution" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="code-execution"><span class="header-section-number">2</span> Code execution</h2>
-<p>There are different ways to execute Julia code:</p>
-<ul>
-<li>within a <code>.ipynb</code> file, that is a Jupyter notebook;</li>
-<li>directly into the Julia REPL;</li>
-<li>from a script file <code>.jl</code>, either in the REPL or in the terminal;</li>
-<li>…</li>
-</ul>
-<section id="jupyter-notebooks" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="jupyter-notebooks"><span class="header-section-number">2.1</span> Jupyter notebooks</h3>
-<p><img height="100px" style="margin-left:15px; margin-right:15px; float: right;" src="assets/images/logo-jupyter.svg"></p>
-<p>You can write some Julia code inside a <a href="https://jupyter.org">Jupyter notebook</a> and execute the code. To interact with the Julia language using Jupyter notebook, please install <a href="https://github.com/JuliaLang/IJulia.jl">IJulia.jl</a>.</p>
-<blockquote class="blockquote">
-<p><strong>IJulia</strong> is a <a href="http://julialang.org/">Julia-language</a> backend combined with the <a href="http://jupyter.org/">Jupyter</a> interactive environment (also used by <a href="http://ipython.org/">IPython</a>). This combination allows you to interact with the Julia language using Jupyter/IPython’s powerful <a href="http://ipython.org/notebook.html">graphical notebook</a>, which combines code, formatted text, math, and multimedia in a single document. IJulia is a Jupyter language kernel and works with a variety of notebook user interfaces. In addition to the classic Jupyter Notebook, IJulia also works with <a href="https://jupyterlab.readthedocs.io/en/stable/">JupyterLab</a>, a Jupyter-based integrated development environment for notebooks and code. The <a href="https://nteract.io/">nteract notebook desktop</a> supports IJulia with detailed instructions for its <a href="https://nteract.io/kernels/julia">installation with nteract</a>.</p>
-</blockquote>
-<p>Try to execute the code of <a href="data/lecture1/example.ipynb">example.ipynb</a>.</p>
-</section>
-<section id="the-julia-repl" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="the-julia-repl"><span class="header-section-number">2.2</span> The Julia REPL</h3>
-<p>Julia comes with a full-featured interactive <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">command-line REPL</a> (read-eval-print loop) built into the <code>julia</code> executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling <code>julia</code> with no arguments or double-clicking on the executable:</p>
-<div id="ab24e1a4" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="185">
-<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> julia</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               _</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  (_)     <span class="op">|</span> (_) (_)    <span class="op">|</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   _ _   _<span class="op">|</span> <span class="op">|</span>_  __ _   <span class="op">|</span>  <span class="dt">Type</span> <span class="st">"?"</span> <span class="cf">for</span> help, <span class="st">"]?"</span> <span class="cf">for</span> <span class="bu">Pkg</span> help.</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|/</span> _<span class="ss">` |  |</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="op">|</span> <span class="op">|</span>_<span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> (_<span class="op">|</span> <span class="op">|</span>  <span class="op">|</span>  Version <span class="fl">1.11.1</span> (<span class="fl">2024</span><span class="op">-</span><span class="fl">10</span><span class="op">-</span><span class="fl">16</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a> _<span class="op">/</span> <span class="op">|\</span>__<span class="op">'</span>_<span class="op">|</span>_<span class="op">|</span>_<span class="op">|\</span>__<span class="op">'</span>_<span class="op">|</span>  <span class="op">|</span>  Official https<span class="op">://</span>julialang.org<span class="op">/</span> release</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>__<span class="op">/</span>                   <span class="op">|</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p>After Julia is launched you can start computing.</p>
-<div id="22c10bf9" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span><span class="op">+</span><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="186">
-<pre><code>2</code></pre>
-</div>
-</div>
-<p>Or print some text.</p>
-<div id="97f64cf3" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Hello!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Hello!</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-important no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc. The different modes are:</p>
-<ul>
-<li>The Julian mode</li>
-<li>Help mode</li>
-<li>Shell mode</li>
-<li>Pkg mode</li>
-<li>Search modes</li>
-</ul>
-<p>Visit the <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">command-line REPL page</a> for more details.</p>
-</div>
-</div>
-</section>
-<section id="julia-scripts" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="julia-scripts"><span class="header-section-number">2.3</span> Julia scripts</h3>
-<p>You can also write some code in a <code>.jl</code> script.</p>
-<div id="4e5ec8f2" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="188">
-<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> cat data<span class="op">/</span>lecture1<span class="op">/</span>example.jl</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Hello!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p>and execute the code either in the REPL:</p>
-<div id="e7dfba7e" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">include</span>(<span class="st">"data/lecture1/example.jl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Hello!</code></pre>
-</div>
-</div>
-<p>or in a terminal with the command <code>$ julia example.jl</code>.</p>
-</section>
-</section>
-<section id="basic-examples-of-code" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="basic-examples-of-code"><span class="header-section-number">3</span> Basic examples of code</h2>
-<div id="df07539d" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="190">
-<pre><code>2</code></pre>
-</div>
-</div>
-<div id="f44fb798" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fu">sqrt</span>(<span class="fl">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="191">
-<pre><code>1.4142135623730951</code></pre>
-</div>
-</div>
-<div id="790492ee" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># unicode is great</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fu">√</span>(<span class="fl">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="192">
-<pre><code>1.4142135623730951</code></pre>
-</div>
-</div>
-<div id="b3f41946" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>😄 <span class="op">=</span> <span class="fu">sqrt</span>(<span class="fl">2</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fl">2</span>😄</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="193">
-<pre><code>2.8284271247461903</code></pre>
-</div>
-</div>
-<p>Some functions.</p>
-<div id="e6b7ba4e" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is a function</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">f</span>(x)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fl">2</span>x<span class="op">+</span><span class="fl">1</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="194">
-<pre><code>f (generic function with 2 methods)</code></pre>
-</div>
-</div>
-<div id="ae18821c" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this also</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x) <span class="op">=</span> <span class="fl">2</span>x<span class="op">+</span><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="195">
-<pre><code>f (generic function with 2 methods)</code></pre>
-</div>
-</div>
-<div id="b36e6f89" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this also: but f is not available anymore</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> x <span class="op">-&gt;</span> <span class="fl">2</span>x<span class="op">^</span><span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="196">
-<pre><code>#106 (generic function with 1 method)</code></pre>
-</div>
-</div>
-<div id="a0e6a892" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># be careful of the priorities</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">g</span>(<span class="fl">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="197">
-<pre><code>2</code></pre>
-</div>
-</div>
-<div id="10dcbdac" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Hello</span>(name) <span class="op">=</span> <span class="st">"Hello "</span> <span class="op">*</span> name <span class="op">*</span> <span class="st">"!"</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Hello</span>(<span class="st">"Alban"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="198">
-<pre><code>"Hello Alban!"</code></pre>
-</div>
-</div>
-<div id="8deee2b5" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="fl">1</span> <span class="fl">3</span> <span class="fl">12</span>]</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"x[2] = "</span>, x[<span class="fl">2</span>])</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>x[<span class="fl">2</span>] <span class="op">=</span> <span class="fl">5</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"x[2] = "</span>, x[<span class="fl">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>x[2] = 3
-x[2] = 5</code></pre>
-</div>
-</div>
-<p>The following function has side effects that can be dangerous.</p>
-<div id="c4288c7c" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">f</span>(x, y)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    x[<span class="fl">1</span>] <span class="op">=</span> <span class="fl">42</span>      <span class="co"># mutates x</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="fl">7</span> <span class="op">+</span> <span class="fu">sum</span>(x) <span class="co"># new binding for y, no mutation</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>]</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">3</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"f(</span><span class="sc">$</span>a<span class="st">, </span><span class="sc">$</span>b<span class="st">) = "</span>, <span class="fu">f</span>(a, b))</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"a = "</span>, a, <span class="st">" # a[1] is changed to 42 by f"</span>)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"b = "</span>, b, <span class="st">" # not changed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>f([4, 5, 6], 3) = 60
-a = [42, 5, 6] # a[1] is changed to 42 by f
-b = 3 # not changed</code></pre>
-</div>
-</div>
-<p>When a function has <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">side effects</a>, please use the <code>!</code> convention. See <a href="https://docs.julialang.org/en/v1/manual/functions/#man-argument-passing">Argument Passing Behavior</a>.</p>
-<div id="253daa1b" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">put_at_second_place!</span>(x, value)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  x[<span class="fl">2</span>] <span class="op">=</span> value</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="cn">nothing</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="fl">1</span> <span class="fl">3</span> <span class="fl">12</span>]</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"x[2] = "</span>, x[<span class="fl">2</span>])</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">put_at_second_place!</span>(x, <span class="fl">5</span>)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"x[2] = "</span>, x[<span class="fl">2</span>])</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="fu">put_at_second_place!</span>(x[<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>], <span class="fl">15</span>) <span class="co"># be careful if you give a slice</span></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"x[2] = "</span>, x[<span class="fl">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>x[2] = 3
-x[2] = 5
-x[2] = 5</code></pre>
-</div>
-</div>
-<p>A function may have several methods.</p>
-<div id="0e981b98" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Σ</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Float64</span>) <span class="op">=</span> <span class="fl">2</span>x <span class="op">+</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="202">
-<pre><code>Σ (generic function with 1 method)</code></pre>
-</div>
-</div>
-<div id="d8b39b90" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Σ</span>(<span class="fl">2.0</span>, <span class="fl">3.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="203">
-<pre><code>7.0</code></pre>
-</div>
-</div>
-<div id="1f0c6d72" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Σ</span>(<span class="fl">2</span>, <span class="fl">3.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre>MethodError: no method matching Σ(::Int64, ::Float64)
-The function `Σ` exists, but no method is defined for this combination of argument types.
-
-Closest candidates are:
-  Σ(<span class="ansi-bright-red-fg">::Float64</span>, ::Float64)
-<span class="ansi-bright-black-fg">   @</span> <span class="ansi-magenta-fg">Main</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[202]:1</span>
+    
+  
+    
+  </div>
+  
 
 
-Stacktrace:
- [1] top-level scope
-   @ In[204]:1</pre>
-</div>
-</div>
-</div>
-<div id="df65390a" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">h</span>(x<span class="op">::</span><span class="dt">Number</span>,  y<span class="op">::</span><span class="dt">Number </span>) <span class="op">=</span> <span class="fl">2</span>x <span class="op">-</span> y</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">h</span>(x<span class="op">::</span><span class="dt">Int</span>,     y<span class="op">::</span><span class="dt">Int    </span>) <span class="op">=</span> <span class="fl">2</span>x <span class="op">*</span> y</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">h</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Float64</span>) <span class="op">=</span> <span class="fl">2</span>x <span class="op">+</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="205">
-<pre><code>h (generic function with 3 methods)</code></pre>
-</div>
-</div>
-<div id="dbbe3678" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"h(2,   3.0) = "</span>, <span class="fu">h</span>(<span class="fl">2</span>, <span class="fl">3.0</span>))</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"h(2,   3  ) = "</span>, <span class="fu">h</span>(<span class="fl">2</span>, <span class="fl">3</span>))</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"h(2.0, 3.0) = "</span>, <span class="fu">h</span>(<span class="fl">2.0</span>, <span class="fl">3.0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>h(2,   3.0) = 1.0
-h(2,   3  ) = 12
-h(2.0, 3.0) = 7.0</code></pre>
-</div>
-</div>
-</section>
-<section id="documentation" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="documentation"><span class="header-section-number">4</span> Documentation</h2>
-<p><img height="150px" src="assets/images/logo-julia.png"></p>
-<p>In the <a href="https://docs.julialang.org/en/v1/">Julia documentation</a>, you may find:</p>
-<ul>
-<li>some important Links;</li>
-<li>a comparison to other languages;</li>
-<li>a list of advantages of using Julia</li>
-</ul>
-<p>but also:</p>
-<ul>
-<li>manuals;</li>
-<li>base documentation;</li>
-<li>standard librairies documentation;</li>
-<li>developer documentation.</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>In Julia, it is quite common to have the documentation in the form of manuals or tutorials. See <a href="https://docs.sciml.ai/DiffEqDocs/stable/getting_started/#ode_example">Getting Started with Differential Equations in Julia</a> for instance.</p>
-</div>
-</div>
-<p><strong>Example.</strong> Search how to compute the norm of a vector.</p>
-<p><img width="100%" src="assets/images/doc-norm-1.png"></p>
-<p>The <code>norm</code> function comes from the standard librairy <code>LinearAlgebra</code>.</p>
-<p><img width="100%" src="assets/images/doc-norm-2.png"></p>
-<p>However, we are not directly at the right place, so I recommend to use the <code>Search docs</code> field.</p>
-<p><img width="100%" src="assets/images/doc-norm-3.png"></p>
-<p>And now, we have the documentation.</p>
-<p><img width="100%" src="assets/images/doc-norm-4.png"></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>It is also possible to use the help mode:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>?norm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
-<section id="editors-and-ides" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="editors-and-ides"><span class="header-section-number">5</span> Editors and IDEs</h2>
-<div class="row ides">
-<div class="col-lg-3 col-md-6 ide ide-feature">
-<p><h3-ide>VS Code</h3-ide> <a href="https://www.julia-vscode.org/" target="_blank"> <img src="assets/images/vscode.png" height="85" width="85" alt="VSCode Logo"></a> <h4-ide class="outer-link"> <a class="link extra-link" href="https://www.julia-vscode.org/" target="_blank">VS Code Extension</a> </h4-ide></p>
-</div>
-<div class="col-lg-3 col-md-6 ide ide-feature">
-<p><h3-ide>Jupyter</h3-ide> <a href="https://github.com/JuliaLang/IJulia.jl" target="_blank"> <img src="assets/images/jupyter.svg" height="85" width="85" alt="Jupyter Logo"></a> <h4-ide class="outer-link"> <a class="link extra-link" href="https://github.com/JuliaLang/IJulia.jl" target="_blank">Jupyter kernel</a> </h4-ide></p>
-</div>
-<div class="col-lg-3 col-md-6 ide ide-feature">
-<p><h3-ide>Pluto.jl</h3-ide> <a href="https://plutojl.org/" target="_blank"> <img src="assets/images/pluto_jl.svg" height="85" width="85" alt="Pluto.jl Logo"></a> <h4-ide class="outer-link"> <a class="link extra-link" href="https://plutojl.org/" target="_blank">Simple reactive notebooks</a> </h4-ide></p>
-</div>
-<div class="col-lg-3 col-md-6 ide ide-feature">
-<p><h3-ide>Vim</h3-ide> <a href="https://github.com/JuliaEditorSupport/julia-vim" target="_blank"> <img src="assets/images/vim.png" height="85" width="85" alt="Vim Logo"></a> <h4-ide class="outer-link"> <a class="link extra-link" href="https://github.com/JuliaEditorSupport/julia-vim" target="_blank">Vim plugin</a> </h4-ide></p>
-</div>
-<div class="col-lg-3 col-md-6 ide ide-feature">
-<p><h3-ide>Emacs</h3-ide> <a href="https://github.com/JuliaEditorSupport/julia-emacs" target="_blank"> <img src="assets/images/emacs.png" height="85" width="85" alt="Emacs Logo"></a> <h4-ide class="outer-link"> <a class="link extra-link" href="https://github.com/JuliaEditorSupport/julia-emacs" target="_blank">Emacs plugin</a> </h4-ide></p>
-</div>
-</div>
-<p>I recommend to use <a href="https://www.julia-vscode.org">VS Code</a>. You can download it <a href="https://code.visualstudio.com/download">here</a>. See the <a href="https://www.julia-vscode.org/docs/stable/#Julia-Visual-Studio-Code-Documentation">Julia Visual Studio Code Documentation</a>.</p>
-<blockquote class="blockquote">
-<p>Julia for Visual Studio Code is a powerful, free IDE for the Julia language. Visual Studio Code is a powerful and customizable editor. With a completely live environment, Julia for VS Code aims to take the frustration and guesswork out of programming and put the fun back in. We build on Julia’s unique combination of ease-of-use and performance. Beginners and experts can build better software more quickly, and get to a result faster. Julia is an officially supported language on the <a href="https://code.visualstudio.com/docs/languages/julia">VS Code docs</a>.</p>
-</blockquote>
-</section>
-<section id="exercise" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="exercise"><span class="header-section-number">6</span> Exercise</h2>
-<section id="context-least-squares-regression-line" class="level3" data-number="6.1">
-<h3 data-number="6.1" class="anchored" data-anchor-id="context-least-squares-regression-line"><span class="header-section-number">6.1</span> Context: Least Squares Regression Line</h3>
+</header>
+
+
+<section id="least-squares-regression-line" class="level2">
+<h2 class="anchored" data-anchor-id="least-squares-regression-line">Least Squares Regression Line</h2>
 <p>We propose a first exercise about <a href="https://en.wikipedia.org/wiki/Simple_linear_regression">simple linear regression</a>. The data are excerpted from this <a href="https://www.ncl.ac.uk/webtemplate/ask-assets/external/maths-resources/statistics/regression-and-correlation/simple-linear-regression.html">example</a> and saved into <a href="data.csv">data.csv</a>. We propose an <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">ordinary least squares</a> formulation which is a type of <a href="https://en.wikipedia.org/wiki/Linear_least_squares">linear least squares</a> method for choosing the unknown parameters in a linear regression model by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being observed) in the input dataset and the output of the (linear) function of the independent variable.</p>
-<p><img height="350px" style="float: right;" src="assets/images/Linear_least_squares_example2.svg"></p>
+<p><img height="350px" style="float: right;" src="images/Linear_least_squares_example2.svg"></p>
 <p>Given a set of&nbsp;<span class="math inline">m</span>&nbsp;data points&nbsp;<span class="math inline">y_{1}</span>, <span class="math inline">y_{2}</span>, <span class="math inline">\dots</span>, <span class="math inline">y_{m}</span>,&nbsp;consisting of experimentally measured values taken at&nbsp;<span class="math inline">m</span>&nbsp;values&nbsp;<span class="math inline">x_{1}</span>, <span class="math inline">x_{2}</span>, <span class="math inline">\dots</span>, <span class="math inline">x_{m}</span>&nbsp;of an independent variable (<span class="math inline">x_i</span>&nbsp;may be scalar or vector quantities), and given a model function&nbsp;<span class="math inline">y=f(x,\beta),</span>&nbsp;with&nbsp;<span class="math inline">\beta =(\beta_{1},\beta_{2},\dots ,\beta_{n})</span>,&nbsp;it is desired to find the parameters&nbsp;<span class="math inline">\beta_j</span> such that the model function “best” fits the data. In linear least squares, linearity is meant to be with respect to parameters&nbsp;<span class="math inline">\beta_j</span>, so <span class="math display">
   f(x, \beta) = \sum_{j=1}^n \beta_j\, \varphi_j(x).
 </span> In general, the functions <span class="math inline">\varphi_j</span> may be nonlinear. However, we consider linear regression, that is <span class="math display">
@@ -718,26 +320,26 @@ Note
   X^\top X\, \beta = X^\top y,
 </span> where <span class="math inline">X^\top</span> denotes the transpose of <span class="math inline">X</span>.</p>
 </section>
-<section id="questions" class="level3" data-number="6.2">
-<h3 data-number="6.2" class="anchored" data-anchor-id="questions"><span class="header-section-number">6.2</span> Questions</h3>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
 <p>To answer the questions you need to import the following packages.</p>
-<div id="ac7f71ac" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CSV</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a121a30e" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CSV</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You also need to download the csv file. Click on the following image.</p>
-<p><a href="data/lecture1/data.csv" download=""> <img src="assets/images/logo-csv-download.png" width="50"> </a></p>
+<p><a href="data/introduction/data.csv" download=""> <img src="../assets/images/logo-csv-download.png" width="50"> </a></p>
 <ol type="1">
-<li>Using the packages <code>DataFrames.jl</code> and <code>CSV.jl</code>, load the dataset from <a href="data/lecture1/data.csv">data/lecture1/data.csv</a> and save the result into a variable named <code>dataset</code>.</li>
+<li>Using the packages <code>DataFrames.jl</code> and <code>CSV.jl</code>, load the dataset from <a href="data/introduction/data.csv">data/introduction/data.csv</a> and save the result into a variable named <code>dataset</code>.</li>
 </ol>
-<div id="ae41a1bb" class="cell" data-execution_count="26">
+<div id="102322f6" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the answer</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"data/lecture1/data.csv"</span> <span class="co"># update depending on the location of your file</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> <span class="fu">DataFrame</span>(CSV.<span class="fu">File</span>(path))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"data/introduction/data.csv"</span> <span class="co"># update depending on the location of your file</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> <span class="fu">DataFrame</span>(CSV.<span class="fu">File</span>(path))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="208">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div><div style="float: left;"><span>5×2 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
 <table class="data-frame caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -800,7 +402,7 @@ Note
 <li>Using the package <code>Plot.jl</code>, plot the data.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -809,25 +411,25 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Use <code>names(dataset)</code> to get the list of data names. If <code>Time</code> is a name you can access to the associated data by <code>dataset.Time</code>.</p>
 </div>
 </div>
 </div>
-<div id="589d958d" class="cell" data-execution_count="27">
+<div id="36aae15e" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the answer</summary>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>plt <span class="op">=</span> <span class="fu">plot</span>(</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  dataset.<span class="dt">Time</span>, </span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  dataset.Mass,</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  seriestype<span class="op">=:</span>scatter, </span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  legend<span class="op">=</span><span class="cn">false</span>, </span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  xlabel<span class="op">=</span><span class="st">"Time"</span>, </span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  ylabel<span class="op">=</span><span class="st">"Mass"</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt <span class="op">=</span> <span class="fu">plot</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  dataset.<span class="dt">Time</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  dataset.Mass,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  seriestype<span class="op">=:</span>scatter, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  legend<span class="op">=</span><span class="cn">false</span>, </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  xlabel<span class="op">=</span><span class="st">"Time"</span>, </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  ylabel<span class="op">=</span><span class="st">"Mass"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="209">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <!--?xml version="1.0" encoding="utf-8"?-->
 <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="672" height="480" viewbox="0 0 2688 1920">
 <defs>
@@ -879,7 +481,7 @@ Hint
 <li>Create the matrix <span class="math inline">X</span>, the vector <span class="math inline">\beta</span> and solve the normal equation with the operator <a href="https://tinyurl.com/juliadoc-base-backslash"><code>Base.\</code></a>.</li>
 </ol>
 <div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -888,21 +490,21 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Use <code>ones(m)</code> to generate a vector of 1 of length <span class="math inline">m</span>.</p>
 </div>
 </div>
 </div>
-<div id="0046c3ef" class="cell" data-execution_count="28">
+<div id="cfbc0b9a" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the answer</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="fu">length</span>(dataset.<span class="dt">Time</span>)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [<span class="fu">ones</span>(m) dataset.<span class="dt">Time</span>]</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dataset.Mass</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>β <span class="op">=</span> X<span class="op">\</span>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="fu">length</span>(dataset.<span class="dt">Time</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [<span class="fu">ones</span>(m) dataset.<span class="dt">Time</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dataset.Mass</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>β <span class="op">=</span> X<span class="op">\</span>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="210">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>2-element Vector{Float64}:
  11.506493506493449
  12.207792207792208</code></pre>
@@ -911,14 +513,14 @@ Hint
 <ol start="4" type="1">
 <li>Plot the linear model on the same plot as the data. Use the <code>plot!</code> function. See the <a href="https://docs.juliaplots.org/stable/basics/#Basic-Concepts">basic concepts for plotting</a>.</li>
 </ol>
-<div id="1066c639" class="cell" data-execution_count="29">
+<div id="c14d1118" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the answer</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="fl">5</span>, <span class="fl">20</span>]</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> β[<span class="fl">1</span>] <span class="op">.+</span> β[<span class="fl">2</span>]<span class="op">*</span>x</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(plt, x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="fl">5</span>, <span class="fl">20</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> β[<span class="fl">1</span>] <span class="op">.+</span> β[<span class="fl">2</span>]<span class="op">*</span>x</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(plt, x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="211">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <!--?xml version="1.0" encoding="utf-8"?-->
 <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="672" height="480" viewbox="0 0 2688 1920">
 <defs>
@@ -972,7 +574,6 @@ Hint
 
 
 </section>
-</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -995,150 +596,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1539,6 +996,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../M1/getting_started-foretaste_of_julia_code.html" class="pagination-link" aria-label="Foretaste of Julia code">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Foretaste of Julia code</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1547,7 +1013,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024, Olivier Cots</p>
-</div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocots/course-tse-julia-M1/edit/main/M1/getting_started-exercice_simple_linear_regression.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/blob/main/M1/getting_started-exercice_simple_linear_regression.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

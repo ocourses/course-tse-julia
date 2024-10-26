@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/getting_started-exercice_simple_linear_regression.html</loc>
+    <lastmod>2024-10-26T10:05:28.188Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/getting_started-foretaste_of_julia_code.html</loc>
+    <lastmod>2024-10-26T10:05:28.188Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/getting_started-julia_ecosystem.html</loc>
+    <lastmod>2024-10-26T10:05:28.188Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M2/lecture1.html</loc>
+    <lastmod>2024-10-26T10:05:28.216Z</lastmod>
+  </url>
+  <url>
     <loc>https://ocots.github.io/course-tse-julia-M1/index.html</loc>
-    <lastmod>2024-10-26T07:51:47.335Z</lastmod>
+    <lastmod>2024-10-26T10:05:28.252Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia-M1/about.html</loc>
-    <lastmod>2024-10-26T07:51:47.267Z</lastmod>
+    <lastmod>2024-10-26T10:05:28.216Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia-M1/data/lecture1/basic.html</loc>
-    <lastmod>2024-10-26T07:51:47.299Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M2/lecture2.html</loc>
+    <lastmod>2024-10-26T10:05:28.216Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia-M1/lecture1.html</loc>
-    <lastmod>2024-10-26T07:51:47.335Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M2/index.html</loc>
+    <lastmod>2024-10-26T10:05:28.212Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/getting_started-execute_some_code.html</loc>
+    <lastmod>2024-10-26T10:05:28.188Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/index.html</loc>
+    <lastmod>2024-10-26T10:05:28.212Z</lastmod>
   </url>
 </urlset>
