@@ -30,8 +30,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../M2/lecture1.html" rel="next">
+<link href="../M2/exercices-distribution_of_random_variables.html" rel="next">
 <link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,15 +70,87 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-M2-links .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-subtitle','listing-links',{ data: ['index'] },{ data: ['categories'] }],
+      
+      searchColumns: ["listing-title","listing-subtitle","listing-links"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-M2-links'] = new List('listing-M2-links', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/css/styles.css">
 <meta property="og:title" content="Julia Master 2 course – Julia course">
-<meta property="og:description" content="Introduction to Julia and Statistics">
+<meta property="og:description" content="Introduction to Julia for statistics">
 <meta property="og:image" content="https://ocots.github.io/course-tse-julia-M1/M2/assets/images/logo-julia.png">
 <meta property="og:site_name" content="Julia course">
 <meta name="twitter:title" content="Julia Master 2 course – Julia course">
-<meta name="twitter:description" content="Introduction to Julia and Statistics">
+<meta name="twitter:description" content="Introduction to Julia for statistics">
 <meta name="twitter:image" content="https://ocots.github.io/course-tse-julia-M1/M2/assets/images/logo-julia.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -150,14 +224,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M2/lecture1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 1</span></a>
+  <a href="../M2/exercices-distribution_of_random_variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Distribution of random variables</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M2/lecture2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lecture 2</span></a>
+  <a href="../M2/exercices-linear_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear regression</span></a>
   </div>
 </li>
       </ul>
@@ -174,12 +248,12 @@ ul.task-list li input[type="checkbox"] {
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Julia Master 2 course</h1>
-<p class="subtitle lead">Introduction to Julia and Statistics</p>
+<p class="subtitle lead">Introduction to Julia for statistics</p>
 </div>
 
 
@@ -195,6 +269,28 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+
+<div id="listing-M2-links" class="column-screen-inset-right quarto-listing quarto-listing-container-custom" style="max-width: 850px;">
+<div class="link-cards">
+<div class="card">
+<div class="card-body">
+<section id="exercices" class="level4 card-title">
+<h4 class="anchored" data-anchor-id="exercices">Exercices</h4>
+<section id="introduction-to-julia-for-statistics-through-practice" class="level6 card-subtitle text-muted">
+<h6 class="anchored" data-anchor-id="introduction-to-julia-for-statistics-through-practice">Introduction to Julia for statistics through practice</h6>
+</section>
+</section>
+<ul>
+<li><a href="../M2/exercices-distribution_of_random_variables.html">Distribution of random variables</a></li>
+<li><a href="../M2/exercices-linear_regression.html">Linear regression</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
 
 
 
@@ -624,8 +720,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../M2/lecture1.html" class="pagination-link" aria-label="Lecture 1">
-        <span class="nav-page-text">Lecture 1</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../M2/exercices-distribution_of_random_variables.html" class="pagination-link" aria-label="Distribution of random variables">
+        <span class="nav-page-text">Distribution of random variables</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

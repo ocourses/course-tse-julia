@@ -91,6 +91,8 @@ website:
           contents:
             - section: "Tutorials"
               contents:
-                - M2/lecture1.qmd
-                - M2/lecture2.qmd
+                - text: Distribution of random variables
+                  href: M2/exercices-distribution_of_random_variables.qmd
+                - text: Linear regression
+                  href: M2/exercices-linear_regression.qmd
             - text: "---"
