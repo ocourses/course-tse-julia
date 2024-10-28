@@ -1,0 +1,7 @@
+- title: Exercices
+  subtitle: Introduction to Julia for statistics through practice
+  links:
+    - text: Distribution of random variables
+      href: exercices-distribution_of_random_variables.qmd
+    - text: Linear regression
+      href: exercices-linear_regression.qmd
