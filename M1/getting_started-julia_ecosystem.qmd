@@ -26,7 +26,8 @@ On the [Julia official webpage](https://julialang.org) one can find the followin
 ::: {.panel-tabset}
 ### Visualization
 
-<img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="images/waves.gif"/>
+<!-- haut | droit | bas | gauche -->
+<img height="220px" style="float: left; margin: 0px 1em 1em auto;" src="images/waves.gif"/>
 
 #### Data Visualization and Plotting
 
@@ -36,7 +37,7 @@ Data visualization has a complicated history. Plotting software makes trade-offs
 
 ### General
 
-<img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="images/minesweeper.png"/>
+<img height="220px" style="float: left; margin: 0px 1em 1em auto;" src="images/minesweeper.png"/>
 
 #### Build, Deploy or Embed Your Code
 
@@ -46,7 +47,7 @@ Julia has foreign function interfaces for [C, Fortran](https://docs.julialang.o
 
 ### Data Science
 
-<img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="images/onlinestats.gif"/>
+<img height="220px" style="float: left; margin: 0px 1em 1em auto;" src="images/onlinestats.gif"/>
 
 #### Interact with your Data
 
@@ -56,7 +57,7 @@ Julia can work with almost all databases using [JDBC.jl](https://github.com/Jul
 
 ### Machine Learning
 
-<img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="images/cartpole.gif"/>
+<img height="220px" style="float: left; margin: 0px 1em 1em auto;" src="images/cartpole.gif"/>
 
 #### Scalable Machine Learning
 
@@ -64,7 +65,7 @@ The [MLJ.jl](https://github.com/JuliaAI/MLJ.jl) package provides a unified int
 
 ### Scientific Domains
 
-<img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="images/lorenz.gif"/>
+<img height="220px" style="float: left; margin: 0px 1em 1em auto;" src="images/lorenz.gif"/>
 
 #### Rich Ecosystem for Scientific Computing
 
@@ -74,7 +75,7 @@ Julia also offers a number of domain-specific ecosystems, such as in biology [(
 
 ### Parallel Computing
 
-<img height="220px" style="float: left; margin-right:20px; margin-top:10px;" src="images/parallel-prefix.png"/>
+<img height="220px" style="float: left; margin: 0px 1em 1em auto;" src="images/parallel-prefix.png"/>
 
 #### Parallel and Heterogeneous Computing
 
