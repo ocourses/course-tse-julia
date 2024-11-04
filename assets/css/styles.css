@@ -1,10 +1,28 @@
+img.centering {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.tab-content img {
+  max-width: 100%;
+}
+
+.cell-output-display svg, .cell-output-display img{
+  max-width: 100%;
+  height: auto;
+}
+
 .data-frame th {
   text-align: right!important;
 }
 
+/*
 #quarto-back-to-top {
-  margin-bottom: 20px;
+  top: 120px;
+  bottom: unset;
 }
+*/
 
 @media (prefers-color-scheme: dark) {
   img, svg:not(.bi, .fa) {

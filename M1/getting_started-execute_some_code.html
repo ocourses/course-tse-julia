@@ -106,11 +106,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../assets/css/styles.css">
-<meta property="og:title" content="How to execute some Julia code – Julia course">
+<meta property="og:title" content="Executing Julia code – Julia course">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
 <meta property="og:site_name" content="Julia course">
-<meta name="twitter:title" content="How to execute some Julia code – Julia course">
+<meta name="twitter:title" content="Executing Julia code – Julia course">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#getting-help" id="toc-getting-help" class="nav-link active" data-scroll-target="#getting-help">Getting help</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#jupyter-notebooks" id="toc-jupyter-notebooks" class="nav-link" data-scroll-target="#jupyter-notebooks">Jupyter notebooks</a></li>
   <li><a href="#the-julia-repl" id="toc-the-julia-repl" class="nav-link" data-scroll-target="#the-julia-repl">The Julia REPL</a></li>
   <li><a href="#julia-scripts" id="toc-julia-scripts" class="nav-link" data-scroll-target="#julia-scripts">Julia scripts</a></li>
@@ -251,6 +252,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="getting-help" class="level2">
+<h2 class="anchored" data-anchor-id="getting-help">Getting help</h2>
+<p>Before you write any line of code, it’s good to know where to find help. The official <a href="https://julialang.org/about/help/">help page</a> is a good place to start. In particular, the Julia <a href="https://julialang.org/community/">community</a> is always happy to guide beginners.</p>
+<p>As a rule of thumb, the <a href="https://discourse.julialang.org/">Discourse forum</a> is where you should ask your questions to make the answers discoverable for future users. If you just want to chat with someone, you have a choice between the open source <a href="https://julialang.zulipchat.com/register/">Zulip</a> and the closed source <a href="https://julialang.org/slack/">Slack</a>. Some of the vocabulary used by community members may appear unfamiliar, but don’t worry: <a href="https://github.com/JuliaCommunity/StartHere.jl">StartHere.jl</a> gives you a good overview.</p>
+</section>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
 <p>Julia can be easily downloaded and installed. See the <a href="https://julialang.org/downloads/">download page</a> where we can find the following.</p>
@@ -287,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-julia-repl" class="level2">
 <h2 class="anchored" data-anchor-id="the-julia-repl">The Julia REPL</h2>
 <p>Julia comes with a full-featured interactive <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">command-line REPL</a> (read-eval-print loop) built into the <code>julia</code> executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling <code>julia</code> with no arguments or double-clicking on the executable:</p>
-<div id="42e1f508" class="cell" data-execution_count="2">
+<div id="990db19c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
 <div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> julia</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -305,14 +311,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>After Julia is launched you can start computing.</p>
-<div id="5c22e235" class="cell" data-execution_count="3">
+<div id="0754fda6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span><span class="op">+</span><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>2</code></pre>
 </div>
 </div>
 <p>Or print some text.</p>
-<div id="9b99e193" class="cell" data-execution_count="4">
+<div id="2b9e003e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Hello!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hello!</code></pre>
@@ -343,7 +349,7 @@ Important
 <section id="julia-scripts" class="level2">
 <h2 class="anchored" data-anchor-id="julia-scripts">Julia scripts</h2>
 <p>You can also write some code in a <code>.jl</code> script.</p>
-<div id="20df6e1d" class="cell" data-execution_count="5">
+<div id="87156ff1" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
 <div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> cat data<span class="op">/</span>introduction<span class="op">/</span>example.jl</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -351,7 +357,7 @@ Important
 </div>
 </div>
 <p>and execute the code either in the REPL:</p>
-<div id="a93bc01f" class="cell" data-execution_count="6">
+<div id="39ca23f7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">include</span>(<span class="st">"data/introduction/example.jl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hello!</code></pre>
