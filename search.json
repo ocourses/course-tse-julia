@@ -40,7 +40,55 @@
     "href": "M1/getting_started-foretaste_of_julia_code.html",
     "title": "Foretaste of Julia code",
     "section": "",
-    "text": "x = 1\n2x\n\n2\n\n\n\nx = sqrt(2)\n\n1.4142135623730951\n\n\n\n# unicode is great\nx = √(2)\n\n1.4142135623730951\n\n\n\n😄 = sqrt(2)\n2😄\n\n2.8284271247461903\n\n\nSome functions.\n\n# this is a function\nfunction f(x)\n  return 2x+1\nend\n\nf (generic function with 1 method)\n\n\n\n# this also\nf(x) = 2x+1\n\nf (generic function with 1 method)\n\n\n\n# this also: but f is not available anymore\ng = x -&gt; 2x^2\n\n#20 (generic function with 1 method)\n\n\n\n# be careful of the priorities\ng(1)\n\n2\n\n\n\nHello(name) = \"Hello \" * name * \"!\"\nHello(\"Alban\")\n\n\"Hello Alban!\"\n\n\n\nx = [1 3 12]\nprintln(\"x[2] = \", x[2])\nx[2] = 5\nprintln(\"x[2] = \", x[2])\n\nx[2] = 3\nx[2] = 5\n\n\nThe following function has side effects that can be dangerous.\n\nfunction f(x, y)\n    x[1] = 42      # mutates x\n    y = 7 + sum(x) # new binding for y, no mutation\n    return y\nend\n\na = [4, 5, 6]\nb = 3\n\nprintln(\"f($a, $b) = \", f(a, b))\nprintln(\"a = \", a, \" # a[1] is changed to 42 by f\")\nprintln(\"b = \", b, \" # not changed\")\n\nf([4, 5, 6], 3) = 60\na = [42, 5, 6] # a[1] is changed to 42 by f\nb = 3 # not changed\n\n\nWhen a function has side effects, please use the ! convention. See Argument Passing Behavior.\n\nfunction put_at_second_place!(x, value)\n  x[2] = value\n  return nothing\nend\n\nx = [1 3 12]\nprintln(\"x[2] = \", x[2])\n\nput_at_second_place!(x, 5)\nprintln(\"x[2] = \", x[2])\n\nput_at_second_place!(x[1:3], 15) # be careful if you give a slice\nprintln(\"x[2] = \", x[2])\n\nx[2] = 3\nx[2] = 5\nx[2] = 5\n\n\nA function may have several methods.\n\nΣ(x::Float64, y::Float64) = 2x + y\n\nΣ (generic function with 1 method)\n\n\n\nΣ(2.0, 3.0)\n\n7.0\n\n\n\nΣ(2, 3.0)\n\n\nMethodError: no method matching Σ(::Int64, ::Float64)\nThe function `Σ` exists, but no method is defined for this combination of argument types.\n\nClosest candidates are:\n  Σ(::Float64, ::Float64)\n   @ Main In[15]:1\n\n\nStacktrace:\n [1] top-level scope\n   @ In[17]:1\n\n\n\n\nh(x::Number,  y::Number ) = 2x - y\nh(x::Int,     y::Int    ) = 2x * y\nh(x::Float64, y::Float64) = 2x + y\n\nh (generic function with 3 methods)\n\n\n\nprintln(\"h(2,   3.0) = \", h(2, 3.0))\nprintln(\"h(2,   3  ) = \", h(2, 3))\nprintln(\"h(2.0, 3.0) = \", h(2.0, 3.0))\n\nh(2,   3.0) = 1.0\nh(2,   3  ) = 12\nh(2.0, 3.0) = 7.0\n\n\n\n\n\n Back to top",
+    "text": "x = 1\n2x\n\n2\n\n\n\nx = sqrt(2)\n\n1.4142135623730951\n\n\n\n# unicode is great\nx = √(2)\n\n1.4142135623730951\n\n\n\n😄 = sqrt(2)\n2😄\n\n2.8284271247461903\n\n\n\n\n\n\n\n\nNote\n\n\n\nVisit the list of Unicode characters.",
+    "crumbs": [
+      "Master 1",
+      "Getting started",
+      "Foretaste of Julia code"
+    ]
+  },
+  {
+    "objectID": "M1/getting_started-foretaste_of_julia_code.html#variables",
+    "href": "M1/getting_started-foretaste_of_julia_code.html#variables",
+    "title": "Foretaste of Julia code",
+    "section": "",
+    "text": "x = 1\n2x\n\n2\n\n\n\nx = sqrt(2)\n\n1.4142135623730951\n\n\n\n# unicode is great\nx = √(2)\n\n1.4142135623730951\n\n\n\n😄 = sqrt(2)\n2😄\n\n2.8284271247461903\n\n\n\n\n\n\n\n\nNote\n\n\n\nVisit the list of Unicode characters.",
+    "crumbs": [
+      "Master 1",
+      "Getting started",
+      "Foretaste of Julia code"
+    ]
+  },
+  {
+    "objectID": "M1/getting_started-foretaste_of_julia_code.html#functions",
+    "href": "M1/getting_started-foretaste_of_julia_code.html#functions",
+    "title": "Foretaste of Julia code",
+    "section": "Functions",
+    "text": "Functions\n\n# this is a function\nfunction f(x)\n  return 2x+1\nend\n\nf (generic function with 1 method)\n\n\nTo evaluate a function, simply write:\n\nf(2)\n\n5\n\n\n\n# this is also a function\ng(x) = 2x+1\n\ng (generic function with 1 method)\n\n\n\n# this is also a function\nh = x -&gt; 2x^2\n\n#15 (generic function with 1 method)\n\n\n\n# be careful of the priorities\nh(1)\n\n2\n\n\nAnother function manipulating strings.\n\nHello(name) = \"Hello \" * name * \"!\"\nHello(\"Alban\")\n\n\"Hello Alban!\"",
+    "crumbs": [
+      "Master 1",
+      "Getting started",
+      "Foretaste of Julia code"
+    ]
+  },
+  {
+    "objectID": "M1/getting_started-foretaste_of_julia_code.html#side-effects",
+    "href": "M1/getting_started-foretaste_of_julia_code.html#side-effects",
+    "title": "Foretaste of Julia code",
+    "section": "Side effects",
+    "text": "Side effects\nLet consider the following vector.\n\nx = [1, 3, 12]\n\n3-element Vector{Int64}:\n  1\n  3\n 12\n\n\nYou can access the second component like this:\n\nx[2]\n\n3\n\n\nTo update the second component, simply replace the value.\n\nx[2] = 5\n\n5\n\n\nBe cautious when a function mutates a vector. The following function has side effects that can be dangerous.\n\nfunction f(x, y)\n    x[1] = 42      # mutates x\n    y = 7 + sum(x) # new binding for y, no mutation\n    return y\nend\n\na = [4, 5, 6]\nb = 3\n\nprintln(\"f($a, $b) = \", f(a, b))\nprintln(\"a = \", a, \" # a[1] is changed to 42 by f\")\nprintln(\"b = \", b, \" # the scalar b is not changed\")\n\nf([4, 5, 6], 3) = 60\na = [42, 5, 6] # a[1] is changed to 42 by f\nb = 3 # the scalar b is not changed\n\n\nWhen a function has side effects, please use the bang convention, that is add a ! at the end of the function’s name. See Argument Passing Behavior.\n\nfunction put_at_second_place!(x, value)\n  x[2] = value\n  return nothing\nend\n\nx = [1 3 12]\nprintln(\"x[2] = \", x[2])\n\nput_at_second_place!(x, 5)\nprintln(\"x[2] = \", x[2])\n\nput_at_second_place!(x[1:3], 15) # be careful if you give a slice\nprintln(\"x[2] = \", x[2])\n\nx[2] = 3\nx[2] = 5\nx[2] = 5",
+    "crumbs": [
+      "Master 1",
+      "Getting started",
+      "Foretaste of Julia code"
+    ]
+  },
+  {
+    "objectID": "M1/getting_started-foretaste_of_julia_code.html#methods",
+    "href": "M1/getting_started-foretaste_of_julia_code.html#methods",
+    "title": "Foretaste of Julia code",
+    "section": "Methods",
+    "text": "Methods\nA function may have several methods.\n\nΣ(x::Float64, y::Float64) = 2x + y\n\nΣ (generic function with 1 method)\n\n\n\nΣ(2.0, 3.0)\n\n7.0\n\n\n\nΣ(2, 3.0)\n\n\nMethodError: no method matching Σ(::Int64, ::Float64)\nThe function `Σ` exists, but no method is defined for this combination of argument types.\n\nClosest candidates are:\n  Σ(::Float64, ::Float64)\n   @ Main In[18]:1\n\n\nStacktrace:\n [1] top-level scope\n   @ In[20]:1\n\n\n\n\nf(x::Number,  y::Number ) = 2x - y\nf(x::Int,     y::Int    ) = 2x * y\nf(x::Float64, y::Float64) = 2x + y\n\nf (generic function with 5 methods)\n\n\n\nprintln(\"h(2,   3.0) = \", f(2, 3.0))\nprintln(\"h(2,   3  ) = \", f(2, 3))\nprintln(\"h(2.0, 3.0) = \", f(2.0, 3.0))\n\nh(2,   3.0) = 1.0\nh(2,   3  ) = 12\nh(2.0, 3.0) = 7.0",
     "crumbs": [
       "Master 1",
       "Getting started",
@@ -124,7 +172,7 @@
     "href": "M2/index.html",
     "title": "Julia Master 2 course",
     "section": "",
-    "text": "This part is in construction.\n\n\n\n\n\nExercices\n\nIntroduction to Julia for statistics through practice\n\n\n\nDistribution of random variables\nLinear regression\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n Back to top",
+    "text": "This part is under construction.\n\n\n\n\n\nExercices\n\nIntroduction to Julia for statistics through practice\n\n\n\nDistribution of random variables\nLinear regression\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "Master 2"
     ]
