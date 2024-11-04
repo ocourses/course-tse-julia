@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Julia Master 1 course – Julia course</title>
+<title>Writing some Julia code – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,10 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../M1/getting_started-julia_ecosystem.html" rel="next">
 <link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,92 +101,20 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-M1-links .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-subtitle','listing-links',{ data: ['index'] },{ data: ['categories'] }],
-      
-      searchColumns: ["listing-title","listing-subtitle","listing-links"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-M1-links'] = new List('listing-M1-links', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/css/styles.css">
-<meta property="og:title" content="Julia Master 1 course – Julia course">
-<meta property="og:description" content="Introduction to Julia programming language">
+<meta property="og:title" content="Writing some Julia code – Julia course">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
 <meta property="og:site_name" content="Julia course">
-<meta name="twitter:title" content="Julia Master 1 course – Julia course">
-<meta name="twitter:description" content="Introduction to Julia programming language">
+<meta name="twitter:title" content="Writing some Julia code – Julia course">
+<meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-sidebar floating nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -173,7 +132,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../M1/index.html" aria-current="page"> 
+    <a class="nav-link" href="../M1/index.html"> 
 <span class="menu-text">Master 1</span></a>
   </li>  
   <li class="nav-item">
@@ -187,85 +146,29 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../M1/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Master 1</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Getting started</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../M1/getting_started-julia_ecosystem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Julia ecosystem</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../M1/getting_started-execute_some_code.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Execute some code</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../M1/getting_started-foretaste_of_julia_code.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Foretaste of Julia code</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../M1/getting_started-exercice_simple_linear_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exercice: Simple Linear Regression</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#jupyter-notebooks" id="toc-jupyter-notebooks" class="nav-link" data-scroll-target="#jupyter-notebooks">Jupyter notebooks</a></li>
+  <li><a href="#the-julia-repl" id="toc-the-julia-repl" class="nav-link" data-scroll-target="#the-julia-repl">The Julia REPL</a></li>
+  <li><a href="#julia-scripts" id="toc-julia-scripts" class="nav-link" data-scroll-target="#julia-scripts">Julia scripts</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia-M1/edit/main/M1/getting_started-writing_some_code.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/blob/main/M1/getting_started-writing_some_code.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Julia Master 1 course</h1>
-<p class="subtitle lead">Introduction to Julia programming language</p>
+<h1 class="title">Writing some Julia code</h1>
 </div>
 
 
@@ -282,33 +185,116 @@ window.Quarto = {
 </header>
 
 
-<p>This course is adressed to the students of the Master 1 “Econométrie, Statistiques” of Toulouse School of Economics. It is part of the topic Software for Data science. The Julia course is composed of 5 slots of 3 hours. In this course, we introduce the Julia ecosystem, we present the Julia programming language and some relevant packages.</p>
-<div id="listing-M1-links" class="column-screen-inset-right quarto-listing quarto-listing-container-custom" style="max-width: 850px;">
-<div class="link-cards">
-<div class="card">
-<div class="card-body">
-<section id="getting-started" class="level4 card-title">
-<h4 class="anchored" data-anchor-id="getting-started">Getting started</h4>
-<section id="introduction-to-julia-ecosystem" class="level6 card-subtitle text-muted">
-<h6 class="anchored" data-anchor-id="introduction-to-julia-ecosystem">Introduction to Julia ecosystem</h6>
-</section>
-</section>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>Julia can be easily downloaded and installed. See the <a href="https://julialang.org/downloads/">download page</a> where we can find the following.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Mac / Linux</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Windows</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Install the latest Julia version by running this in your terminal:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://install.julialang.org <span class="kw">|</span> <span class="fu">sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Install the latest Julia version from the <a href="https://www.microsoft.com/store/apps/9NJNWW8PVKMN">Microsoft Store</a> by running this in the command prompt:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">winget</span> install julia <span class="at">-s</span> msstore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>There are different ways to execute Julia code:</p>
 <ul>
-<li><a href="../M1/getting_started-julia_ecosystem.html">Julia ecosystem</a></li>
-<li><a href="../M1/getting_started-execute_some_code.html">Execute some code</a></li>
-<li><a href="../M1/getting_started-foretaste_of_julia_code.html">Foretaste of Julia code</a></li>
-<li><a href="../M1/getting_started-exercice_simple_linear_regression.html">Example: Simple Linear Regression</a></li>
+<li>within a <code>.ipynb</code> file, that is a Jupyter notebook;</li>
+<li>directly into the Julia REPL;</li>
+<li>from a script file <code>.jl</code>, either in the REPL or in the terminal;</li>
+<li>…</li>
 </ul>
+</section>
+<section id="jupyter-notebooks" class="level2">
+<h2 class="anchored" data-anchor-id="jupyter-notebooks">Jupyter notebooks</h2>
+<p><img height="100px" style="margin-left:15px; margin-right:15px; float: right;" src="../assets/images/logo-jupyter.svg"></p>
+<p>You can write some Julia code inside a <a href="https://jupyter.org">Jupyter notebook</a> and execute the code. To interact with the Julia language using Jupyter notebook, please install <a href="https://github.com/JuliaLang/IJulia.jl">IJulia.jl</a>.</p>
+<blockquote class="blockquote">
+<p><strong>IJulia</strong> is a <a href="http://julialang.org/">Julia-language</a> backend combined with the <a href="http://jupyter.org/">Jupyter</a> interactive environment (also used by <a href="http://ipython.org/">IPython</a>). This combination allows you to interact with the Julia language using Jupyter/IPython’s powerful <a href="http://ipython.org/notebook.html">graphical notebook</a>, which combines code, formatted text, math, and multimedia in a single document. IJulia is a Jupyter language kernel and works with a variety of notebook user interfaces. In addition to the classic Jupyter Notebook, IJulia also works with <a href="https://jupyterlab.readthedocs.io/en/stable/">JupyterLab</a>, a Jupyter-based integrated development environment for notebooks and code. The <a href="https://nteract.io/">nteract notebook desktop</a> supports IJulia with detailed instructions for its <a href="https://nteract.io/kernels/julia">installation with nteract</a>.</p>
+</blockquote>
+<p>Try to execute the code of <a href="data/introduction/example.ipynb">example.ipynb</a>.</p>
+</section>
+<section id="the-julia-repl" class="level2">
+<h2 class="anchored" data-anchor-id="the-julia-repl">The Julia REPL</h2>
+<p>Julia comes with a full-featured interactive <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">command-line REPL</a> (read-eval-print loop) built into the <code>julia</code> executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling <code>julia</code> with no arguments or double-clicking on the executable:</p>
+<div id="7190e2fc" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
+<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> julia</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               _</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  (_)     <span class="op">|</span> (_) (_)    <span class="op">|</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   _ _   _<span class="op">|</span> <span class="op">|</span>_  __ _   <span class="op">|</span>  <span class="dt">Type</span> <span class="st">"?"</span> <span class="cf">for</span> help, <span class="st">"]?"</span> <span class="cf">for</span> <span class="bu">Pkg</span> help.</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|/</span> _<span class="ss">` |  |</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="op">|</span> <span class="op">|</span>_<span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> (_<span class="op">|</span> <span class="op">|</span>  <span class="op">|</span>  Version <span class="fl">1.11.1</span> (<span class="fl">2024</span><span class="op">-</span><span class="fl">10</span><span class="op">-</span><span class="fl">16</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a> _<span class="op">/</span> <span class="op">|\</span>__<span class="op">'</span>_<span class="op">|</span>_<span class="op">|</span>_<span class="op">|\</span>__<span class="op">'</span>_<span class="op">|</span>  <span class="op">|</span>  Official https<span class="op">://</span>julialang.org<span class="op">/</span> release</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>__<span class="op">/</span>                   <span class="op">|</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+<p>After Julia is launched you can start computing.</p>
+<div id="fe061d3b" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span><span class="op">+</span><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>2</code></pre>
 </div>
-<div class="listing-no-matching d-none">
-No matching items
+</div>
+<p>Or print some text.</p>
+<div id="42d2b625" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Hello!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello!</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc. The different modes are:</p>
+<ul>
+<li>The Julian mode</li>
+<li>Help mode</li>
+<li>Shell mode</li>
+<li>Pkg mode</li>
+<li>Search modes</li>
+</ul>
+<p>Visit the <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">command-line REPL page</a> for more details.</p>
+</div>
+</div>
+</section>
+<section id="julia-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="julia-scripts">Julia scripts</h2>
+<p>You can also write some code in a <code>.jl</code> script.</p>
+<div id="02d3ab10" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
+<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> cat data<span class="op">/</span>introduction<span class="op">/</span>example.jl</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Hello!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>and execute the code either in the REPL:</p>
+<div id="17655165" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">include</span>(<span class="st">"data/introduction/example.jl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello!</code></pre>
+</div>
+</div>
+<p>or in a terminal with the command <code>$ julia example.jl</code>.</p>
 
 
-
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -731,15 +717,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../M1/getting_started-julia_ecosystem.html" class="pagination-link" aria-label="Julia ecosystem">
-        <span class="nav-page-text">Julia ecosystem</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -748,7 +725,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024, Olivier Cots</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia-M1/edit/main/M1/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/blob/main/M1/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocots/course-tse-julia-M1/edit/main/M1/getting_started-writing_some_code.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/blob/main/M1/getting_started-writing_some_code.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

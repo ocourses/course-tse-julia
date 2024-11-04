@@ -1,3 +1,9 @@
+img.centering {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
 .tab-content img {
   max-width: 100%;
 }

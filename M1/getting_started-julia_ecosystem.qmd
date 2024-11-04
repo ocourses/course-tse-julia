@@ -13,7 +13,9 @@ using Suppressor
 end
 ```
 
-## Biref presentation of the Julia ecosystem
+In this page, we present the Julia ecosystem: the Julia programming language, JuliaHub, JuliaSim, JuliaCon, etc.
+
+## A brief presentation
 
 <img height="150px" style="margin-left:0px; float: right;" src="../assets/images/logo-julia.png"/>
 
@@ -21,7 +23,7 @@ The work on Julia began in 2009 when [Jeff Bezanson](https://en.wikipedia.org/wi
 Julia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g. data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science.
 See the [Julia Wikipedia page](https://en.wikipedia.org/wiki/Julia_(programming_language)) for more details.
 
-On the [Julia official webpage](https://julialang.org) one can find the following summary of Julia ecosystem.
+On the [Julia official webpage](https://julialang.org) one can find the following summary of Julia possibilities.
 
 ::: {.panel-tabset}
 ### Visualization
@@ -102,24 +104,49 @@ The Julia programming language has its own conference, see the [JuliaCon 2024](h
 
 > Welcome to JuliaCon 2024, the premier annual conference for the Julia programming language community! This exciting event brings together developers, researchers, and enthusiasts from around the globe to celebrate and explore the power and versatility of Julia.
 
-<img class="do-not-accept-dark-mode"  width="100%" src="images/juliacon-2023.jpg" />
+<img class="do-not-accept-dark-mode centering" width="80%" src="images/juliacon-2023.jpg" />
 
 ## Editors and Ides
+
+Most computer programs are just plain text files with a specific extension (in our case `.jl`).
+So in theory, any text editor suffices to write and modify Julia code.
+In practice, an Integrated Development Environment (or IDE) makes the experience much more pleasant, thanks to code-related utilities and language-specific plugins.
+
+The best IDE for Julia is [Visual Studio Code](https://code.visualstudio.com/), or VS Code, developed by Microsoft.
+Indeed, the [Julia VS Code extension](https://www.julia-vscode.org/) is the most feature-rich of all Julia IDE plugins.
+You can download it from the VS Code Marketplace and read its [documentation](https://www.julia-vscode.org/docs/stable/).
+
+::: {.callout-tip}
+To use Julia in Visual Studio Code, please follow these [steps](https://code.visualstudio.com/docs/languages/julia), where you can find how to install Julia, 
+VS Code and the necessary extensions.
+:::
 
 ::: {.panel-tabset}
 ### VS Code
 
 <a href="https://www.julia-vscode.org/" target="_blank">
-  <img src="../assets/images/vscode.png" height="85" width="85" alt="VSCode Logo">
+  <img src="../assets/images/vscode.png" height="85" width="85" alt="VSCode Logo" style="float: left; margin: 0px 1em 1em auto;">
 </a>
-<a class="link extra-link" href="https://www.julia-vscode.org/" target="_blank">Julia VS Code Extension</a>
+
+Julia for Visual Studio Code is a powerful, free IDE for the Julia language. Visual Studio Code is a powerful and customizable editor. With a completely live environment, Julia for VS Code aims to take the frustration and guesswork out of programming and put the fun back in.  We build on Julia’s unique combination of ease-of-use and performance. Beginners and experts can build better software more quickly, and get to a result faster. Julia is an officially supported language on the VS Code documentation.
 
 ### Jupyter
 
-<a href="https://github.com/JuliaLang/IJulia.jl" target="_blank">
-  <img src="../assets/images/logo-jupyter.svg" height="85" width="85" alt="Jupyter Logo">
+<a href="https://jupyter.org" target="_blank">
+  <img src="../assets/images/logo-jupyter.svg" height="85" width="85" alt="Jupyter Logo" style="float: left; margin: 0px 1em 1em auto;">
 </a>
-<a class="link extra-link" href="https://github.com/JuliaLang/IJulia.jl" target="_blank">Jupyter kernel</a>
+
+You can write Jupyter notebooks and use the [Jupyter](https://jupyter.org) interactive environment. To do so you need to install
+the [IJulia.jl](https://github.com/JuliaLang/IJulia.jl) package. IJulia is a [Julia-language](http://julialang.org/) backend
+combined with the [Jupyter](http://jupyter.org/) interactive environment (also used by [IPython](http://ipython.org/)).  This 
+combination allows you to interact with the Julia language using Jupyter/IPython's powerful 
+[graphical notebook](http://ipython.org/notebook.html), which combines code, formatted text, math, and multimedia in a single 
+document. IJulia is a Jupyter language kernel and works with a variety of notebook user interfaces. In addition to the classic 
+Jupyter Notebook, IJulia also works with [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/), a Jupyter-based
+integrated development environment for notebooks and code. The [nteract notebook desktop](https://nteract.io/) supports IJulia with 
+detailed instructions for its [installation with nteract](https://nteract.io/kernels/julia). Please visit this 
+[webpage](https://www.jousefmurad.com/coding/install-julia-jupyter-notebook/) to get a tutorial on how to use Julia in 
+Jupyter notebook.
 
 ### Pluto.jl
 
@@ -131,30 +158,26 @@ The Julia programming language has its own conference, see the [JuliaCon 2024](h
 ### Vim
 
 <a href="https://github.com/JuliaEditorSupport/julia-vim" target="_blank">
-  <img src="../assets/images/vim.png" height="85" width="85" alt="Vim Logo">
+  <img src="../assets/images/vim.png" height="85" width="85" alt="Vim Logo" style="margin: 0px 1em 0em auto;">
 </a>
 <a class="link extra-link" href="https://github.com/JuliaEditorSupport/julia-vim" target="_blank">Vim plugin</a>
 
 ### Emacs
 
 <a href="https://github.com/JuliaEditorSupport/julia-emacs" target="_blank">
-  <img src="../assets/images/emacs.png" height="85" width="85" alt="Emacs Logo">
+  <img src="../assets/images/emacs.png" height="85" width="85" alt="Emacs Logo" style="margin: 0px 1em 0em auto;">
 </a>
 <a class="link extra-link" href="https://github.com/JuliaEditorSupport/julia-emacs" target="_blank">Emacs plugin</a>
 
 ::: 
 
-I recommend to use [VS Code](https://www.julia-vscode.org). You can download it [here](https://code.visualstudio.com/download). See the [Julia Visual Studio Code Documentation](https://www.julia-vscode.org/docs/stable/#Julia-Visual-Studio-Code-Documentation).
-
-> Julia for Visual Studio Code is a powerful, free IDE for the Julia language. Visual Studio Code is a powerful and customizable editor. With a completely live environment, Julia for VS Code aims to take the frustration and guesswork out of programming and put the fun back in.  We build on Julia’s unique combination of ease-of-use and performance. Beginners and experts can build better software more quickly, and get to a result faster. Julia is an officially supported language on the [VS Code docs](https://code.visualstudio.com/docs/languages/julia).
-
 ## Documentation
 
 In the [Julia documentation](https://docs.julialang.org/en/v1/), you may find:
 
-- some important Links;
-- a comparison to other languages;
-- a list of advantages of using Julia
+- some important Links that can be useful to learn and use the Julia programming language,
+- a comparison to other languages,
+- a list of advantages of using Julia,
 
 but also:
 
@@ -191,3 +214,27 @@ using LinearAlgebra
 ?norm
 ```
 :::
+
+## Packages
+
+When you install Julia, you download the standard library which contains a list of standard packages to manipulate files, do some linear algebra and more.
+To use a package, you need first to import it. For instance, to compute the norm of a vector, you need to import LinearAlgebra.jl.
+
+```{julia}
+using LinearAlgebra
+v = [3, 4]
+norm(v)
+```
+
+From the community you will find thousands of other packages. See the list of packages [here](https://juliapackages.com). Usually, a Julia package is hosted on 
+GitHub and comes with an online documentation. For instance, the package Plots.jl is hosted [here](https://github.com/JuliaPlots/Plots.jl) and you can find the documention
+[here](https://docs.juliaplots.org).
+
+A very interesting point in Julia is that the language comes with its own package manager. To install and use Plots.jl, you will simply have to write the following lines of code.
+
+```{julia}
+using Pkg
+Pkg.add("Plots")
+using Plots
+plot(x->x^2, -1, 1) # we plot the function f(x)=x^2 in [-1, 1]
+```
