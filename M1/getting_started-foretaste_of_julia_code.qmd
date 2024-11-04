@@ -13,6 +13,8 @@ using Suppressor
 end
 ```
 
+## Variables
+
 ```{julia}
 x = 1
 2x
@@ -32,7 +34,12 @@ x = √(2)
 2😄
 ```
 
-Some functions.
+
+::: {.callout-note}
+Visit the list of [Unicode characters](https://docs.julialang.org/en/v1/manual/unicode-input/).
+:::
+
+## Functions
 
 ```{julia}
 # this is a function
@@ -41,34 +48,55 @@ function f(x)
 end
 ```
 
+To evaluate a function, simply write:
+
 ```{julia}
-# this also
-f(x) = 2x+1
+f(2)
 ```
 
 ```{julia}
-# this also: but f is not available anymore
-g = x -> 2x^2
+# this is also a function
+g(x) = 2x+1
+```
+
+```{julia}
+# this is also a function
+h = x -> 2x^2
 ```
 
 ```{julia}
 # be careful of the priorities
-g(1)
+h(1)
 ```
+
+Another function manipulating strings.
 
 ```{julia}
 Hello(name) = "Hello " * name * "!"
 Hello("Alban")
 ```
 
+## Side effects
+
+Let consider the following vector.
+
 ```{julia}
-x = [1 3 12]
-println("x[2] = ", x[2])
-x[2] = 5
-println("x[2] = ", x[2])
+x = [1, 3, 12]
 ```
 
-The following function has side effects that can be dangerous.
+You can access the second component like this:
+
+```{julia}
+x[2]
+```
+
+To update the second component, simply replace the value.
+
+```{julia}
+x[2] = 5
+```
+
+Be cautious when a function mutates a vector. The following function has side effects that can be dangerous.
 
 ```{julia}
 function f(x, y)
@@ -82,10 +110,12 @@ b = 3
 
 println("f($a, $b) = ", f(a, b))
 println("a = ", a, " # a[1] is changed to 42 by f")
-println("b = ", b, " # not changed")
+println("b = ", b, " # the scalar b is not changed")
 ```
 
-When a function has [side effects](https://en.wikipedia.org/wiki/Side_effect_(computer_science)), please use the `!` convention. See [Argument Passing Behavior](https://docs.julialang.org/en/v1/manual/functions/#man-argument-passing).
+When a function has [side effects](https://en.wikipedia.org/wiki/Side_effect_(computer_science)), please use the bang convention, that is add a `!` at the 
+end of the function's name.
+See [Argument Passing Behavior](https://docs.julialang.org/en/v1/manual/functions/#man-argument-passing).
 
 ```{julia}
 function put_at_second_place!(x, value)
@@ -102,6 +132,8 @@ println("x[2] = ", x[2])
 put_at_second_place!(x[1:3], 15) # be careful if you give a slice
 println("x[2] = ", x[2])
 ```
+
+## Methods
 
 A function may have several methods.
 
@@ -120,13 +152,13 @@ A function may have several methods.
 
 
 ```{julia}
-h(x::Number,  y::Number ) = 2x - y
-h(x::Int,     y::Int    ) = 2x * y
-h(x::Float64, y::Float64) = 2x + y
+f(x::Number,  y::Number ) = 2x - y
+f(x::Int,     y::Int    ) = 2x * y
+f(x::Float64, y::Float64) = 2x + y
 ```
 
 ```{julia}
-println("h(2,   3.0) = ", h(2, 3.0))
-println("h(2,   3  ) = ", h(2, 3))
-println("h(2.0, 3.0) = ", h(2.0, 3.0))
+println("h(2,   3.0) = ", f(2, 3.0))
+println("h(2,   3  ) = ", f(2, 3))
+println("h(2.0, 3.0) = ", f(2.0, 3.0))
 ```
