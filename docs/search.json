@@ -196,18 +196,6 @@
     ]
   },
   {
-    "objectID": "M1/getting_started-julia_ecosystem.html#packages",
-    "href": "M1/getting_started-julia_ecosystem.html#packages",
-    "title": "Julia ecosystem",
-    "section": "Packages",
-    "text": "Packages\nWhen you install Julia, you download the standard library which contains a list of standard packages to manipulate files, do some linear algebra and more. To use a package, you need first to import it. For instance, to compute the norm of a vector, you need to import LinearAlgebra.jl.\n\nusing LinearAlgebra\nv = [3, 4]\nnorm(v)\n\n5.0\n\n\nFrom the community you will find thousands of other packages. See the list of packages here. Usually, a Julia package is hosted on GitHub and comes with an online documentation. For instance, the package Plots.jl is hosted here and you can find the documention here.\nA very interesting point in Julia is that the language comes with its own package manager. To install and use Plots.jl, you will simply have to write the following lines of code.\n\nusing Pkg\nPkg.add(\"Plots\")\nusing Plots\nplot(x-&gt;x^2, -1, 1) # we plot the function f(x)=x^2 in [-1, 1]\n\n   Resolving package versions...\n  No Changes to `~/Courses/julia/course-tse-julia/M1/Project.toml`\n  No Changes to `~/Courses/julia/course-tse-julia/M1/Manifest.toml`",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Julia ecosystem"
-    ]
-  },
-  {
     "objectID": "M1/getting_started-foretaste_of_julia_code.html",
     "href": "M1/getting_started-foretaste_of_julia_code.html",
     "title": "Foretaste of Julia code",
@@ -314,11 +302,11 @@
     ]
   },
   {
-    "objectID": "M1/getting_started-execute_some_code.html#repl",
-    "href": "M1/getting_started-execute_some_code.html#repl",
-    "title": "Executing Julia code",
-    "section": "REPL",
-    "text": "REPL\nJulia comes with a full-featured interactive command-line REPL (read-eval-print loop) built into the julia executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling julia with no arguments or double-clicking on the executable:\n\n\n$ julia\n\n               _\n   _       _ _(_)_     |  Documentation: https://docs.julialang.org\n  (_)     | (_) (_)    |\n   _ _   _| |_  __ _   |  Type \"?\" for help, \"]?\" for Pkg help.\n  | | | | | | |/ _` |  |\n  | | |_| | | | (_| |  |  Version 1.11.1 (2024-10-16)\n _/ |\\__'_|_|_|\\__'_|  |  Official https://julialang.org/ release\n|__/                   |\n\n\njulia&gt;\n\n\nAfter Julia is launched you can start computing.\n\n1+1\n\n2\n\n\nOr print some text.\n\nprint(\"Hello!\")\n\nHello!\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThe Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc. The different modes are:\n\nThe Julian mode\nHelp mode\nPackage mode\nShell mode\n\nVisit the command-line REPL page for more details.\n\n\n\nHelp modePackage modeShell mode\n\n\nBy pressing ? you can obtain information and metadata about Julia objects (functions, types, etc.) or unicode symbols. The query fetches the docstring of the object, which explains how to use it.\nhelp?&gt; println\nIf you don’t know the exact name you are looking for, type a word surrounded by quotes to see in which docstrings it pops up. To come back to Julia mode, hit backspace.\n\n\nBy pressing ] you access Pkg.jl, Julia’s integrated package manager. Please visit the documentation for details. Pkg.jl allows you to:\n\n]activate different local, shared or temporary environments;\n]instantiate them by downloading the necessary packages;\n]add, ]update (or ]up) and ]remove (or ]rm) packages;\nget the ]status (or ]st) of your current environment.\n\nAs an illustration, we download the package Plots.jl inside our current environment:\npkg&gt; add Plots\nNote that you can do the same in Julia mode:\njulia&gt; using Pkg\njulia&gt; Pkg.rm(\"Plots\")\nThe package mode itself also has a help mode, accessed with ?. To come back to Julia mode, hit backspace.\n\n\nBy pressing ; you enter a terminal, where you can execute any command you want. Here’s an example for Unix systems:\nshell&gt; pwd\nTo come back to Julia mode, hit backspace.",
+    "objectID": "M1/getting_started-execute_some_code.html#the-julia-repl",
+    "href": "M1/getting_started-execute_some_code.html#the-julia-repl",
+    "title": "How to execute some Julia code",
+    "section": "The Julia REPL",
+    "text": "The Julia REPL\nJulia comes with a full-featured interactive command-line REPL (read-eval-print loop) built into the julia executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling julia with no arguments or double-clicking on the executable:\n\n\n$ julia\n\n               _\n   _       _ _(_)_     |  Documentation: https://docs.julialang.org\n  (_)     | (_) (_)    |\n   _ _   _| |_  __ _   |  Type \"?\" for help, \"]?\" for Pkg help.\n  | | | | | | |/ _` |  |\n  | | |_| | | | (_| |  |  Version 1.11.1 (2024-10-16)\n _/ |\\__'_|_|_|\\__'_|  |  Official https://julialang.org/ release\n|__/                   |\n\n\njulia&gt;\n\n\nAfter Julia is launched you can start computing.\n\n1+1\n\n2\n\n\nOr print some text.\n\nprint(\"Hello!\")\n\nHello!\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThe Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc. The different modes are:\n\nThe Julian mode\nHelp mode\nShell mode\nPkg mode\nSearch modes\n\nVisit the command-line REPL page for more details.",
     "crumbs": [
       "Master 1",
       "Getting started",
@@ -370,21 +358,9 @@
     "href": "M2/index.html",
     "title": "Julia Master 2 course",
     "section": "",
-    "text": "Exercices\n\nIntroduction to Julia for statistics through practice\n\n\n\nDistribution of random variables\nLinear regression\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n Back to top",
+    "text": "This part is in construction.\n\n\n\n\n\nExercices\n\nIntroduction to Julia for statistics through practice\n\n\n\nDistribution of random variables\nLinear regression\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "Master 2"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-execute_some_code.html#the-julia-repl",
-    "href": "M1/getting_started-execute_some_code.html#the-julia-repl",
-    "title": "How to execute some Julia code",
-    "section": "The Julia REPL",
-    "text": "The Julia REPL\nJulia comes with a full-featured interactive command-line REPL (read-eval-print loop) built into the julia executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling julia with no arguments or double-clicking on the executable:\n\n\n$ julia\n\n               _\n   _       _ _(_)_     |  Documentation: https://docs.julialang.org\n  (_)     | (_) (_)    |\n   _ _   _| |_  __ _   |  Type \"?\" for help, \"]?\" for Pkg help.\n  | | | | | | |/ _` |  |\n  | | |_| | | | (_| |  |  Version 1.11.1 (2024-10-16)\n _/ |\\__'_|_|_|\\__'_|  |  Official https://julialang.org/ release\n|__/                   |\n\n\njulia&gt;\n\n\nAfter Julia is launched you can start computing.\n\n1+1\n\n2\n\n\nOr print some text.\n\nprint(\"Hello!\")\n\nHello!\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThe Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc. The different modes are:\n\nThe Julian mode\nHelp mode\nShell mode\nPkg mode\nSearch modes\n\nVisit the command-line REPL page for more details.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Execute some code"
     ]
   }
 ]
