@@ -8,5 +8,7 @@ listing:
   contents: M2.yml
 ---
 
+This part is in construction.
+
 ::: {#M2-links .column-screen-inset-right style="max-width: 850px;"}
 :::

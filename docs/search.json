@@ -1,24 +1,126 @@
 [
   {
-    "objectID": "M2/lecture2.html",
-    "href": "M2/lecture2.html",
-    "title": "Lecture 2",
+    "objectID": "M2/exercices-distribution_of_random_variables.html",
+    "href": "M2/exercices-distribution_of_random_variables.html",
+    "title": "Distributions of random variables",
     "section": "",
-    "text": "M2 - Lecture 2\n\n\n\n Back to top",
+    "text": "For the exercices of this page, you need to add the packages Distributions.jl, LaTeXStrings.jl, Plots.jl and Test.jl. To install them please open Julia’s interactive session (known as REPL) and press ] key in the REPL to use the package mode, then add the packages:\njulia&gt; ]\npkg&gt; add Distributions\npkg&gt; add LaTeXStrings\npkg&gt; add Plots\npkg&gt; add Test\nWhen the installation is complete, import them:\n\nusing Distributions\nusing LaTeXStrings # just for labels in some plots\nusing Plots\nusing Test\n\nThe package Test.jl is used to test if the outputs of functions to complete are correct. The packages Plots.jl is for data visualization. Almost everything in Plots is done by specifying plot attributes. Do not hesitate to have a look to this tutorial. Finally, the package Distributions.jl provides a large collection of probabilistic distributions and related functions.",
     "crumbs": [
       "Master 2",
       "Tutorials",
-      "Lecture 2"
+      "Distribution of random variables"
     ]
   },
   {
-    "objectID": "M2/index.html",
-    "href": "M2/index.html",
-    "title": "Julia Master 2 course",
+    "objectID": "M2/exercices-distribution_of_random_variables.html#preliminaries",
+    "href": "M2/exercices-distribution_of_random_variables.html#preliminaries",
+    "title": "Distributions of random variables",
     "section": "",
-    "text": "Exercices\n\nIntroduction to Julia for statistics through practice\n\n\n\nDistribution of random variables\nLinear regression\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n Back to top",
+    "text": "For the exercices of this page, you need to add the packages Distributions.jl, LaTeXStrings.jl, Plots.jl and Test.jl. To install them please open Julia’s interactive session (known as REPL) and press ] key in the REPL to use the package mode, then add the packages:\njulia&gt; ]\npkg&gt; add Distributions\npkg&gt; add LaTeXStrings\npkg&gt; add Plots\npkg&gt; add Test\nWhen the installation is complete, import them:\n\nusing Distributions\nusing LaTeXStrings # just for labels in some plots\nusing Plots\nusing Test\n\nThe package Test.jl is used to test if the outputs of functions to complete are correct. The packages Plots.jl is for data visualization. Almost everything in Plots is done by specifying plot attributes. Do not hesitate to have a look to this tutorial. Finally, the package Distributions.jl provides a large collection of probabilistic distributions and related functions.",
     "crumbs": [
-      "Master 2"
+      "Master 2",
+      "Tutorials",
+      "Distribution of random variables"
+    ]
+  },
+  {
+    "objectID": "M2/exercices-distribution_of_random_variables.html#empirical-distribution-function",
+    "href": "M2/exercices-distribution_of_random_variables.html#empirical-distribution-function",
+    "title": "Distributions of random variables",
+    "section": "Empirical distribution function",
+    "text": "Empirical distribution function\n\nExercise 1\n\nBuild the empirical cumulative distribution function, also called eCDF.\n\n\n\n\n\n\n\nNote\n\n\n\nUse broadcasting to complete the following code.\n\na = [1,2,3.5]\na .&lt; 2\n\n3-element BitVector:\n 1\n 0\n 0\n\n\n\n\n\n\"\"\"\n   Compute de number of element in the vactor t less than a value x\n   input\n   t : Vector of Real\n   x : Real\n   Output\n   Integer\n\"\"\"\nfunction empirique(t::Vector{&lt;:Real}, x::Real)::Int\n    # to complete\n    return sum(t .&lt; x)  # .&lt; vectorial operation\nend\n\n\nprintln(\"empirique([1.,2,3],1.5) = \", empirique([1.,2,3],1.5))\n\nTest.@test empirique([1.,2,3],1.5) == 1\n\nempirique([1.,2,3],1.5) = 1\n\n\n\nTest Passed\n\n\n\n\n# If the type of the vector elements is not a real then there is an error\nprintln(\"empirique([1.+2im,2,3],1.5) = \", empirique([1.,2+2im,3],1.5))\n\n\nMethodError: no method matching empirique(::Vector{ComplexF64}, ::Float64)\nThe function `empirique` exists, but no method is defined for this combination of argument types.\n\nClosest candidates are:\n  empirique(::Vector{&lt;:Real}, ::Real)\n   @ Main In[352]:9\n\n\nStacktrace:\n [1] top-level scope\n   @ In[353]:2\n\n\n\n\nGenerate a sample of N=1000 datas from a uniform distribution on [0,2] and plot the eCDF of this sample.\n\n\nN = 1000 # number of datas\nu = 2*rand(N)   # uniform law on [0,2]\nx_grid = -1:0.1:3\n\n# Plot of the empirical cumulative distribution function\nF(x) = empirique(u,x)/N\np_uniform_cdf = plot(x_grid,F,xlabel=\"x\", ylabel=\"F(x)\", legend=false)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAdd on the plot the eCDF with the Distribution.jl package.",
+    "crumbs": [
+      "Master 2",
+      "Tutorials",
+      "Distribution of random variables"
+    ]
+  },
+  {
+    "objectID": "M2/exercices-distribution_of_random_variables.html#distributions.jl-package",
+    "href": "M2/exercices-distribution_of_random_variables.html#distributions.jl-package",
+    "title": "Distributions of random variables",
+    "section": "Distributions.jl Package",
+    "text": "Distributions.jl Package\n\nIntroduction\nThere is lots of libraries (packages in julia): https://julialang.org/packages/. For the documentation of the Distributions Package see https://juliastats.org/Distributions.jl/stable/.\n\na = 0; b = 2;\ndist = Uniform(a,b)  # dist is an object : the uniform distribution on [a,b]\nprintln(\"type de dist = \",typeof(dist))\n# you can acces to the mean or median of the distribution\nprintln(\"mean(dist) = \", mean(dist))\nprintln(\"median(dist) = \", median(dist))\n# and the the PDF, CDF and inverse CDF function of the distribution\nprintln(\"pdf(1.2) = \", pdf(dist,1.2))\nprintln(\"pdf(3) = \", pdf(dist,3))\nprintln(\"cdf(1.2) = \", cdf(dist,1.2))\nprintln(\"cdf(3) = \", cdf(dist,3))\nprintln(\"inverse of cdf(0.75) = \", quantile(dist,0.75))\n\ntype de dist = Uniform{Float64}\nmean(dist) = 1.0\nmedian(dist) = 1.0\npdf(1.2) = 0.5\npdf(3) = 0.0\ncdf(1.2) = 0.6\ncdf(3) = 1.0\ninverse of cdf(0.75) = 1.5\n\n\n\n\nExercise 2\nPlot on the same first graph the CFD of the uniform distribution on [0,2]\n\ncdf_uniform(x) = cdf(dist,x)\nplot!(p_uniform_cdf,x_grid,cdf_uniform,xlabel=\"x\", ylabel=\"F(x)\", legend=false)",
+    "crumbs": [
+      "Master 2",
+      "Tutorials",
+      "Distribution of random variables"
+    ]
+  },
+  {
+    "objectID": "M2/exercices-distribution_of_random_variables.html#triangular-distribution",
+    "href": "M2/exercices-distribution_of_random_variables.html#triangular-distribution",
+    "title": "Distributions of random variables",
+    "section": "Triangular Distribution",
+    "text": "Triangular Distribution\nWe consider the distribution with the following density distribution\nf(x) = \\begin{cases}\nx\\quad\\textrm{pour}\\quad x\\in[0,1]\\\\\n2-x\\quad\\textrm{pour}\\quad x\\in[1,2]\\\\\n0\\quad\\textrm{sinon}\n\\end{cases}\nPlot the density, cumulative dendity and inverse cumulative function.\n\na = 0; b = 2;\ndist = TriangularDist(a,b,1)  # min = a; max = b; mode = 1\nprintln(\"type de dist = \",typeof(dist))\nprintln(\"params(dist) = \", params(dist))\n\n# Density function\np1 = plot(x_grid, x-&gt;pdf(dist,x), color = :blue, linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\")) \n# Cumulative density function\np2 = plot(a-1:0.01:b+1, x-&gt;cdf(dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"F(x)\"))  \n# Inverse cumulative density function\np3 = plot(0:0.01:1, x-&gt;quantile(dist,x), xlims=(0,1), ylims=(0,2), color = :green, linewidth=2, xlabel=(L\"u\"), ylabel=(L\"F^{-1}(u)\"))\nplot(p1,p2,p3, layout=(1,3),legend = false,size = (1200,300), margin = 0.6Plots.cm)\n\ntype de dist = TriangularDist{Float64}\nparams(dist) = (0.0, 2.0, 1.0)\n\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHistogram\nGenerate a sample of 100 datas from the triangular distribution and plot on the same graph the histogram of the simple and the PDF function\n\n# Sample of 100 datas\nt = rand(dist,100)\nhistogram(t) \nhistogram(t,normalize=true) # normalize=true pour ajouter la fonction de densité\nplot!(a-0.5:0.1:b+0.5, x-&gt;pdf.(dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\"))   \n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuestion\nWhat is the problem ?\n\nUse the normalize=true parameter in the histogram function for solving the problem\nExecute for a sample of N = 10000 datas",
+    "crumbs": [
+      "Master 2",
+      "Tutorials",
+      "Distribution of random variables"
+    ]
+  },
+  {
+    "objectID": "M2/exercices-distribution_of_random_variables.html#example-of-discret-distribution",
+    "href": "M2/exercices-distribution_of_random_variables.html#example-of-discret-distribution",
+    "title": "Distributions of random variables",
+    "section": "Example of discret distribution",
+    "text": "Example of discret distribution\nWe present here the binomial distribution which is a discrete probability distribution.\n\nn, p, N = 10, 0.2, 10^3\nbDist = Binomial(n,p)\nxgrid = 0:n\nplot(xgrid,pdf.(bDist,xgrid), color=:orange, seriestype = :scatter)\nplot!(xgrid,pdf.(bDist,xgrid), line = :stem, linewidth=2, color=:orange)",
+    "crumbs": [
+      "Master 2",
+      "Tutorials",
+      "Distribution of random variables"
+    ]
+  },
+  {
+    "objectID": "M2/exercices-distribution_of_random_variables.html#central-limit-theorem",
+    "href": "M2/exercices-distribution_of_random_variables.html#central-limit-theorem",
+    "title": "Distributions of random variables",
+    "section": "Central limit theorem",
+    "text": "Central limit theorem\nWe are going to illustrate the central limit theorem :\nSuppose X_1,X_2,\\ldots is a sequence of Independent and identically distributed random variables with E(X_i)=\\mu and Var(X_i)=\\sigma^2 &lt; +\\infty. Then, as n approaches infinity, the random variables \\sqrt{n}(\\bar{X}_n - \\mu) converge in distribution to a normal distribution \\mathcal{N}(0,\\sigma^2)\n\nExercise\n\nChoose a distribution law dist, compute its mean \\mu and its variance \\sigma^2 and N the number of sanple\nFor n in (1,2,5,20)\n\nGenerate N=10000 samples of lenght n from the dist distribution\nCompute the means of the N samples and the N values \\sqrt{n}(\\bar{X}_n - \\mu)\nPlot the histogram of these N values and the normal distribution \\mathcal{N}(0,\\sigma^2)\n\n\n\nX = rand(dist,(2,3))\nprintln(X)\n(mean(X,dims=1))\n\n[0.3900501110792506 1.6017523790079928 0.8608969107894937; 0.8100903551087728 0.820605938432214 0.7620181237169289]\n\n\n1×3 Matrix{Float64}:\n 0.60007  1.21118  0.811458\n\n\n\ndist = Uniform(0,12)\nμ = mean(dist)\nσ = std(dist)\nnormal_dist = Normal(0,σ)\nprintln(L\"\\mu = \", μ)\nprintln(L\"\\sigma = \", σ)\nN = 10000\nn_mean = (1,2,5,20)\n\np = []\nfor n in n_mean \n    X = rand(dist,(n,N))\n    Xbar_n = vec(sqrt(n)*(mean(X,dims=1) .- μ)) # to have a vector and not a matrix of size (1,3)\n    \n    p1 = histogram(Xbar_n,normalize=true) # normalize=true pour ajouter la fonction de densité\n    plot!(p1, -3*σ:0.1:3*σ, x-&gt;pdf.(normal_dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\"))   \n    push!(p,p1)\nend\nprintln(p)\nplot(p[1],p[2],p[3],p[4],legend = false)\n\n$\\mu = $6.0\n$\\sigma = $3.4641016151377544\nAny[Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}]",
+    "crumbs": [
+      "Master 2",
+      "Tutorials",
+      "Distribution of random variables"
+    ]
+  },
+  {
+    "objectID": "M2/resources/TP1-distributions.html",
+    "href": "M2/resources/TP1-distributions.html",
+    "title": "Introduction to julia for statistic",
+    "section": "",
+    "text": "To contact me, here is my email : joseph.gergaud@toulouse-inp.fr\nThe files ares here :\nhttps://gitlab.irit.fr/toc/etu-n7/julia\ndirectory M2"
+  },
+  {
+    "objectID": "M2/resources/TP1-distributions.html#empirical-cumulative-distribution-function-ecdf",
+    "href": "M2/resources/TP1-distributions.html#empirical-cumulative-distribution-function-ecdf",
+    "title": "Introduction to julia for statistic",
+    "section": "empirical cumulative distribution function, eCDF",
+    "text": "empirical cumulative distribution function, eCDF\n\nExercise 1\n\nBuild the empirical cumulative distribution function\n\n\n# use broadcasting\na = [1,2,3.5]\na .&lt; 2\n\n3-element BitVector:\n 1\n 0\n 0\n\n\n\nusing Test   # for tests\n\n\"\"\"\n   Compute de number of element in the vactor t less than a value x\n   input\n   t : Vector of Real\n   x : Real\n   Output\n   Integer\n\"\"\"\nfunction empirique(t::Vector{&lt;:Real}, x::Real)::Int\n    # to complete\n    return sum(t .&lt; x)  # .&lt; vectorial operation\nend\n\n\nprintln(\"empirique([1.,2,3],1.5) = \", empirique([1.,2,3],1.5))\n\nTest.@test empirique([1.,2,3],1.5) == 1\n\nempirique([1.,2,3],1.5) = 1\n\n\n\nTest Passed\n\n\n\n\n# If the type of the vector elements is not a real then there is an error\nprintln(\"empirique([1.+2im,2,3],1.5) = \", empirique([1.,2+2im,3],1.5))\n\nMethodError: MethodError: no method matching empirique(::Vector{ComplexF64}, ::Float64)\nThe function `empirique` exists, but no method is defined for this combination of argument types.\n\nClosest candidates are:\n  empirique(!Matched::Vector{&lt;:Real}, ::Real)\n   @ Main ~/Courses/julia/course-tse-julia/M2/resources/jl_notebook_cell_df34fa98e69747e1a8f8a730347b8e2f_W3sZmlsZQ==.jl:11\n\nMethodError: no method matching empirique(::Vector{ComplexF64}, ::Float64)\n\nThe function `empirique` exists, but no method is defined for this combination of argument types.\n\n\n\nClosest candidates are:\n\n  empirique(!Matched::Vector{&lt;:Real}, ::Real)\n\n   @ Main ~/Courses/julia/course-tse-julia/M2/resources/jl_notebook_cell_df34fa98e69747e1a8f8a730347b8e2f_W3sZmlsZQ==.jl:11\n\n\n\n\n\nStacktrace:\n\n [1] top-level scope\n\n   @ ~/Courses/julia/course-tse-julia/M2/resources/jl_notebook_cell_df34fa98e69747e1a8f8a730347b8e2f_W4sZmlsZQ==.jl:2\n\n\n\nGenerate a sample of N=1000 datas from a uniform distribution on [0,2] and plot the eCDF of this sample\n\n\nusing Plots  # for plots\nN = 1000 # number of datas\nu = 2*rand(N)   # uniform law on [0,2]\nx_grid = -1:0.1:3\n# Plot of the empirical cumulative distribution function\nusing Plots\nF(x) = empirique(u,x)/N\np_uniform_cdf = plot(x_grid,F,xlabel=\"x\", ylabel=\"F(x)\", legend=false)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAdd on the plot the Cumulative Distribution Function For thie use de Distributions Package\n\n\n# add the cumulative distribution function\nusing Distributions"
+  },
+  {
+    "objectID": "M2/resources/TP1-distributions.html#distributions-package",
+    "href": "M2/resources/TP1-distributions.html#distributions-package",
+    "title": "Introduction to julia for statistic",
+    "section": "Distributions Package",
+    "text": "Distributions Package\n\nIntroduction\nThere is lots of libraries (Packages in julia) : https://julialang.org/packages/\nFor the documentation of the Distributions Package see\nhttps://juliastats.org/Distributions.jl/stable/\n\nusing Distributions\nusing Plots\nusing LaTeXStrings\na = 0; b = 2;\ndist = Uniform(a,b)  # dist is an object : the uniform distribution on [a,b]\nprintln(\"type de dist = \",typeof(dist))\n# you can acces to the mean or median of the distribution\nprintln(\"mean(dist) = \", mean(dist))\nprintln(\"median(dist) = \", median(dist))\n# and the the PDF, CDF and inverse CDF function of the distribution\nprintln(\"pdf(1.2) = \", pdf(dist,1.2))\nprintln(\"pdf(3) = \", pdf(dist,3))\nprintln(\"cdf(1.2) = \", cdf(dist,1.2))\nprintln(\"cdf(3) = \", cdf(dist,3))\nprintln(\"inverse of cdf(0.75) = \", quantile(dist,0.75))\n\ntype de dist = Uniform{Float64}\nmean(dist) = 1.0\nmedian(dist) = 1.0\npdf(1.2) = 0.5\npdf(3) = 0.0\ncdf(1.2) = 0.6\ncdf(3) = 1.0\ninverse of cdf(0.75) = 1.5\n\n\n\nExercise 2\nPlot on the same first graph the CFD of the uniform distribution on [0,2]\n\ncdf_uniform(x) = cdf(dist,x)\nplot!(p_uniform_cdf,x_grid,cdf_uniform,xlabel=\"x\", ylabel=\"F(x)\", legend=false)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTriangular Distribution\nWe consider the distribution with the following density distribution f(x) = \\begin{cases}\nx\\quad\\textrm{pour}\\quad x\\in[0,1]\\\\\n2-x\\quad\\textrm{pour}\\quad x\\in[1,2]\\\\\n0\\quad\\textrm{sinon}\n\\end{cases}\nPlot the density, cumulative dendity and inverse cumulative function\n\nusing Distributions\nusing Plots\nusing LaTeXStrings\na = 0; b = 2;\ndist = TriangularDist(a,b,1)  # min = a; max = b; mode = 1\nprintln(\"type de dist = \",typeof(dist))\nprintln(\"params(dist) = \", params(dist))\n\n\n# Density function\np1 = plot(x_grid, x-&gt;pdf(dist,x), color = :blue, linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\")) \n# Cumulative density function\np2 = plot(a-1:0.01:b+1, x-&gt;cdf(dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"F(x)\"))  \n# Inverse cumulative density function\np3 = plot(0:0.01:1, x-&gt;quantile(dist,x), xlims=(0,1), ylims=(0,2), color = :green, linewidth=2, xlabel=(L\"u\"), ylabel=(L\"F^{-1}(u)\"))\nplot(p1,p2,p3, layout=(1,3),legend = false,size = (1200,300), margin = 0.6Plots.cm)\n\ntype de dist = TriangularDist{Float64}\nparams(dist) = (0.0, 2.0, 1.0)\n\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHistogram\nGenerate a sample of 100 datas from the triangular distribution and plot on the same graph the histogram of the simple and the PDF function\n\n# Sample of 100 datas\nt = rand(dist,100)\nhistogram(t) \nhistogram(t,normalize=true) # normalize=true pour ajouter la fonction de densité\nplot!(a-0.5:0.1:b+0.5, x-&gt;pdf.(dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\"))   \n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuestion\nWhat is the problem ?\n\nUse the normalize=true parameter in the histogram function for solving the problem\nExecute for a sample of N = 10000 datas\n\n\n\n\nExample of discret distribution : the binomial distribution\n\nn, p, N = 10, 0.2, 10^3\nbDist = Binomial(n,p)\nxgrid = 0:n\nplot(xgrid,pdf.(bDist,xgrid), color=:orange, seriestype = :scatter)\nplot!(xgrid,pdf.(bDist,xgrid), line = :stem, linewidth=2, color=:orange)"
+  },
+  {
+    "objectID": "M2/resources/TP1-distributions.html#central-limit-theorem",
+    "href": "M2/resources/TP1-distributions.html#central-limit-theorem",
+    "title": "Introduction to julia for statistic",
+    "section": "Central limit theorem",
+    "text": "Central limit theorem\nWe are going to illustrate the central limit theorem :\nSuppose X_1,X_2,\\ldots is a sequence of Independent and identically distributed random variables with E(X_i)=\\mu and Var(X_i)=\\sigma^2 &lt; +\\infty. Then, as n approaches infinity, the random variables \\sqrt{n}(\\bar{X}_n - \\mu) converge in distribution to a normal distribution \\mathcal{N}(0,\\sigma^2)\n\nExercise\n\nChoose a distribution law dist, compute its mean \\mu and its variance \\sigma^2 and N the number of sanple\nFor n in (1,2,5,20)\n\nGenerate N=10000 samples of lenght n from the dist distribution\nCompute the means of the N samples and the N values \\sqrt{n}(\\bar{X}_n - \\mu)\nPlot the histogram of these N values and the normal distribution \\mathcal{N}(0,\\sigma^2)\n\n\n\nX = rand(dist,(2,3))\nprintln(X)\n(mean(X,dims=1))\n\n[1.6238502970841644 1.6152917617470268 0.6276948740727439; 1.9019416578611044 0.9174508739539737 1.258732748878705]\n\n\n1×3 Matrix{Float64}:\n 1.7629  1.26637  0.943214\n\n\n\ndist = Uniform(0,12)\nμ = mean(dist)\nσ = std(dist)\nnormal_dist = Normal(0,σ)\nprintln(L\"\\mu = \", μ)\nprintln(L\"\\sigma = \", σ)\nN = 10000\nn_mean = (1,2,5,20)\n\np = []\nfor n in n_mean \n    X = rand(dist,(n,N))\n    Xbar_n = vec(sqrt(n)*(mean(X,dims=1) .- μ)) # to have a vector and not a matrix of size (1,3)\n    \n    p1 = histogram(Xbar_n,normalize=true) # normalize=true pour ajouter la fonction de densité\n    plot!(p1, -3*σ:0.1:3*σ, x-&gt;pdf.(normal_dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\"))   \n    push!(p,p1)\nend\nprintln(p)\nplot(p[1],p[2],p[3],p[4],legend = false)\n\n$\\mu = $6.0\n$\\sigma = $3.4641016151377544\nAny[Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}]"
+  },
+  {
+    "objectID": "M2/exercices-linear_regression.html",
+    "href": "M2/exercices-linear_regression.html",
+    "title": "Lecture 2",
+    "section": "",
+    "text": "Back to top",
+    "crumbs": [
+      "Master 2",
+      "Tutorials",
+      "Linear regression"
     ]
   },
   {
@@ -34,23 +136,11 @@
     ]
   },
   {
-    "objectID": "M1/getting_started-julia_ecosystem.html#presentation-of-the-julia-programming-language",
-    "href": "M1/getting_started-julia_ecosystem.html#presentation-of-the-julia-programming-language",
+    "objectID": "M1/getting_started-julia_ecosystem.html#a-brief-presentation",
+    "href": "M1/getting_started-julia_ecosystem.html#a-brief-presentation",
     "title": "Julia ecosystem",
-    "section": "",
-    "text": "Wikipedia citation:\n\nJulia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g. data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science.\n\n\nThe work on Julia began in 2009 when Jeff Bezanson, Stefan Karpinski, Alan Edelman and Viral B. Shah set out to create a free language that was both high-level and fast. The first public appearance is in 2012. Julia’s syntax is now considered stable, since version 1.0 in 2018.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Julia ecosystem"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-julia_ecosystem.html#summary-of-the-julia-ecosystem",
-    "href": "M1/getting_started-julia_ecosystem.html#summary-of-the-julia-ecosystem",
-    "title": "Julia ecosystem",
-    "section": "Summary of the Julia ecosystem",
-    "text": "Summary of the Julia ecosystem\nOn the Julia official webpage one can find the following summary of Julia ecosystem.\n\nVisualizationGeneralData ScienceMLScientific DomainsParallel\n\n\n\n\nData Visualization and Plotting\nData visualization has a complicated history. Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.\nPlots.jl is a visualization interface and toolset. It provides a common API across various backends, like GR.jl, PyPlot.jl, and PlotlyJS.jl. Makie.jl is a sophisticated package for complex graphics and animations. Users who are used to “grammar of graphics” plotting APIs should take a look at Gadfly.jl. VegaLite.jl provides the Vega-Lite grammar of interactive graphics interface as a Julia package. For those who do not wish to leave the comfort of the terminal, there is also UnicodePlots.jl.\n\n\n\n\n\nBuild, Deploy or Embed Your Code\nJulia makes it possible to build complete applications. Write web UIs with Dash.jl and Genie.jl or native UIs with Gtk4.jl. Pull data from a variety of databases. Build shared libraries and executables with PackageCompiler. Deploy on a webserver with HTTP.jl or embedded devices. Powerful shell integration make it easy to managing other processes.\nJulia has foreign function interfaces for C, Fortran, C++, Python, R, Java, Mathematica, Matlab, and many other languages. Julia can also be embedded in other programs through its embedding API. Julia’s PackageCompiler makes it possible to build binaries from Julia programs that can be integrated into larger projects. Python programs can call Julia using juliacall. R programs can do the same with R’s JuliaCall, which is demonstrated by calling MixedModels.jl from R. Mathematica supports calling Julia through its External Evaluation System.\n\n\n\n\n\nInteract with your Data\nThe Julia data ecosystem provides DataFrames.jl to work with datasets, and perform common data manipulations. CSV.jl is a fast multi-threaded package to read CSV files and integration with the Arrow ecosystem is in the works with Arrow.jl. Online computations on streaming data can be performed with OnlineStats.jl. The Queryverse provides query, file IO and visualization functionality. In addition to working with tabular data, the JuliaGraphs packages make it easy to work with combinatorial data.\nJulia can work with almost all databases using JDBC.jl and ODBC.jl drivers. In addition, it also integrates with the Spark ecosystem through Spark.jl.\n\n\n\n\n\nScalable Machine Learning\nThe MLJ.jl package provides a unified interface to common machine learning algorithms, which include generalized linear models, decision trees, and clustering. Flux.jl and Lux.jl are powerful packages for Deep Learning. Packages such as Metalhead.jl, ObjectDetector.jl, and TextAnalysis.jl provide ready to use pre-trained models for common tasks. AlphaZero.jl provides a high performance implementation of the reinforcement learning algorithms from AlphaZero. Turing.jl is a best in class package for probabilistic programming.\n\n\n\n\n\nRich Ecosystem for Scientific Computing\nJulia is designed from the ground up to be very good at numerical and scientific computing. This can be seen in the abundance of scientific tooling written in Julia, such as the state-of-the-art differential equations ecosystem (DifferentialEquations.jl), optimization tools (JuMP.jl and Optim.jl), iterative linear solvers (IterativeSolvers.jl), Fast Fourier transforms (AbstractFFTs.jl), and much more. General purpose simulation frameworks are available for Scientific Machine Learning, Quantum computing and much more.\nJulia also offers a number of domain-specific ecosystems, such as in biology (BioJulia), operations research (JuMP Dev), image processing (JuliaImages), quantum physics (QuantumBFS), nonlinear dynamics (JuliaDynamics), quantitative economics (QuantEcon), astronomy (JuliaAstro) and ecology (EcoJulia). With a set of highly enthusiastic developers and maintainers, the scientific ecosystem in Julia continues to grow rapidly.\n\n\n\n\n\nParallel and Heterogeneous Computing\nJulia is designed for parallelism, and provides built-in primitives for parallel computing at every level: instruction level parallelism, multi-threading, GPU computing, and distributed computing. The Celeste.jl project achieved 1.5 PetaFLOP/s on the Cori supercomputer at NERSC using 650,000 cores.\nThe Julia compiler can also generate native code for GPUs. Packages such as DistributedArrays.jl and Dagger.jl provide higher levels of abstraction for parallelism. Distributed Linear Algebra is provided by packages like Elemental.jl and TSVD.jl. MPI style parallelism is also available through MPI.jl.",
+    "section": "A brief presentation",
+    "text": "A brief presentation\n\nThe work on Julia began in 2009 when Jeff Bezanson, Stefan Karpinski, Alan Edelman and Viral B. Shah set out to create a free language that was both high-level and fast. The first public appearance is in 2012. Julia’s syntax is now considered stable, since version 1.0 in 2018. Julia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g. data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science. See the Julia Wikipedia page for more details.\nOn the Julia official webpage one can find the following summary of Julia possibilities.\n\nVisualizationGeneralData ScienceMachine LearningScientific DomainsParallel Computing\n\n\n\n\n\nData Visualization and Plotting\nData visualization has a complicated history. Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.\nPlots.jl is a visualization interface and toolset. It provides a common API across various backends, like GR.jl, PyPlot.jl, and PlotlyJS.jl. Makie.jl is a sophisticated package for complex graphics and animations. Users who are used to “grammar of graphics” plotting APIs should take a look at Gadfly.jl. VegaLite.jl provides the Vega-Lite grammar of interactive graphics interface as a Julia package. For those who do not wish to leave the comfort of the terminal, there is also UnicodePlots.jl.\n\n\n\n\n\nBuild, Deploy or Embed Your Code\nJulia makes it possible to build complete applications. Write web UIs with Dash.jl and Genie.jl or native UIs with Gtk4.jl. Pull data from a variety of databases. Build shared libraries and executables with PackageCompiler. Deploy on a webserver with HTTP.jl or embedded devices. Powerful shell integration make it easy to managing other processes.\nJulia has foreign function interfaces for C, Fortran, C++, Python, R, Java, Mathematica, Matlab, and many other languages. Julia can also be embedded in other programs through its embedding API. Julia’s PackageCompiler makes it possible to build binaries from Julia programs that can be integrated into larger projects. Python programs can call Julia using juliacall. R programs can do the same with R’s JuliaCall, which is demonstrated by calling MixedModels.jl from R. Mathematica supports calling Julia through its External Evaluation System.\n\n\n\n\n\nInteract with your Data\nThe Julia data ecosystem provides DataFrames.jl to work with datasets, and perform common data manipulations. CSV.jl is a fast multi-threaded package to read CSV files and integration with the Arrow ecosystem is in the works with Arrow.jl. Online computations on streaming data can be performed with OnlineStats.jl. The Queryverse provides query, file IO and visualization functionality. In addition to working with tabular data, the JuliaGraphs packages make it easy to work with combinatorial data.\nJulia can work with almost all databases using JDBC.jl and ODBC.jl drivers. In addition, it also integrates with the Spark ecosystem through Spark.jl.\n\n\n\n\n\nScalable Machine Learning\nThe MLJ.jl package provides a unified interface to common machine learning algorithms, which include generalized linear models, decision trees, and clustering. Flux.jl and Lux.jl are powerful packages for Deep Learning. Packages such as Metalhead.jl, ObjectDetector.jl, and TextAnalysis.jl provide ready to use pre-trained models for common tasks. AlphaZero.jl provides a high performance implementation of the reinforcement learning algorithms from AlphaZero. Turing.jl is a best in class package for probabilistic programming.\n\n\n\n\n\nRich Ecosystem for Scientific Computing\nJulia is designed from the ground up to be very good at numerical and scientific computing. This can be seen in the abundance of scientific tooling written in Julia, such as the state-of-the-art differential equations ecosystem (DifferentialEquations.jl), optimization tools (JuMP.jl and Optim.jl), iterative linear solvers (IterativeSolvers.jl), Fast Fourier transforms (AbstractFFTs.jl), and much more. General purpose simulation frameworks are available for Scientific Machine Learning, Quantum computing and much more.\nJulia also offers a number of domain-specific ecosystems, such as in biology (BioJulia), operations research (JuMP Dev), image processing (JuliaImages), quantum physics (QuantumBFS), nonlinear dynamics (JuliaDynamics), quantitative economics (QuantEcon), astronomy (JuliaAstro) and ecology (EcoJulia). With a set of highly enthusiastic developers and maintainers, the scientific ecosystem in Julia continues to grow rapidly.\n\n\n\n\n\nParallel and Heterogeneous Computing\nJulia is designed for parallelism, and provides built-in primitives for parallel computing at every level: instruction level parallelism, multi-threading, GPU computing, and distributed computing. The Celeste.jl project achieved 1.5 PetaFLOP/s on the Cori supercomputer at NERSC using 650,000 cores.\nThe Julia compiler can also generate native code for GPUs. Packages such as DistributedArrays.jl and Dagger.jl provide higher levels of abstraction for parallelism. Distributed Linear Algebra is provided by packages like Elemental.jl and TSVD.jl. MPI style parallelism is also available through MPI.jl.",
     "crumbs": [
       "Master 1",
       "Getting started",
@@ -99,6 +189,18 @@
     "title": "Julia ecosystem",
     "section": "Documentation",
     "text": "Documentation\nIn the Julia documentation, you may find:\n\nsome important Links that can be useful to learn and use the Julia programming language,\na comparison to other languages,\na list of advantages of using Julia,\n\nbut also:\n\nmanuals;\nbase documentation;\nstandard librairies documentation;\ndeveloper documentation.\n\n\n\n\n\n\n\nNote\n\n\n\nIn Julia, it is quite common to have the documentation in the form of manuals or tutorials. See Getting Started with Differential Equations in Julia for instance.\n\n\nExample. Search how to compute the norm of a vector.\n\nThe norm function comes from the standard librairy LinearAlgebra.\n\nHowever, we are not directly at the right place, so I recommend to use the Search docs field.\n\nAnd now, we have the documentation.\n\n\n\n\n\n\n\nNote\n\n\n\nIt is also possible to use the help mode:\nusing LinearAlgebra\n?norm",
+    "crumbs": [
+      "Master 1",
+      "Getting started",
+      "Julia ecosystem"
+    ]
+  },
+  {
+    "objectID": "M1/getting_started-julia_ecosystem.html#packages",
+    "href": "M1/getting_started-julia_ecosystem.html#packages",
+    "title": "Julia ecosystem",
+    "section": "Packages",
+    "text": "Packages\nWhen you install Julia, you download the standard library which contains a list of standard packages to manipulate files, do some linear algebra and more. To use a package, you need first to import it. For instance, to compute the norm of a vector, you need to import LinearAlgebra.jl.\n\nusing LinearAlgebra\nv = [3, 4]\nnorm(v)\n\n5.0\n\n\nFrom the community you will find thousands of other packages. See the list of packages here. Usually, a Julia package is hosted on GitHub and comes with an online documentation. For instance, the package Plots.jl is hosted here and you can find the documention here.\nA very interesting point in Julia is that the language comes with its own package manager. To install and use Plots.jl, you will simply have to write the following lines of code.\n\nusing Pkg\nPkg.add(\"Plots\")\nusing Plots\nplot(x-&gt;x^2, -1, 1) # we plot the function f(x)=x^2 in [-1, 1]\n\n   Resolving package versions...\n  No Changes to `~/Courses/julia/course-tse-julia/M1/Project.toml`\n  No Changes to `~/Courses/julia/course-tse-julia/M1/Manifest.toml`",
     "crumbs": [
       "Master 1",
       "Getting started",
@@ -176,6 +278,18 @@
     ]
   },
   {
+    "objectID": "M1/getting_started-execute_some_code.html#getting-help",
+    "href": "M1/getting_started-execute_some_code.html#getting-help",
+    "title": "Executing Julia code",
+    "section": "Getting help",
+    "text": "Getting help\nBefore you write any line of code, it’s good to know where to find help. The official help page is a good place to start. In particular, the Julia community is always happy to guide beginners.\nAs a rule of thumb, the Discourse forum is where you should ask your questions to make the answers discoverable for future users. If you just want to chat with someone, you have a choice between the open source Zulip and the closed source Slack. Some of the vocabulary used by community members may appear unfamiliar, but don’t worry: StartHere.jl gives you a good overview.",
+    "crumbs": [
+      "Master 1",
+      "Getting started",
+      "Execute some code"
+    ]
+  },
+  {
     "objectID": "M1/getting_started-execute_some_code.html#installation",
     "href": "M1/getting_started-execute_some_code.html#installation",
     "title": "Executing Julia code",
@@ -200,11 +314,11 @@
     ]
   },
   {
-    "objectID": "M1/getting_started-execute_some_code.html#the-julia-repl",
-    "href": "M1/getting_started-execute_some_code.html#the-julia-repl",
+    "objectID": "M1/getting_started-execute_some_code.html#repl",
+    "href": "M1/getting_started-execute_some_code.html#repl",
     "title": "Executing Julia code",
-    "section": "The Julia REPL",
-    "text": "The Julia REPL\nJulia comes with a full-featured interactive command-line REPL (read-eval-print loop) built into the julia executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling julia with no arguments or double-clicking on the executable:\n\n\n$ julia\n\n               _\n   _       _ _(_)_     |  Documentation: https://docs.julialang.org\n  (_)     | (_) (_)    |\n   _ _   _| |_  __ _   |  Type \"?\" for help, \"]?\" for Pkg help.\n  | | | | | | |/ _` |  |\n  | | |_| | | | (_| |  |  Version 1.11.1 (2024-10-16)\n _/ |\\__'_|_|_|\\__'_|  |  Official https://julialang.org/ release\n|__/                   |\n\n\njulia&gt;\n\n\nAfter Julia is launched you can start computing.\n\n1+1\n\n2\n\n\nOr print some text.\n\nprint(\"Hello!\")\n\nHello!\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThe Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc. The different modes are:\n\nThe Julian mode\nHelp mode\nShell mode\nPkg mode\nSearch modes\n\nVisit the command-line REPL page for more details.",
+    "section": "REPL",
+    "text": "REPL\nJulia comes with a full-featured interactive command-line REPL (read-eval-print loop) built into the julia executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling julia with no arguments or double-clicking on the executable:\n\n\n$ julia\n\n               _\n   _       _ _(_)_     |  Documentation: https://docs.julialang.org\n  (_)     | (_) (_)    |\n   _ _   _| |_  __ _   |  Type \"?\" for help, \"]?\" for Pkg help.\n  | | | | | | |/ _` |  |\n  | | |_| | | | (_| |  |  Version 1.11.1 (2024-10-16)\n _/ |\\__'_|_|_|\\__'_|  |  Official https://julialang.org/ release\n|__/                   |\n\n\njulia&gt;\n\n\nAfter Julia is launched you can start computing.\n\n1+1\n\n2\n\n\nOr print some text.\n\nprint(\"Hello!\")\n\nHello!\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThe Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc. The different modes are:\n\nThe Julian mode\nHelp mode\nPackage mode\nShell mode\n\nVisit the command-line REPL page for more details.\n\n\n\nHelp modePackage modeShell mode\n\n\nBy pressing ? you can obtain information and metadata about Julia objects (functions, types, etc.) or unicode symbols. The query fetches the docstring of the object, which explains how to use it.\nhelp?&gt; println\nIf you don’t know the exact name you are looking for, type a word surrounded by quotes to see in which docstrings it pops up. To come back to Julia mode, hit backspace.\n\n\nBy pressing ] you access Pkg.jl, Julia’s integrated package manager. Please visit the documentation for details. Pkg.jl allows you to:\n\n]activate different local, shared or temporary environments;\n]instantiate them by downloading the necessary packages;\n]add, ]update (or ]up) and ]remove (or ]rm) packages;\nget the ]status (or ]st) of your current environment.\n\nAs an illustration, we download the package Plots.jl inside our current environment:\npkg&gt; add Plots\nNote that you can do the same in Julia mode:\njulia&gt; using Pkg\njulia&gt; Pkg.rm(\"Plots\")\nThe package mode itself also has a help mode, accessed with ?. To come back to Julia mode, hit backspace.\n\n\nBy pressing ; you enter a terminal, where you can execute any command you want. Here’s an example for Unix systems:\nshell&gt; pwd\nTo come back to Julia mode, hit backspace.",
     "crumbs": [
       "Master 1",
       "Getting started",
@@ -231,73 +345,6 @@
     "text": "About this site\n\n\n\n Back to top"
   },
   {
-    "objectID": "M2/lecture1.html",
-    "href": "M2/lecture1.html",
-    "title": "Lecture 1",
-    "section": "",
-    "text": "M2 - Lecture 1\n\n\n\n Back to top",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Lecture 1"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-julia_ecosystem.html#presentation-of-julia",
-    "href": "M1/getting_started-julia_ecosystem.html#presentation-of-julia",
-    "title": "Julia ecosystem",
-    "section": "",
-    "text": "Wikipedia citation:\n\nJulia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g. data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science.\n\n\nThe work on Julia began in 2009 when Jeff Bezanson, Stefan Karpinski, Alan Edelman and Viral B. Shah set out to create a free language that was both high-level and fast. The first public appearance is in 2012. Julia’s syntax is now considered stable, since version 1.0 in 2018.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Julia ecosystem"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-julia_ecosystem.html#biref-presentation-of-julia",
-    "href": "M1/getting_started-julia_ecosystem.html#biref-presentation-of-julia",
-    "title": "Julia ecosystem",
-    "section": "",
-    "text": "The work on Julia began in 2009 when Jeff Bezanson, Stefan Karpinski, Alan Edelman and Viral B. Shah set out to create a free language that was both high-level and fast. The first public appearance is in 2012. Julia’s syntax is now considered stable, since version 1.0 in 2018. Julia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g. data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science. See the Julia Wikipedia page for more details.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Julia ecosystem"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-julia_ecosystem.html#biref-presentation-of-julia-ecosystem",
-    "href": "M1/getting_started-julia_ecosystem.html#biref-presentation-of-julia-ecosystem",
-    "title": "Julia ecosystem",
-    "section": "",
-    "text": "The work on Julia began in 2009 when Jeff Bezanson, Stefan Karpinski, Alan Edelman and Viral B. Shah set out to create a free language that was both high-level and fast. The first public appearance is in 2012. Julia’s syntax is now considered stable, since version 1.0 in 2018. Julia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g. data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science. See the Julia Wikipedia page for more details.\nOn the Julia official webpage one can find the following summary of Julia ecosystem.\n\nVisualizationGeneralData ScienceMachine LearningScientific DomainsParallel Computing\n\n\n\n\n\nData visualization has a complicated history. Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.\nPlots.jl is a visualization interface and toolset. It provides a common API across various backends, like GR.jl, PyPlot.jl, and PlotlyJS.jl. Makie.jl is a sophisticated package for complex graphics and animations. Users who are used to “grammar of graphics” plotting APIs should take a look at Gadfly.jl. VegaLite.jl provides the Vega-Lite grammar of interactive graphics interface as a Julia package. For those who do not wish to leave the comfort of the terminal, there is also UnicodePlots.jl.\n\n\n\n\n\n\nJulia makes it possible to build complete applications. Write web UIs with Dash.jl and Genie.jl or native UIs with Gtk4.jl. Pull data from a variety of databases. Build shared libraries and executables with PackageCompiler. Deploy on a webserver with HTTP.jl or embedded devices. Powerful shell integration make it easy to managing other processes.\nJulia has foreign function interfaces for C, Fortran, C++, Python, R, Java, Mathematica, Matlab, and many other languages. Julia can also be embedded in other programs through its embedding API. Julia’s PackageCompiler makes it possible to build binaries from Julia programs that can be integrated into larger projects. Python programs can call Julia using juliacall. R programs can do the same with R’s JuliaCall, which is demonstrated by calling MixedModels.jl from R. Mathematica supports calling Julia through its External Evaluation System.\n\n\n\n\n\n\nThe Julia data ecosystem provides DataFrames.jl to work with datasets, and perform common data manipulations. CSV.jl is a fast multi-threaded package to read CSV files and integration with the Arrow ecosystem is in the works with Arrow.jl. Online computations on streaming data can be performed with OnlineStats.jl. The Queryverse provides query, file IO and visualization functionality. In addition to working with tabular data, the JuliaGraphs packages make it easy to work with combinatorial data.\nJulia can work with almost all databases using JDBC.jl and ODBC.jl drivers. In addition, it also integrates with the Spark ecosystem through Spark.jl.\n\n\n\n\n\n\nThe MLJ.jl package provides a unified interface to common machine learning algorithms, which include generalized linear models, decision trees, and clustering. Flux.jl and Lux.jl are powerful packages for Deep Learning. Packages such as Metalhead.jl, ObjectDetector.jl, and TextAnalysis.jl provide ready to use pre-trained models for common tasks. AlphaZero.jl provides a high performance implementation of the reinforcement learning algorithms from AlphaZero. Turing.jl is a best in class package for probabilistic programming.\n\n\n\n\n\n\nJulia is designed from the ground up to be very good at numerical and scientific computing. This can be seen in the abundance of scientific tooling written in Julia, such as the state-of-the-art differential equations ecosystem (DifferentialEquations.jl), optimization tools (JuMP.jl and Optim.jl), iterative linear solvers (IterativeSolvers.jl), Fast Fourier transforms (AbstractFFTs.jl), and much more. General purpose simulation frameworks are available for Scientific Machine Learning, Quantum computing and much more.\nJulia also offers a number of domain-specific ecosystems, such as in biology (BioJulia), operations research (JuMP Dev), image processing (JuliaImages), quantum physics (QuantumBFS), nonlinear dynamics (JuliaDynamics), quantitative economics (QuantEcon), astronomy (JuliaAstro) and ecology (EcoJulia). With a set of highly enthusiastic developers and maintainers, the scientific ecosystem in Julia continues to grow rapidly.\n\n\n\n\n\n\nJulia is designed for parallelism, and provides built-in primitives for parallel computing at every level: instruction level parallelism, multi-threading, GPU computing, and distributed computing. The Celeste.jl project achieved 1.5 PetaFLOP/s on the Cori supercomputer at NERSC using 650,000 cores.\nThe Julia compiler can also generate native code for GPUs. Packages such as DistributedArrays.jl and Dagger.jl provide higher levels of abstraction for parallelism. Distributed Linear Algebra is provided by packages like Elemental.jl and TSVD.jl. MPI style parallelism is also available through MPI.jl.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Julia ecosystem"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-julia_ecosystem.html#biref-presentation-of-the-julia-ecosystem",
-    "href": "M1/getting_started-julia_ecosystem.html#biref-presentation-of-the-julia-ecosystem",
-    "title": "Julia ecosystem",
-    "section": "",
-    "text": "The work on Julia began in 2009 when Jeff Bezanson, Stefan Karpinski, Alan Edelman and Viral B. Shah set out to create a free language that was both high-level and fast. The first public appearance is in 2012. Julia’s syntax is now considered stable, since version 1.0 in 2018. Julia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g. data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science. See the Julia Wikipedia page for more details.\nOn the Julia official webpage one can find the following summary of Julia ecosystem.\n\nVisualizationGeneralData ScienceMachine LearningScientific DomainsParallel Computing\n\n\n\n\n\n\nData visualization has a complicated history. Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.\nPlots.jl is a visualization interface and toolset. It provides a common API across various backends, like GR.jl, PyPlot.jl, and PlotlyJS.jl. Makie.jl is a sophisticated package for complex graphics and animations. Users who are used to “grammar of graphics” plotting APIs should take a look at Gadfly.jl. VegaLite.jl provides the Vega-Lite grammar of interactive graphics interface as a Julia package. For those who do not wish to leave the comfort of the terminal, there is also UnicodePlots.jl.\n\n\n\n\n\n\nJulia makes it possible to build complete applications. Write web UIs with Dash.jl and Genie.jl or native UIs with Gtk4.jl. Pull data from a variety of databases. Build shared libraries and executables with PackageCompiler. Deploy on a webserver with HTTP.jl or embedded devices. Powerful shell integration make it easy to managing other processes.\nJulia has foreign function interfaces for C, Fortran, C++, Python, R, Java, Mathematica, Matlab, and many other languages. Julia can also be embedded in other programs through its embedding API. Julia’s PackageCompiler makes it possible to build binaries from Julia programs that can be integrated into larger projects. Python programs can call Julia using juliacall. R programs can do the same with R’s JuliaCall, which is demonstrated by calling MixedModels.jl from R. Mathematica supports calling Julia through its External Evaluation System.\n\n\n\n\n\n\nThe Julia data ecosystem provides DataFrames.jl to work with datasets, and perform common data manipulations. CSV.jl is a fast multi-threaded package to read CSV files and integration with the Arrow ecosystem is in the works with Arrow.jl. Online computations on streaming data can be performed with OnlineStats.jl. The Queryverse provides query, file IO and visualization functionality. In addition to working with tabular data, the JuliaGraphs packages make it easy to work with combinatorial data.\nJulia can work with almost all databases using JDBC.jl and ODBC.jl drivers. In addition, it also integrates with the Spark ecosystem through Spark.jl.\n\n\n\n\n\n\nThe MLJ.jl package provides a unified interface to common machine learning algorithms, which include generalized linear models, decision trees, and clustering. Flux.jl and Lux.jl are powerful packages for Deep Learning. Packages such as Metalhead.jl, ObjectDetector.jl, and TextAnalysis.jl provide ready to use pre-trained models for common tasks. AlphaZero.jl provides a high performance implementation of the reinforcement learning algorithms from AlphaZero. Turing.jl is a best in class package for probabilistic programming.\n\n\n\n\n\n\nJulia is designed from the ground up to be very good at numerical and scientific computing. This can be seen in the abundance of scientific tooling written in Julia, such as the state-of-the-art differential equations ecosystem (DifferentialEquations.jl), optimization tools (JuMP.jl and Optim.jl), iterative linear solvers (IterativeSolvers.jl), Fast Fourier transforms (AbstractFFTs.jl), and much more. General purpose simulation frameworks are available for Scientific Machine Learning, Quantum computing and much more.\nJulia also offers a number of domain-specific ecosystems, such as in biology (BioJulia), operations research (JuMP Dev), image processing (JuliaImages), quantum physics (QuantumBFS), nonlinear dynamics (JuliaDynamics), quantitative economics (QuantEcon), astronomy (JuliaAstro) and ecology (EcoJulia). With a set of highly enthusiastic developers and maintainers, the scientific ecosystem in Julia continues to grow rapidly.\n\n\n\n\n\n\nJulia is designed for parallelism, and provides built-in primitives for parallel computing at every level: instruction level parallelism, multi-threading, GPU computing, and distributed computing. The Celeste.jl project achieved 1.5 PetaFLOP/s on the Cori supercomputer at NERSC using 650,000 cores.\nThe Julia compiler can also generate native code for GPUs. Packages such as DistributedArrays.jl and Dagger.jl provide higher levels of abstraction for parallelism. Distributed Linear Algebra is provided by packages like Elemental.jl and TSVD.jl. MPI style parallelism is also available through MPI.jl.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Julia ecosystem"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.qmd.html",
-    "href": "M2/exercices-distribution_of_random_variables.qmd.html",
-    "title": "Lecture 1",
-    "section": "",
-    "text": "M2 - Lecture 1\n\n\n\n Back to top"
-  },
-  {
     "objectID": "M2/resources/TP2-linear-regression.html",
     "href": "M2/resources/TP2-linear-regression.html",
     "title": "TP2 : Linear regression",
@@ -319,270 +366,13 @@
     "text": "Simulation of the distribution the estimates of \\beta_0 and \\beta_1\nWe consider the model Y_i = \\beta_0 + \\beta_1 x_i + \\varepsilon_i with - (\\varepsilon_i)_{i=1,\\ldots,n} i.i.d. - The \\varepsilon_i have the \\mathcal{N}(0,\\sigma^2) distribution - (x_1,\\ldots,x_n) = (1,2,\\ldots,10) - \\beta_0 = 2.0, \\beta_1 = 1.5 and \\sigma = 1.5\nWe recall that the statistic B which estimate the parameter \\beta follows the \\mathcal{N}(\\beta,\\Sigma) distribution, with \\Sigma=\\sigma^2(X^TX)^{-1}.\n\nExercise (more difficult)\n\nDefine a function coefEst() with return the estimation of the parameters \\beta_0 and \\beta_1. We generate a sample of size n=10 of the (y_i)_{i=1,\\ldots,n} inside the fonction\nCompute N samples of the estimation \\hat{\\beta}\nCompute \\Sigma^{-1}\n\n\n\nusing LinearAlgebra\n# initialisation for generating the datas\nβ₀, β₁ = 2.0, 1.5\nβ = [β₀, β₁]\nσ = 2.5\nn, N = 10, 10^4     # n = size of samples, N = number of samples\nα = 0.05\n\nxVals = collect(1:n) # return the vector [1,2,...,n]\nX = [ones(n) xVals]\nfunction  coefEst()\n    \"\"\" the function first generate the y1,... , yn \n    The values of x and y are then set in a DataFrame, and the linear model is created\n    We return the value in a 2 dimensional vector coeff(model)\n    \"\"\"\n    yVals = β₀ .+ β₁*xVals +rand(Normal(0,σ),n)   # genetating a sample\n    data = DataFrame([xVals,yVals], [:x, :y])     # create a DataFrame from the datas\n    model = lm(@formula(y ~ x), data)             # linear regresseion\n    return (coef(model))                          # return the estimation of β₀ and β₁\nend\n\nests = [coefEst() for _ in  1:N]    # generating N sample of the parameters (in an array)\n\n# The statistic B which estimate β follows the N(β,Σ) distribution with, Σ = σ²(XᵀX)⁻¹\nΣ⁻¹ = (1/σ^2)*X'*X    # Compute the inverse of the variance, covariance matrix \nA = cholesky(Σ⁻¹).U   # Z = A(B-β) follows the N(0,I) distribution\nA⁻¹ = inv(A)\n# The radius of a standard bidimensional normal distribution follows a Rayleigh law\nradius = quantile(Rayleigh(),1-α)  # Z₁² + Z₂² follows a χ^2 with 2 dof distribution\nisInEllipse(b) = norm(A*(b-β)) &lt;= radius # function which indicate if b is in the ellipse or not.\n                                         # A*(b-β) transform an ellipse to a circle\nestIn = isInEllipse.(ests)       # Vectorize the function\n\nprintln(\"Percentage of points inside the ellipse : \", sum(estIn)/N)\nscatter(first.(ests[estIn]), last.(ests[estIn]), color = :green, ms=2, msw=0) # display points inside the ellipse \nscatter!(first.(ests[.!estIn]), last.(ests[.!estIn]), color = :red, ms=2, msw=0) # display points outside the ellipse\n# Calculus of the ellipse\nellipsePts = [radius*A⁻¹*[cos(t),sin(t)] + β for t in 0:0.01:2*pi] # compute the ellipse\nscatter!([β₀], [β₁], c=:red, ms=5, msw=2)   # display the center of the ellipse\nplot!(first.(ellipsePts), last.(ellipsePts), c=:blue, lw=2, legend=false,xlabel=L\"\\hat{\\beta}_0\", ylabel=L\"\\hat{\\beta}_1\")\n\nPercentage of points inside the ellipse : 0.9495"
   },
   {
-    "objectID": "M2/exercices-linear_regression.html",
-    "href": "M2/exercices-linear_regression.html",
-    "title": "Lecture 2",
+    "objectID": "M2/index.html",
+    "href": "M2/index.html",
+    "title": "Julia Master 2 course",
     "section": "",
-    "text": "Back to top",
+    "text": "This part is in construction.\n\n\n\n\n\nExercices\n\nIntroduction to Julia for statistics through practice\n\n\n\nDistribution of random variables\nLinear regression\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n Back to top",
     "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Linear regression"
-    ]
-  },
-  {
-    "objectID": "M2/resources/TP1-distributions.html",
-    "href": "M2/resources/TP1-distributions.html",
-    "title": "Introduction to julia for statistic",
-    "section": "",
-    "text": "To contact me, here is my email : joseph.gergaud@toulouse-inp.fr\nThe files ares here :\nhttps://gitlab.irit.fr/toc/etu-n7/julia\ndirectory M2"
-  },
-  {
-    "objectID": "M2/resources/TP1-distributions.html#empirical-cumulative-distribution-function-ecdf",
-    "href": "M2/resources/TP1-distributions.html#empirical-cumulative-distribution-function-ecdf",
-    "title": "Introduction to julia for statistic",
-    "section": "empirical cumulative distribution function, eCDF",
-    "text": "empirical cumulative distribution function, eCDF\n\nExercise 1\n\nBuild the empirical cumulative distribution function\n\n\n# use broadcasting\na = [1,2,3.5]\na .&lt; 2\n\n3-element BitVector:\n 1\n 0\n 0\n\n\n\nusing Test   # for tests\n\n\"\"\"\n   Compute de number of element in the vactor t less than a value x\n   input\n   t : Vector of Real\n   x : Real\n   Output\n   Integer\n\"\"\"\nfunction empirique(t::Vector{&lt;:Real}, x::Real)::Int\n    # to complete\n    return sum(t .&lt; x)  # .&lt; vectorial operation\nend\n\n\nprintln(\"empirique([1.,2,3],1.5) = \", empirique([1.,2,3],1.5))\n\nTest.@test empirique([1.,2,3],1.5) == 1\n\nempirique([1.,2,3],1.5) = 1\n\n\n\nTest Passed\n\n\n\n\n# If the type of the vector elements is not a real then there is an error\nprintln(\"empirique([1.+2im,2,3],1.5) = \", empirique([1.,2+2im,3],1.5))\n\nMethodError: MethodError: no method matching empirique(::Vector{ComplexF64}, ::Float64)\nThe function `empirique` exists, but no method is defined for this combination of argument types.\n\nClosest candidates are:\n  empirique(!Matched::Vector{&lt;:Real}, ::Real)\n   @ Main ~/Courses/julia/course-tse-julia/M2/resources/jl_notebook_cell_df34fa98e69747e1a8f8a730347b8e2f_W3sZmlsZQ==.jl:11\n\nMethodError: no method matching empirique(::Vector{ComplexF64}, ::Float64)\n\nThe function `empirique` exists, but no method is defined for this combination of argument types.\n\n\n\nClosest candidates are:\n\n  empirique(!Matched::Vector{&lt;:Real}, ::Real)\n\n   @ Main ~/Courses/julia/course-tse-julia/M2/resources/jl_notebook_cell_df34fa98e69747e1a8f8a730347b8e2f_W3sZmlsZQ==.jl:11\n\n\n\n\n\nStacktrace:\n\n [1] top-level scope\n\n   @ ~/Courses/julia/course-tse-julia/M2/resources/jl_notebook_cell_df34fa98e69747e1a8f8a730347b8e2f_W4sZmlsZQ==.jl:2\n\n\n\nGenerate a sample of N=1000 datas from a uniform distribution on [0,2] and plot the eCDF of this sample\n\n\nusing Plots  # for plots\nN = 1000 # number of datas\nu = 2*rand(N)   # uniform law on [0,2]\nx_grid = -1:0.1:3\n# Plot of the empirical cumulative distribution function\nusing Plots\nF(x) = empirique(u,x)/N\np_uniform_cdf = plot(x_grid,F,xlabel=\"x\", ylabel=\"F(x)\", legend=false)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAdd on the plot the Cumulative Distribution Function For thie use de Distributions Package\n\n\n# add the cumulative distribution function\nusing Distributions"
-  },
-  {
-    "objectID": "M2/resources/TP1-distributions.html#distributions-package",
-    "href": "M2/resources/TP1-distributions.html#distributions-package",
-    "title": "Introduction to julia for statistic",
-    "section": "Distributions Package",
-    "text": "Distributions Package\n\nIntroduction\nThere is lots of libraries (Packages in julia) : https://julialang.org/packages/\nFor the documentation of the Distributions Package see\nhttps://juliastats.org/Distributions.jl/stable/\n\nusing Distributions\nusing Plots\nusing LaTeXStrings\na = 0; b = 2;\ndist = Uniform(a,b)  # dist is an object : the uniform distribution on [a,b]\nprintln(\"type de dist = \",typeof(dist))\n# you can acces to the mean or median of the distribution\nprintln(\"mean(dist) = \", mean(dist))\nprintln(\"median(dist) = \", median(dist))\n# and the the PDF, CDF and inverse CDF function of the distribution\nprintln(\"pdf(1.2) = \", pdf(dist,1.2))\nprintln(\"pdf(3) = \", pdf(dist,3))\nprintln(\"cdf(1.2) = \", cdf(dist,1.2))\nprintln(\"cdf(3) = \", cdf(dist,3))\nprintln(\"inverse of cdf(0.75) = \", quantile(dist,0.75))\n\ntype de dist = Uniform{Float64}\nmean(dist) = 1.0\nmedian(dist) = 1.0\npdf(1.2) = 0.5\npdf(3) = 0.0\ncdf(1.2) = 0.6\ncdf(3) = 1.0\ninverse of cdf(0.75) = 1.5\n\n\n\nExercise 2\nPlot on the same first graph the CFD of the uniform distribution on [0,2]\n\ncdf_uniform(x) = cdf(dist,x)\nplot!(p_uniform_cdf,x_grid,cdf_uniform,xlabel=\"x\", ylabel=\"F(x)\", legend=false)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTriangular Distribution\nWe consider the distribution with the following density distribution f(x) = \\begin{cases}\nx\\quad\\textrm{pour}\\quad x\\in[0,1]\\\\\n2-x\\quad\\textrm{pour}\\quad x\\in[1,2]\\\\\n0\\quad\\textrm{sinon}\n\\end{cases}\nPlot the density, cumulative dendity and inverse cumulative function\n\nusing Distributions\nusing Plots\nusing LaTeXStrings\na = 0; b = 2;\ndist = TriangularDist(a,b,1)  # min = a; max = b; mode = 1\nprintln(\"type de dist = \",typeof(dist))\nprintln(\"params(dist) = \", params(dist))\n\n\n# Density function\np1 = plot(x_grid, x-&gt;pdf(dist,x), color = :blue, linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\")) \n# Cumulative density function\np2 = plot(a-1:0.01:b+1, x-&gt;cdf(dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"F(x)\"))  \n# Inverse cumulative density function\np3 = plot(0:0.01:1, x-&gt;quantile(dist,x), xlims=(0,1), ylims=(0,2), color = :green, linewidth=2, xlabel=(L\"u\"), ylabel=(L\"F^{-1}(u)\"))\nplot(p1,p2,p3, layout=(1,3),legend = false,size = (1200,300), margin = 0.6Plots.cm)\n\ntype de dist = TriangularDist{Float64}\nparams(dist) = (0.0, 2.0, 1.0)\n\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHistogram\nGenerate a sample of 100 datas from the triangular distribution and plot on the same graph the histogram of the simple and the PDF function\n\n# Sample of 100 datas\nt = rand(dist,100)\nhistogram(t) \nhistogram(t,normalize=true) # normalize=true pour ajouter la fonction de densité\nplot!(a-0.5:0.1:b+0.5, x-&gt;pdf.(dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\"))   \n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuestion\nWhat is the problem ?\n\nUse the normalize=true parameter in the histogram function for solving the problem\nExecute for a sample of N = 10000 datas\n\n\n\n\nExample of discret distribution : the binomial distribution\n\nn, p, N = 10, 0.2, 10^3\nbDist = Binomial(n,p)\nxgrid = 0:n\nplot(xgrid,pdf.(bDist,xgrid), color=:orange, seriestype = :scatter)\nplot!(xgrid,pdf.(bDist,xgrid), line = :stem, linewidth=2, color=:orange)"
-  },
-  {
-    "objectID": "M2/resources/TP1-distributions.html#central-limit-theorem",
-    "href": "M2/resources/TP1-distributions.html#central-limit-theorem",
-    "title": "Introduction to julia for statistic",
-    "section": "Central limit theorem",
-    "text": "Central limit theorem\nWe are going to illustrate the central limit theorem :\nSuppose X_1,X_2,\\ldots is a sequence of Independent and identically distributed random variables with E(X_i)=\\mu and Var(X_i)=\\sigma^2 &lt; +\\infty. Then, as n approaches infinity, the random variables \\sqrt{n}(\\bar{X}_n - \\mu) converge in distribution to a normal distribution \\mathcal{N}(0,\\sigma^2)\n\nExercise\n\nChoose a distribution law dist, compute its mean \\mu and its variance \\sigma^2 and N the number of sanple\nFor n in (1,2,5,20)\n\nGenerate N=10000 samples of lenght n from the dist distribution\nCompute the means of the N samples and the N values \\sqrt{n}(\\bar{X}_n - \\mu)\nPlot the histogram of these N values and the normal distribution \\mathcal{N}(0,\\sigma^2)\n\n\n\nX = rand(dist,(2,3))\nprintln(X)\n(mean(X,dims=1))\n\n[1.6238502970841644 1.6152917617470268 0.6276948740727439; 1.9019416578611044 0.9174508739539737 1.258732748878705]\n\n\n1×3 Matrix{Float64}:\n 1.7629  1.26637  0.943214\n\n\n\ndist = Uniform(0,12)\nμ = mean(dist)\nσ = std(dist)\nnormal_dist = Normal(0,σ)\nprintln(L\"\\mu = \", μ)\nprintln(L\"\\sigma = \", σ)\nN = 10000\nn_mean = (1,2,5,20)\n\np = []\nfor n in n_mean \n    X = rand(dist,(n,N))\n    Xbar_n = vec(sqrt(n)*(mean(X,dims=1) .- μ)) # to have a vector and not a matrix of size (1,3)\n    \n    p1 = histogram(Xbar_n,normalize=true) # normalize=true pour ajouter la fonction de densité\n    plot!(p1, -3*σ:0.1:3*σ, x-&gt;pdf.(normal_dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\"))   \n    push!(p,p1)\nend\nprintln(p)\nplot(p[1],p[2],p[3],p[4],legend = false)\n\n$\\mu = $6.0\n$\\sigma = $3.4641016151377544\nAny[Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}]"
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html",
-    "href": "M2/exercices-distribution_of_random_variables.html",
-    "title": "Distributions of random variables",
-    "section": "",
-    "text": "For the exercices of this page, you need to add the packages Distributions.jl, LaTeXStrings.jl, Plots.jl and Test.jl. To install them please open Julia’s interactive session (known as REPL) and press ] key in the REPL to use the package mode, then add the packages:\njulia&gt; ]\npkg&gt; add Distributions\npkg&gt; add LaTeXStrings\npkg&gt; add Plots\npkg&gt; add Test\nWhen the installation is complete, import them:\n\nusing Distributions\nusing LaTeXStrings # just for labels in some plots\nusing Plots\nusing Test\n\nThe package Test.jl is used to test if the outputs of functions to complete are correct. The packages Plots.jl is for data visualization. Almost everything in Plots is done by specifying plot attributes. Do not hesitate to have a look to this tutorial. Finally, the package Distributions.jl provides a large collection of probabilistic distributions and related functions.",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#preliminaries",
-    "href": "M2/exercices-distribution_of_random_variables.html#preliminaries",
-    "title": "Distributions of random variables",
-    "section": "",
-    "text": "For the exercices of this page, you need to add the packages Distributions.jl, LaTeXStrings.jl, Plots.jl and Test.jl. To install them please open Julia’s interactive session (known as REPL) and press ] key in the REPL to use the package mode, then add the packages:\njulia&gt; ]\npkg&gt; add Distributions\npkg&gt; add LaTeXStrings\npkg&gt; add Plots\npkg&gt; add Test\nWhen the installation is complete, import them:\n\nusing Distributions\nusing LaTeXStrings # just for labels in some plots\nusing Plots\nusing Test\n\nThe package Test.jl is used to test if the outputs of functions to complete are correct. The packages Plots.jl is for data visualization. Almost everything in Plots is done by specifying plot attributes. Do not hesitate to have a look to this tutorial. Finally, the package Distributions.jl provides a large collection of probabilistic distributions and related functions.",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#empirical-cumulative-distribution-function-ecdf",
-    "href": "M2/exercices-distribution_of_random_variables.html#empirical-cumulative-distribution-function-ecdf",
-    "title": "Distributions of random variables",
-    "section": "Empirical cumulative distribution function, eCDF",
-    "text": "Empirical cumulative distribution function, eCDF\n\nExercise 1\n\nBuild the empirical cumulative distribution function, also called eCDF\n\n\n# use broadcasting\na = [1,2,3.5]\na .&lt; 2\n\n3-element BitVector:\n 1\n 0\n 0",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#empirical-cumulative-distribution-function",
-    "href": "M2/exercices-distribution_of_random_variables.html#empirical-cumulative-distribution-function",
-    "title": "Distributions of random variables",
-    "section": "Empirical cumulative distribution function",
-    "text": "Empirical cumulative distribution function\n\nExercise 1\n\nBuild the empirical cumulative distribution function, also called eCDF.\n\n\n\n\n\n\n\nNote\n\n\n\nUse broadcasting to complete the following code.\n\na = [1,2,3.5]\na .&lt; 2\n\n3-element BitVector:\n 1\n 0\n 0\n\n\n\n\n\n\"\"\"\n   Compute de number of element in the vactor t less than a value x\n   input\n   t : Vector of Real\n   x : Real\n   Output\n   Integer\n\"\"\"\nfunction empirique(t::Vector{&lt;:Real}, x::Real)::Int\n    # to complete\n    return sum(t .&lt; x)  # .&lt; vectorial operation\nend\n\n\nprintln(\"empirique([1.,2,3],1.5) = \", empirique([1.,2,3],1.5))\n\nTest.@test empirique([1.,2,3],1.5) == 1\n\nempirique([1.,2,3],1.5) = 1\n\n\n\nTest Passed\n\n\n\n\n# If the type of the vector elements is not a real then there is an error\nprintln(\"empirique([1.+2im,2,3],1.5) = \", empirique([1.,2+2im,3],1.5))\n\n\nMethodError: no method matching empirique(::Vector{ComplexF64}, ::Float64)\nThe function `empirique` exists, but no method is defined for this combination of argument types.\n\nClosest candidates are:\n  empirique(::Vector{&lt;:Real}, ::Real)\n   @ Main In[322]:9\n\n\nStacktrace:\n [1] top-level scope\n   @ In[323]:2\n\n\n\n\nGenerate a sample of N=1000 datas from a uniform distribution on [0,2] and plot the eCDF of this sample.\n\n\nN = 1000 # number of datas\nu = 2*rand(N)   # uniform law on [0,2]\nx_grid = -1:0.1:3\n\n# Plot of the empirical cumulative distribution function\nF(x) = empirique(u,x)/N\np_uniform_cdf = plot(x_grid,F,xlabel=\"x\", ylabel=\"F(x)\", legend=false)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAdd on the plot the eCDF with the Distribution.jl package.",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#distributions-package",
-    "href": "M2/exercices-distribution_of_random_variables.html#distributions-package",
-    "title": "Distributions of random variables",
-    "section": "Distributions Package",
-    "text": "Distributions Package\n\nIntroduction\nThere is lots of libraries (packages in julia): https://julialang.org/packages/. For the documentation of the Distributions Package see https://juliastats.org/Distributions.jl/stable/.\n\na = 0; b = 2;\ndist = Uniform(a,b)  # dist is an object : the uniform distribution on [a,b]\nprintln(\"type de dist = \",typeof(dist))\n# you can acces to the mean or median of the distribution\nprintln(\"mean(dist) = \", mean(dist))\nprintln(\"median(dist) = \", median(dist))\n# and the the PDF, CDF and inverse CDF function of the distribution\nprintln(\"pdf(1.2) = \", pdf(dist,1.2))\nprintln(\"pdf(3) = \", pdf(dist,3))\nprintln(\"cdf(1.2) = \", cdf(dist,1.2))\nprintln(\"cdf(3) = \", cdf(dist,3))\nprintln(\"inverse of cdf(0.75) = \", quantile(dist,0.75))\n\ntype de dist = Uniform{Float64}\nmean(dist) = 1.0\nmedian(dist) = 1.0\npdf(1.2) = 0.5\npdf(3) = 0.0\ncdf(1.2) = 0.6\ncdf(3) = 1.0\ninverse of cdf(0.75) = 1.5\n\n\n\n\nExercise 2\nPlot on the same first graph the CFD of the uniform distribution on [0,2]\n\ncdf_uniform(x) = cdf(dist,x)\nplot!(p_uniform_cdf,x_grid,cdf_uniform,xlabel=\"x\", ylabel=\"F(x)\", legend=false)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTriangular Distribution\nWe consider the distribution with the following density distribution\nf(x) = \\begin{cases}\nx\\quad\\textrm{pour}\\quad x\\in[0,1]\\\\\n2-x\\quad\\textrm{pour}\\quad x\\in[1,2]\\\\\n0\\quad\\textrm{sinon}\n\\end{cases}\nPlot the density, cumulative dendity and inverse cumulative function.\n\na = 0; b = 2;\ndist = TriangularDist(a,b,1)  # min = a; max = b; mode = 1\nprintln(\"type de dist = \",typeof(dist))\nprintln(\"params(dist) = \", params(dist))\n\n# Density function\np1 = plot(x_grid, x-&gt;pdf(dist,x), color = :blue, linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\")) \n# Cumulative density function\np2 = plot(a-1:0.01:b+1, x-&gt;cdf(dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"F(x)\"))  \n# Inverse cumulative density function\np3 = plot(0:0.01:1, x-&gt;quantile(dist,x), xlims=(0,1), ylims=(0,2), color = :green, linewidth=2, xlabel=(L\"u\"), ylabel=(L\"F^{-1}(u)\"))\nplot(p1,p2,p3, layout=(1,3),legend = false,size = (1200,300), margin = 0.6Plots.cm)\n\ntype de dist = TriangularDist{Float64}\nparams(dist) = (0.0, 2.0, 1.0)",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#distributions.jl-package",
-    "href": "M2/exercices-distribution_of_random_variables.html#distributions.jl-package",
-    "title": "Distributions of random variables",
-    "section": "Distributions.jl Package",
-    "text": "Distributions.jl Package\n\nIntroduction\nThere is lots of libraries (packages in julia): https://julialang.org/packages/. For the documentation of the Distributions Package see https://juliastats.org/Distributions.jl/stable/.\n\na = 0; b = 2;\ndist = Uniform(a,b)  # dist is an object : the uniform distribution on [a,b]\nprintln(\"type de dist = \",typeof(dist))\n# you can acces to the mean or median of the distribution\nprintln(\"mean(dist) = \", mean(dist))\nprintln(\"median(dist) = \", median(dist))\n# and the the PDF, CDF and inverse CDF function of the distribution\nprintln(\"pdf(1.2) = \", pdf(dist,1.2))\nprintln(\"pdf(3) = \", pdf(dist,3))\nprintln(\"cdf(1.2) = \", cdf(dist,1.2))\nprintln(\"cdf(3) = \", cdf(dist,3))\nprintln(\"inverse of cdf(0.75) = \", quantile(dist,0.75))\n\ntype de dist = Uniform{Float64}\nmean(dist) = 1.0\nmedian(dist) = 1.0\npdf(1.2) = 0.5\npdf(3) = 0.0\ncdf(1.2) = 0.6\ncdf(3) = 1.0\ninverse of cdf(0.75) = 1.5\n\n\n\n\nExercise 2\nPlot on the same first graph the CFD of the uniform distribution on [0,2]\n\ncdf_uniform(x) = cdf(dist,x)\nplot!(p_uniform_cdf,x_grid,cdf_uniform,xlabel=\"x\", ylabel=\"F(x)\", legend=false)",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#triangular-distribution",
-    "href": "M2/exercices-distribution_of_random_variables.html#triangular-distribution",
-    "title": "Distributions of random variables",
-    "section": "Triangular Distribution",
-    "text": "Triangular Distribution\nWe consider the distribution with the following density distribution\nf(x) = \\begin{cases}\nx\\quad\\textrm{pour}\\quad x\\in[0,1]\\\\\n2-x\\quad\\textrm{pour}\\quad x\\in[1,2]\\\\\n0\\quad\\textrm{sinon}\n\\end{cases}\nPlot the density, cumulative dendity and inverse cumulative function.\n\na = 0; b = 2;\ndist = TriangularDist(a,b,1)  # min = a; max = b; mode = 1\nprintln(\"type de dist = \",typeof(dist))\nprintln(\"params(dist) = \", params(dist))\n\n# Density function\np1 = plot(x_grid, x-&gt;pdf(dist,x), color = :blue, linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\")) \n# Cumulative density function\np2 = plot(a-1:0.01:b+1, x-&gt;cdf(dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"F(x)\"))  \n# Inverse cumulative density function\np3 = plot(0:0.01:1, x-&gt;quantile(dist,x), xlims=(0,1), ylims=(0,2), color = :green, linewidth=2, xlabel=(L\"u\"), ylabel=(L\"F^{-1}(u)\"))\nplot(p1,p2,p3, layout=(1,3),legend = false,size = (1200,300), margin = 0.6Plots.cm)\n\ntype de dist = TriangularDist{Float64}\nparams(dist) = (0.0, 2.0, 1.0)\n\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHistogram\nGenerate a sample of 100 datas from the triangular distribution and plot on the same graph the histogram of the simple and the PDF function\n\n# Sample of 100 datas\nt = rand(dist,100)\nhistogram(t) \nhistogram(t,normalize=true) # normalize=true pour ajouter la fonction de densité\nplot!(a-0.5:0.1:b+0.5, x-&gt;pdf.(dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\"))   \n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuestion\nWhat is the problem ?\n\nUse the normalize=true parameter in the histogram function for solving the problem\nExecute for a sample of N = 10000 datas",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#example-of-discret-distribution-the-binomial-distribution",
-    "href": "M2/exercices-distribution_of_random_variables.html#example-of-discret-distribution-the-binomial-distribution",
-    "title": "Distributions of random variables",
-    "section": "Example of discret distribution : the binomial distribution",
-    "text": "Example of discret distribution : the binomial distribution\n\nn, p, N = 10, 0.2, 10^3\nbDist = Binomial(n,p)\nxgrid = 0:n\nplot(xgrid,pdf.(bDist,xgrid), color=:orange, seriestype = :scatter)\nplot!(xgrid,pdf.(bDist,xgrid), line = :stem, linewidth=2, color=:orange)",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#central-limit-theorem",
-    "href": "M2/exercices-distribution_of_random_variables.html#central-limit-theorem",
-    "title": "Distributions of random variables",
-    "section": "Central limit theorem",
-    "text": "Central limit theorem\nWe are going to illustrate the central limit theorem :\nSuppose X_1,X_2,\\ldots is a sequence of Independent and identically distributed random variables with E(X_i)=\\mu and Var(X_i)=\\sigma^2 &lt; +\\infty. Then, as n approaches infinity, the random variables \\sqrt{n}(\\bar{X}_n - \\mu) converge in distribution to a normal distribution \\mathcal{N}(0,\\sigma^2)\n\nExercise\n\nChoose a distribution law dist, compute its mean \\mu and its variance \\sigma^2 and N the number of sanple\nFor n in (1,2,5,20)\n\nGenerate N=10000 samples of lenght n from the dist distribution\nCompute the means of the N samples and the N values \\sqrt{n}(\\bar{X}_n - \\mu)\nPlot the histogram of these N values and the normal distribution \\mathcal{N}(0,\\sigma^2)\n\n\n\nX = rand(dist,(2,3))\nprintln(X)\n(mean(X,dims=1))\n\n[0.3900501110792506 1.6017523790079928 0.8608969107894937; 0.8100903551087728 0.820605938432214 0.7620181237169289]\n\n\n1×3 Matrix{Float64}:\n 0.60007  1.21118  0.811458\n\n\n\ndist = Uniform(0,12)\nμ = mean(dist)\nσ = std(dist)\nnormal_dist = Normal(0,σ)\nprintln(L\"\\mu = \", μ)\nprintln(L\"\\sigma = \", σ)\nN = 10000\nn_mean = (1,2,5,20)\n\np = []\nfor n in n_mean \n    X = rand(dist,(n,N))\n    Xbar_n = vec(sqrt(n)*(mean(X,dims=1) .- μ)) # to have a vector and not a matrix of size (1,3)\n    \n    p1 = histogram(Xbar_n,normalize=true) # normalize=true pour ajouter la fonction de densité\n    plot!(p1, -3*σ:0.1:3*σ, x-&gt;pdf.(normal_dist,x), linewidth=2, xlabel=(L\"x\"), ylabel=(L\"f(x)\"))   \n    push!(p,p1)\nend\nprintln(p)\nplot(p[1],p[2],p[3],p[4],legend = false)\n\n$\\mu = $6.0\n$\\sigma = $3.4641016151377544\nAny[Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}, Plot{Plots.GRBackend() n=2}]",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#empirical-distribution-function",
-    "href": "M2/exercices-distribution_of_random_variables.html#empirical-distribution-function",
-    "title": "Distributions of random variables",
-    "section": "Empirical distribution function",
-    "text": "Empirical distribution function\n\nExercise 1\n\nBuild the empirical cumulative distribution function, also called eCDF.\n\n\n\n\n\n\n\nNote\n\n\n\nUse broadcasting to complete the following code.\n\na = [1,2,3.5]\na .&lt; 2\n\n3-element BitVector:\n 1\n 0\n 0\n\n\n\n\n\n\"\"\"\n   Compute de number of element in the vactor t less than a value x\n   input\n   t : Vector of Real\n   x : Real\n   Output\n   Integer\n\"\"\"\nfunction empirique(t::Vector{&lt;:Real}, x::Real)::Int\n    # to complete\n    return sum(t .&lt; x)  # .&lt; vectorial operation\nend\n\n\nprintln(\"empirique([1.,2,3],1.5) = \", empirique([1.,2,3],1.5))\n\nTest.@test empirique([1.,2,3],1.5) == 1\n\nempirique([1.,2,3],1.5) = 1\n\n\n\nTest Passed\n\n\n\n\n# If the type of the vector elements is not a real then there is an error\nprintln(\"empirique([1.+2im,2,3],1.5) = \", empirique([1.,2+2im,3],1.5))\n\n\nMethodError: no method matching empirique(::Vector{ComplexF64}, ::Float64)\nThe function `empirique` exists, but no method is defined for this combination of argument types.\n\nClosest candidates are:\n  empirique(::Vector{&lt;:Real}, ::Real)\n   @ Main In[352]:9\n\n\nStacktrace:\n [1] top-level scope\n   @ In[353]:2\n\n\n\n\nGenerate a sample of N=1000 datas from a uniform distribution on [0,2] and plot the eCDF of this sample.\n\n\nN = 1000 # number of datas\nu = 2*rand(N)   # uniform law on [0,2]\nx_grid = -1:0.1:3\n\n# Plot of the empirical cumulative distribution function\nF(x) = empirique(u,x)/N\np_uniform_cdf = plot(x_grid,F,xlabel=\"x\", ylabel=\"F(x)\", legend=false)\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAdd on the plot the eCDF with the Distribution.jl package.",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M2/exercices-distribution_of_random_variables.html#example-of-discret-distribution",
-    "href": "M2/exercices-distribution_of_random_variables.html#example-of-discret-distribution",
-    "title": "Distributions of random variables",
-    "section": "Example of discret distribution",
-    "text": "Example of discret distribution\nWe present here the binomial distribution which is a discrete probability distribution.\n\nn, p, N = 10, 0.2, 10^3\nbDist = Binomial(n,p)\nxgrid = 0:n\nplot(xgrid,pdf.(bDist,xgrid), color=:orange, seriestype = :scatter)\nplot!(xgrid,pdf.(bDist,xgrid), line = :stem, linewidth=2, color=:orange)",
-    "crumbs": [
-      "Master 2",
-      "Tutorials",
-      "Distribution of random variables"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-julia_ecosystem.html#brief-presentation-of-the-julia-ecosystem",
-    "href": "M1/getting_started-julia_ecosystem.html#brief-presentation-of-the-julia-ecosystem",
-    "title": "Julia ecosystem",
-    "section": "",
-    "text": "The work on Julia began in 2009 when Jeff Bezanson, Stefan Karpinski, Alan Edelman and Viral B. Shah set out to create a free language that was both high-level and fast. The first public appearance is in 2012. Julia’s syntax is now considered stable, since version 1.0 in 2018. Julia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g. data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science. See the Julia Wikipedia page for more details.\nOn the Julia official webpage one can find the following summary of Julia possibilities.\n\nVisualizationGeneralData ScienceMachine LearningScientific DomainsParallel Computing\n\n\n\n\n\n\nData visualization has a complicated history. Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.\nPlots.jl is a visualization interface and toolset. It provides a common API across various backends, like GR.jl, PyPlot.jl, and PlotlyJS.jl. Makie.jl is a sophisticated package for complex graphics and animations. Users who are used to “grammar of graphics” plotting APIs should take a look at Gadfly.jl. VegaLite.jl provides the Vega-Lite grammar of interactive graphics interface as a Julia package. For those who do not wish to leave the comfort of the terminal, there is also UnicodePlots.jl.\n\n\n\n\n\n\nJulia makes it possible to build complete applications. Write web UIs with Dash.jl and Genie.jl or native UIs with Gtk4.jl. Pull data from a variety of databases. Build shared libraries and executables with PackageCompiler. Deploy on a webserver with HTTP.jl or embedded devices. Powerful shell integration make it easy to managing other processes.\nJulia has foreign function interfaces for C, Fortran, C++, Python, R, Java, Mathematica, Matlab, and many other languages. Julia can also be embedded in other programs through its embedding API. Julia’s PackageCompiler makes it possible to build binaries from Julia programs that can be integrated into larger projects. Python programs can call Julia using juliacall. R programs can do the same with R’s JuliaCall, which is demonstrated by calling MixedModels.jl from R. Mathematica supports calling Julia through its External Evaluation System.\n\n\n\n\n\n\nThe Julia data ecosystem provides DataFrames.jl to work with datasets, and perform common data manipulations. CSV.jl is a fast multi-threaded package to read CSV files and integration with the Arrow ecosystem is in the works with Arrow.jl. Online computations on streaming data can be performed with OnlineStats.jl. The Queryverse provides query, file IO and visualization functionality. In addition to working with tabular data, the JuliaGraphs packages make it easy to work with combinatorial data.\nJulia can work with almost all databases using JDBC.jl and ODBC.jl drivers. In addition, it also integrates with the Spark ecosystem through Spark.jl.\n\n\n\n\n\n\nThe MLJ.jl package provides a unified interface to common machine learning algorithms, which include generalized linear models, decision trees, and clustering. Flux.jl and Lux.jl are powerful packages for Deep Learning. Packages such as Metalhead.jl, ObjectDetector.jl, and TextAnalysis.jl provide ready to use pre-trained models for common tasks. AlphaZero.jl provides a high performance implementation of the reinforcement learning algorithms from AlphaZero. Turing.jl is a best in class package for probabilistic programming.\n\n\n\n\n\n\nJulia is designed from the ground up to be very good at numerical and scientific computing. This can be seen in the abundance of scientific tooling written in Julia, such as the state-of-the-art differential equations ecosystem (DifferentialEquations.jl), optimization tools (JuMP.jl and Optim.jl), iterative linear solvers (IterativeSolvers.jl), Fast Fourier transforms (AbstractFFTs.jl), and much more. General purpose simulation frameworks are available for Scientific Machine Learning, Quantum computing and much more.\nJulia also offers a number of domain-specific ecosystems, such as in biology (BioJulia), operations research (JuMP Dev), image processing (JuliaImages), quantum physics (QuantumBFS), nonlinear dynamics (JuliaDynamics), quantitative economics (QuantEcon), astronomy (JuliaAstro) and ecology (EcoJulia). With a set of highly enthusiastic developers and maintainers, the scientific ecosystem in Julia continues to grow rapidly.\n\n\n\n\n\n\nJulia is designed for parallelism, and provides built-in primitives for parallel computing at every level: instruction level parallelism, multi-threading, GPU computing, and distributed computing. The Celeste.jl project achieved 1.5 PetaFLOP/s on the Cori supercomputer at NERSC using 650,000 cores.\nThe Julia compiler can also generate native code for GPUs. Packages such as DistributedArrays.jl and Dagger.jl provide higher levels of abstraction for parallelism. Distributed Linear Algebra is provided by packages like Elemental.jl and TSVD.jl. MPI style parallelism is also available through MPI.jl.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Julia ecosystem"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-julia_ecosystem.html#a-brief-presentation",
-    "href": "M1/getting_started-julia_ecosystem.html#a-brief-presentation",
-    "title": "Julia ecosystem",
-    "section": "A brief presentation",
-    "text": "A brief presentation\n\nThe work on Julia began in 2009 when Jeff Bezanson, Stefan Karpinski, Alan Edelman and Viral B. Shah set out to create a free language that was both high-level and fast. The first public appearance is in 2012. Julia’s syntax is now considered stable, since version 1.0 in 2018. Julia is a high-level, general-purpose dynamic programming language, still designed to be fast and productive, for e.g. data science, artificial intelligence, machine learning, modeling and simulation, most commonly used for numerical analysis and computational science. See the Julia Wikipedia page for more details.\nOn the Julia official webpage one can find the following summary of Julia possibilities.\n\nVisualizationGeneralData ScienceMachine LearningScientific DomainsParallel Computing\n\n\n\n\n\nData Visualization and Plotting\nData visualization has a complicated history. Plotting software makes trade-offs between features and simplicity, speed and beauty, and a static and dynamic interface. Some packages make a display and never change it, while others make updates in real-time.\nPlots.jl is a visualization interface and toolset. It provides a common API across various backends, like GR.jl, PyPlot.jl, and PlotlyJS.jl. Makie.jl is a sophisticated package for complex graphics and animations. Users who are used to “grammar of graphics” plotting APIs should take a look at Gadfly.jl. VegaLite.jl provides the Vega-Lite grammar of interactive graphics interface as a Julia package. For those who do not wish to leave the comfort of the terminal, there is also UnicodePlots.jl.\n\n\n\n\n\nBuild, Deploy or Embed Your Code\nJulia makes it possible to build complete applications. Write web UIs with Dash.jl and Genie.jl or native UIs with Gtk4.jl. Pull data from a variety of databases. Build shared libraries and executables with PackageCompiler. Deploy on a webserver with HTTP.jl or embedded devices. Powerful shell integration make it easy to managing other processes.\nJulia has foreign function interfaces for C, Fortran, C++, Python, R, Java, Mathematica, Matlab, and many other languages. Julia can also be embedded in other programs through its embedding API. Julia’s PackageCompiler makes it possible to build binaries from Julia programs that can be integrated into larger projects. Python programs can call Julia using juliacall. R programs can do the same with R’s JuliaCall, which is demonstrated by calling MixedModels.jl from R. Mathematica supports calling Julia through its External Evaluation System.\n\n\n\n\n\nInteract with your Data\nThe Julia data ecosystem provides DataFrames.jl to work with datasets, and perform common data manipulations. CSV.jl is a fast multi-threaded package to read CSV files and integration with the Arrow ecosystem is in the works with Arrow.jl. Online computations on streaming data can be performed with OnlineStats.jl. The Queryverse provides query, file IO and visualization functionality. In addition to working with tabular data, the JuliaGraphs packages make it easy to work with combinatorial data.\nJulia can work with almost all databases using JDBC.jl and ODBC.jl drivers. In addition, it also integrates with the Spark ecosystem through Spark.jl.\n\n\n\n\n\nScalable Machine Learning\nThe MLJ.jl package provides a unified interface to common machine learning algorithms, which include generalized linear models, decision trees, and clustering. Flux.jl and Lux.jl are powerful packages for Deep Learning. Packages such as Metalhead.jl, ObjectDetector.jl, and TextAnalysis.jl provide ready to use pre-trained models for common tasks. AlphaZero.jl provides a high performance implementation of the reinforcement learning algorithms from AlphaZero. Turing.jl is a best in class package for probabilistic programming.\n\n\n\n\n\nRich Ecosystem for Scientific Computing\nJulia is designed from the ground up to be very good at numerical and scientific computing. This can be seen in the abundance of scientific tooling written in Julia, such as the state-of-the-art differential equations ecosystem (DifferentialEquations.jl), optimization tools (JuMP.jl and Optim.jl), iterative linear solvers (IterativeSolvers.jl), Fast Fourier transforms (AbstractFFTs.jl), and much more. General purpose simulation frameworks are available for Scientific Machine Learning, Quantum computing and much more.\nJulia also offers a number of domain-specific ecosystems, such as in biology (BioJulia), operations research (JuMP Dev), image processing (JuliaImages), quantum physics (QuantumBFS), nonlinear dynamics (JuliaDynamics), quantitative economics (QuantEcon), astronomy (JuliaAstro) and ecology (EcoJulia). With a set of highly enthusiastic developers and maintainers, the scientific ecosystem in Julia continues to grow rapidly.\n\n\n\n\n\nParallel and Heterogeneous Computing\nJulia is designed for parallelism, and provides built-in primitives for parallel computing at every level: instruction level parallelism, multi-threading, GPU computing, and distributed computing. The Celeste.jl project achieved 1.5 PetaFLOP/s on the Cori supercomputer at NERSC using 650,000 cores.\nThe Julia compiler can also generate native code for GPUs. Packages such as DistributedArrays.jl and Dagger.jl provide higher levels of abstraction for parallelism. Distributed Linear Algebra is provided by packages like Elemental.jl and TSVD.jl. MPI style parallelism is also available through MPI.jl.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Julia ecosystem"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-writing_some_code.html",
-    "href": "M1/getting_started-writing_some_code.html",
-    "title": "Writing some Julia code",
-    "section": "",
-    "text": "Julia can be easily downloaded and installed. See the download page where we can find the following.\n\nMac / LinuxWindows\n\n\nInstall the latest Julia version by running this in your terminal:\ncurl -fsSL https://install.julialang.org | sh\n\n\nInstall the latest Julia version from the Microsoft Store by running this in the command prompt:\nwinget install julia -s msstore\n\n\n\nThere are different ways to execute Julia code:\n\nwithin a .ipynb file, that is a Jupyter notebook;\ndirectly into the Julia REPL;\nfrom a script file .jl, either in the REPL or in the terminal;\n…"
-  },
-  {
-    "objectID": "M1/getting_started-writing_some_code.html#installation",
-    "href": "M1/getting_started-writing_some_code.html#installation",
-    "title": "Writing some Julia code",
-    "section": "",
-    "text": "Julia can be easily downloaded and installed. See the download page where we can find the following.\n\nMac / LinuxWindows\n\n\nInstall the latest Julia version by running this in your terminal:\ncurl -fsSL https://install.julialang.org | sh\n\n\nInstall the latest Julia version from the Microsoft Store by running this in the command prompt:\nwinget install julia -s msstore\n\n\n\nThere are different ways to execute Julia code:\n\nwithin a .ipynb file, that is a Jupyter notebook;\ndirectly into the Julia REPL;\nfrom a script file .jl, either in the REPL or in the terminal;\n…"
-  },
-  {
-    "objectID": "M1/getting_started-writing_some_code.html#jupyter-notebooks",
-    "href": "M1/getting_started-writing_some_code.html#jupyter-notebooks",
-    "title": "Writing some Julia code",
-    "section": "Jupyter notebooks",
-    "text": "Jupyter notebooks\n\nYou can write some Julia code inside a Jupyter notebook and execute the code. To interact with the Julia language using Jupyter notebook, please install IJulia.jl.\n\nIJulia is a Julia-language backend combined with the Jupyter interactive environment (also used by IPython). This combination allows you to interact with the Julia language using Jupyter/IPython’s powerful graphical notebook, which combines code, formatted text, math, and multimedia in a single document. IJulia is a Jupyter language kernel and works with a variety of notebook user interfaces. In addition to the classic Jupyter Notebook, IJulia also works with JupyterLab, a Jupyter-based integrated development environment for notebooks and code. The nteract notebook desktop supports IJulia with detailed instructions for its installation with nteract.\n\nTry to execute the code of example.ipynb."
-  },
-  {
-    "objectID": "M1/getting_started-writing_some_code.html#the-julia-repl",
-    "href": "M1/getting_started-writing_some_code.html#the-julia-repl",
-    "title": "Writing some Julia code",
-    "section": "The Julia REPL",
-    "text": "The Julia REPL\nJulia comes with a full-featured interactive command-line REPL (read-eval-print loop) built into the julia executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling julia with no arguments or double-clicking on the executable:\n\n\n$ julia\n\n               _\n   _       _ _(_)_     |  Documentation: https://docs.julialang.org\n  (_)     | (_) (_)    |\n   _ _   _| |_  __ _   |  Type \"?\" for help, \"]?\" for Pkg help.\n  | | | | | | |/ _` |  |\n  | | |_| | | | (_| |  |  Version 1.11.1 (2024-10-16)\n _/ |\\__'_|_|_|\\__'_|  |  Official https://julialang.org/ release\n|__/                   |\n\n\njulia&gt;\n\n\nAfter Julia is launched you can start computing.\n\n1+1\n\n2\n\n\nOr print some text.\n\nprint(\"Hello!\")\n\nHello!\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThe Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc. The different modes are:\n\nThe Julian mode\nHelp mode\nShell mode\nPkg mode\nSearch modes\n\nVisit the command-line REPL page for more details."
-  },
-  {
-    "objectID": "M1/getting_started-writing_some_code.html#julia-scripts",
-    "href": "M1/getting_started-writing_some_code.html#julia-scripts",
-    "title": "Writing some Julia code",
-    "section": "Julia scripts",
-    "text": "Julia scripts\nYou can also write some code in a .jl script.\n\n\n$ cat data/introduction/example.jl\n\nprintln(\"Hello!\")\n\n\nand execute the code either in the REPL:\n\ninclude(\"data/introduction/example.jl\")\n\nHello!\n\n\nor in a terminal with the command $ julia example.jl."
-  },
-  {
-    "objectID": "M1/getting_started-execute_some_code.html#getting-help",
-    "href": "M1/getting_started-execute_some_code.html#getting-help",
-    "title": "Executing Julia code",
-    "section": "Getting help",
-    "text": "Getting help\nBefore you write any line of code, it’s good to know where to find help. The official help page is a good place to start. In particular, the Julia community is always happy to guide beginners.\nAs a rule of thumb, the Discourse forum is where you should ask your questions to make the answers discoverable for future users. If you just want to chat with someone, you have a choice between the open source Zulip and the closed source Slack. Some of the vocabulary used by community members may appear unfamiliar, but don’t worry: StartHere.jl gives you a good overview.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Execute some code"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-execute_some_code.html#repl",
-    "href": "M1/getting_started-execute_some_code.html#repl",
-    "title": "Executing Julia code",
-    "section": "REPL",
-    "text": "REPL\nJulia comes with a full-featured interactive command-line REPL (read-eval-print loop) built into the julia executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling julia with no arguments or double-clicking on the executable:\n\n\n$ julia\n\n               _\n   _       _ _(_)_     |  Documentation: https://docs.julialang.org\n  (_)     | (_) (_)    |\n   _ _   _| |_  __ _   |  Type \"?\" for help, \"]?\" for Pkg help.\n  | | | | | | |/ _` |  |\n  | | |_| | | | (_| |  |  Version 1.11.1 (2024-10-16)\n _/ |\\__'_|_|_|\\__'_|  |  Official https://julialang.org/ release\n|__/                   |\n\n\njulia&gt;\n\n\nAfter Julia is launched you can start computing.\n\n1+1\n\n2\n\n\nOr print some text.\n\nprint(\"Hello!\")\n\nHello!\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThe Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc. The different modes are:\n\nThe Julian mode\nHelp mode\nPackage mode\nShell mode\n\nVisit the command-line REPL page for more details.\n\n\n\nHelp modePackage modeShell mode\n\n\nBy pressing ? you can obtain information and metadata about Julia objects (functions, types, etc.) or unicode symbols. The query fetches the docstring of the object, which explains how to use it.\nhelp?&gt; println\nIf you don’t know the exact name you are looking for, type a word surrounded by quotes to see in which docstrings it pops up. To come back to Julia mode, hit backspace.\n\n\nBy pressing ] you access Pkg.jl, Julia’s integrated package manager. Please visit the documentation for details. Pkg.jl allows you to:\n\n]activate different local, shared or temporary environments;\n]instantiate them by downloading the necessary packages;\n]add, ]update (or ]up) and ]remove (or ]rm) packages;\nget the ]status (or ]st) of your current environment.\n\nAs an illustration, we download the package Plots.jl inside our current environment:\npkg&gt; add Plots\nNote that you can do the same in Julia mode:\njulia&gt; using Pkg\njulia&gt; Pkg.rm(\"Plots\")\nThe package mode itself also has a help mode, accessed with ?. To come back to Julia mode, hit backspace.\n\n\nBy pressing ; you enter a terminal, where you can execute any command you want. Here’s an example for Unix systems:\nshell&gt; pwd\nTo come back to Julia mode, hit backspace.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Execute some code"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-julia_ecosystem.html#packages",
-    "href": "M1/getting_started-julia_ecosystem.html#packages",
-    "title": "Julia ecosystem",
-    "section": "Packages",
-    "text": "Packages\nWhen you install Julia, you download the standard library which contains a list of standard packages to manipulate files, do some linear algebra and more. To use a package, you need first to import it. For instance, to compute the norm of a vector, you need to import LinearAlgebra.jl.\n\nusing LinearAlgebra\nv = [3, 4]\nnorm(v)\n\n5.0\n\n\nFrom the community you will find thousands of other packages. See the list of packages here. Usually, a Julia package is hosted on GitHub and comes with an online documentation. For instance, the package Plots.jl is hosted here and you can find the documention here.\nA very interesting point in Julia is that the language comes with its own package manager. To install and use Plots.jl, you will simply have to write the following lines of code.\n\nusing Pkg\nPkg.add(\"Plots\")\nusing Plots\nplot(x-&gt;x^2, -1, 1) # we plot the function f(x)=x^2 in [-1, 1]\n\n   Resolving package versions...\n  No Changes to `~/Courses/julia/course-tse-julia/M1/Project.toml`\n  No Changes to `~/Courses/julia/course-tse-julia/M1/Manifest.toml`",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Julia ecosystem"
+      "Master 2"
     ]
   }
 ]
