@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Executing Julia code – Julia course</title>
+<title>How to execute some Julia code – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,11 +106,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../assets/css/styles.css">
-<meta property="og:title" content="Executing Julia code – Julia course">
+<meta property="og:title" content="How to execute some Julia code – Julia course">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
 <meta property="og:site_name" content="Julia course">
-<meta name="twitter:title" content="Executing Julia code – Julia course">
+<meta name="twitter:title" content="How to execute some Julia code – Julia course">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#getting-help" id="toc-getting-help" class="nav-link active" data-scroll-target="#getting-help">Getting help</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#jupyter-notebooks" id="toc-jupyter-notebooks" class="nav-link" data-scroll-target="#jupyter-notebooks">Jupyter notebooks</a></li>
-  <li><a href="#repl" id="toc-repl" class="nav-link" data-scroll-target="#repl">REPL</a></li>
+  <li><a href="#the-julia-repl" id="toc-the-julia-repl" class="nav-link" data-scroll-target="#the-julia-repl">The Julia REPL</a></li>
   <li><a href="#julia-scripts" id="toc-julia-scripts" class="nav-link" data-scroll-target="#julia-scripts">Julia scripts</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia-M1/edit/main/M1/getting_started-execute_some_code.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/blob/main/M1/getting_started-execute_some_code.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -235,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/getting_started-julia_ecosystem.html">Getting started</a></li><li class="breadcrumb-item"><a href="../M1/getting_started-execute_some_code.html">Execute some code</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Executing Julia code</h1>
+<h1 class="title">How to execute some Julia code</h1>
 </div>
 
 
@@ -252,7 +252,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This part is partially inspired from the post <a href="https://modernjuliaworkflows.org/writing/">Writing your code</a> of the website <a href="https://modernjuliaworkflows.org">Modern Julia Workflows</a>, where you can find tips to make the coding experience more pleasant and efficient.</p>
 <section id="getting-help" class="level2">
 <h2 class="anchored" data-anchor-id="getting-help">Getting help</h2>
 <p>Before you write any line of code, it’s good to know where to find help. The official <a href="https://julialang.org/about/help/">help page</a> is a good place to start. In particular, the Julia <a href="https://julialang.org/community/">community</a> is always happy to guide beginners.</p>
@@ -274,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>There are different ways to write and execute some Julia code:</p>
+<p>There are different ways to execute Julia code:</p>
 <ul>
 <li>within a <code>.ipynb</code> file, that is a Jupyter notebook;</li>
 <li>directly into the Julia REPL;</li>
@@ -284,57 +283,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="jupyter-notebooks" class="level2">
 <h2 class="anchored" data-anchor-id="jupyter-notebooks">Jupyter notebooks</h2>
-<p>You can write some Julia code inside a <a href="https://jupyter.org">Jupyter notebook</a> and execute the code. To use it with Julia, you will need to install the <a href="https://github.com/JuliaLang/IJulia.jl">IJulia.jl</a> backend. Then, if you have also <a href="https://jupyter.org/install">installed Jupyter</a> with <code>pip install jupyterlab</code>, you can run this command to launch the server:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If you only have IJulia.jl on your system, you can run this:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">IJulia</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>IJulia.<span class="fu">notebook</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Jupyter notebooks can be opened, modified and run directly from VS Code. Thanks to the Julia extension, you don’t even need to install IJulia.jl or Jupyter first.</p>
-</div>
-</div>
-<p>Try to execute the code of <a href="data/introduction/example.ipynb">example.ipynb</a>. You can dowload it clicking on the following image.</p>
-<p><a href="data/introduction/example.ipynb" download=""> <img src="../assets/images/jupyter-file.png" width="50"> </a></p>
+<p><img height="100px" style="margin-left:15px; margin-right:15px; float: right;" src="../assets/images/logo-jupyter.svg"></p>
+<p>You can write some Julia code inside a <a href="https://jupyter.org">Jupyter notebook</a> and execute the code. To interact with the Julia language using Jupyter notebook, please install <a href="https://github.com/JuliaLang/IJulia.jl">IJulia.jl</a>.</p>
+<blockquote class="blockquote">
+<p><strong>IJulia</strong> is a <a href="http://julialang.org/">Julia-language</a> backend combined with the <a href="http://jupyter.org/">Jupyter</a> interactive environment (also used by <a href="http://ipython.org/">IPython</a>). This combination allows you to interact with the Julia language using Jupyter/IPython’s powerful <a href="http://ipython.org/notebook.html">graphical notebook</a>, which combines code, formatted text, math, and multimedia in a single document. IJulia is a Jupyter language kernel and works with a variety of notebook user interfaces. In addition to the classic Jupyter Notebook, IJulia also works with <a href="https://jupyterlab.readthedocs.io/en/stable/">JupyterLab</a>, a Jupyter-based integrated development environment for notebooks and code. The <a href="https://nteract.io/">nteract notebook desktop</a> supports IJulia with detailed instructions for its <a href="https://nteract.io/kernels/julia">installation with nteract</a>.</p>
+</blockquote>
+<p>Try to execute the code of <a href="data/introduction/example.ipynb">example.ipynb</a>.</p>
 </section>
-<section id="repl" class="level2">
-<h2 class="anchored" data-anchor-id="repl">REPL</h2>
+<section id="the-julia-repl" class="level2">
+<h2 class="anchored" data-anchor-id="the-julia-repl">The Julia REPL</h2>
 <p>Julia comes with a full-featured interactive <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">command-line REPL</a> (read-eval-print loop) built into the <code>julia</code> executable. In addition to allowing quick and easy evaluation of Julia statements, it has a searchable history, tab-completion, many helpful keybindings, and dedicated help and shell modes. The REPL can be started by simply calling <code>julia</code> with no arguments or double-clicking on the executable:</p>
-<div id="0bbfe411" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="33">
-<div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> julia</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>               _</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  (_)     <span class="op">|</span> (_) (_)    <span class="op">|</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>   _ _   _<span class="op">|</span> <span class="op">|</span>_  __ _   <span class="op">|</span>  <span class="dt">Type</span> <span class="st">"?"</span> <span class="cf">for</span> help, <span class="st">"]?"</span> <span class="cf">for</span> <span class="bu">Pkg</span> help.</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|/</span> _<span class="ss">` |  |</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="op">|</span> <span class="op">|</span>_<span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> (_<span class="op">|</span> <span class="op">|</span>  <span class="op">|</span>  Version <span class="fl">1.11.1</span> (<span class="fl">2024</span><span class="op">-</span><span class="fl">10</span><span class="op">-</span><span class="fl">16</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a> _<span class="op">/</span> <span class="op">|\</span>__<span class="op">'</span>_<span class="op">|</span>_<span class="op">|</span>_<span class="op">|\</span>__<span class="op">'</span>_<span class="op">|</span>  <span class="op">|</span>  Official https<span class="op">://</span>julialang.org<span class="op">/</span> release</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>__<span class="op">/</span>                   <span class="op">|</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="990db19c" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
+<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> julia</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               _</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  (_)     <span class="op">|</span> (_) (_)    <span class="op">|</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   _ _   _<span class="op">|</span> <span class="op">|</span>_  __ _   <span class="op">|</span>  <span class="dt">Type</span> <span class="st">"?"</span> <span class="cf">for</span> help, <span class="st">"]?"</span> <span class="cf">for</span> <span class="bu">Pkg</span> help.</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|/</span> _<span class="ss">` |  |</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="op">|</span> <span class="op">|</span>_<span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> (_<span class="op">|</span> <span class="op">|</span>  <span class="op">|</span>  Version <span class="fl">1.11.1</span> (<span class="fl">2024</span><span class="op">-</span><span class="fl">10</span><span class="op">-</span><span class="fl">16</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a> _<span class="op">/</span> <span class="op">|\</span>__<span class="op">'</span>_<span class="op">|</span>_<span class="op">|</span>_<span class="op">|\</span>__<span class="op">'</span>_<span class="op">|</span>  <span class="op">|</span>  Official https<span class="op">://</span>julialang.org<span class="op">/</span> release</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">|</span>__<span class="op">/</span>                   <span class="op">|</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>After Julia is launched you can start computing.</p>
-<div id="edd30cab" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span><span class="op">+</span><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div id="0754fda6" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span><span class="op">+</span><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>2</code></pre>
 </div>
 </div>
 <p>Or print some text.</p>
-<div id="cd7733f5" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Hello!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2b9e003e" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Hello!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hello!</code></pre>
 </div>
@@ -353,63 +338,32 @@ Important
 <ul>
 <li>The Julian mode</li>
 <li>Help mode</li>
-<li>Package mode</li>
 <li>Shell mode</li>
+<li>Pkg mode</li>
+<li>Search modes</li>
 </ul>
 <p>Visit the <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">command-line REPL page</a> for more details.</p>
-</div>
-</div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Help mode</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Package mode</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Shell mode</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>By pressing <code>?</code> you can obtain information and metadata about Julia objects (functions, types, etc.) or unicode symbols. The query fetches the docstring of the object, which explains how to use it.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>help?<span class="op">&gt;</span> println</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If you don’t know the exact name you are looking for, type a word surrounded by quotes to see in which docstrings it pops up. To come back to Julia mode, hit backspace.</p>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p>By pressing <code>]</code> you access <a href="https://github.com/JuliaLang/Pkg.jl">Pkg.jl</a>, Julia’s integrated package manager. Please visit the <a href="https://pkgdocs.julialang.org/v1/getting-started/">documentation</a> for details. Pkg.jl allows you to:</p>
-<ul>
-<li><code>]activate</code> different local, shared or temporary environments;</li>
-<li><code>]instantiate</code> them by downloading the necessary packages;</li>
-<li><code>]add</code>, <code>]update</code> (or <code>]up</code>) and <code>]remove</code> (or <code>]rm</code>) packages;</li>
-<li>get the <code>]status</code> (or <code>]st</code>) of your current environment.</li>
-</ul>
-<p>As an illustration, we download the package Plots.jl inside our current environment:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> add Plots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that you can do the same in Julia mode:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="bu">Pkg</span>.<span class="fu">rm</span>(<span class="st">"Plots"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The package mode itself also has a help mode, accessed with <code>?</code>. To come back to Julia mode, hit backspace.</p>
-</div>
-<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<p>By pressing <code>;</code> you enter a terminal, where you can execute any command you want. Here’s an example for Unix systems:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>shell<span class="op">&gt;</span> pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To come back to Julia mode, hit backspace.</p>
-</div>
 </div>
 </div>
 </section>
 <section id="julia-scripts" class="level2">
 <h2 class="anchored" data-anchor-id="julia-scripts">Julia scripts</h2>
 <p>You can also write some code in a <code>.jl</code> script.</p>
-<div id="931f44c1" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="37">
-<div class="sourceCode" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> cat example.jl</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Hello!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="87156ff1" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
+<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">$</span> cat data<span class="op">/</span>introduction<span class="op">/</span>example.jl</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Hello!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>and execute the code either in the REPL:</p>
-<div id="aa7ed370" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">include</span>(<span class="st">"example.jl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="39ca23f7" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">include</span>(<span class="st">"data/introduction/example.jl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hello!</code></pre>
 </div>
 </div>
 <p>or in a terminal with the command <code>$ julia example.jl</code>.</p>
-<p>Try to execute the code of <a href="data/introduction/example.jl">example.jl</a>. You can dowload it clicking on the following image.</p>
-<p><a href="data/introduction/example.jl" download=""> <img src="../assets/images/julia-file.png" width="50"> </a></p>
 
 
 </section>
