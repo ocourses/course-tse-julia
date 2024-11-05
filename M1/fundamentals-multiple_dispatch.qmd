@@ -1,0 +1,14 @@
+---
+title: "Multiple dispatch"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+using Pkg
+using Suppressor
+@suppress begin
+  Pkg.activate(".")
+end
+```

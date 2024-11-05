@@ -92,7 +92,7 @@ Do not hesitate to visit the documentation of `CSV.jl` and `DataFrames.jl`.
 
 2. Using the package `Plot.jl`, plot the data. 
 
-::: {.callout-caution collapse="true"}
+::: {.callout-tip collapse="true"}
 ## Hint
 
 Use `names(dataset)` to get the list of data names. If `Time` is a name you can access to the associated data by `dataset.Time`.
@@ -113,7 +113,7 @@ plt = plot(
 
 1. Create the matrix $X$, the vector $\beta$ and solve the normal equation with the operator [`Base.\`](https://tinyurl.com/juliadoc-base-backslash).
 
-::: {.callout-caution collapse="true"}
+::: {.callout-tip collapse="true"}
 ## Hint
 
 Use `ones(m)` to generate a vector of 1 of length $m$.

@@ -124,6 +124,18 @@
     ]
   },
   {
+    "objectID": "M1/fundamentals-modules_and_packages.html",
+    "href": "M1/fundamentals-modules_and_packages.html",
+    "title": "Modules and packages",
+    "section": "",
+    "text": "Back to top",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Modules and packages"
+    ]
+  },
+  {
     "objectID": "M1/getting_started-julia_ecosystem.html",
     "href": "M1/getting_started-julia_ecosystem.html",
     "title": "Julia ecosystem",
@@ -176,7 +188,7 @@
     "href": "M1/getting_started-julia_ecosystem.html#editors-and-ides",
     "title": "Julia ecosystem",
     "section": "Editors and Ides",
-    "text": "Editors and Ides\nMost computer programs are just plain text files with a specific extension (in our case .jl). So in theory, any text editor suffices to write and modify Julia code. In practice, an Integrated Development Environment (or IDE) makes the experience much more pleasant, thanks to code-related utilities and language-specific plugins.\nThe best IDE for Julia is Visual Studio Code, or VS Code, developed by Microsoft. Indeed, the Julia VS Code extension is the most feature-rich of all Julia IDE plugins. You can download it from the VS Code Marketplace and read its documentation.\n\n\n\n\n\n\nTip\n\n\n\nTo use Julia in Visual Studio Code, please follow these steps, where you can find how to install Julia, VS Code and the necessary extensions.\n\n\n\nVS CodeJupyterPluto.jlVimEmacs\n\n\n  \nJulia for Visual Studio Code is a powerful, free IDE for the Julia language. Visual Studio Code is a powerful and customizable editor. With a completely live environment, Julia for VS Code aims to take the frustration and guesswork out of programming and put the fun back in. We build on Julia’s unique combination of ease-of-use and performance. Beginners and experts can build better software more quickly, and get to a result faster. Julia is an officially supported language on the VS Code documentation.\n\n\n  \nYou can write Jupyter notebooks and use the Jupyter interactive environment. To do so you need to install the IJulia.jl package. IJulia is a Julia-language backend combined with the Jupyter interactive environment (also used by IPython). This combination allows you to interact with the Julia language using Jupyter/IPython’s powerful graphical notebook, which combines code, formatted text, math, and multimedia in a single document. IJulia is a Jupyter language kernel and works with a variety of notebook user interfaces. In addition to the classic Jupyter Notebook, IJulia also works with JupyterLab, a Jupyter-based integrated development environment for notebooks and code. The nteract notebook desktop supports IJulia with detailed instructions for its installation with nteract. Please visit this webpage to get a tutorial on how to use Julia in Jupyter notebook.\n\n\n   Simple reactive notebooks\n\n\n   Vim plugin\n\n\n   Emacs plugin",
+    "text": "Editors and Ides\nMost computer programs are just plain text files with a specific extension (in our case .jl). So in theory, any text editor suffices to write and modify Julia code. In practice, an Integrated Development Environment (or IDE) makes the experience much more pleasant, thanks to code-related utilities and language-specific plugins.\nThe best IDE for Julia is Visual Studio Code, or VS Code, developed by Microsoft. Indeed, the Julia VS Code extension is the most feature-rich of all Julia IDE plugins. You can download it from the VS Code Marketplace and read its documentation.\n\n\n\n\n\n\nTip\n\n\n\nTo use Julia in Visual Studio Code, please follow these steps, where you can find how to install Julia, VS Code and the necessary extensions.\nTo gain time, you can learn the keyboard shortcuts for:\n\nWindows,\nmacOS,\nLinux.\n\n\n\n\nVS CodeJupyterPluto.jlVimEmacs\n\n\n  \nJulia for Visual Studio Code is a powerful, free IDE for the Julia language. Visual Studio Code is a powerful and customizable editor. With a completely live environment, Julia for VS Code aims to take the frustration and guesswork out of programming and put the fun back in. We build on Julia’s unique combination of ease-of-use and performance. Beginners and experts can build better software more quickly, and get to a result faster. Julia is an officially supported language on the VS Code documentation.\n\n\n  \nYou can write Jupyter notebooks and use the Jupyter interactive environment. To do so you need to install the IJulia.jl package. IJulia is a Julia-language backend combined with the Jupyter interactive environment (also used by IPython). This combination allows you to interact with the Julia language using Jupyter/IPython’s powerful graphical notebook, which combines code, formatted text, math, and multimedia in a single document. IJulia is a Jupyter language kernel and works with a variety of notebook user interfaces. In addition to the classic Jupyter Notebook, IJulia also works with JupyterLab, a Jupyter-based integrated development environment for notebooks and code. The nteract notebook desktop supports IJulia with detailed instructions for its installation with nteract. Please visit this webpage to get a tutorial on how to use Julia in Jupyter notebook.\n\n\n   Simple reactive notebooks\n\n\n   Vim plugin\n\n\n   Emacs plugin",
     "crumbs": [
       "Master 1",
       "Getting started",
@@ -205,6 +217,232 @@
       "Master 1",
       "Getting started",
       "Julia ecosystem"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-types.html",
+    "href": "M1/fundamentals-types.html",
+    "title": "Fundamental and composite types",
+    "section": "",
+    "text": "Back to top",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Types"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-why_julia.html",
+    "href": "M1/fundamentals-why_julia.html",
+    "title": "Why Julia?",
+    "section": "",
+    "text": "Paraphrasing Why Julia?, Julia is a fast and expressive programming language, delivering the speed of C++ and Fortran together with the productivity of Python, MATLAB, and R. This fundamentally empowers diverse teams to work together to develop and deploy performant programs at scale by solving the two language problem.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-why_julia.html#benefits-of-julia",
+    "href": "M1/fundamentals-why_julia.html#benefits-of-julia",
+    "title": "Why Julia?",
+    "section": "Benefits of Julia",
+    "text": "Benefits of Julia\nJulia combines the speed of low-level languages like C++ and Fortran with the productivity of high-level languages like Python, MATLAB, and R. Here are some of its key benefits:\n\nHigh Performance: Optimized for native compilation, multi-threading, and GPU compute, Julia can achieve speeds close to C++.\nHigh Productivity: Expressive and dynamic, Julia is up to 100x faster than traditional high-level languages.\nEase of Use: Clear and simple syntax, making it easy to learn, write, and analyze.\nComposability: Packages are designed to work seamlessly together and with custom code.\nInteroperability: Julia integrates well with languages like Python, R, C++, and Java.\nUnified Language: Supports both prototyping and deployment, solving the two-language problem.\nRich Ecosystem: More than 10,000 registered packages and a large community of contributors.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-why_julia.html#key-users-of-julia",
+    "href": "M1/fundamentals-why_julia.html#key-users-of-julia",
+    "title": "Why Julia?",
+    "section": "Key Users of Julia",
+    "text": "Key Users of Julia\n\nPharmaceuticals: AstraZeneca, Merck, Pfizer\nTechnology: Amazon, Apple, Google\nFinance: BlackRock, Federal Reserve Bank of New York\nSpace: NASA, INPE\nEnergy: Los Alamos, Mitsubishi Electric\nRobotics: MIT, UC Berkeley",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-why_julia.html#the-two-language-problem",
+    "href": "M1/fundamentals-why_julia.html#the-two-language-problem",
+    "title": "Why Julia?",
+    "section": "The Two-Language Problem",
+    "text": "The Two-Language Problem\nTraditionally, programming required both a high-level, slower language for prototyping and a low-level, faster language for production, causing inefficiencies. Julia unifies these two needs into one language, allowing:\n\n\n\n\n\n\n\n\nAspect\nHigh-Level Language (e.g., Python)\nLow-Level Language (e.g., C++)\n\n\n\n\nPros\nEasy to write and read\nFast in production\n\n\nCons\nSlow in production\nComplex, lengthy code\n\n\nJulia’s Solution\nCombines ease of high-level with speed of low-level, eliminating the need for separate languages for research and production.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-why_julia.html#comparisons",
+    "href": "M1/fundamentals-why_julia.html#comparisons",
+    "title": "Why Julia?",
+    "section": "Comparisons",
+    "text": "Comparisons\nIf you want to know for instance the date of the first public release, the price and the names of the creators of numerical-analysis softwares, please visite the Wikipedia page.\nJulia is made for scientific computing as shown by the table below which compare some languages in terms of differential equation solvers. For more details visit this page.\n  \nYou can find here cheatsheets. One interesting is the comparison with Python and R.\n  \nOne goal of Julia is to be efficient and high-level. This is illustrated by the following figure given by Mandelbrot benchmark project.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "M1/index.html",
+    "href": "M1/index.html",
+    "title": "Julia Master 1 course",
+    "section": "",
+    "text": "This course is adressed to the students of the Master 1 “Econométrie, Statistiques” of Toulouse School of Economics. It is part of the topic Software for Data science. The Julia course is composed of 5 slots of 3 hours. In this course, we introduce the Julia ecosystem, we present the Julia programming language and some relevant packages.\n\n\n\n\n\nGetting started\n\nIntroduction to Julia ecosystem\n\n\n\nJulia ecosystem\nExecute some code\nForetaste of Julia code\nExample: Simple Linear Regression\n\n\n\n\n\n\nFundamentals\n\nFundamentals of Julia programming language\n\n\n\nWhy Julia?\nSyntax\nTypes\nMultiple dispatch\nModules and packages\nMetaprogramming\nInteroperability\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Master 1"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-multiple_dispatch.html",
+    "href": "M1/fundamentals-multiple_dispatch.html",
+    "title": "Multiple dispatch",
+    "section": "",
+    "text": "Back to top",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Multiple dispatch"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-syntax.html",
+    "href": "M1/fundamentals-syntax.html",
+    "title": "Julia syntax",
+    "section": "",
+    "text": "In this page, we present the fundamentals of Julia syntax. If you want a cheatsheet, please visit this page.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Syntax"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-syntax.html#basics",
+    "href": "M1/fundamentals-syntax.html#basics",
+    "title": "Julia syntax",
+    "section": "Basics",
+    "text": "Basics\n\nAssignment\nIn Julia, variables are assigned using the = operator:\n\nx = 5\ny = \"Hello, Julia!\"\n\n\"Hello, Julia!\"\n\n\nJulia is dynamically typed, which means variables do not require explicit type declarations. Types are inferred based on the assigned value.\n\n\nUnicode characters\nJulia supports Unicode characters, allowing you to use symbols and mathematical notation in variable names and operations. For instance, Greek letters and symbols like α and β can be typed using the tab completion shortcut:\n\nType \\alpha, then press Tab to get α.\nType \\beta, then press Tab to get β.\n\n\nα = 10\nβ = α + 5\n\n15\n\n\nUnicode is especially helpful when writing mathematical code, making it more readable and expressive.\n\n\nComments\nComments are written with the # symbol. Julia also supports multiline comments with #= and =#:\n\n# This is a single-line comment\n\n#= \nThis is a \nmultiline comment \n=#\n\n\n\nPrint\nTo display output in Julia, use the println function:\n\nprintln(\"Hello, Julia!\")  # Prints: Hello, Julia!\nprintln(\"The value of α is \", α)\n\nHello, Julia!\nThe value of α is 10\n\n\nPrinting output is helpful for debugging and tracking variable values in your code.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Syntax"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-syntax.html#control-flows-and-logical-operators",
+    "href": "M1/fundamentals-syntax.html#control-flows-and-logical-operators",
+    "title": "Julia syntax",
+    "section": "Control Flows and Logical Operators",
+    "text": "Control Flows and Logical Operators\nControl flow in Julia is managed through conditional statements and loops. Logical operators allow for conditions to be combined or negated.\n\nConditional Statements\nJulia supports if, elseif, and else for conditional checks:\n\nx = 10\n\nif x &gt; 5\n    println(\"x is greater than 5\")\nelseif x == 5\n    println(\"x is equal to 5\")\nelse\n    println(\"x is less than 5\")\nend\n\nx is greater than 5\n\n\nIn Julia, blocks for if, elseif, and else are closed with end. Indentation is not required by syntax but is recommended for readability.\n\n\nTernary Operator\nFor simple conditional assignments, Julia has a ternary operator ? ::\n\ny = (x &gt; 5) ? \"Greater\" : \"Not greater\"\nprintln(y)  # Outputs \"Greater\" if x &gt; 5, otherwise \"Not greater\"\n\nGreater\n\n\n\n\nLogical Operators\nJulia includes standard logical operators to build more complex conditions:\n\n&& for logical AND\n|| for logical OR\n! for logical NOT\n\n\na = true\nb = false\n\nprintln(a && b)  # Outputs: false\nprintln(a || b)  # Outputs: true\nprintln(!a)      # Outputs: false\n\nfalse\ntrue\nfalse\n\n\n\n\nLoops\nJulia provides for and while loops for iterative tasks.\nFor Loop: The for loop iterates over a range or collection:\n\nfor i in 1:5\n    println(i)\nend\n\n1\n2\n3\n4\n5\n\n\nThis loop prints numbers from 1 to 5. The range 1:5 uses Julia’s : operator to create a sequence.\nWhile Loop: The while loop executes as long as a condition is true:\n\ncount = 1\n\nwhile count &lt;= 5\n    println(count)\n    count += 1\nend\n\n1\n2\n3\n4\n5\n\n\nThis loop will print numbers from 1 to 5 by incrementing count each time.\n\n\nBreaking and Continuing\nJulia also has break and continue for loop control.\n\nbreak exits the loop completely.\ncontinue skips the current iteration and moves to the next one.\n\n\nfor i in 1:5\n    if i == 3\n        continue  # Skips the number 3\n    end\n    println(i)\nend\n\n1\n2\n4\n5\n\n\n\nfor i in 1:5\n    if i == 4\n        break  # Exits the loop when i is 4\n    end\n    println(i)\nend\n\n1\n2\n3\n\n\nThese control flows and logical operators allow for flexibility in executing conditional logic and repeated operations in Julia.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Syntax"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-syntax.html#arithmetics",
+    "href": "M1/fundamentals-syntax.html#arithmetics",
+    "title": "Julia syntax",
+    "section": "Arithmetics",
+    "text": "Arithmetics\nJulia supports a variety of arithmetic operations that can be performed on numeric types. Below are some of the most commonly used operations:\n\nBasic Arithmetic Operations\nYou can perform basic arithmetic operations using standard operators:\n\nAddition: +\nSubtraction: -\nMultiplication: *\nDivision: / (returns a floating-point result) and // (returns a rational number)\n\n\na = 10\nb = 3\n\nsum = a + b           # Outputs: 13\ndifference = a - b    # Outputs: 7\nproduct = a * b       # Outputs: 30\nquotient = a / b      # Outputs: 3.3333...\nrational = a // b     # Outputs: 10//3\n\n10//3\n\n\n\n\nModulo Operation\nThe modulo operator % returns the remainder of a division operation. It is useful for determining if a number is even or odd, or for wrapping around values.\n\nmodulus_result = a % b  # Outputs: 1 (remainder of 10 divided by 3)\n\n1\n\n\n\n\nExponentiation\nYou can perform exponentiation using the ^ operator.\n\nb = a ^ 2          # Outputs: 100 (10 squared)\n\n100\n\n\n\n\nUsing Arithmetic in Control Flow\nYou can combine arithmetic operations with control flow statements. For example, you can use the modulo operation to check if a number is even or odd:\n\nif a % 2 == 0\n    println(\"$a is even\")\nelse\n    println(\"$a is odd\")\nend\n\n10 is even\n\n\n\n\nSummary of Arithmetic Operations\n\n\n\nOperation\nSymbol\nExample\nResult\n\n\n\n\nAddition\n+\n5 + 3\n8\n\n\nSubtraction\n-\n5 - 3\n2\n\n\nMultiplication\n*\n5 * 3\n15\n\n\nDivision\n/\n5 / 2\n2.5\n\n\nModulo\n%\n5 % 2\n1\n\n\nExponentiation\n^\n2 ^ 3\n8\n\n\n\nThese arithmetic operations can be combined and nested to perform complex calculations as needed.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Syntax"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-syntax.html#functions-in-julia",
+    "href": "M1/fundamentals-syntax.html#functions-in-julia",
+    "title": "Julia syntax",
+    "section": "Functions in Julia",
+    "text": "Functions in Julia\nJulia functions allow you to group code into reusable components. Here’s an overview of different ways to define functions, use arguments, set default values, and handle mutation.\n\nFunction Definitions\nJulia provides two main ways to define functions: the classic form and the assignment form.\nClassic Form: Functions are defined using the function keyword and closed with end.\n\nfunction add(a, b)\n    return a + b\nend\n\nadd (generic function with 1 method)\n\n\nAssignment Form: Functions can also be defined in a single line with the assignment operator =.\n\nadd(a, b) = a + b\n\nadd (generic function with 1 method)\n\n\nBoth definitions above create a function add that takes two arguments and returns their sum.\n\n\nArguments and Keyword Arguments\nIn Julia, functions can take positional arguments, keyword arguments, and a variable number of arguments.\n\nPositional Arguments: These are specified in the function’s parameter list and must be passed in the correct order.\nKeyword Arguments: Specified with a semicolon (;), these arguments are passed by name and have default values.\n\n\nfunction greet(name; punctuation = \"!\")\n    return \"Hello, \" * name * punctuation\nend\n\nprintln(greet(\"Alice\"))          # Outputs: \"Hello, Alice!\"\nprintln(greet(\"Alice\", punctuation = \"?\"))  # Outputs: \"Hello, Alice?\"\n\nHello, Alice!\nHello, Alice?\n\n\n\nVariable Number of Arguments: To accept an arbitrary number of arguments, use the splatting operator .... These arguments are collected into a tuple.\n\n\nfunction sum_all(args...)\n    total = 0\n    for x in args\n        total += x\n    end\n    return total\nend\n\nprintln(sum_all(1, 2, 3, 4))  # Outputs: 10\n\n10\n\n\n\n\nDefault Values for Optional Arguments\nIn Julia, arguments can be given default values by specifying them in the function definition. If no value is provided when the function is called, the default is used.\n\nfunction power(base, exponent=2)\n    return base ^ exponent\nend\n\nprintln(power(3))      # Outputs: 9 (since exponent defaults to 2)\nprintln(power(3, 3))   # Outputs: 27\n\n9\n27\n\n\n\n\nMutation and the Bang ! Convention\nIn Julia, functions that modify or mutate their arguments typically have a ! at the end of their name, following the “bang” convention. This is not enforced by the language but is a widely followed convention in Julia.\nFor example:\n\nfunction add_one!(array)\n    for i in eachindex(array)\n        array[i] += 1\n    end\nend\n\narr = [1, 2, 3]\nadd_one!(arr)\nprintln(arr)  # Outputs: [2, 3, 4]\n\n[2, 3, 4]\n\n\nIn this example, add_one! modifies the elements of the array arr. By convention, the ! indicates that the function mutates its input.\n\n\nReturn Values\nIn Julia, a function returns the last evaluated expression by default. Alternatively, you can use the return keyword to explicitly specify the output.\n\nfunction multiply(a, b)\n    a * b  # Returns the result of a * b\nend\n\nmultiply (generic function with 1 method)\n\n\nThis covers the basics of defining functions, handling different types of arguments, using default values, and following Julia’s conventions for mutation.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Syntax"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-syntax.html#scoping-and-closure-in-julia",
+    "href": "M1/fundamentals-syntax.html#scoping-and-closure-in-julia",
+    "title": "Julia syntax",
+    "section": "Scoping and Closure in Julia",
+    "text": "Scoping and Closure in Julia\nIn Julia, scoping rules determine the visibility and lifetime of variables. Understanding scope and closures is essential for writing efficient and error-free code.\n\nVariable Scope\nScope in Julia refers to the region of code where a variable is accessible. There are two primary scopes: global and local.\n\nGlobal Scope: Variables defined at the top level of a module or script are in the global scope and can be accessed from anywhere in that file. However, modifying global variables from within functions is generally discouraged.\n\n\nglobal_var = 10\n\nfunction access_global()\n    return global_var\nend\n\nprintln(access_global())  # Outputs: 10\n\n10\n\n\n\nLocal Scope: Variables defined within a function or a block (e.g., loops or conditionals) have local scope and cannot be accessed outside of that block.\n\n\nfunction local_scope_example()\n    local_var = 5\n    return local_var\nend\n\nprintln(local_scope_example())  # Outputs: 5\n# println(local_var)  # This would cause an error, as local_var is not accessible here\n\n5\n\n\n\n\nNested Scopes\nJulia allows for nested functions, which can access variables in their enclosing scopes. This is known as lexical scoping.\n\nfunction outer_function(x)\n    y = 2\n    function inner_function(z)\n        return x + y + z\n    end\n    return inner_function\nend\n\nclosure = outer_function(3)\nprintln(closure(4))  # Outputs: 9 (3 + 2 + 4)\n\n9\n\n\nIn this example, inner_function forms a closure over the variables x and y, retaining access to them even after outer_function has finished executing.\n\n\nClosures\nA closure is a function that captures the variables from its surrounding lexical scope. Closures are particularly useful for creating function factories or when working with callbacks.\n\nfunction make_multiplier(factor)\n    return (x) -&gt; x * factor  # Returns a closure\nend\n\ndouble = make_multiplier(2)\ntriple = make_multiplier(3)\n\nprintln(double(5))  # Outputs: 10\nprintln(triple(5))  # Outputs: 15\n\n10\n15\n\n\nIn this case, make_multiplier returns a function that captures the factor variable, allowing the returned function to use it later.\n\n\nScope and Performance\nUnderstanding scope is crucial for performance in Julia. Defining variables within a local scope, such as inside functions, can lead to more efficient code execution. Global variables can lead to performance penalties due to type instability.\n\n# Global variable\nglobal_counter = 0\n\nfunction increment_global()\n    global_counter += 1  # Modifying a global variable\nend\n\n# Local variable\nfunction increment_local()\n    local_counter = 0\n    local_counter += 1  # Only exists within this function\n    return local_counter\nend\n\nincrement_local (generic function with 1 method)\n\n\nIn summary, scoping rules in Julia allow for clear management of variable accessibility and lifespan, while closures enable powerful programming patterns by capturing the context in which they are created. Understanding these concepts is key to writing effective Julia code.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Syntax"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-syntax.html#exercices",
+    "href": "M1/fundamentals-syntax.html#exercices",
+    "title": "Julia syntax",
+    "section": "Exercices",
+    "text": "Exercices\n\nExercise 1: Temperature Converter\nWrite a function convert_temperature that takes a temperature value and a keyword argument unit that can either be \"C\" for Celsius or \"F\" for Fahrenheit. The function should convert the temperature to the other unit and return the converted value. Use a conditional statement to determine the conversion formula:\n\nIf the unit is \"C\", convert to Fahrenheit using the formula: ( F = C + 32 )\nIf the unit is \"F\", convert to Celsius using the formula: ( C = (F - 32) )\n\nExample Output:\nprintln(convert_temperature(100, unit=\"C\"))  # Outputs: 212.0\nprintln(convert_temperature(32, unit=\"F\"))    # Outputs: 0.0\n\n\n\n\n\n\nHint for Exercise 1: Temperature Converter\n\n\n\n\n\nIf the unit provided is not \"C\" or \"F\", you can raise an error using the throw statement along with ArgumentError. This way, you can inform the user that the input is invalid.\n\n\n\n\n\n\n\n\n\nCorrection of Exercise 1: Temperature Converter\n\n\n\n\n\n\nfunction convert_temperature(value; unit)\n    if unit == \"C\"\n        return value * 9/5 + 32  # Convert Celsius to Fahrenheit\n    elseif unit == \"F\"\n        return (value - 32) * 5/9  # Convert Fahrenheit to Celsius\n    else\n        throw(ArgumentError(\"Unit must be 'C' or 'F'\"))\n    end\nend\n\nprintln(convert_temperature(100, unit=\"C\"))  # Outputs: 212.0\nprintln(convert_temperature(32, unit=\"F\"))    # Outputs: 0.0\n\n212.0\n0.0\n\n\n\n\n\n\n\nExercise 2: Factorial Function with Closure\nCreate a function make_factorial that returns a closure. This closure should compute the factorial of a number. The closure should capture a variable that keeps track of the number of times it has been called. When the closure is called, it should return the factorial of the number and the call count.\nExample Output:\nfactorial_closure = make_factorial()\nresult, count = factorial_closure(5)\nprintln(result)  # Outputs: 120\nresult, count = factorial_closure(3)\nprintln(result)  # Outputs: 6\nprintln(\"Function called \", count, \" times\")  # Outputs: 2 times\n\n\n\n\n\n\nHint Exercise 2: Factorial Function with Closure\n\n\n\n\n\nWhen returning the results from the closure, you can return a pair of values by creating a tuple. In Julia, tuples are created using parentheses, like this: (value1, value2).\n\n\n\n\n\n\n\n\n\nCorrection of Exercise 2: Factorial Function with Closure\n\n\n\n\n\n\nfunction make_factorial()\n    call_count = 0  # Variable to keep track of calls\n    return (n) -&gt; begin\n        call_count += 1\n        result = 1\n        for i in 1:n\n            result *= i\n        end\n        return (result, call_count)\n    end\nend\n\nfactorial_closure = make_factorial()\nresult, count = factorial_closure(5)\nprintln(result)  # Outputs: 120\nresult, count = factorial_closure(3)\nprintln(result)  # Outputs: 6\nprintln(\"Function called \", count, \" times\")  # Outputs: 2 times\n\n120\n6\nFunction called 2 times\n\n\n\n\n\n\n\nExercise 3: Filter Even Numbers\nWrite a function filter_even that takes an array of integers as input and returns a new array containing only the even numbers from the input array. Use a loop and a conditional statement to check each number.\nAdditionally, implement a helper function is_even that checks if a number is even. Use the filter_even function to filter an array of numbers, and print the result.\nExample Output:\nnumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\neven_numbers = filter_even(numbers)\nprintln(even_numbers)  # Outputs: [2, 4, 6, 8, 10]\n\n\n\n\n\n\nHint for Exercise 3: Filter Even Numbers\n\n\n\n\n\nTo add elements to an array in Julia, use the push! function. This function takes two arguments: the array you want to modify and the element to add to that array.\n\n\n\n\n\n\n\n\n\nCorrection of Exercise 3: Filter Even Numbers\n\n\n\n\n\n\nfunction is_even(x)\n    return x % 2 == 0\nend\n\nfunction filter_even(numbers)\n    even_numbers = []\n    for number in numbers\n        if is_even(number)\n            push!(even_numbers, number)\n        end\n    end\n    return even_numbers\nend\n\nnumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\neven_numbers = filter_even(numbers)\nprintln(even_numbers)  # Outputs: [2, 4, 6, 8, 10]\n\nAny[2, 4, 6, 8, 10]\n\n\n\n\n\n\n\nExercise Instructions\n\nFor each exercise, implement the required functions in a new Julia script or interactive session.\nTest your functions with different inputs to ensure they work as expected.\nComment on your code to explain the logic behind each part, especially where you utilize control flow and scope.",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Syntax"
+    ]
+  },
+  {
+    "objectID": "M1/getting_started-exercice_simple_linear_regression.html",
+    "href": "M1/getting_started-exercice_simple_linear_regression.html",
+    "title": "Exercise: Simple Linear Regression",
+    "section": "",
+    "text": "We propose a first exercise about simple linear regression. The data are excerpted from this example and saved into data.csv. We propose an ordinary least squares formulation which is a type of linear least squares method for choosing the unknown parameters in a linear regression model by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being observed) in the input dataset and the output of the (linear) function of the independent variable.\n\nGiven a set of m data points y_{1}, y_{2}, \\dots, y_{m}, consisting of experimentally measured values taken at m values x_{1}, x_{2}, \\dots, x_{m} of an independent variable (x_i may be scalar or vector quantities), and given a model function y=f(x,\\beta), with \\beta =(\\beta_{1},\\beta_{2},\\dots ,\\beta_{n}), it is desired to find the parameters \\beta_j such that the model function “best” fits the data. In linear least squares, linearity is meant to be with respect to parameters \\beta_j, so \n  f(x, \\beta) = \\sum_{j=1}^n \\beta_j\\, \\varphi_j(x).\n In general, the functions \\varphi_j may be nonlinear. However, we consider linear regression, that is \n  f(x, \\beta) = \\beta_1 + \\beta_2 x.\n Ideally, the model function fits the data exactly, so \n  y_i = f(x_i, \\beta)\n for all i=1, 2, \\dots, m. This is usually not possible in practice, as there are more data points than there are parameters to be determined. The approach chosen then is to find the minimal possible value of the sum of squares of the residuals \n  r_i(\\beta) = y_i - f(x_i, \\beta), \\quad i=1, 2, \\dots, m\n so to minimize the function \n  S(\\beta) = \\sum_{i=1}^m r_i^2(\\beta).\n In the linear least squares case, the residuals are of the form \n  r(\\beta) = y - X\\, \\beta\n with y = (y_i)_{1\\le i\\le m} \\in \\mathbb{R}^m and X = (X_{ij})_{1\\le i\\le m, 1\\le j\\le n} \\in \\mathrm{M}_{mn}(\\mathbb{R}), where X_{ij} = \\varphi_j(x_i). Since we consider linear regression, the i-th row of the matrix X is given by \n  X_{i[:]} = [1 \\quad x_i].\n The objective function may be written \n  S(\\beta) = {\\Vert y - X\\, \\beta \\Vert}^2\n where the norm is the usual 2-norm. The solution to the linear least squares problem \n  \\underset{\\beta \\in \\mathbb{R}^n}{\\mathrm{minimize}}\\, {\\Vert y - X\\, \\beta \\Vert}^2\n is computed by solving the normal equation \n  X^\\top X\\, \\beta = X^\\top y,\n where X^\\top denotes the transpose of X.",
+    "crumbs": [
+      "Master 1",
+      "Getting started",
+      "Exercice: Simple Linear Regression"
+    ]
+  },
+  {
+    "objectID": "M1/getting_started-exercice_simple_linear_regression.html#least-squares-regression-line",
+    "href": "M1/getting_started-exercice_simple_linear_regression.html#least-squares-regression-line",
+    "title": "Exercise: Simple Linear Regression",
+    "section": "",
+    "text": "We propose a first exercise about simple linear regression. The data are excerpted from this example and saved into data.csv. We propose an ordinary least squares formulation which is a type of linear least squares method for choosing the unknown parameters in a linear regression model by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being observed) in the input dataset and the output of the (linear) function of the independent variable.\n\nGiven a set of m data points y_{1}, y_{2}, \\dots, y_{m}, consisting of experimentally measured values taken at m values x_{1}, x_{2}, \\dots, x_{m} of an independent variable (x_i may be scalar or vector quantities), and given a model function y=f(x,\\beta), with \\beta =(\\beta_{1},\\beta_{2},\\dots ,\\beta_{n}), it is desired to find the parameters \\beta_j such that the model function “best” fits the data. In linear least squares, linearity is meant to be with respect to parameters \\beta_j, so \n  f(x, \\beta) = \\sum_{j=1}^n \\beta_j\\, \\varphi_j(x).\n In general, the functions \\varphi_j may be nonlinear. However, we consider linear regression, that is \n  f(x, \\beta) = \\beta_1 + \\beta_2 x.\n Ideally, the model function fits the data exactly, so \n  y_i = f(x_i, \\beta)\n for all i=1, 2, \\dots, m. This is usually not possible in practice, as there are more data points than there are parameters to be determined. The approach chosen then is to find the minimal possible value of the sum of squares of the residuals \n  r_i(\\beta) = y_i - f(x_i, \\beta), \\quad i=1, 2, \\dots, m\n so to minimize the function \n  S(\\beta) = \\sum_{i=1}^m r_i^2(\\beta).\n In the linear least squares case, the residuals are of the form \n  r(\\beta) = y - X\\, \\beta\n with y = (y_i)_{1\\le i\\le m} \\in \\mathbb{R}^m and X = (X_{ij})_{1\\le i\\le m, 1\\le j\\le n} \\in \\mathrm{M}_{mn}(\\mathbb{R}), where X_{ij} = \\varphi_j(x_i). Since we consider linear regression, the i-th row of the matrix X is given by \n  X_{i[:]} = [1 \\quad x_i].\n The objective function may be written \n  S(\\beta) = {\\Vert y - X\\, \\beta \\Vert}^2\n where the norm is the usual 2-norm. The solution to the linear least squares problem \n  \\underset{\\beta \\in \\mathbb{R}^n}{\\mathrm{minimize}}\\, {\\Vert y - X\\, \\beta \\Vert}^2\n is computed by solving the normal equation \n  X^\\top X\\, \\beta = X^\\top y,\n where X^\\top denotes the transpose of X.",
+    "crumbs": [
+      "Master 1",
+      "Getting started",
+      "Exercice: Simple Linear Regression"
+    ]
+  },
+  {
+    "objectID": "M1/getting_started-exercice_simple_linear_regression.html#questions",
+    "href": "M1/getting_started-exercice_simple_linear_regression.html#questions",
+    "title": "Exercise: Simple Linear Regression",
+    "section": "Questions",
+    "text": "Questions\nTo answer the questions you need to import the following packages.\n\nusing DataFrames\nusing CSV\nusing Plots\n\nYou also need to download the csv file. Click on the following image.\n  \n\nUsing the packages DataFrames.jl and CSV.jl, load the dataset from data/introduction/data.csv and save the result into a variable named dataset.\n\n\n\nShow the answer\npath = \"data/introduction/data.csv\" # update depending on the location of your file\ndataset = DataFrame(CSV.File(path))\n\n\n5×2 DataFrame\n\n\n\nRow\nTime\nMass\n\n\n\nInt64\nInt64\n\n\n\n\n1\n5\n40\n\n\n2\n7\n120\n\n\n3\n12\n180\n\n\n4\n16\n210\n\n\n5\n20\n240\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nDo not hesitate to visit the documentation of CSV.jl and DataFrames.jl.\n\n\n\nUsing the package Plot.jl, plot the data.\n\n\n\n\n\n\n\nHint\n\n\n\n\n\nUse names(dataset) to get the list of data names. If Time is a name you can access to the associated data by dataset.Time.\n\n\n\n\n\nShow the answer\nplt = plot(\n  dataset.Time, \n  dataset.Mass,\n  seriestype=:scatter, \n  legend=false, \n  xlabel=\"Time\", \n  ylabel=\"Mass\"\n)\n\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCreate the matrix X, the vector \\beta and solve the normal equation with the operator Base.\\.\n\n\n\n\n\n\n\nHint\n\n\n\n\n\nUse ones(m) to generate a vector of 1 of length m.\n\n\n\n\n\nShow the answer\nm = length(dataset.Time)\nX = [ones(m) dataset.Time]\ny = dataset.Mass\nβ = X\\y\n\n\n2-element Vector{Float64}:\n 11.506493506493449\n 12.207792207792208\n\n\n\nPlot the linear model on the same plot as the data. Use the plot! function. See the basic concepts for plotting.\n\n\n\nShow the answer\nx = [5, 20]\ny = β[1] .+ β[2]*x\nplot!(plt, x, y)",
+    "crumbs": [
+      "Master 1",
+      "Getting started",
+      "Exercice: Simple Linear Regression"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-interoperability.html",
+    "href": "M1/fundamentals-interoperability.html",
+    "title": "Interoperability",
+    "section": "",
+    "text": "Back to top",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Interoperability"
     ]
   },
   {
@@ -265,52 +503,6 @@
       "Master 1",
       "Getting started",
       "Foretaste of Julia code"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-exercice_simple_linear_regression.html",
-    "href": "M1/getting_started-exercice_simple_linear_regression.html",
-    "title": "Exercise: Simple Linear Regression",
-    "section": "",
-    "text": "We propose a first exercise about simple linear regression. The data are excerpted from this example and saved into data.csv. We propose an ordinary least squares formulation which is a type of linear least squares method for choosing the unknown parameters in a linear regression model by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being observed) in the input dataset and the output of the (linear) function of the independent variable.\n\nGiven a set of m data points y_{1}, y_{2}, \\dots, y_{m}, consisting of experimentally measured values taken at m values x_{1}, x_{2}, \\dots, x_{m} of an independent variable (x_i may be scalar or vector quantities), and given a model function y=f(x,\\beta), with \\beta =(\\beta_{1},\\beta_{2},\\dots ,\\beta_{n}), it is desired to find the parameters \\beta_j such that the model function “best” fits the data. In linear least squares, linearity is meant to be with respect to parameters \\beta_j, so \n  f(x, \\beta) = \\sum_{j=1}^n \\beta_j\\, \\varphi_j(x).\n In general, the functions \\varphi_j may be nonlinear. However, we consider linear regression, that is \n  f(x, \\beta) = \\beta_1 + \\beta_2 x.\n Ideally, the model function fits the data exactly, so \n  y_i = f(x_i, \\beta)\n for all i=1, 2, \\dots, m. This is usually not possible in practice, as there are more data points than there are parameters to be determined. The approach chosen then is to find the minimal possible value of the sum of squares of the residuals \n  r_i(\\beta) = y_i - f(x_i, \\beta), \\quad i=1, 2, \\dots, m\n so to minimize the function \n  S(\\beta) = \\sum_{i=1}^m r_i^2(\\beta).\n In the linear least squares case, the residuals are of the form \n  r(\\beta) = y - X\\, \\beta\n with y = (y_i)_{1\\le i\\le m} \\in \\mathbb{R}^m and X = (X_{ij})_{1\\le i\\le m, 1\\le j\\le n} \\in \\mathrm{M}_{mn}(\\mathbb{R}), where X_{ij} = \\varphi_j(x_i). Since we consider linear regression, the i-th row of the matrix X is given by \n  X_{i[:]} = [1 \\quad x_i].\n The objective function may be written \n  S(\\beta) = {\\Vert y - X\\, \\beta \\Vert}^2\n where the norm is the usual 2-norm. The solution to the linear least squares problem \n  \\underset{\\beta \\in \\mathbb{R}^n}{\\mathrm{minimize}}\\, {\\Vert y - X\\, \\beta \\Vert}^2\n is computed by solving the normal equation \n  X^\\top X\\, \\beta = X^\\top y,\n where X^\\top denotes the transpose of X.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Exercice: Simple Linear Regression"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-exercice_simple_linear_regression.html#least-squares-regression-line",
-    "href": "M1/getting_started-exercice_simple_linear_regression.html#least-squares-regression-line",
-    "title": "Exercise: Simple Linear Regression",
-    "section": "",
-    "text": "We propose a first exercise about simple linear regression. The data are excerpted from this example and saved into data.csv. We propose an ordinary least squares formulation which is a type of linear least squares method for choosing the unknown parameters in a linear regression model by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being observed) in the input dataset and the output of the (linear) function of the independent variable.\n\nGiven a set of m data points y_{1}, y_{2}, \\dots, y_{m}, consisting of experimentally measured values taken at m values x_{1}, x_{2}, \\dots, x_{m} of an independent variable (x_i may be scalar or vector quantities), and given a model function y=f(x,\\beta), with \\beta =(\\beta_{1},\\beta_{2},\\dots ,\\beta_{n}), it is desired to find the parameters \\beta_j such that the model function “best” fits the data. In linear least squares, linearity is meant to be with respect to parameters \\beta_j, so \n  f(x, \\beta) = \\sum_{j=1}^n \\beta_j\\, \\varphi_j(x).\n In general, the functions \\varphi_j may be nonlinear. However, we consider linear regression, that is \n  f(x, \\beta) = \\beta_1 + \\beta_2 x.\n Ideally, the model function fits the data exactly, so \n  y_i = f(x_i, \\beta)\n for all i=1, 2, \\dots, m. This is usually not possible in practice, as there are more data points than there are parameters to be determined. The approach chosen then is to find the minimal possible value of the sum of squares of the residuals \n  r_i(\\beta) = y_i - f(x_i, \\beta), \\quad i=1, 2, \\dots, m\n so to minimize the function \n  S(\\beta) = \\sum_{i=1}^m r_i^2(\\beta).\n In the linear least squares case, the residuals are of the form \n  r(\\beta) = y - X\\, \\beta\n with y = (y_i)_{1\\le i\\le m} \\in \\mathbb{R}^m and X = (X_{ij})_{1\\le i\\le m, 1\\le j\\le n} \\in \\mathrm{M}_{mn}(\\mathbb{R}), where X_{ij} = \\varphi_j(x_i). Since we consider linear regression, the i-th row of the matrix X is given by \n  X_{i[:]} = [1 \\quad x_i].\n The objective function may be written \n  S(\\beta) = {\\Vert y - X\\, \\beta \\Vert}^2\n where the norm is the usual 2-norm. The solution to the linear least squares problem \n  \\underset{\\beta \\in \\mathbb{R}^n}{\\mathrm{minimize}}\\, {\\Vert y - X\\, \\beta \\Vert}^2\n is computed by solving the normal equation \n  X^\\top X\\, \\beta = X^\\top y,\n where X^\\top denotes the transpose of X.",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Exercice: Simple Linear Regression"
-    ]
-  },
-  {
-    "objectID": "M1/getting_started-exercice_simple_linear_regression.html#questions",
-    "href": "M1/getting_started-exercice_simple_linear_regression.html#questions",
-    "title": "Exercise: Simple Linear Regression",
-    "section": "Questions",
-    "text": "Questions\nTo answer the questions you need to import the following packages.\n\nusing DataFrames\nusing CSV\nusing Plots\n\nYou also need to download the csv file. Click on the following image.\n  \n\nUsing the packages DataFrames.jl and CSV.jl, load the dataset from data/introduction/data.csv and save the result into a variable named dataset.\n\n\n\nShow the answer\npath = \"data/introduction/data.csv\" # update depending on the location of your file\ndataset = DataFrame(CSV.File(path))\n\n\n5×2 DataFrame\n\n\n\nRow\nTime\nMass\n\n\n\nInt64\nInt64\n\n\n\n\n1\n5\n40\n\n\n2\n7\n120\n\n\n3\n12\n180\n\n\n4\n16\n210\n\n\n5\n20\n240\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nDo not hesitate to visit the documentation of CSV.jl and DataFrames.jl.\n\n\n\nUsing the package Plot.jl, plot the data.\n\n\n\n\n\n\n\nHint\n\n\n\n\n\nUse names(dataset) to get the list of data names. If Time is a name you can access to the associated data by dataset.Time.\n\n\n\n\n\nShow the answer\nplt = plot(\n  dataset.Time, \n  dataset.Mass,\n  seriestype=:scatter, \n  legend=false, \n  xlabel=\"Time\", \n  ylabel=\"Mass\"\n)\n\n\n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n  \n    \n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCreate the matrix X, the vector \\beta and solve the normal equation with the operator Base.\\.\n\n\n\n\n\n\n\nHint\n\n\n\n\n\nUse ones(m) to generate a vector of 1 of length m.\n\n\n\n\n\nShow the answer\nm = length(dataset.Time)\nX = [ones(m) dataset.Time]\ny = dataset.Mass\nβ = X\\y\n\n\n2-element Vector{Float64}:\n 11.506493506493449\n 12.207792207792208\n\n\n\nPlot the linear model on the same plot as the data. Use the plot! function. See the basic concepts for plotting.\n\n\n\nShow the answer\nx = [5, 20]\ny = β[1] .+ β[2]*x\nplot!(plt, x, y)",
-    "crumbs": [
-      "Master 1",
-      "Getting started",
-      "Exercice: Simple Linear Regression"
-    ]
-  },
-  {
-    "objectID": "M1/index.html",
-    "href": "M1/index.html",
-    "title": "Julia Master 1 course",
-    "section": "",
-    "text": "This course is adressed to the students of the Master 1 “Econométrie, Statistiques” of Toulouse School of Economics. It is part of the topic Software for Data science. The Julia course is composed of 5 slots of 3 hours. In this course, we introduce the Julia ecosystem, we present the Julia programming language and some relevant packages.\n\n\n\n\n\nGetting started\n\nIntroduction to Julia ecosystem\n\n\n\nJulia ecosystem\nExecute some code\nForetaste of Julia code\nExample: Simple Linear Regression\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "Master 1"
     ]
   },
   {
@@ -383,6 +575,18 @@
       "Master 1",
       "Getting started",
       "Execute some code"
+    ]
+  },
+  {
+    "objectID": "M1/fundamentals-metaprogramming.html",
+    "href": "M1/fundamentals-metaprogramming.html",
+    "title": "Metaprogramming",
+    "section": "",
+    "text": "Back to top",
+    "crumbs": [
+      "Master 1",
+      "Fundamentals",
+      "Metaprogramming"
     ]
   },
   {

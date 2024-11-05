@@ -9,3 +9,21 @@
       href: getting_started-foretaste_of_julia_code.qmd
     - text: "Example: Simple Linear Regression"
       href: getting_started-exercice_simple_linear_regression.qmd
+
+- title: Fundamentals
+  subtitle: Fundamentals of Julia programming language
+  links:
+    - text: Why Julia?
+      href: fundamentals-why_julia.qmd
+    - text: Syntax
+      href: fundamentals-syntax.qmd
+    - text: Types
+      href: fundamentals-types.qmd
+    - text: Multiple dispatch
+      href: fundamentals-multiple_dispatch.qmd
+    - text: Modules and packages
+      href: fundamentals-modules_and_packages.qmd
+    - text: Metaprogramming
+      href: fundamentals-metaprogramming.qmd
+    - text: Interoperability
+      href: fundamentals-interoperability.qmd

@@ -82,6 +82,22 @@ website:
                   href: M1/getting_started-foretaste_of_julia_code.qmd
                 - text: "Exercice: Simple Linear Regression"
                   href: M1/getting_started-exercice_simple_linear_regression.qmd
+            - section: "Fundamentals"
+              contents:
+                - text: Why Julia?
+                  href: M1/fundamentals-why_julia.qmd
+                - text: Syntax
+                  href: M1/fundamentals-syntax.qmd
+                - text: Types
+                  href: M1/fundamentals-types.qmd
+                - text: Multiple dispatch
+                  href: M1/fundamentals-multiple_dispatch.qmd
+                - text: Modules and packages
+                  href: M1/fundamentals-modules_and_packages.qmd
+                - text: Metaprogramming
+                  href: M1/fundamentals-metaprogramming.qmd
+                - text: Interoperability
+                  href: M1/fundamentals-interoperability.qmd
             - text: "---"
     - id: M2
       collapse-level: 3

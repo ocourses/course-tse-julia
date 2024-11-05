@@ -1,0 +1,12 @@
+{
+  "hash": "c53183c8b9509c0acb7e0f00917b4960",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Multiple dispatch\"\npage-layout: article\njupyter: julia-1.11\n---\n\n\n\n",
+    "supporting": [
+      "fundamentals-multiple_dispatch_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

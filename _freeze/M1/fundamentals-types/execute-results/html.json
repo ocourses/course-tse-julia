@@ -1,0 +1,12 @@
+{
+  "hash": "737843c09b6c88526a999f9a9700953f",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Fundamental and composite types\"\npage-layout: article\njupyter: julia-1.11\n---\n\n\n\n",
+    "supporting": [
+      "fundamentals-types_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

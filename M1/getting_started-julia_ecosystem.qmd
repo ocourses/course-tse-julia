@@ -117,8 +117,14 @@ Indeed, the [Julia VS Code extension](https://www.julia-vscode.org/) is the most
 You can download it from the VS Code Marketplace and read its [documentation](https://www.julia-vscode.org/docs/stable/).
 
 ::: {.callout-tip}
-To use Julia in Visual Studio Code, please follow these [steps](https://code.visualstudio.com/docs/languages/julia), where you can find how to install Julia, 
-VS Code and the necessary extensions.
+To use Julia in Visual Studio Code, please follow these [steps](https://code.visualstudio.com/docs/languages/julia), where you can find 
+how to install Julia, VS Code and the necessary extensions.
+
+To gain time, you can learn the keyboard shortcuts for:
+
+- [Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf),
+- [macOS](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf),
+- [Linux](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf).
 :::
 
 ::: {.panel-tabset}
