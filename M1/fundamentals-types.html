@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Julia Master 1 course – Julia course</title>
+<title>Fundamental and composite types – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,10 +30,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../M1/getting_started-julia_ecosystem.html" rel="next">
+<link href="../M1/fundamentals-multiple_dispatch.html" rel="next">
+<link href="../M1/fundamentals-syntax.html" rel="prev">
 <link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,87 +69,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-M1-links .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-subtitle','listing-links',{ data: ['index'] },{ data: ['categories'] }],
-      
-      searchColumns: ["listing-title","listing-subtitle","listing-links"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-M1-links'] = new List('listing-M1-links', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/css/styles.css">
-<meta property="og:title" content="Julia Master 1 course – Julia course">
-<meta property="og:description" content="Introduction to Julia programming language">
+<meta property="og:title" content="Fundamental and composite types – Julia course">
 <meta property="og:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
 <meta property="og:site_name" content="Julia course">
-<meta name="twitter:title" content="Julia Master 1 course – Julia course">
-<meta name="twitter:description" content="Introduction to Julia programming language">
+<meta name="twitter:title" content="Fundamental and composite types – Julia course">
 <meta name="twitter:image" content="https://ocots.github.io/course-tse-julia-M1/M1/assets/images/logo-julia.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -192,7 +117,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/fundamentals-why_julia.html">Fundamentals</a></li><li class="breadcrumb-item"><a href="../M1/fundamentals-types.html">Types</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -206,7 +131,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../M1/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../M1/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Master 1</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -271,7 +196,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/fundamentals-types.html" class="sidebar-item-text sidebar-link">
+  <a href="../M1/fundamentals-types.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Types</span></a>
   </div>
 </li>
@@ -313,12 +238,11 @@ window.Quarto = {
         
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/fundamentals-why_julia.html">Fundamentals</a></li><li class="breadcrumb-item"><a href="../M1/fundamentals-types.html">Types</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Julia Master 1 course</h1>
-<p class="subtitle lead">Introduction to Julia programming language</p>
+<h1 class="title">Fundamental and composite types</h1>
 </div>
 
 
@@ -334,50 +258,6 @@ window.Quarto = {
 
 </header>
 
-
-<p>This course is adressed to the students of the Master 1 “Econométrie, Statistiques” of Toulouse School of Economics. It is part of the topic Software for Data science. The Julia course is composed of 5 slots of 3 hours. In this course, we introduce the Julia ecosystem, we present the Julia programming language and some relevant packages.</p>
-<div id="listing-M1-links" class="column-screen-inset-right quarto-listing quarto-listing-container-custom" style="max-width: 850px;">
-<div class="link-cards">
-<div class="card">
-<div class="card-body">
-<section id="getting-started" class="level4 card-title">
-<h4 class="anchored" data-anchor-id="getting-started">Getting started</h4>
-<section id="introduction-to-julia-ecosystem" class="level6 card-subtitle text-muted">
-<h6 class="anchored" data-anchor-id="introduction-to-julia-ecosystem">Introduction to Julia ecosystem</h6>
-</section>
-</section>
-<ul>
-<li><a href="../M1/getting_started-julia_ecosystem.html">Julia ecosystem</a></li>
-<li><a href="../M1/getting_started-execute_some_code.html">Execute some code</a></li>
-<li><a href="../M1/getting_started-foretaste_of_julia_code.html">Foretaste of Julia code</a></li>
-<li><a href="../M1/getting_started-exercice_simple_linear_regression.html">Example: Simple Linear Regression</a></li>
-</ul>
-</div>
-</div>
-<div class="card">
-<div class="card-body">
-<section id="fundamentals" class="level4 card-title">
-<h4 class="anchored" data-anchor-id="fundamentals">Fundamentals</h4>
-<section id="fundamentals-of-julia-programming-language" class="level6 card-subtitle text-muted">
-<h6 class="anchored" data-anchor-id="fundamentals-of-julia-programming-language">Fundamentals of Julia programming language</h6>
-</section>
-</section>
-<ul>
-<li><a href="../M1/fundamentals-why_julia.html">Why Julia?</a></li>
-<li><a href="../M1/fundamentals-syntax.html">Syntax</a></li>
-<li><a href="../M1/fundamentals-types.html">Types</a></li>
-<li><a href="../M1/fundamentals-multiple_dispatch.html">Multiple dispatch</a></li>
-<li><a href="../M1/fundamentals-modules_and_packages.html">Modules and packages</a></li>
-<li><a href="../M1/fundamentals-metaprogramming.html">Metaprogramming</a></li>
-<li><a href="../M1/fundamentals-interoperability.html">Interoperability</a></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div>
 
 
 
@@ -805,10 +685,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../M1/fundamentals-syntax.html" class="pagination-link" aria-label="Syntax">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Syntax</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../M1/getting_started-julia_ecosystem.html" class="pagination-link" aria-label="Julia ecosystem">
-        <span class="nav-page-text">Julia ecosystem</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../M1/fundamentals-multiple_dispatch.html" class="pagination-link" aria-label="Multiple dispatch">
+        <span class="nav-page-text">Multiple dispatch</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -820,7 +703,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024, Olivier Cots</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia-M1/edit/main/M1/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/blob/main/M1/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia-M1/edit/main/M1/fundamentals-types.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/blob/main/M1/fundamentals-types.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
