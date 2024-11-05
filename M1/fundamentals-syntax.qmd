@@ -226,44 +226,46 @@ These arithmetic operations can be combined and nested to perform complex calcul
 
 ## Functions in Julia
 
-Julia functions allow you to group code into reusable components. Here’s an overview of different ways to define functions, use arguments, set default values, and handle mutation.
+Julia offers flexible ways to define functions, with options for positional arguments, keyword arguments, optional arguments with default values, and variable-length arguments. Let’s explore each of these in detail.
 
-### Function Definitions
-Julia provides two main ways to define functions: the classic form and the assignment form.
+### Defining Functions
 
-**Classic Form**: Functions are defined using the `function` keyword and closed with `end`.
+Functions in Julia can be defined using either the `function` keyword or the assignment syntax.
 
 ```{julia}
+# Using the `function` keyword
 function add(a, b)
     return a + b
 end
+
+# Using assignment syntax
+multiply(a, b) = a * b
+
+println(add(2, 3))         # Outputs: 5
+println(multiply(2, 3))    # Outputs: 6
 ```
 
-**Assignment Form**: Functions can also be defined in a single line with the assignment operator `=`.
+### Positional and Keyword Arguments
 
-```{julia}
-add(a, b) = a + b
-```
+In Julia, functions can take both positional arguments and keyword arguments.
 
-Both definitions above create a function `add` that takes two arguments and returns their sum.
+- **Positional Arguments**: These are listed first in the parameter list and must be provided in the correct order when the function is called. Positional arguments can have default values, but it's not required.
 
-### Arguments and Keyword Arguments
-In Julia, functions can take positional arguments, keyword arguments, and a variable number of arguments.
-
-- **Positional Arguments**: These are specified in the function’s parameter list and must be passed in the correct order.
-
-- **Keyword Arguments**: Specified with a semicolon (`;`), these arguments are passed by name and have default values. 
+- **Keyword Arguments**: Keyword arguments are specified after a semicolon (`;`) in the parameter list. These arguments must be provided by name when calling the function. Like positional arguments, keyword arguments can have default values, but they don’t have to.
 
 ```{julia}
 function greet(name; punctuation = "!")
     return "Hello, " * name * punctuation
 end
 
-println(greet("Alice"))          # Outputs: "Hello, Alice!"
-println(greet("Alice", punctuation = "?"))  # Outputs: "Hello, Alice?"
+println(greet("Alice"))                     # Outputs: "Hello, Alice!"
+println(greet("Alice", punctuation = "?"))   # Outputs: "Hello, Alice?"
 ```
 
-- **Variable Number of Arguments**: To accept an arbitrary number of arguments, use the splatting operator `...`. These arguments are collected into a tuple.
+In this example, `punctuation` is a keyword argument with a default value of `"!"`. You could also define a keyword argument without a default value if needed.
+
+### Variable Number of Arguments
+Julia functions can accept an arbitrary number of arguments using the splatting operator `...`. These arguments are gathered into a tuple.
 
 ```{julia}
 function sum_all(args...)
@@ -278,7 +280,7 @@ println(sum_all(1, 2, 3, 4))  # Outputs: 10
 ```
 
 ### Default Values for Optional Arguments
-In Julia, arguments can be given default values by specifying them in the function definition. If no value is provided when the function is called, the default is used.
+In Julia, you can assign default values to both positional and keyword arguments. When the function is called without specifying a value for an argument with a default, the default value is used.
 
 ```{julia}
 function power(base, exponent=2)
@@ -290,9 +292,7 @@ println(power(3, 3))   # Outputs: 27
 ```
 
 ### Mutation and the Bang `!` Convention
-In Julia, functions that modify or mutate their arguments typically have a `!` at the end of their name, following the "bang" convention. This is not enforced by the language but is a widely followed convention in Julia.
-
-For example:
+In Julia, functions that modify or mutate their arguments typically end with a `!`, following the "bang" convention. This is not enforced by the language but is a widely followed convention in Julia to indicate mutation.
 
 ```{julia}
 function add_one!(array)
@@ -306,10 +306,10 @@ add_one!(arr)
 println(arr)  # Outputs: [2, 3, 4]
 ```
 
-In this example, `add_one!` modifies the elements of the array `arr`. By convention, the `!` indicates that the function mutates its input.
+In this example, `add_one!` modifies the elements of the array `arr`. By convention, the `!` at the end of the function name indicates that the function mutates its input.
 
 ### Return Values
-In Julia, a function returns the last evaluated expression by default. Alternatively, you can use the `return` keyword to explicitly specify the output.
+In Julia, functions automatically return the last evaluated expression. However, you can use the `return` keyword to explicitly specify the output if needed.
 
 ```{julia}
 function multiply(a, b)
@@ -317,7 +317,7 @@ function multiply(a, b)
 end
 ```
 
-This covers the basics of defining functions, handling different types of arguments, using default values, and following Julia's conventions for mutation.
+This section covers defining functions, handling positional and keyword arguments, working with default values, and following Julia's convention for mutation.
 
 ## Scoping and Closure in Julia
 
@@ -341,13 +341,14 @@ println(access_global())  # Outputs: 10
 - **Local Scope**: Variables defined within a function or a block (e.g., loops or conditionals) have local scope and cannot be accessed outside of that block.
 
 ```{julia}
+#| error: true
 function local_scope_example()
     local_var = 5
     return local_var
 end
 
 println(local_scope_example())  # Outputs: 5
-# println(local_var)  # This would cause an error, as local_var is not accessible here
+println(local_var)  # This would cause an error, as local_var is not accessible here
 ```
 
 ### Nested Scopes
@@ -369,21 +370,51 @@ println(closure(4))  # Outputs: 9 (3 + 2 + 4)
 In this example, `inner_function` forms a closure over the variables `x` and `y`, retaining access to them even after `outer_function` has finished executing.
 
 ### Closures
-A closure is a function that captures the variables from its surrounding lexical scope. Closures are particularly useful for creating function factories or when working with callbacks.
+A closure is a function that captures variables from its surrounding lexical scope, allowing the function to use these variables even after the scope where they were defined has ended. Closures are especially useful for creating customized functions or "function factories."
+
+#### Example: Using a Global Variable vs. Capturing a Variable in a Closure
+To illustrate the difference between referencing a global variable and capturing a variable in a closure, let’s first create a function that uses a global variable:
+
+```{julia}
+factor = 2
+
+function multiply_by_global(x)
+    return x * factor
+end
+
+println(multiply_by_global(5))  # Outputs: 10
+
+# Update the global variable `factor`
+factor = 3
+println(multiply_by_global(5))  # Outputs: 15 (factor is now 3)
+```
+
+In this example, `multiply_by_global` uses the global variable `factor`, so whenever `factor` is updated, the result of calling `multiply_by_global` changes.
+
+#### Example: Capturing a Variable in a Closure
+Now, let’s use a closure to capture the `factor` variable inside a function. Here, the captured value of `factor` remains fixed at the time the closure was created, regardless of changes to the variable afterward.
 
 ```{julia}
 function make_multiplier(factor)
-    return (x) -> x * factor  # Returns a closure
+    return (x) -> x * factor  # Returns a closure that captures `factor`
 end
 
-double = make_multiplier(2)
-triple = make_multiplier(3)
+double = make_multiplier(2)   # `factor` is captured as 2 in this closure
+triple = make_multiplier(3)   # `factor` is captured as 3 in this closure
 
 println(double(5))  # Outputs: 10
 println(triple(5))  # Outputs: 15
+
+# Even if we change `factor` globally, it doesn't affect the closure
+factor = 10
+println(double(5))  # Still outputs: 10
+println(triple(5))  # Still outputs: 15
 ```
 
-In this case, `make_multiplier` returns a function that captures the `factor` variable, allowing the returned function to use it later.
+In this example, `make_multiplier` returns a function that captures the `factor` variable when the closure is created. This means that `double` will always multiply by `2`, and `triple` will always multiply by `3`, regardless of any subsequent changes to `factor`.
+
+### Summary
+Using closures in Julia allows you to "lock in" the values of variables from an outer scope at the time of the closure's creation. This differs from referencing global variables directly, where any changes to the variable are reflected immediately. Closures are particularly useful for creating function factories or callbacks that need to retain specific values independently of changes in the global scope.
 
 ### Scope and Performance
 Understanding scope is crucial for performance in Julia. Defining variables within a local scope, such as inside functions, can lead to more efficient code execution. Global variables can lead to performance penalties due to type instability.

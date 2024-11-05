@@ -45,7 +45,7 @@ Traditionally, programming required both a high-level, slower language for proto
 If you want to know for instance the date of the first public release, the price and the names of the
 creators of numerical-analysis softwares, please visite the [Wikipedia](https://en.wikipedia.org/wiki/Comparison_of_numerical-analysis_software) page.
 
-Julia is made for scientific computing as shown by the table below which compare some languages in terms
+Julia is made for scientific computing as shown by the table below which compares some languages in terms
 of differential equation solvers. For more details visit this [page](https://www.stochasticlifestyle.com/comparison-differential-equation-solver-suites-matlab-r-julia-python-c-fortran/).
 
 <a href="./images/de_solver_software_comparsion.pdf">
@@ -59,7 +59,7 @@ You can find [here](https://github.com/sswatson/cheatsheets) cheatsheets. One in
 </a>
 
 One goal of Julia is to be efficient and high-level. This is illustrated by the following figure 
-given by [Mandelbrot benchmark project](https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/mandelbrot.html#mandelbrot).
+given by the [Mandelbrot benchmark project](https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/mandelbrot.html#mandelbrot).
 
 <a href="./images/comparison.png">
   <img class="centering" width="80%" src="./images/comparison-big.png"/>
