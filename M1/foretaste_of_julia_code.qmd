@@ -68,15 +68,19 @@ To evaluate a function, simply call it with an argument:
 f(2)  # Output: 5
 ```
 
-### Anonymous Functions
+### Function Definition in Assignment Form
 
-Julia also supports anonymous functions (functions without a name), which are often used for short operations:
+Julia also supports defintion of functions in assignement form, which are often used for short operations:
 
 ```{julia}
 # This is also a function
 g(x) = 2x + 1   # A shorthand for defining a function
 g(2)            # Output: 5
 ```
+
+### Anonymous Functions
+
+Julia also supports anonymous functions (functions without a name):
 
 ```{julia}
 # Another example with anonymous function
@@ -156,15 +160,19 @@ println("x[2] after: ", x[2])
 
 ### Caution with Slices
 
-Be cautious when passing slices of arrays to functions. Modifying a slice can also modify the original array:
+When you pass a slice of an array to a function in Julia, the slice is actually a copy, so modifying it does **not** alter the original array:
 
 ```{julia}
-put_at_second_place!(x[1:3], 15)  # Be careful with slices
-println("x[2] after slice mutation: ", x[2])
+x = [1, 2, 3, 4]
+println("x[2] before slice modification: ", x[2])
+
+put_at_second_place!(x[1:3], 15)  # Safe to modify the slice
+
+println("x[2] after slice modification: ", x[2])  # Original array remains unchanged
 ```
 
-::: {.callout-warning}
-When a function modifies mutable objects, it can lead to unexpected results. Always be mindful of what is passed into functions.
+::: {.callout-tip} 
+When working with slices, remember that they are copies in Julia. Modifying a slice will not impact the original array, which helps prevent unintentional changes to your data. 
 :::
 
 ## Methods
@@ -236,21 +244,26 @@ Julia’s `Iterators` package allows for lazy collections, where values are comp
 
 ```{julia}
 using Base.Iterators: cycle
+round = 1
 for i in cycle([1, 2, 3])
     println(i)
     if i == 3
+      if round == 2
         break
+      else
+        round += 1
+      end
     end
 end
 ```
 
 This loops over the values 1, 2, and 3, repeating as a cycle.
 
-## Types and Type Stability
+## Type Stability
 
-### Type Stability
+Julia has **type stability** for fast compilation and execution. When writing functions, it's important to ensure that the type of the return value can be determined without ambiguity. 
 
-Julia has **type stability** for fast compilation and execution. When writing functions, it's important to ensure that the type of the return value can be determined without ambiguity. Here's an example:
+Example of type **instability**:
 
 ```{julia}
 function f(x)
@@ -261,8 +274,8 @@ function f(x)
     end
 end
 
-println(typeof(f(2)))   # Output: Int64
-println(typeof(f(-2)))  # Output: Float64
+println("The value  2 of type ", typeof( 2), " produces an output of type ", typeof(f( 2)))
+println("The value -2 of type ", typeof(-2), " produces an output of type ", typeof(f(-2)))
 ```
 
 Julia is dynamically typed, but ensuring **type stability** within functions helps the compiler optimize code for better performance.

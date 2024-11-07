@@ -497,7 +497,7 @@ The REPL provides a built-in help system that can assist you in looking up funct
 
 ## Working with Julia Packages
 
-Julia has a rich ecosystem of packages that extend the language’s capabilities for various domains, such as machine learning, data science, optimization, and more. This section will cover how to manage and use packages in Julia.
+Julia has a rich ecosystem of packages that extend the language’s capabilities for various domains, such as machine learning, data science, optimization, and more. The [Julia Packages](https://juliapackages.com) webpage is the official source for Julia packages. This section will cover how to manage and use packages in Julia.
 
 ### Standard Libraries in Julia
 
@@ -523,9 +523,9 @@ println("The norm of the vector is: ", norm_v)
 
 In this example, the `norm()` function calculates the Euclidean norm (or 2-norm) of the vector `v`, which in this case is 
 
-\[
-\sqrt{3^2 + 4^2} = 5
-\]
+$$
+\sqrt{3^2 + 4^2} = 5.
+$$
 
 These standard libraries help you to get started quickly with common tasks, without the need to install additional packages.
 
@@ -542,7 +542,20 @@ Example:
 ] add DataFrames
 ```
 
-This will install the `DataFrames` package, which is widely used for data manipulation in Julia.
+This will install the `DataFrames` package, which is widely used for data manipulation in Julia. To get the list of installed packages, type:
+
+```julia
+] status
+```
+
+::: {.callout-note}
+You can also install the package directly from the Julia mode:
+
+```julia
+using Pkg
+Pkg.add("DataFrames")
+```
+:::
 
 ### Using Installed Packages
 
@@ -568,6 +581,23 @@ Example:
 ] update
 ```
 
+You can also update a specific package by running:
+
+```julia
+] update PackageName
+```
+
+::: {.callout-note}
+You can also update packages directly from the Julia mode:
+
+```julia
+using Pkg
+Pkg.update()
+# or
+Pkg.update("PackageName")
+```
+:::
+
 ### Removing Packages
 
 If you no longer need a package, you can remove it using the `rm` command.
@@ -580,6 +610,15 @@ Example:
 
 This will uninstall the `DataFrames` package from your environment.
 
+::: {.callout-note}
+You can also remove packages directly from the Julia mode:
+
+```julia
+using Pkg
+Pkg.rm("DataFrames")
+```
+:::
+
 ### Package Environments
 
 In Julia, you can manage different environments, each with its own set of installed packages. This allows you to work on multiple projects with different dependencies without conflicts. You can create a new environment by navigating to a directory and typing:
@@ -588,63 +627,32 @@ In Julia, you can manage different environments, each with its own set of instal
 ] activate .
 ```
 
-This will activate the environment in the current directory. You can also specify a different directory or environment path by providing it after `activate`.
+This will activate the environment in the current directory. You can also specify a different directory or environment path by providing it after `activate`. If you want
+to come back to the global environment, type:
+
+```julia
+] activate
+```
+
+Note that the packages installed in the global environment are visible from any other environment.
+
+::: {.callout-note}
+You can also activate environments directly from the Julia mode. For instance, for the current directory:
+
+```julia
+using Pkg
+Pkg.activate(".")
+```
+:::
 
 ### Conclusion
 
 Working with packages is essential to leveraging Julia’s powerful ecosystem. Understanding how to install, update, and remove packages, as well as using environments to manage project-specific dependencies, will help you make the most out of Julia's vast libraries.
 
-## Getting Help in Julia
-
-Julia provides several built-in ways to get help on functions, packages, and general language usage. Whether you're looking for function documentation or trying to debug an error, the following methods will help you quickly find the information you need.
-
-### Using the `?` for Documentation
-
-To get documentation for any function, type `?` followed by the function name in the REPL. This will bring up the documentation for that function.
-
-Example:
-
-```julia
-?println
-```
-
-This will display the documentation for the `println` function, showing the syntax, examples, and a description of what the function does.
-
-### Searching for Documentation
-
-If you're not sure about the exact name of the function or type you're looking for, you can use the `apropos()` function to search for keywords in the documentation.
-
-Example:
-
-```julia
-apropos("sort")
-```
-
-This will return a list of all functions and types related to "sort" in Julia.
-
-### Accessing the Julia Documentation Website
-
-For more in-depth reading, Julia’s official documentation is always available online. You can visit the [official Julia documentation](https://docs.julialang.org/) for detailed guides, tutorials, and API references.
-
-### Using the `@which` Macro
-
-The `@which` macro is helpful for understanding which method is being called in the case of multiple method definitions. It shows you the specific method that is being invoked based on the arguments passed to it.
-
-Example:
-
-```julia
-@which println("Hello, World!")
-```
-
-This will show which method of `println` is being called.
-
-### Conclusion
-
-Getting help in Julia is straightforward and built directly into the language. Whether you need detailed documentation or quick answers to function behavior, Julia provides several ways to assist with your coding experience.
-
 ## Julia Ecosystem
 
 The Julia programming language has a rich ecosystem of tools, platforms, and communities that can help you develop, deploy, and scale your applications. This section will introduce some key components of the Julia ecosystem, including JuliaHub, JuliaSim, JuliaCon, and other important resources.
+The Julia ecosystem is growing rapidly, offering a wide range of tools for scientific computing, data science, and application development. Platforms like JuliaHub, simulation tools like JuliaSim, and community events like JuliaCon are all central to the ecosystem and provide invaluable resources to Julia users.
 
 ### JuliaHub
 
@@ -678,14 +686,3 @@ Key features of JuliaCon:
 - **Talks and presentations**: Hear about cutting-edge developments in Julia from experts in various fields.
 
 <img class="do-not-accept-dark-mode centering" width="80%" src="images/juliacon-2023.jpg" />
-
-### Other Resources in the Julia Ecosystem
-
-1. **Julia Packages**: Julia has a rich ecosystem of packages that extend its functionality. You can find packages for a wide range of use cases, from data analysis to machine learning and visualization. The [Julia Package Registry](https://juliapackages.com) is the official source for Julia packages.
-
-2. **Jupyter Notebooks**: Julia can be run interactively in Jupyter notebooks, an excellent tool for data analysis, plotting, and scientific computation. Julia support for Jupyter is available via the [IJulia.jl](https://github.com/JuliaLang/IJulia.jl) package.
-
-### Conclusion
-
-The Julia ecosystem is growing rapidly, offering a wide range of tools for scientific computing, data science, and application development. Platforms like JuliaHub, simulation tools like JuliaSim, and community events like JuliaCon are all central to the ecosystem and provide invaluable resources to Julia users.
-

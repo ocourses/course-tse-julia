@@ -78,9 +78,9 @@ website:
             - text: Foretaste of Julia Code
               href: M1/foretaste_of_julia_code.qmd
             - text: Why Julia?
-              href: M1/fundamentals-why_julia.qmd
+              href: M1/why_julia.qmd
             - text: Syntax
-              href: M1/fundamentals-syntax.qmd
+              href: M1/syntax.qmd
             - text: Basic Types
               href: M1/fundamentals-basic-types.qmd
             - text: Advanced Types
