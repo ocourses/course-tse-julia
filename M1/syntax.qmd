@@ -1,0 +1,610 @@
+---
+title: "Julia Syntax Essentials and Variable Scoping"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+using Pkg
+using Suppressor
+@suppress begin
+  Pkg.activate(".")
+end
+```
+
+In this page, we present the fundamentals of Julia syntax. If you want a cheatsheet, please 
+visit [this page](https://cheatsheet.juliadocs.org).
+
+## Basics
+
+### Assignment
+
+In Julia, variables are assigned using the `=` operator:
+
+```{julia}
+x = 5
+y = "Hello, Julia!"
+nothing #| hide_line
+```
+
+Julia is dynamically typed, which means variables do not require explicit type declarations. Types are inferred based on the assigned value.
+
+```{julia}
+typeof(x)
+```
+
+```{julia}
+typeof(y)
+```
+
+### Unicode Characters
+
+Julia supports Unicode characters, allowing you to use symbols and mathematical notation in variable names and operations. For instance, Greek letters and symbols like α and β can be typed using the tab completion shortcut:
+
+- Type `\alpha`, then press `Tab` to get `α`.
+- Type `\beta`, then press `Tab` to get `β`.
+
+```{julia}
+α = 10
+β = α + 5
+nothing #| hide_line
+```
+
+Unicode is especially helpful when writing mathematical code, making it more readable and expressive.
+
+### Comments
+
+Comments are written with the `#` symbol. Julia also supports multiline comments with `#=` and `=#`:
+
+```{julia}
+# This is a single-line comment
+
+#= 
+This is a 
+multiline comment 
+=#
+```
+
+### Print
+
+To display output in Julia, you can use the `println` function:
+
+```{julia}
+println("Hello, Julia!")  # Prints: Hello, Julia!
+println("The value of α is ", α)
+```
+
+Printing output is helpful for debugging and tracking variable values in your code.
+
+### The `@show` Macro
+
+Julia also provides the `@show` macro, which is particularly useful for debugging. It prints both the name of a variable and its value in the following format: `variable_name = value`.
+
+```{julia}
+x = 42
+@show x   # Prints: x = 42
+nothing #| hide_line
+```
+
+You can also use `@show` with multiple variables or expressions:
+
+```{julia}
+a = 10
+b = 20
+@show a + b  # Prints: a + b = 30
+@show a, b   # Prints: a = 10, b = 20
+nothing #| hide_line
+```
+
+The `@show` macro is convenient for quick checks on variable values and expressions without needing to construct strings manually.
+
+## Control Flows and Logical Operators
+
+Control flow in Julia is managed through conditional statements and loops. Logical operators allow for conditions to be combined or negated.
+
+### Conditional Statements
+Julia supports `if`, `elseif`, and `else` for conditional checks:
+
+```{julia}
+x = 10
+
+if x > 5
+    println("x is greater than 5")
+elseif x == 5
+    println("x is equal to 5")
+else
+    println("x is less than 5")
+end
+```
+
+In Julia, blocks for `if`, `elseif`, and `else` are closed with `end`. Indentation is not required by syntax but is recommended for readability.
+
+::: {.callout-tip}
+You can follow the [Blue Style](https://github.com/JuliaDiff/BlueStyle) conventions for Julia code. If you want to format your code you can use the package [JuliaFormatter.jl](https://domluna.github.io/JuliaFormatter.jl).
+:::
+
+### Ternary Operator
+For simple conditional assignments, Julia has a ternary operator `? :`:
+
+```{julia}
+y = (x > 5) ? "Greater" : "Not greater"
+println(y)  # Outputs "Greater" if x > 5, otherwise "Not greater"
+```
+
+### Logical Operators
+Julia includes standard logical operators to build more complex conditions:
+
+- `&&` for logical AND
+- `||` for logical OR
+- `!` for logical NOT
+
+```{julia}
+a = true
+b = false
+
+println(a && b)  # Outputs: false
+println(a || b)  # Outputs: true
+println(!a)      # Outputs: false
+```
+
+### Loops
+Julia provides `for` and `while` loops for iterative tasks.
+
+**For Loop**: The `for` loop iterates over a range or collection:
+
+```{julia}
+for i in 1:5
+    println(i)
+end
+```
+
+This loop prints numbers from 1 to 5. The range `1:5` uses Julia’s `:` operator to create a sequence.
+
+::: {.callout-note}
+The for construct can loop on any iterable object. Visit the [documentation](https://docs.julialang.org/en/v1/manual/control-flow/#man-loops)
+for details.
+:::
+
+**While Loop**: The `while` loop executes as long as a condition is true:
+
+```{julia}
+count = 1
+
+while count <= 5
+    println(count)
+    count += 1
+end
+```
+
+This loop will print numbers from 1 to 5 by incrementing `count` each time.
+
+### Breaking and Continuing
+Julia also has `break` and `continue` for loop control.
+
+- `break` exits the loop completely.
+- `continue` skips the current iteration and moves to the next one.
+
+```{julia}
+for i in 1:5
+    if i == 3
+        continue  # Skips the number 3
+    end
+    println(i)
+end
+```
+
+```{julia}
+for i in 1:5
+    if i == 4
+        break  # Exits the loop when i is 4
+    end
+    println(i)
+end
+```
+
+These control flows and logical operators allow for flexibility in executing conditional logic and repeated operations in Julia.
+
+## Arithmetics
+
+Julia supports a variety of arithmetic operations that can be performed on numeric types. Below are some of the most commonly used operations:
+
+### Basic Arithmetic Operations
+You can perform basic arithmetic operations using standard operators:
+
+- **Addition**: `+`
+- **Subtraction**: `-`
+- **Multiplication**: `*`
+- **Division**: `/` (returns a floating-point result) and `//` (returns a rational number)
+
+```{julia}
+a = 10
+b = 3
+
+sum = a + b           # Outputs: 13
+difference = a - b    # Outputs: 7
+product = a * b       # Outputs: 30
+quotient = a / b      # Outputs: 3.3333...
+rational = a // b     # Outputs: 10//3
+nothing #| hide_line
+```
+
+### Modulo Operation
+The modulo operator `%` returns the remainder of a division operation. It is useful for determining if a number is even or odd, or for wrapping around values.
+
+```{julia}
+modulus_result = a % b  # Outputs: 1 (remainder of 10 divided by 3)
+```
+
+### Exponentiation
+You can perform exponentiation using the `^` operator. 
+
+```{julia}
+b = a ^ 2          # Outputs: 100 (10 squared)
+```
+
+### Using Arithmetic in Control Flow
+You can combine arithmetic operations with control flow statements. For example, you can use the modulo operation to check if a number is even or odd:
+
+```{julia}
+if a % 2 == 0
+    println("$a is even")
+else
+    println("$a is odd")
+end
+```
+
+### Summary of Arithmetic Operations
+| Operation         | Symbol    | Example        | Result       |
+|-------------------|-----------|----------------|--------------|
+| Addition          | `+`       | `5 + 3`        | `8`          |
+| Subtraction       | `-`       | `5 - 3`        | `2`          |
+| Multiplication    | `*`       | `5 * 3`        | `15`         |
+| Division          | `/`       | `5 / 2`        | `2.5`        |
+| Modulo            | `%`       | `5 % 2`        | `1`          |
+| Exponentiation    | `^`       | `2 ^ 3`        | `8`          |
+
+These arithmetic operations can be combined and nested to perform complex calculations as needed.
+
+## Functions
+
+Julia offers flexible ways to define functions, with options for positional arguments, keyword arguments, optional arguments with default values, and variable-length arguments. Let’s explore each of these in detail.
+
+### Defining Functions
+
+Functions in Julia can be defined using either the `function` keyword or the assignment syntax.
+
+```{julia}
+# Using the `function` keyword
+function add(a, b)
+    return a + b
+end
+
+# Using assignment syntax
+multiply(a, b) = a * b
+
+println(add(2, 3))         # Outputs: 5
+println(multiply(2, 3))    # Outputs: 6
+```
+
+### Positional and Keyword Arguments
+
+In Julia, functions can take both positional arguments and keyword arguments.
+
+- **Positional Arguments**: These are listed first in the parameter list and must be provided in the correct order when the function is called. Positional arguments can have default values, but it's not required.
+
+- **Keyword Arguments**: Keyword arguments are specified after a semicolon (`;`) in the parameter list. These arguments must be provided by name when calling the function. Like positional arguments, keyword arguments can have default values, but they don’t have to.
+
+```{julia}
+function greet(name; punctuation = "!")
+    return "Hello, " * name * punctuation
+end
+
+println(greet("Alice"))                     # Outputs: "Hello, Alice!"
+println(greet("Alice", punctuation = "?"))   # Outputs: "Hello, Alice?"
+```
+
+In this example, `punctuation` is a keyword argument with a default value of `"!"`. You could also define a keyword argument without a default value if needed.
+
+### Variable Number of Arguments
+Julia functions can accept an arbitrary number of arguments using the splatting operator `...`. These arguments are gathered into a tuple.
+
+```{julia}
+function sum_all(args...)
+    total = 0
+    for x in args
+        total += x
+    end
+    return total
+end
+
+println(sum_all(1, 2, 3, 4))  # Outputs: 10
+```
+
+### Default Values for Optional Arguments
+In Julia, you can assign default values to both positional and keyword arguments. When the function is called without specifying a value for an argument with a default, the default value is used.
+
+```{julia}
+function power(base, exponent=2)
+    return base ^ exponent
+end
+
+println(power(3))      # Outputs: 9 (since exponent defaults to 2)
+println(power(3, 3))   # Outputs: 27
+```
+
+### Mutation and the Bang `!` Convention
+In Julia, functions that modify or mutate their arguments typically end with a `!`, following the "bang" convention. This is not enforced by the language but is a widely followed convention in Julia to indicate mutation.
+
+```{julia}
+function add_one!(array)
+    for i in eachindex(array)
+        array[i] += 1
+    end
+end
+
+arr = [1, 2, 3]
+add_one!(arr)
+@show arr  # Outputs: arr = [2, 3, 4]
+nothing #| hide_line
+```
+
+In this example, `add_one!` modifies the elements of the array `arr`. By convention, the `!` at the end of the function name indicates that the function mutates its input.
+
+### Return Values
+In Julia, functions automatically return the last evaluated expression. However, you can use the `return` keyword to explicitly specify the output if needed.
+
+```{julia}
+function multiply(a, b)
+    a * b  # Returns the result of a * b
+end
+```
+
+## Scoping and Closure
+
+In Julia, scoping rules determine the visibility and lifetime of variables. Understanding scope and closures is essential for writing efficient and error-free code.
+
+### Variable Scope
+Scope in Julia refers to the region of code where a variable is accessible. There are two primary scopes: global and local.
+
+- **Global Scope**: Variables defined at the top level of a module or script are in the global scope and can be accessed from anywhere in that file. However, modifying global variables from within functions is generally discouraged.
+
+```{julia}
+global_var = 10
+
+function access_global()
+    return global_var
+end
+
+access_global()  # Outputs: 10
+```
+
+- **Local Scope**: Variables defined within a function or a block (e.g., loops or conditionals) have local scope and cannot be accessed outside of that block.
+
+```{julia}
+#| error: true
+function local_scope_example()
+    local_var = 5
+    return local_var
+end
+
+println(local_scope_example())  # Outputs: 5
+println(local_var)  # This would cause an error, as local_var is not accessible here
+```
+
+### Scope of Variables in `for` Loops
+
+In Julia, a `for` loop does not create a new local scope for its loop variable. This means that if a loop variable has the same name as an existing global variable, the global variable will be overwritten by the loop variable.
+
+Here's an example:
+
+```{julia}
+i = 10  # Define a global variable `i`
+
+for i = 1:3
+    println(i)  # Prints 1, 2, and 3
+end
+
+println("Outside loop: i = ", i)  # Outputs: 3
+```
+
+In this case, the initial value of `i` (10) is replaced by the loop variable. After the loop completes, `i` retains the value from the last iteration (3).
+
+#### Key Point: Avoid Reusing Global Variable Names in Loops
+
+To avoid unexpected behavior, it’s generally best to use a unique name for loop variables if there's a possibility of a name conflict with global variables. Alternatively, if you intend to retain the original global value after the loop, you can explicitly save the global variable's value before the loop.
+
+### Nested Scopes
+Julia allows for nested functions, which can access variables in their enclosing scopes. This is known as lexical scoping.
+
+```{julia}
+function outer_function(x)
+    y = 2
+    function inner_function(z)
+        return x + y + z
+    end
+    return inner_function
+end
+
+closure = outer_function(3)
+closure(4)  # Outputs: 9 (3 + 2 + 4)
+```
+
+In this example, `inner_function` forms a closure over the variables `x` and `y`, retaining access to them even after `outer_function` has finished executing.
+
+### Closures
+A closure is a function that captures variables from its surrounding lexical scope, allowing the function to use these variables even after the scope where they were defined has ended. Closures are especially useful for creating customized functions or "function factories."
+
+#### Example: Using a Global Variable vs. Capturing a Variable in a Closure
+To illustrate the difference between referencing a global variable and capturing a variable in a closure, let’s first create a function that uses a global variable:
+
+```{julia}
+factor = 2
+
+function multiply_by_global(x)
+    return x * factor
+end
+
+println(multiply_by_global(5))  # Outputs: 10
+
+# Update the global variable `factor`
+factor = 3
+println(multiply_by_global(5))  # Outputs: 15 (factor is now 3)
+```
+
+In this example, `multiply_by_global` uses the global variable `factor`, so whenever `factor` is updated, the result of calling `multiply_by_global` changes.
+
+#### Example: Capturing a Variable in a Closure
+Now, let’s use a closure to capture the `factor` variable inside a function. Here, the captured value of `factor` remains fixed at the time the closure was created, regardless of changes to the variable afterward.
+
+```{julia}
+function make_multiplier(factor)
+    return (x) -> x * factor  # Returns a closure that captures `factor`
+end
+
+double = make_multiplier(2)   # `factor` is captured as 2 in this closure
+triple = make_multiplier(3)   # `factor` is captured as 3 in this closure
+
+println(double(5))  # Outputs: 10
+println(triple(5))  # Outputs: 15
+
+# Even if we change `factor` globally, it doesn't affect the closure
+factor = 10
+println(double(5))  # Still outputs: 10
+println(triple(5))  # Still outputs: 15
+```
+
+In this example, `make_multiplier` returns a function that captures the `factor` variable when the closure is created. This means that `double` will always multiply by `2`, and `triple` will always multiply by `3`, regardless of any subsequent changes to `factor`.
+
+### Summary
+Using closures in Julia allows you to "lock in" the values of variables from an outer scope at the time of the closure's creation. This differs from referencing global variables directly, where any changes to the variable are reflected immediately. Closures are particularly useful for creating function factories or callbacks that need to retain specific values independently of changes in the global scope.
+
+Understanding scope is crucial for performance in Julia. Defining variables within a local scope, such as inside functions, can lead to more efficient code execution. Global variables can lead to performance penalties due to type instability.
+
+In summary, scoping rules in Julia allow for clear management of variable accessibility and lifespan, while closures enable powerful programming patterns by capturing the context in which they are created. Understanding these concepts is key to writing effective Julia code.
+
+## Exercices
+
+### Exercise 1: Temperature Converter
+Write a function `convert_temperature` that takes a temperature value and a keyword argument `unit` that can either be `"C"` for Celsius or `"F"` for Fahrenheit. The function should convert the temperature to the other unit and return the converted value. Use a conditional statement to determine the conversion formula:
+
+- If the unit is `"C"`, convert to Fahrenheit using the formula: \( F = C \times \frac{9}{5} + 32 \)
+- If the unit is `"F"`, convert to Celsius using the formula: \( C = (F - 32) \times \frac{5}{9} \)
+
+**Example Output:**
+```julia
+println(convert_temperature(100, unit="C"))  # Outputs: 212.0
+println(convert_temperature(32, unit="F"))    # Outputs: 0.0
+```
+
+::: {.callout-tip collapse="true" icon=false}
+## Hint for Exercise 1: Temperature Converter
+If the `unit` provided is not `"C"` or `"F"`, you can raise an error using the `throw` statement along with `ArgumentError`. This way, you can inform the user that the input is invalid.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+## Correction of Exercise 1: Temperature Converter
+
+```{julia}
+function convert_temperature(value; unit)
+    if unit == "C"
+        return value * 9/5 + 32  # Convert Celsius to Fahrenheit
+    elseif unit == "F"
+        return (value - 32) * 5/9  # Convert Fahrenheit to Celsius
+    else
+        throw(ArgumentError("Unit must be 'C' or 'F'"))
+    end
+end
+
+println(convert_temperature(100, unit="C"))  # Outputs: 212.0
+println(convert_temperature(32, unit="F"))    # Outputs: 0.0
+```
+:::
+
+### Exercise 2: Factorial Function with Closure
+Create a function `make_factorial` that returns a closure. This closure should compute the factorial of a number. The closure should capture a variable that keeps track of the number of times it has been called. When the closure is called, it should return the factorial of the number and the call count.
+
+**Example Output:**
+```julia
+factorial_closure = make_factorial()
+result, count = factorial_closure(5)
+println(result)  # Outputs: 120
+result, count = factorial_closure(3)
+println(result)  # Outputs: 6
+println("Function called ", count, " times")  # Outputs: 2 times
+```
+
+::: {.callout-tip collapse="true" icon=false}
+## Hint Exercise 2: Factorial Function with Closure
+When returning the results from the closure, you can return a pair of values by creating a tuple. In Julia, tuples are created using parentheses, like this: `(value1, value2)`.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+## Correction of Exercise 2: Factorial Function with Closure
+
+```{julia}
+function make_factorial()
+    call_count = 0  # Variable to keep track of calls
+    return (n) -> begin
+        call_count += 1
+        result = 1
+        for i in 1:n
+            result *= i
+        end
+        return (result, call_count)
+    end
+end
+
+factorial_closure = make_factorial()
+result, count = factorial_closure(5)
+println(result)  # Outputs: 120
+result, count = factorial_closure(3)
+println(result)  # Outputs: 6
+println("Function called ", count, " times")  # Outputs: 2 times
+```
+:::
+
+### Exercise 3: Filter Even Numbers
+Write a function `filter_even` that takes an array of integers as input and returns a new array containing only the even numbers from the input array. Use a loop and a conditional statement to check each number.
+
+Additionally, implement a helper function `is_even` that checks if a number is even. Use the `filter_even` function to filter an array of numbers, and print the result.
+
+**Example Output:**
+```julia
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+even_numbers = filter_even(numbers)
+println(even_numbers)  # Outputs: [2, 4, 6, 8, 10]
+```
+
+::: {.callout-tip collapse="true" icon=false}
+## Hint for Exercise 3: Filter Even Numbers
+To add elements to an array in Julia, use the `push!` function. This function takes two arguments: the array you want to modify and the element to add to that array.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+## Correction of Exercise 3: Filter Even Numbers
+```{julia}
+function is_even(x)
+    return x % 2 == 0
+end
+
+function filter_even(numbers)
+    even_numbers = []
+    for number in numbers
+        if is_even(number)
+            push!(even_numbers, number)
+        end
+    end
+    return even_numbers
+end
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+even_numbers = filter_even(numbers)
+println(even_numbers)  # Outputs: [2, 4, 6, 8, 10]
+```
+:::
+
+### Exercise Instructions
+1. For each exercise, implement the required functions in a new Julia script or interactive session.
+2. Test your functions with different inputs to ensure they work as expected.
+3. Comment on your code to explain the logic behind each part, especially where you utilize control flow and scope.
