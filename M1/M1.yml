@@ -1,11 +1,11 @@
 - title: Getting started
   subtitle: Introduction to Julia ecosystem
   links:
-    - text: Julia ecosystem
+    - text: Julia Ecosystem
       href: getting_started-julia_ecosystem.qmd
-    - text: Execute some code
+    - text: Execute Julia Code
       href: getting_started-execute_some_code.qmd
-    - text: Foretaste of Julia code
+    - text: Foretaste of Julia Code
       href: getting_started-foretaste_of_julia_code.qmd
     - text: "Example: Simple Linear Regression"
       href: getting_started-exercice_simple_linear_regression.qmd
@@ -15,13 +15,15 @@
   links:
     - text: Why Julia?
       href: fundamentals-why_julia.qmd
-    - text: Syntax
+    - text: Syntax Essentials
       href: fundamentals-syntax.qmd
-    - text: Types
-      href: fundamentals-types.qmd
-    - text: Multiple dispatch
+    - text: Basic Types
+      href: fundamentals-basic-types.qmd
+    - text: Advanced Types
+      href: fundamentals-advanced-types.qmd
+    - text: Multiple Dispatch
       href: fundamentals-multiple_dispatch.qmd
-    - text: Modules and packages
+    - text: Modules and Packages
       href: fundamentals-modules_and_packages.qmd
     - text: Metaprogramming
       href: fundamentals-metaprogramming.qmd

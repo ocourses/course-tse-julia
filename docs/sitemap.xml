@@ -21,12 +21,8 @@
     <lastmod>2024-11-05T14:51:31.772Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia-M1/M1/getting_started-julia_ecosystem.html</loc>
-    <lastmod>2024-11-04T20:43:58.042Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-types.html</loc>
-    <lastmod>2024-11-05T14:41:17.016Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-metaprogramming.html</loc>
+    <lastmod>2024-11-05T14:42:43.215Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-why_julia.html</loc>
@@ -34,35 +30,35 @@
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia-M1/M1/index.html</loc>
-    <lastmod>2024-11-04T15:11:18.817Z</lastmod>
+    <lastmod>2024-11-07T15:26:39.146Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-advanced-types.html</loc>
+    <lastmod>2024-11-07T15:07:26.606Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-syntax.html</loc>
+    <lastmod>2024-11-06T16:45:23.096Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-multiple_dispatch.html</loc>
     <lastmod>2024-11-05T14:41:46.904Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-syntax.html</loc>
-    <lastmod>2024-11-05T21:13:26.455Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia-M1/M1/getting_started-exercice_simple_linear_regression.html</loc>
-    <lastmod>2024-11-05T16:46:25.921Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/getting_started.html</loc>
+    <lastmod>2024-11-07T17:07:14.652Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-interoperability.html</loc>
     <lastmod>2024-11-05T14:42:59.198Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia-M1/M1/getting_started-foretaste_of_julia_code.html</loc>
-    <lastmod>2024-11-04T16:30:18.266Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-basic-types.html</loc>
+    <lastmod>2024-11-06T15:57:15.700Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia-M1/M1/getting_started-execute_some_code.html</loc>
-    <lastmod>2024-11-04T15:21:11.123Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia-M1/M1/fundamentals-metaprogramming.html</loc>
-    <lastmod>2024-11-05T14:42:43.215Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia-M1/M1/foretaste_of_julia_code.html</loc>
+    <lastmod>2024-11-07T17:09:40.245Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia-M1/about.html</loc>

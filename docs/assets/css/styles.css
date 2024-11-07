@@ -17,6 +17,10 @@ img.centering {
   text-align: right!important;
 }
 
+.data-frame td {
+  text-align: right!important;
+}
+
 /*
 #quarto-back-to-top {
   top: 120px;

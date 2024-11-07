@@ -13,6 +13,7 @@ execute:
 
 filters:
   - auto-dark
+  - code-visibility
 
 format:
   html:
@@ -72,32 +73,26 @@ website:
         - section: "Master 1"
           href: M1/index.qmd
           contents:
-            - section: "Getting started"
-              contents:
-                - text: Julia ecosystem
-                  href: M1/getting_started-julia_ecosystem.qmd
-                - text: Execute some code
-                  href: M1/getting_started-execute_some_code.qmd
-                - text: Foretaste of Julia code
-                  href: M1/getting_started-foretaste_of_julia_code.qmd
-                - text: "Exercice: Simple Linear Regression"
-                  href: M1/getting_started-exercice_simple_linear_regression.qmd
-            - section: "Fundamentals"
-              contents:
-                - text: Why Julia?
-                  href: M1/fundamentals-why_julia.qmd
-                - text: Syntax
-                  href: M1/fundamentals-syntax.qmd
-                - text: Types
-                  href: M1/fundamentals-types.qmd
-                - text: Multiple dispatch
-                  href: M1/fundamentals-multiple_dispatch.qmd
-                - text: Modules and packages
-                  href: M1/fundamentals-modules_and_packages.qmd
-                - text: Metaprogramming
-                  href: M1/fundamentals-metaprogramming.qmd
-                - text: Interoperability
-                  href: M1/fundamentals-interoperability.qmd
+            - text: "Getting started"
+              href: M1/getting_started.qmd
+            - text: Foretaste of Julia Code
+              href: M1/foretaste_of_julia_code.qmd
+            - text: Why Julia?
+              href: M1/fundamentals-why_julia.qmd
+            - text: Syntax
+              href: M1/fundamentals-syntax.qmd
+            - text: Basic Types
+              href: M1/fundamentals-basic-types.qmd
+            - text: Advanced Types
+              href: M1/fundamentals-advanced-types.qmd
+            - text: Multiple Dispatch
+              href: M1/fundamentals-multiple_dispatch.qmd
+            - text: Modules and Packages
+              href: M1/fundamentals-modules_and_packages.qmd
+            - text: Metaprogramming
+              href: M1/fundamentals-metaprogramming.qmd
+            - text: Interoperability
+              href: M1/fundamentals-interoperability.qmd
             - text: "---"
     - id: M2
       collapse-level: 3

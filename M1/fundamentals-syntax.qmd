@@ -1,5 +1,5 @@
 ---
-title: "Julia syntax"
+title: "Julia Syntax Essentials and Variable Scoping"
 page-layout: article
 jupyter: julia-1.11
 ---
@@ -29,7 +29,7 @@ y = "Hello, Julia!"
 
 Julia is dynamically typed, which means variables do not require explicit type declarations. Types are inferred based on the assigned value.
 
-### Unicode characters
+### Unicode Characters
 
 Julia supports Unicode characters, allowing you to use symbols and mathematical notation in variable names and operations. For instance, Greek letters and symbols like α and β can be typed using the tab completion shortcut:
 
@@ -58,7 +58,7 @@ multiline comment
 
 ### Print
 
-To display output in Julia, use the `println` function:
+To display output in Julia, you can use the `println` function:
 
 ```{julia}
 println("Hello, Julia!")  # Prints: Hello, Julia!
@@ -66,6 +66,28 @@ println("The value of α is ", α)
 ```
 
 Printing output is helpful for debugging and tracking variable values in your code.
+
+### The `@show` Macro
+
+Julia also provides the `@show` macro, which is particularly useful for debugging. It prints both the name of a variable and its value in the following format: `variable_name = value`.
+
+```{julia}
+x = 42
+@show x   # Prints: x = 42
+nothing #| hide_line
+```
+
+You can also use `@show` with multiple variables or expressions:
+
+```{julia}
+a = 10
+b = 20
+@show a + b  # Prints: a + b = 30
+@show a, b   # Prints: a = 10, b = 20
+nothing #| hide_line
+```
+
+The `@show` macro is convenient for quick checks on variable values and expressions without needing to construct strings manually.
 
 ## Control Flows and Logical Operators
 
@@ -185,6 +207,7 @@ difference = a - b    # Outputs: 7
 product = a * b       # Outputs: 30
 quotient = a / b      # Outputs: 3.3333...
 rational = a // b     # Outputs: 10//3
+nothing #| hide_line
 ```
 
 ### Modulo Operation
@@ -224,7 +247,7 @@ end
 
 These arithmetic operations can be combined and nested to perform complex calculations as needed.
 
-## Functions in Julia
+## Functions
 
 Julia offers flexible ways to define functions, with options for positional arguments, keyword arguments, optional arguments with default values, and variable-length arguments. Let’s explore each of these in detail.
 
@@ -303,7 +326,8 @@ end
 
 arr = [1, 2, 3]
 add_one!(arr)
-println(arr)  # Outputs: [2, 3, 4]
+@show arr  # Outputs: arr = [2, 3, 4]
+nothing #| hide_line
 ```
 
 In this example, `add_one!` modifies the elements of the array `arr`. By convention, the `!` at the end of the function name indicates that the function mutates its input.
@@ -319,7 +343,7 @@ end
 
 This section covers defining functions, handling positional and keyword arguments, working with default values, and following Julia's convention for mutation.
 
-## Scoping and Closure in Julia
+## Scoping and Closure
 
 In Julia, scoping rules determine the visibility and lifetime of variables. Understanding scope and closures is essential for writing efficient and error-free code.
 
@@ -335,7 +359,7 @@ function access_global()
     return global_var
 end
 
-println(access_global())  # Outputs: 10
+access_global()  # Outputs: 10
 ```
 
 - **Local Scope**: Variables defined within a function or a block (e.g., loops or conditionals) have local scope and cannot be accessed outside of that block.
@@ -364,7 +388,7 @@ function outer_function(x)
 end
 
 closure = outer_function(3)
-println(closure(4))  # Outputs: 9 (3 + 2 + 4)
+closure(4)  # Outputs: 9 (3 + 2 + 4)
 ```
 
 In this example, `inner_function` forms a closure over the variables `x` and `y`, retaining access to them even after `outer_function` has finished executing.
