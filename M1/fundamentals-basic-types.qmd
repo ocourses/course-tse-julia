@@ -1,0 +1,470 @@
+---
+title: "Basic Types and Data Structures in Julia"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+using Pkg
+using Suppressor
+@suppress begin
+  Pkg.activate(".")
+end
+```
+
+In Julia, understanding the fundamental types and data structures is essential for efficient coding and problem-solving. This page provides an introduction to some of the basic types in Julia, including integers, floating-point numbers, strings, and composite types like arrays and tuples. We’ll also explore more advanced data structures and their practical uses.
+
+You'll learn about:
+
+- **Basic Types** such as integers, floating-point numbers, and strings.
+- **Data Structures** like arrays, vectors, matrices, tuples, and `NamedTuple`.
+- The importance of **Type Declarations** and how to use them effectively.
+- How to work with **Collections** and **Composite Types** to model more complex data.
+
+Whether you're a beginner or looking to deepen your understanding of Julia's type system, this page will help you get familiar with the core building blocks for handling data efficiently in Julia.
+
+## Introduction to Types in Julia
+
+Julia is a dynamically typed language, meaning that variable types are determined at runtime. However, Julia also supports strong typing, which means that types are important and can be explicitly specified when needed. Understanding types in Julia is essential for writing efficient code, as the language uses Just-In-Time (JIT) compilation to optimize based on variable types.
+
+### Dynamic Typing
+In Julia, variables do not require explicit type declarations. The type of a variable is inferred based on the value assigned to it.
+
+```{julia}
+x = 10          # x is inferred to be of type Int64
+y = 3.14        # y is inferred to be of type Float64
+z = "Hello"     # z is inferred to be of type String
+nothing #| hide_line
+```
+
+Even though Julia automatically infers types, you can still explicitly specify them when necessary, particularly for performance optimization or for ensuring that a variable matches a particular type.
+
+### Strong Typing
+While Julia uses dynamic typing, it is strongly typed. This means that Julia will enforce type constraints on operations, and will raise errors when an operation is attempted with incompatible types.
+
+```{julia}
+#| error: true
+a = 5           # Integer
+b = 2.0         # Float
+
+# This will raise an error because you can't add an integer and a string
+c = a + "hello"  # Error: cannot convert string to Int
+```
+
+Julia allows flexibility compared to statically typed languages like C or Java, but still ensures that operations make sense for the types involved.
+
+### Type System and Performance
+The type system in Julia plays a key role in performance. By inferring or specifying types, Julia's JIT compiler can optimize code for specific data types, leading to faster execution. For example, when types are known at compile time, Julia can generate machine code tailored for the specific types involved.
+
+Julia’s type system also supports abstract types, allowing for more flexible and generic code, as well as parametric types that let you define functions or types that work with any data type.
+
+### Summary
+- Julia is dynamically typed but enforces strong typing.
+- Types are inferred from the values assigned to variables.
+- Julia optimizes performance based on types, making type information crucial.
+
+## Basic Types
+
+Julia has several basic (or primitive) types that are fundamental to working with the language. These include numerical types, characters, and strings. Understanding these types is crucial as they form the building blocks for more complex data structures.
+
+### Common Basic Types
+
+- **`Int`**: Represents integer values. Julia has multiple types of integers, such as `Int8`, `Int16`, `Int32`, and `Int64` depending on the desired size. By default, `Int` refers to the most appropriate integer type for the system (usually `Int64` on modern systems).
+  
+- **`Float64`**: Represents floating-point numbers with double precision.
+  
+- **`String`**: Represents sequences of characters.
+
+- **`Bool`**: Represents Boolean values, i.e., `true` or `false`.
+
+- **`Char`**: Represents individual Unicode characters.
+
+### Example Usage of Basic Types
+
+```{julia}
+# Integer type (default is Int64)
+a = 42         # a is of type Int64
+
+# Float type (default is Float64)
+b = 3.14       # b is of type Float64
+
+# String type
+c = "Hello"    # c is of type String
+
+# Boolean type
+d = true       # d is of type Bool
+
+# Char type
+e = 'α'        # e is of type Char
+nothing #| hide_line
+```
+
+These basic types are often used for simple calculations and conditionals. Julia allows operations between different types, but it will raise an error if the types are incompatible.
+
+## Collections and Data Structures
+
+### Arrays, Vectors, and Matrices
+
+In Julia, arrays are fundamental data structures that can hold elements of any type. Arrays can be one-dimensional (vectors) or two-dimensional (matrices), and they can hold data of various types.
+
+- **Creating an Array**:
+
+```{julia}
+arr = [1, 2, 3, 4]  # A simple 1D array (vector)
+```
+
+```{julia}
+matrix = [1 2 3; 4 5 6]  # A 2D array (matrix)
+```
+
+- **Accessing Array Elements**:
+
+```{julia}
+arr[1]   # Access the first element of the array
+```
+
+```{julia}
+matrix[2, 3]  # Access the element in the second row, third column
+```
+
+### Slicing of Vectors and Matrices
+
+You can extract slices (sub-arrays) of vectors and matrices in Julia. The slicing syntax allows you to access specific portions of an array.
+
+- **Slicing a vector**:
+
+```{julia}
+arr[2:4]  # Extracts elements from index 2 to 4: [2, 3, 4]
+```
+
+- **Slicing a matrix**:
+
+```{julia}
+matrix[1, :]   # Extracts the first row: [1, 2, 3]
+```
+
+```{julia}
+matrix[:, 2]   # Extracts the second column: [2, 5]
+```
+
+### Mutation of Arrays
+
+Arrays in Julia are mutable, meaning their elements can be changed after creation. The `.=` operator is commonly used to apply element-wise operations.
+
+- **Modify an individual element**:
+
+```{julia}
+arr[2] = 99  # Change the second element to 99
+```
+
+- **Element-wise operation with `.=`**:
+
+```{julia}
+arr .+= 10  # Adds 10 to each element of the array, resulting in [11, 12, 13, 14]
+```
+
+```{julia}
+matrix .*= 2  # Multiplies each element of the matrix by 2, resulting in [2 4 6; 8 10 12]
+```
+
+- **Push an element into an array** (mutates the array by adding a new element):
+
+```{julia}
+push!(arr, 40)  # Adds 40 to the end of the array
+```
+
+- **Pop an element from an array** (removes the last element):
+
+```{julia}
+pop!(arr)  # Removes the last element, which is 40 in this case
+```
+
+### Special Arrays
+
+Julia has built-in functions to create arrays with predefined values:
+
+- **Create an array of zeros**:
+
+```{julia}
+zeros(3)  # Creates an array of zeros with 3 elements: [0.0, 0.0, 0.0]
+```
+
+- **Create an array of ones**:
+
+```{julia}
+ones(2, 3)  # Creates a 2x3 matrix filled with ones: [1.0 1.0 1.0; 1.0 1.0 1.0]
+```
+
+### Tuples and Named Tuples
+
+- **Tuple** is an ordered collection of elements, which can hold elements of different types.
+
+```{julia}
+t = (1, "Julia", true)  # A tuple with three elements
+```
+
+- **NamedTuple** is a special kind of tuple where elements are associated with names (keys).
+
+```{julia}
+nt = (name = "Alice", age = 25)  # A NamedTuple with named fields
+```
+
+You can access the elements by their name:
+
+```{julia}
+nt.name  # Access the field 'name' of the NamedTuple, returns "Alice"
+```
+
+- **Mutation of a Tuple**:  
+Tuples are immutable, so attempting to change their elements will result in an error.
+
+```{julia}
+#| error: true
+t[1] = 99  # Trying to modify a tuple element will result in an error
+```
+
+The above line will raise an error because tuples are immutable in Julia, and their elements cannot be modified after creation.
+
+## Composite Types
+
+### Introduction to `struct`
+
+In Julia, you can define your own custom data types using the `struct` keyword. Composite types are user-defined types that group together different pieces of data into one object. A `struct` is a great way to create a type that can represent a complex entity with multiple fields.
+
+- **Creating a custom `struct`**:
+
+```{julia}
+# Define a simple struct for a point in 2D space
+struct Point
+    x::Float64
+    y::Float64
+end
+```
+
+Here, we created a `Point` struct with two fields: `x` and `y`, both of which are of type `Float64`.
+
+- **Creating an instance of a struct**:
+
+```{julia}
+p = Point(3.0, 4.0)  # Creates a Point with x = 3.0 and y = 4.0
+```
+
+- **Accessing fields of a struct**:
+
+```{julia}
+p.x  # Access the 'x' field of the Point instance
+p.y  # Access the 'y' field of the Point instance
+```
+
+You can access the fields of a struct directly using dot notation, as shown above.
+
+### Mutability of `struct`
+
+In Julia, structs are **immutable** by default, meaning once you create an instance of a struct, its fields cannot be changed. However, you can create **mutable structs** by using the `mutable struct` keyword, which allows modification of field values after creation.
+
+- **Creating a mutable struct**:
+
+```{julia}
+mutable struct MutablePoint
+    x::Float64
+    y::Float64
+end
+```
+
+Now you can modify the fields of `MutablePoint` instances after they are created.
+
+```{julia}
+mp = MutablePoint(1.0, 2.0)
+mp.x = 3.0  # Modify the 'x' field
+nothing #| hide_line
+```
+
+### Example: `struct` for a Circle
+
+We can create a more complex type, such as a `Circle`, which has a center represented by a `Point` and a radius:
+
+```{julia}
+struct Circle
+    center::Point
+    radius::Float64
+end
+```
+
+- **Creating an instance of `Circle`**:
+
+```{julia}
+c = Circle(Point(0.0, 0.0), 5.0)  # Create a circle with center (0, 0) and radius 5
+```
+
+- **Accessing fields of a nested struct**:
+
+```{julia}
+c.center.x  # Access the x field of the center of the circle
+c.center.y  # Access the y field of the center of the circle
+c.radius    # Access the radius of the circle
+nothing #| hide_line
+```
+
+### Conclusion
+
+In Julia, `struct` allows you to create complex custom types that can hold different types of data. By default, structs are immutable, but you can use `mutable struct` if you need to change the data after creation. This is useful for organizing and managing related data in your programs.
+
+## Exercices
+
+### Exercise 1: Creating a Shape System
+
+Create a system to represent different geometric shapes (like a **Rectangle**, **Circle**, and **Point**) using the following requirements:
+
+1. **Define a `Point` struct** with `x` and `y` coordinates of type `Float64`.
+2. **Define a `Rectangle` struct** with fields `length` and `width` of type `Float64`. Use the `Point` struct to represent the bottom-left corner of the rectangle.
+3. **Define a `Circle` struct** with a `Point` for the center and a `radius` of type `Float64`.
+4. Write a **function `area(shape)`** that computes the area of the given shape:
+   - The area of a rectangle is `length * width`.
+   - The area of a circle is `π * radius^2`.
+
+::: {.callout-tip collapse="true" icon=false}
+## Hint for Exercise 1:
+- Use **struct** to define `Point`, `Rectangle`, and `Circle`.
+- Use **dot notation** to access the fields of the structs.
+- Use **conditional logic** (e.g., `typeof()`) to handle different shapes in the `area` function.
+- For the circle, use `π = 3.141592653589793`.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+## Correction of Exercise 1:
+
+```{julia}
+# Define the Point struct
+struct Point
+    x::Float64
+    y::Float64
+end
+
+# Define the Rectangle struct
+struct Rectangle
+    bottom_left::Point
+    length::Float64
+    width::Float64
+end
+
+# Define the Circle struct
+struct Circle
+    center::Point
+    radius::Float64
+end
+
+# Function to calculate the area
+function area(shape)
+    if typeof(shape) == Rectangle
+        return shape.length * shape.width
+    elseif typeof(shape) == Circle
+        return π * shape.radius^2
+    else
+        throw(ArgumentError("Unsupported shape"))
+    end
+end
+
+# Example usage
+p1 = Point(0.0, 0.0)
+r1 = Rectangle(p1, 3.0, 4.0)
+c1 = Circle(p1, 5.0)
+
+println("Area of rectangle: ", area(r1))  # Should print 12.0
+println("Area of circle: ", area(c1))     # Should print 78.53981633974483
+```
+:::
+
+### Exercise 2: Working with Complex Numbers and Arrays
+
+1. Create two **complex numbers** `z1` and `z2` of type `Complex{Float64}`.
+2. Write a function `add_complex(z1, z2)` that adds two complex numbers and returns the result.
+3. Create an **array** of complex numbers and use the `map` function to add 2.0 to the real part of each complex number.
+4. Create a function `max_real_part` that returns the complex number with the largest real part from an array of complex numbers.
+
+::: {.callout-tip collapse="true" icon=false}
+## Hint for Exercise 2:
+- Use the `Complex{T}` type to create complex numbers. 
+- You can access the real and imaginary parts of a complex number with `real(z)` and `imag(z)`.
+- Use the `map` function to apply a transformation to each element of an array.
+- Compare the real parts of the complex numbers using `real(z)` to find the maximum.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+## Correction of Exercise 2:
+
+```{julia}
+# Create two complex numbers
+z1 = Complex{Float64}(3.0, 4.0)  # z1 = 3.0 + 4.0im
+z2 = Complex{Float64}(1.0, 2.0)  # z2 = 1.0 + 2.0im
+
+# Function to add two complex numbers
+function add_complex(z1, z2)
+    return z1 + z2
+end
+
+# Add 2.0 to the real part of each complex number in an array
+arr = [Complex{Float64}(3.0, 4.0), Complex{Float64}(1.0, 2.0), Complex{Float64}(5.0, 6.0)]
+new_arr = map(z -> Complex(real(z) + 2.0, imag(z)), arr)
+
+println("New array with modified real parts: ", new_arr)
+
+# Function to find the complex number with the largest real part
+function max_real_part(arr)
+    max_z = arr[1]
+    for z in arr
+        if real(z) > real(max_z)
+            max_z = z
+        end
+    end
+    return max_z
+end
+
+# Find the complex number with the largest real part
+max_z = max_real_part(arr)
+println("Complex number with the largest real part: ", max_z)
+```
+:::
+
+### Exercise 3: Manipulating Arrays and Tuples
+
+1. Create an **array** `arr` of integers from 1 to 10. 
+2. Use broadcasting (`.=`) to multiply all elements of the array by 2.
+3. Create a **tuple** `t` with three elements: a string, an integer, and a float.
+4. Try to mutate the first element of the tuple and handle any errors using a `try-catch` block.
+5. Create a **NamedTuple** `nt` with fields `name`, `age`, and `height`, and initialize it with your details.
+
+::: {.callout-tip collapse="true" icon=false}
+## Hint for Exercise 3:
+- Use the `.` operator for broadcasting and mutation of arrays.
+- Remember that tuples are immutable, so you can't modify their elements.
+- Use a `try-catch` block to catch errors if an operation fails.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+## Correction of Exercise 3:
+
+```{julia}
+# Create an array of integers from 1 to 10
+arr = collect(1:10)  # Convert UnitRange to an array
+
+# Use broadcasting to multiply all elements of the array by 2
+arr .= arr .* 2  # Broadcasting .*= operator
+println("Modified array: ", arr)
+
+# Create a tuple with three elements: a string, an integer, and a float
+t = ("John", 25, 5.9)
+
+# Attempt to mutate the first element of the tuple with error handling
+try
+    t[1] = "Alice"  # This will raise an error because tuples are immutable
+catch e
+    println("Error: ", e)
+end
+
+# Create a NamedTuple with fields: name, age, and height
+nt = (name = "John", age = 25, height = 5.9)
+
+println("NamedTuple: ", nt)
+```
+:::
