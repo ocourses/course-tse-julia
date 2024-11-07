@@ -107,6 +107,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/css/styles.css">
 <meta property="og:title" content="Getting Started with Julia – Julia course">
@@ -191,13 +234,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/fundamentals-why_julia.html" class="sidebar-item-text sidebar-link">
+  <a href="../M1/why_julia.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Why Julia?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/fundamentals-syntax.html" class="sidebar-item-text sidebar-link">
+  <a href="../M1/syntax.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Syntax</span></a>
   </div>
 </li>
@@ -295,21 +338,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#package-environments" id="toc-package-environments" class="nav-link" data-scroll-target="#package-environments">Package Environments</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
-  <li><a href="#getting-help-in-julia" id="toc-getting-help-in-julia" class="nav-link" data-scroll-target="#getting-help-in-julia">Getting Help in Julia</a>
-  <ul class="collapse">
-  <li><a href="#using-the-for-documentation" id="toc-using-the-for-documentation" class="nav-link" data-scroll-target="#using-the-for-documentation">Using the <code>?</code> for Documentation</a></li>
-  <li><a href="#searching-for-documentation" id="toc-searching-for-documentation" class="nav-link" data-scroll-target="#searching-for-documentation">Searching for Documentation</a></li>
-  <li><a href="#accessing-the-julia-documentation-website" id="toc-accessing-the-julia-documentation-website" class="nav-link" data-scroll-target="#accessing-the-julia-documentation-website">Accessing the Julia Documentation Website</a></li>
-  <li><a href="#using-the-which-macro" id="toc-using-the-which-macro" class="nav-link" data-scroll-target="#using-the-which-macro">Using the <code>@which</code> Macro</a></li>
-  <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1">Conclusion</a></li>
-  </ul></li>
   <li><a href="#julia-ecosystem" id="toc-julia-ecosystem" class="nav-link" data-scroll-target="#julia-ecosystem">Julia Ecosystem</a>
   <ul class="collapse">
   <li><a href="#juliahub" id="toc-juliahub" class="nav-link" data-scroll-target="#juliahub">JuliaHub</a></li>
   <li><a href="#juliasim" id="toc-juliasim" class="nav-link" data-scroll-target="#juliasim">JuliaSim</a></li>
   <li><a href="#juliacon" id="toc-juliacon" class="nav-link" data-scroll-target="#juliacon">JuliaCon</a></li>
-  <li><a href="#other-resources-in-the-julia-ecosystem" id="toc-other-resources-in-the-julia-ecosystem" class="nav-link" data-scroll-target="#other-resources-in-the-julia-ecosystem">Other Resources in the Julia Ecosystem</a></li>
-  <li><a href="#conclusion-2" id="toc-conclusion-2" class="nav-link" data-scroll-target="#conclusion-2">Conclusion</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia-M1/edit/main/M1/getting_started.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/blob/main/M1/getting_started.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia-M1/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -410,8 +443,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>After installation, you can verify that Julia is correctly installed by opening a terminal or command prompt and typing the following command:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will launch the Julia REPL (Read-Eval-Print Loop), where you can start running Julia commands interactively. You should see something similar to the following:</p>
-<div id="2cebdcae" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="63">
+<div id="f81d9bc9" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="111">
 <div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>               _</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  (_)     <span class="op">|</span> (_) (_)    <span class="op">|</span></span>
@@ -449,8 +482,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To start the Julia REPL, open your terminal or command prompt and simply type:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You should see the Julia prompt, which looks like this:</p>
-<div id="27417793" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="64">
+<div id="a2862ab7" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="112">
 <div class="sourceCode" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>               _</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  (_)     <span class="op">|</span> (_) (_)    <span class="op">|</span></span>
@@ -695,7 +728,7 @@ Note
 </section>
 <section id="working-with-julia-packages" class="level2">
 <h2 class="anchored" data-anchor-id="working-with-julia-packages">Working with Julia Packages</h2>
-<p>Julia has a rich ecosystem of packages that extend the language’s capabilities for various domains, such as machine learning, data science, optimization, and more. This section will cover how to manage and use packages in Julia.</p>
+<p>Julia has a rich ecosystem of packages that extend the language’s capabilities for various domains, such as machine learning, data science, optimization, and more. The <a href="https://juliapackages.com">Julia Packages</a> webpage is the official source for Julia packages. This section will cover how to manage and use packages in Julia.</p>
 <section id="standard-libraries-in-julia" class="level3">
 <h3 class="anchored" data-anchor-id="standard-libraries-in-julia">Standard Libraries in Julia</h3>
 <p>Julia comes with a set of <a href="https://docs.julialang.org/en/v1/">standard libraries</a>, which are built-in packages available with the installation. These libraries cover a wide range of functionality, from mathematical operations to file handling and system utilities. You do not need to install them separately; they are ready to be used as soon as you start Julia.</p>
@@ -713,7 +746,9 @@ Note
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"The norm of the vector is: "</span>, norm_v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In this example, the <code>norm()</code> function calculates the Euclidean norm (or 2-norm) of the vector <code>v</code>, which in this case is</p>
-<p>[ = 5 ]</p>
+<p><span class="math display">
+\sqrt{3^2 + 4^2} = 5.
+</span></p>
 <p>These standard libraries help you to get started quickly with common tasks, without the need to install additional packages.</p>
 </section>
 </section>
@@ -726,17 +761,33 @@ Note
 </ol>
 <p>Example:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>] add DataFrames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will install the <code>DataFrames</code> package, which is widely used for data manipulation in Julia.</p>
+<p>This will install the <code>DataFrames</code> package, which is widely used for data manipulation in Julia. To get the list of installed packages, type:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>] status</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can also install the package directly from the Julia mode:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"DataFrames"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section id="using-installed-packages" class="level3">
 <h3 class="anchored" data-anchor-id="using-installed-packages">Using Installed Packages</h3>
 <p>Once a package is installed, you can use it by importing it into your code using the <code>using</code> keyword. This makes the functions and types of the package available for use.</p>
 <p>Example:</p>
-<div id="07ed4a42" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(A <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, B <span class="op">=</span> [<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="65">
+<div id="ba1ee0e8" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(A <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, B <span class="op">=</span> [<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="113">
 <div><div style="float: left;"><span>4×2 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
 <table class="data-frame caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -783,62 +834,80 @@ Note
 <h3 class="anchored" data-anchor-id="updating-packages">Updating Packages</h3>
 <p>To update the packages installed in your environment to their latest versions, use the <code>update</code> command in the package manager.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>] update</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>] update</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can also update a specific package by running:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>] update PackageName</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can also update packages directly from the Julia mode:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">update</span>()</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">update</span>(<span class="st">"PackageName"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section id="removing-packages" class="level3">
 <h3 class="anchored" data-anchor-id="removing-packages">Removing Packages</h3>
 <p>If you no longer need a package, you can remove it using the <code>rm</code> command.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>] rm DataFrames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>] rm DataFrames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will uninstall the <code>DataFrames</code> package from your environment.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can also remove packages directly from the Julia mode:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">rm</span>(<span class="st">"DataFrames"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section id="package-environments" class="level3">
 <h3 class="anchored" data-anchor-id="package-environments">Package Environments</h3>
 <p>In Julia, you can manage different environments, each with its own set of installed packages. This allows you to work on multiple projects with different dependencies without conflicts. You can create a new environment by navigating to a directory and typing:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>] activate .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will activate the environment in the current directory. You can also specify a different directory or environment path by providing it after <code>activate</code>.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>] activate .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will activate the environment in the current directory. You can also specify a different directory or environment path by providing it after <code>activate</code>. If you want to come back to the global environment, type:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>] activate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that the packages installed in the global environment are visible from any other environment.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can also activate environments directly from the Julia mode. For instance, for the current directory:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>Working with packages is essential to leveraging Julia’s powerful ecosystem. Understanding how to install, update, and remove packages, as well as using environments to manage project-specific dependencies, will help you make the most out of Julia’s vast libraries.</p>
 </section>
 </section>
-<section id="getting-help-in-julia" class="level2">
-<h2 class="anchored" data-anchor-id="getting-help-in-julia">Getting Help in Julia</h2>
-<p>Julia provides several built-in ways to get help on functions, packages, and general language usage. Whether you’re looking for function documentation or trying to debug an error, the following methods will help you quickly find the information you need.</p>
-<section id="using-the-for-documentation" class="level3">
-<h3 class="anchored" data-anchor-id="using-the-for-documentation">Using the <code>?</code> for Documentation</h3>
-<p>To get documentation for any function, type <code>?</code> followed by the function name in the REPL. This will bring up the documentation for that function.</p>
-<p>Example:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>?println</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will display the documentation for the <code>println</code> function, showing the syntax, examples, and a description of what the function does.</p>
-</section>
-<section id="searching-for-documentation" class="level3">
-<h3 class="anchored" data-anchor-id="searching-for-documentation">Searching for Documentation</h3>
-<p>If you’re not sure about the exact name of the function or type you’re looking for, you can use the <code>apropos()</code> function to search for keywords in the documentation.</p>
-<p>Example:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apropos</span>(<span class="st">"sort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will return a list of all functions and types related to “sort” in Julia.</p>
-</section>
-<section id="accessing-the-julia-documentation-website" class="level3">
-<h3 class="anchored" data-anchor-id="accessing-the-julia-documentation-website">Accessing the Julia Documentation Website</h3>
-<p>For more in-depth reading, Julia’s official documentation is always available online. You can visit the <a href="https://docs.julialang.org/">official Julia documentation</a> for detailed guides, tutorials, and API references.</p>
-</section>
-<section id="using-the-which-macro" class="level3">
-<h3 class="anchored" data-anchor-id="using-the-which-macro">Using the <code>@which</code> Macro</h3>
-<p>The <code>@which</code> macro is helpful for understanding which method is being called in the case of multiple method definitions. It shows you the specific method that is being invoked based on the arguments passed to it.</p>
-<p>Example:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@which</span> <span class="fu">println</span>(<span class="st">"Hello, World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will show which method of <code>println</code> is being called.</p>
-</section>
-<section id="conclusion-1" class="level3">
-<h3 class="anchored" data-anchor-id="conclusion-1">Conclusion</h3>
-<p>Getting help in Julia is straightforward and built directly into the language. Whether you need detailed documentation or quick answers to function behavior, Julia provides several ways to assist with your coding experience.</p>
-</section>
-</section>
 <section id="julia-ecosystem" class="level2">
 <h2 class="anchored" data-anchor-id="julia-ecosystem">Julia Ecosystem</h2>
-<p>The Julia programming language has a rich ecosystem of tools, platforms, and communities that can help you develop, deploy, and scale your applications. This section will introduce some key components of the Julia ecosystem, including JuliaHub, JuliaSim, JuliaCon, and other important resources.</p>
+<p>The Julia programming language has a rich ecosystem of tools, platforms, and communities that can help you develop, deploy, and scale your applications. This section will introduce some key components of the Julia ecosystem, including JuliaHub, JuliaSim, JuliaCon, and other important resources. The Julia ecosystem is growing rapidly, offering a wide range of tools for scientific computing, data science, and application development. Platforms like JuliaHub, simulation tools like JuliaSim, and community events like JuliaCon are all central to the ecosystem and provide invaluable resources to Julia users.</p>
 <section id="juliahub" class="level3">
 <h3 class="anchored" data-anchor-id="juliahub">JuliaHub</h3>
 <p><a href="https://juliahub.com/">JuliaHub</a> is an online platform developed by Julia Computing that provides cloud-based access to Julia environments. It offers managed Julia instances, making it easier to share and deploy Julia-based projects without the need to worry about local setup. JuliaHub also supports collaboration on Julia projects and integrates with popular tools such as Jupyter notebooks.</p>
@@ -870,17 +939,6 @@ Note
 <li><strong>Talks and presentations</strong>: Hear about cutting-edge developments in Julia from experts in various fields.</li>
 </ul>
 <p><img class="do-not-accept-dark-mode centering" width="80%" src="images/juliacon-2023.jpg"></p>
-</section>
-<section id="other-resources-in-the-julia-ecosystem" class="level3">
-<h3 class="anchored" data-anchor-id="other-resources-in-the-julia-ecosystem">Other Resources in the Julia Ecosystem</h3>
-<ol type="1">
-<li><p><strong>Julia Packages</strong>: Julia has a rich ecosystem of packages that extend its functionality. You can find packages for a wide range of use cases, from data analysis to machine learning and visualization. The <a href="https://juliapackages.com">Julia Package Registry</a> is the official source for Julia packages.</p></li>
-<li><p><strong>Jupyter Notebooks</strong>: Julia can be run interactively in Jupyter notebooks, an excellent tool for data analysis, plotting, and scientific computation. Julia support for Jupyter is available via the <a href="https://github.com/JuliaLang/IJulia.jl">IJulia.jl</a> package.</p></li>
-</ol>
-</section>
-<section id="conclusion-2" class="level3">
-<h3 class="anchored" data-anchor-id="conclusion-2">Conclusion</h3>
-<p>The Julia ecosystem is growing rapidly, offering a wide range of tools for scientific computing, data science, and application development. Platforms like JuliaHub, simulation tools like JuliaSim, and community events like JuliaCon are all central to the ecosystem and provide invaluable resources to Julia users.</p>
 
 
 </section>
