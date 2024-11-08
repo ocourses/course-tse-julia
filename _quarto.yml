@@ -82,9 +82,9 @@ website:
             - text: Syntax
               href: M1/syntax.qmd
             - text: Basic Types
-              href: M1/fundamentals-basic-types.qmd
+              href: M1/basic-types.qmd
             - text: Advanced Types
-              href: M1/fundamentals-advanced-types.qmd
+              href: M1/advanced-types.qmd
             - text: Multiple Dispatch
               href: M1/fundamentals-multiple_dispatch.qmd
             - text: Modules and Packages

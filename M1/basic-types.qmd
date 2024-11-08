@@ -52,6 +52,13 @@ b = 2.0         # Float
 c = a + "hello"  # Error: cannot convert string to Int
 ```
 
+We see from the error message that we can add an Integer and a Char: `+(::Integer, ::AbstractChar)` is a valid operation. This is because a Char can be treated as an integer in Julia.
+
+```{julia}
+c = 'a'      # Char
+c + 128448   # This will work because Char can be treated as an integer
+```
+
 Julia allows flexibility compared to statically typed languages like C or Java, but still ensures that operations make sense for the types involved.
 
 ### Type System and Performance
@@ -128,7 +135,7 @@ arr[1]   # Access the first element of the array
 matrix[2, 3]  # Access the element in the second row, third column
 ```
 
-### Slicing of Vectors and Matrices
+#### Slicing of Vectors and Matrices
 
 You can extract slices (sub-arrays) of vectors and matrices in Julia. The slicing syntax allows you to access specific portions of an array.
 
@@ -148,7 +155,7 @@ matrix[1, :]   # Extracts the first row: [1, 2, 3]
 matrix[:, 2]   # Extracts the second column: [2, 5]
 ```
 
-### Mutation of Arrays
+#### Mutation of Arrays
 
 Arrays in Julia are mutable, meaning their elements can be changed after creation. The `.=` operator is commonly used to apply element-wise operations.
 
@@ -180,7 +187,7 @@ push!(arr, 40)  # Adds 40 to the end of the array
 pop!(arr)  # Removes the last element, which is 40 in this case
 ```
 
-### Special Arrays
+#### Special Arrays
 
 Julia has built-in functions to create arrays with predefined values:
 
@@ -196,7 +203,57 @@ zeros(3)  # Creates an array of zeros with 3 elements: [0.0, 0.0, 0.0]
 ones(2, 3)  # Creates a 2x3 matrix filled with ones: [1.0 1.0 1.0; 1.0 1.0 1.0]
 ```
 
+### Dictionaries (Dict)
+
+A `Dict` in Julia is an associative collection that maps keys to values. This allows for efficient lookups, insertions, and deletions based on unique keys.
+
+- **Creating a Dictionary**:
+
+```{julia}
+d = Dict("name" => "Alice", "age" => 25)
+```
+
+This creates a dictionary where `"name"` maps to `"Alice"` and `"age"` maps to `25`.
+
+- **Accessing Values**:
+  
+You can access values in a dictionary using their corresponding keys:
+
+```{julia}
+d["name"]  # Outputs: "Alice"
+```
+
+- **Adding and Updating Values**:
+
+To add a new key-value pair or update an existing one, you can use the following syntax:
+
+```{julia}
+d["location"] = "Paris"  # Adds a new key-value pair
+d["age"] = 26            # Updates the value associated with the key "age"
+display(d)
+```
+
+- **Removing Key-Value Pairs**:
+
+To remove a key-value pair, use the `delete!` function:
+
+```{julia}
+delete!(d, "location")
+```
+
+- **Iteration over Key-Value Pairs**:
+
+You can iterate through the keys, values, or pairs in a dictionary using `keys`, `values`, and `pairs` respectively:
+
+```{julia}
+for (k, v) in pairs(d)
+    println("Key: $k, Value: $v")
+end
+```
+
 ### Tuples and Named Tuples
+
+#### Basic usage of Tuples and Named Tuples
 
 - **Tuple** is an ordered collection of elements, which can hold elements of different types.
 
@@ -216,8 +273,7 @@ You can access the elements by their name:
 nt.name  # Access the field 'name' of the NamedTuple, returns "Alice"
 ```
 
-- **Mutation of a Tuple**:  
-Tuples are immutable, so attempting to change their elements will result in an error.
+- **Mutation of a Tuple**: Tuples are immutable, so attempting to change their elements will result in an error.
 
 ```{julia}
 #| error: true
@@ -225,6 +281,70 @@ t[1] = 99  # Trying to modify a tuple element will result in an error
 ```
 
 The above line will raise an error because tuples are immutable in Julia, and their elements cannot be modified after creation.
+
+#### Tuples in Function
+
+In Julia, tuples and named tuples play an important role in function definitions and return values.
+
+- **Positional and Keyword Arguments**:  
+  
+When defining functions with a variable number of arguments, Julia uses *tuples* to capture positional arguments and *named tuples* for keyword arguments:
+
+```{julia}
+function example_function(args...; kwargs...)
+    println("Positional arguments type: ", typeof(args))
+    println("Keyword arguments type: ", typeof(kwargs))
+    return kwargs
+end
+
+kw = example_function(1, 2, 3; name="Alice", age=30)
+nothing #| hide_line
+```
+
+In this example, `args` is of type `Tuple`, containing all positional arguments, while `kwargs` is based on a `NamedTuple`, containing all keyword arguments. The arguments are captured using the `args...` and `kwargs...` syntax. The `kwargs` argument is actually a 'Base.Pairs':
+
+```{julia}
+kw
+```
+
+```{julia}
+println("Type of kw: ", typeof(kw))
+println(kw isa Base.Pairs)
+println(kw isa AbstractDict)
+println("Keys: ", keys(kw))
+println("Values: ", values(kw))
+println("Pairs: ", pairs(kw))
+println("kx[:name]: ", kw[:name])
+println("kx[:age]: ", kw[:age])
+```
+
+Actually, the values are a `NamedTuple`:
+
+```{julia}
+typeof(values(kw))
+```
+
+Contrary to a `Dict`, you cannot add entries to a `Base.Pairs`:
+
+```{julia}
+#| error: true
+kw[:height] = 5.9
+```
+
+- **Returning Tuples**:
+
+In Julia, when a function returns multiple values separated by commas, they are automatically returned as a tuple:
+
+```{julia}
+function return_multiple_values()
+    return 1, "Julia", true
+end
+
+result = return_multiple_values()
+println("Result type: ", typeof(result))
+```
+
+So, `return_multiple_values()` returns a tuple with three elements.
 
 ## Composite Types
 
@@ -258,6 +378,12 @@ p.y  # Access the 'y' field of the Point instance
 ```
 
 You can access the fields of a struct directly using dot notation, as shown above.
+
+- **Get the names of the fields**:
+
+```{julia}
+fieldnames(Point)  # Returns the names of the fields in the Point struct
+```
 
 ### Mutability of `struct`
 
@@ -310,7 +436,7 @@ nothing #| hide_line
 
 In Julia, `struct` allows you to create complex custom types that can hold different types of data. By default, structs are immutable, but you can use `mutable struct` if you need to change the data after creation. This is useful for organizing and managing related data in your programs.
 
-## Exercices
+## Exercises
 
 ### Exercise 1: Creating a Shape System
 

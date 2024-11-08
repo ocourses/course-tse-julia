@@ -14,9 +14,9 @@
     - text: Syntax Essentials
       href: syntax.qmd
     - text: Basic Types
-      href: fundamentals-basic-types.qmd
+      href: basic-types.qmd
     - text: Advanced Types
-      href: fundamentals-advanced-types.qmd
+      href: advanced-types.qmd
     - text: Multiple Dispatch
       href: fundamentals-multiple_dispatch.qmd
     - text: Modules and Packages
