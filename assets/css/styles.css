@@ -1,3 +1,21 @@
+/* 
+  Quiz
+*/
+div[id$='_message']{
+  height:20px;
+  width:120px;
+  padding-bottom: 0px !important;
+  margin-top: 10px!important;
+}
+
+div[id$='_message'] .admonition{
+  padding:5px!important;
+  padding-left: 10px!important;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+
 img.centering {
   display: flex;
   justify-content: center;
