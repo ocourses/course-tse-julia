@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Metaprogramming – Julia course</title>
+<title>Modules and packages – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../M1/fundamentals-interoperability.html" rel="next">
-<link href="../M1/fundamentals-modules_and_packages.html" rel="prev">
+<link href="../M1/metaprogramming.html" rel="next">
+<link href="../M1/multiple_dispatch.html" rel="prev">
 <link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -72,10 +72,10 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../assets/css/styles.css">
-<meta property="og:title" content="Metaprogramming – Julia course">
+<meta property="og:title" content="Modules and packages – Julia course">
 <meta property="og:image" content="https://ocots.github.io/course-tse-julia/M1/assets/images/logo-julia.png">
 <meta property="og:site_name" content="Julia course">
-<meta name="twitter:title" content="Metaprogramming – Julia course">
+<meta name="twitter:title" content="Modules and packages – Julia course">
 <meta name="twitter:image" content="https://ocots.github.io/course-tse-julia/M1/assets/images/logo-julia.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -117,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/fundamentals-metaprogramming.html">Metaprogramming</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/modules_and_packages.html">Modules and Packages</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -176,25 +176,25 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/fundamentals-multiple_dispatch.html" class="sidebar-item-text sidebar-link">
+  <a href="../M1/multiple_dispatch.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Multiple Dispatch</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/fundamentals-modules_and_packages.html" class="sidebar-item-text sidebar-link">
+  <a href="../M1/modules_and_packages.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Modules and Packages</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/fundamentals-metaprogramming.html" class="sidebar-item-text sidebar-link active">
+  <a href="../M1/metaprogramming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Metaprogramming</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/fundamentals-interoperability.html" class="sidebar-item-text sidebar-link">
+  <a href="../M1/interoperability.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interoperability</span></a>
   </div>
 </li>
@@ -212,9 +212,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/fundamentals-metaprogramming.html">Metaprogramming</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/modules_and_packages.html">Modules and Packages</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Metaprogramming</h1>
+<h1 class="title">Modules and packages</h1>
 </div>
 
 
@@ -657,13 +657,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../M1/fundamentals-modules_and_packages.html" class="pagination-link" aria-label="Modules and Packages">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Modules and Packages</span>
+      <a href="../M1/multiple_dispatch.html" class="pagination-link" aria-label="Multiple Dispatch">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Multiple Dispatch</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../M1/fundamentals-interoperability.html" class="pagination-link" aria-label="Interoperability">
-        <span class="nav-page-text">Interoperability</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../M1/metaprogramming.html" class="pagination-link" aria-label="Metaprogramming">
+        <span class="nav-page-text">Metaprogramming</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -675,7 +675,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024, Olivier Cots</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/fundamentals-metaprogramming.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/fundamentals-metaprogramming.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/modules_and_packages.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/modules_and_packages.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
