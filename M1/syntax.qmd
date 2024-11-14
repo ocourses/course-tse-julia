@@ -12,6 +12,7 @@ using Suppressor
     Pkg.activate(".")
     include("../assets/julia/myshow.jl")
 end
+nothing
 ```
 
 In this page, we present the fundamentals of Julia syntax. If you want a cheatsheet, please 

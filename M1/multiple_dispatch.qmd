@@ -10,10 +10,11 @@ using Suppressor
 @suppress begin
     using Pkg
     Pkg.activate(".")
-    include("../assets/julia/myshow.jl")
     using Markdown
     using QuizQuestions
+    include("../assets/julia/myshow.jl")
 end
+nothing
 ```
 
 <img class="do-not-accept-dark-mode centering" width="60%" src="../assets/images/Sign-Plate-Work-in-Progress.jpg" />

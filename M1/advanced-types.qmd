@@ -14,6 +14,7 @@ using Suppressor
     using Markdown
     using QuizQuestions
 end
+nothing
 ```
 
 In this section, we will delve into some of the more advanced features of Julia's type system and error handling. We will explore the hierarchical structure of types, how to define and work with parametric types, as well as how to handle type conversions and promotions. Additionally, we will look at how to manage errors in Julia, including common error types and exception handling mechanisms.
