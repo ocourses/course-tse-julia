@@ -1,14 +1,9 @@
-- title: Getting started
-  subtitle: Introduction to Julia ecosystem
+- title: Content
   links:
-    - text: Julia Ecosystem
+    - text: Getting started
       href: getting_started.qmd
     - text: Foretaste of Julia Code
-      href: getting_started-foretaste_of_julia_code.qmd
-
-- title: Fundamentals
-  subtitle: Fundamentals of Julia programming language
-  links:
+      href: foretaste_of_julia_code.qmd
     - text: Why Julia?
       href: why_julia.qmd
     - text: Syntax Essentials
@@ -18,10 +13,10 @@
     - text: Advanced Types
       href: advanced-types.qmd
     - text: Multiple Dispatch
-      href: fundamentals-multiple_dispatch.qmd
+      href: multiple_dispatch.qmd
     - text: Modules and Packages
-      href: fundamentals-modules_and_packages.qmd
+      href: modules_and_packages.qmd
     - text: Metaprogramming
-      href: fundamentals-metaprogramming.qmd
+      href: metaprogramming.qmd
     - text: Interoperability
-      href: fundamentals-interoperability.qmd
+      href: interoperability.qmd

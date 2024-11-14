@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/index.html</loc>
-    <lastmod>2024-11-14T09:38:48.503Z</lastmod>
+    <lastmod>2024-11-14T16:23:16.126Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/syntax.html</loc>
@@ -75,5 +75,21 @@
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M2/exercices-distribution_of_random_variables.html</loc>
     <lastmod>2024-10-27T19:24:43.365Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/interoperability.html</loc>
+    <lastmod>2024-11-05T14:42:59.198Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/modules_and_packages.html</loc>
+    <lastmod>2024-11-05T14:51:31.772Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/metaprogramming.html</loc>
+    <lastmod>2024-11-05T14:42:43.215Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/multiple_dispatch.html</loc>
+    <lastmod>2024-11-14T16:52:24.426Z</lastmod>
   </url>
 </urlset>

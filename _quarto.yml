@@ -86,13 +86,13 @@ website:
             - text: Advanced Types
               href: M1/advanced-types.qmd
             - text: Multiple Dispatch
-              href: M1/fundamentals-multiple_dispatch.qmd
+              href: M1/multiple_dispatch.qmd
             - text: Modules and Packages
-              href: M1/fundamentals-modules_and_packages.qmd
+              href: M1/modules_and_packages.qmd
             - text: Metaprogramming
-              href: M1/fundamentals-metaprogramming.qmd
+              href: M1/metaprogramming.qmd
             - text: Interoperability
-              href: M1/fundamentals-interoperability.qmd
+              href: M1/interoperability.qmd
             - text: "---"
     - id: M2
       collapse-level: 3
