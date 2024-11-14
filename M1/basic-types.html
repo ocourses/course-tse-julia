@@ -307,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You’ll learn about:</p>
 <ul>
 <li><strong>Basic Types</strong> such as integers, floating-point numbers, and strings.</li>
-<li><strong>Data Structures</strong> like arrays, vectors, matrices, tuples, and <code>NamedTuple</code>.</li>
+<li><strong>Data Structures</strong> like arrays, vectors, matrices, dictionaries, tuples, and <code>NamedTuple</code>.</li>
 <li>The importance of <strong>Type Declarations</strong> and how to use them effectively.</li>
 <li>How to work with <strong>Collections</strong> and <strong>Composite Types</strong> to model more complex data.</li>
 </ul>
@@ -318,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="dynamic-typing" class="level3">
 <h3 class="anchored" data-anchor-id="dynamic-typing">Dynamic Typing</h3>
 <p>In Julia, variables do not require explicit type declarations. The type of a variable is inferred based on the value assigned to it.</p>
-<div id="51d42699" class="cell" data-execution_count="2">
+<div id="d89e464b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">10</span>          <span class="co"># x is inferred to be of type Int64</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fl">3.14</span>        <span class="co"># y is inferred to be of type Float64</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="st">"Hello"</span>     <span class="co"># z is inferred to be of type String</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="strong-typing" class="level3">
 <h3 class="anchored" data-anchor-id="strong-typing">Strong Typing</h3>
 <p>While Julia uses dynamic typing, it is strongly typed. This means that Julia will enforce type constraints on operations, and will raise errors when an operation is attempted with incompatible types.</p>
-<div id="fbe721f8" class="cell" data-execution_count="3">
+<div id="98f7990a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">5</span>           <span class="co"># Integer</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">2.0</span>         <span class="co"># Float</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -351,15 +351,15 @@ Closest candidates are:
 
 Stacktrace:
  [1] top-level scope
-   @ In[842]:5</pre>
+   @ In[388]:5</pre>
 </div>
 </div>
 </div>
 <p>We see from the error message that we can add an Integer and a Char: <code>+(::Integer, ::AbstractChar)</code> is a valid operation. This is because a Char can be treated as an integer in Julia.</p>
-<div id="d6e45981" class="cell" data-execution_count="4">
+<div id="676f1440" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="ch">'a'</span>      <span class="co"># Char</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>c <span class="op">+</span> <span class="fl">128448</span>   <span class="co"># This will work because Char can be treated as an integer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="843">
+<div class="cell-output cell-output-display" data-execution_count="389">
 <pre><code>'😡': Unicode U+1F621 (category So: Symbol, other)</code></pre>
 </div>
 </div>
@@ -394,7 +394,7 @@ Stacktrace:
 </section>
 <section id="example-usage-of-basic-types" class="level3">
 <h3 class="anchored" data-anchor-id="example-usage-of-basic-types">Example Usage of Basic Types</h3>
-<div id="71af2626" class="cell" data-execution_count="5">
+<div id="104fe4c7" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Integer type (default is Int64)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">42</span>         <span class="co"># a is of type Int64</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -417,13 +417,13 @@ Stacktrace:
 <h2 class="anchored" data-anchor-id="collections-and-data-structures">Collections and Data Structures</h2>
 <section id="arrays-vectors-and-matrices" class="level3">
 <h3 class="anchored" data-anchor-id="arrays-vectors-and-matrices">Arrays, Vectors, and Matrices</h3>
-<p>In Julia, arrays are fundamental data structures that can hold elements of any type. Arrays can be one-dimensional (vectors) or two-dimensional (matrices), and they can hold data of various types.</p>
+<p>In Julia, <a href="https://docs.julialang.org/en/v1/manual/arrays/">arrays</a> are fundamental data structures that can hold elements of any type. Arrays can be one-dimensional (vectors) or two-dimensional (matrices), and they can hold data of various types.</p>
 <ul>
 <li><strong>Creating an Array</strong>:</li>
 </ul>
-<div id="e3802e5f" class="cell" data-execution_count="6">
+<div id="c64ccd30" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>]  <span class="co"># A simple 1D array (vector)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="845">
+<div class="cell-output cell-output-display" data-execution_count="391">
 <pre><code>4-element Vector{Int64}:
  1
  2
@@ -431,9 +431,9 @@ Stacktrace:
  4</code></pre>
 </div>
 </div>
-<div id="c356be27" class="cell" data-execution_count="7">
+<div id="47f1d4b3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> [<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span>; <span class="fl">4</span> <span class="fl">5</span> <span class="fl">6</span>]  <span class="co"># A 2D array (matrix)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="846">
+<div class="cell-output cell-output-display" data-execution_count="392">
 <pre><code>2×3 Matrix{Int64}:
  1  2  3
  4  5  6</code></pre>
@@ -442,15 +442,15 @@ Stacktrace:
 <ul>
 <li><strong>Accessing Array Elements</strong>:</li>
 </ul>
-<div id="e3f35a0b" class="cell" data-execution_count="8">
+<div id="b4c590ed" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>arr[<span class="fl">1</span>]   <span class="co"># Access the first element of the array</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="847">
+<div class="cell-output cell-output-display" data-execution_count="393">
 <pre><code>1</code></pre>
 </div>
 </div>
-<div id="a0195d8d" class="cell" data-execution_count="9">
+<div id="26709c19" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="fl">2</span>, <span class="fl">3</span>]  <span class="co"># Access the element in the second row, third column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="848">
+<div class="cell-output cell-output-display" data-execution_count="394">
 <pre><code>6</code></pre>
 </div>
 </div>
@@ -460,9 +460,9 @@ Stacktrace:
 <ul>
 <li><strong>Slicing a vector</strong>:</li>
 </ul>
-<div id="1160d034" class="cell" data-execution_count="10">
+<div id="4faac576" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>arr[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>]  <span class="co"># Extracts elements from index 2 to 4: [2, 3, 4]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="849">
+<div class="cell-output cell-output-display" data-execution_count="395">
 <pre><code>3-element Vector{Int64}:
  2
  3
@@ -472,18 +472,18 @@ Stacktrace:
 <ul>
 <li><strong>Slicing a matrix</strong>:</li>
 </ul>
-<div id="d76962e1" class="cell" data-execution_count="11">
+<div id="1f2443a7" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="fl">1</span>, <span class="op">:</span>]   <span class="co"># Extracts the first row: [1, 2, 3]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="850">
+<div class="cell-output cell-output-display" data-execution_count="396">
 <pre><code>3-element Vector{Int64}:
  1
  2
  3</code></pre>
 </div>
 </div>
-<div id="0ef21cd5" class="cell" data-execution_count="12">
+<div id="a0233575" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="op">:</span>, <span class="fl">2</span>]   <span class="co"># Extracts the second column: [2, 5]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="851">
+<div class="cell-output cell-output-display" data-execution_count="397">
 <pre><code>2-element Vector{Int64}:
  2
  5</code></pre>
@@ -496,18 +496,18 @@ Stacktrace:
 <ul>
 <li><strong>Modify an individual element</strong>:</li>
 </ul>
-<div id="4188f787" class="cell" data-execution_count="13">
+<div id="494abbd3" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>arr[<span class="fl">2</span>] <span class="op">=</span> <span class="fl">99</span>  <span class="co"># Change the second element to 99</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="852">
+<div class="cell-output cell-output-display" data-execution_count="398">
 <pre><code>99</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>Element-wise operation with <code>.=</code></strong>:</li>
 </ul>
-<div id="603e3f5a" class="cell" data-execution_count="14">
+<div id="2e81b41b" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">.+=</span> <span class="fl">10</span>  <span class="co"># Adds 10 to each element of the array, resulting in [11, 12, 13, 14]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="853">
+<div class="cell-output cell-output-display" data-execution_count="399">
 <pre><code>4-element Vector{Int64}:
   11
  109
@@ -515,9 +515,9 @@ Stacktrace:
   14</code></pre>
 </div>
 </div>
-<div id="e9bf2b5f" class="cell" data-execution_count="15">
+<div id="ddbe6c4b" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">.*=</span> <span class="fl">2</span>  <span class="co"># Multiplies each element of the matrix by 2, resulting in [2 4 6; 8 10 12]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="854">
+<div class="cell-output cell-output-display" data-execution_count="400">
 <pre><code>2×3 Matrix{Int64}:
  2   4   6
  8  10  12</code></pre>
@@ -526,9 +526,9 @@ Stacktrace:
 <ul>
 <li><strong>Push an element into an array</strong> (mutates the array by adding a new element):</li>
 </ul>
-<div id="bbf4fcc0" class="cell" data-execution_count="16">
+<div id="283a6b4b" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">push!</span>(arr, <span class="fl">40</span>)  <span class="co"># Adds 40 to the end of the array</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="855">
+<div class="cell-output cell-output-display" data-execution_count="401">
 <pre><code>5-element Vector{Int64}:
   11
  109
@@ -540,9 +540,9 @@ Stacktrace:
 <ul>
 <li><strong>Pop an element from an array</strong> (removes the last element):</li>
 </ul>
-<div id="e5db0378" class="cell" data-execution_count="17">
+<div id="5b7e2fd3" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pop!</span>(arr)  <span class="co"># Removes the last element, which is 40 in this case</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="856">
+<div class="cell-output cell-output-display" data-execution_count="402">
 <pre><code>40</code></pre>
 </div>
 </div>
@@ -553,9 +553,9 @@ Stacktrace:
 <ul>
 <li><strong>Create an array of zeros</strong>:</li>
 </ul>
-<div id="7af86984" class="cell" data-execution_count="18">
+<div id="fde196fe" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zeros</span>(<span class="fl">3</span>)  <span class="co"># Creates an array of zeros with 3 elements: [0.0, 0.0, 0.0]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="857">
+<div class="cell-output cell-output-display" data-execution_count="403">
 <pre><code>3-element Vector{Float64}:
  0.0
  0.0
@@ -565,9 +565,9 @@ Stacktrace:
 <ul>
 <li><strong>Create an array of ones</strong>:</li>
 </ul>
-<div id="01bdef06" class="cell" data-execution_count="19">
+<div id="7747812d" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ones</span>(<span class="fl">2</span>, <span class="fl">3</span>)  <span class="co"># Creates a 2x3 matrix filled with ones: [1.0 1.0 1.0; 1.0 1.0 1.0]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="858">
+<div class="cell-output cell-output-display" data-execution_count="404">
 <pre><code>2×3 Matrix{Float64}:
  1.0  1.0  1.0
  1.0  1.0  1.0</code></pre>
@@ -577,13 +577,13 @@ Stacktrace:
 </section>
 <section id="dictionaries-dict" class="level3">
 <h3 class="anchored" data-anchor-id="dictionaries-dict">Dictionaries (Dict)</h3>
-<p>A <code>Dict</code> in Julia is an associative collection that maps keys to values. This allows for efficient lookups, insertions, and deletions based on unique keys.</p>
+<p>A <a href="https://docs.julialang.org/en/v1/base/collections/#Dictionaries"><code>Dict</code></a> in Julia is an associative collection that maps keys to values. This allows for efficient lookups, insertions, and deletions based on unique keys.</p>
 <ul>
 <li><strong>Creating a Dictionary</strong>:</li>
 </ul>
-<div id="ff12383e" class="cell" data-execution_count="20">
+<div id="ffaf41f8" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"name"</span> <span class="op">=&gt;</span> <span class="st">"Alice"</span>, <span class="st">"age"</span> <span class="op">=&gt;</span> <span class="fl">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="859">
+<div class="cell-output cell-output-display" data-execution_count="405">
 <pre><code>Dict{String, Any} with 2 entries:
   "name" =&gt; "Alice"
   "age"  =&gt; 25</code></pre>
@@ -594,9 +594,9 @@ Stacktrace:
 <li><strong>Accessing Values</strong>:</li>
 </ul>
 <p>You can access values in a dictionary using their corresponding keys:</p>
-<div id="c63d047b" class="cell" data-execution_count="21">
+<div id="ec2def77" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">"name"</span>]  <span class="co"># Outputs: "Alice"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="860">
+<div class="cell-output cell-output-display" data-execution_count="406">
 <pre><code>"Alice"</code></pre>
 </div>
 </div>
@@ -604,7 +604,7 @@ Stacktrace:
 <li><strong>Adding and Updating Values</strong>:</li>
 </ul>
 <p>To add a new key-value pair or update an existing one, you can use the following syntax:</p>
-<div id="f8e79475" class="cell" data-execution_count="22">
+<div id="64f8f6a2" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">"location"</span>] <span class="op">=</span> <span class="st">"Paris"</span>  <span class="co"># Adds a new key-value pair</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>d[<span class="st">"age"</span>] <span class="op">=</span> <span class="fl">26</span>            <span class="co"># Updates the value associated with the key "age"</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -619,9 +619,9 @@ Stacktrace:
 <li><strong>Removing Key-Value Pairs</strong>:</li>
 </ul>
 <p>To remove a key-value pair, use the <code>delete!</code> function:</p>
-<div id="d424e35a" class="cell" data-execution_count="23">
+<div id="b25fd1d9" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">delete!</span>(d, <span class="st">"location"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="862">
+<div class="cell-output cell-output-display" data-execution_count="408">
 <pre><code>Dict{String, Any} with 2 entries:
   "name" =&gt; "Alice"
   "age"  =&gt; 26</code></pre>
@@ -631,7 +631,7 @@ Stacktrace:
 <li><strong>Iteration over Key-Value Pairs</strong>:</li>
 </ul>
 <p>You can iterate through the keys, values, or pairs in a dictionary using <code>keys</code>, <code>values</code>, and <code>pairs</code> respectively:</p>
-<div id="c079fd37" class="cell" data-execution_count="24">
+<div id="bc1d9af0" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k, v) <span class="kw">in</span> <span class="fu">pairs</span>(d)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Key: </span><span class="sc">$</span>k<span class="st">, Value: </span><span class="sc">$</span>v<span class="st">"</span>)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -643,37 +643,38 @@ Key: age, Value: 26</code></pre>
 </section>
 <section id="tuples-and-named-tuples" class="level3">
 <h3 class="anchored" data-anchor-id="tuples-and-named-tuples">Tuples and Named Tuples</h3>
+<p>Julia <a href="https://docs.julialang.org/en/v1/manual/types/#Tuple-Types">Tuples</a> are ordered collections of elements, while <a href="https://docs.julialang.org/en/v1/manual/types/#Named-Tuple-Types">Named Tuples</a> are tuples where elements are associated with names (keys). Tuples are immutable, meaning their elements cannot be changed after creation.</p>
 <section id="basic-usage-of-tuples-and-named-tuples" class="level4">
 <h4 class="anchored" data-anchor-id="basic-usage-of-tuples-and-named-tuples">Basic usage of Tuples and Named Tuples</h4>
 <ul>
 <li><strong>Tuple</strong> is an ordered collection of elements, which can hold elements of different types.</li>
 </ul>
-<div id="2f4363b0" class="cell" data-execution_count="25">
+<div id="f45ecd9b" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="fl">1</span>, <span class="st">"Julia"</span>, <span class="cn">true</span>)  <span class="co"># A tuple with three elements</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="864">
+<div class="cell-output cell-output-display" data-execution_count="410">
 <pre><code>(1, "Julia", true)</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>NamedTuple</strong> is a special kind of tuple where elements are associated with names (keys).</li>
 </ul>
-<div id="329453af" class="cell" data-execution_count="26">
+<div id="20c87a95" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>nt <span class="op">=</span> (name <span class="op">=</span> <span class="st">"Alice"</span>, age <span class="op">=</span> <span class="fl">25</span>)  <span class="co"># A NamedTuple with named fields</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="865">
+<div class="cell-output cell-output-display" data-execution_count="411">
 <pre><code>(name = "Alice", age = 25)</code></pre>
 </div>
 </div>
 <p>You can access the elements by their name:</p>
-<div id="6638c0c4" class="cell" data-execution_count="27">
+<div id="88df1329" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>nt.name  <span class="co"># Access the field 'name' of the NamedTuple, returns "Alice"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="866">
+<div class="cell-output cell-output-display" data-execution_count="412">
 <pre><code>"Alice"</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>Mutation of a Tuple</strong>: Tuples are immutable, so attempting to change their elements will result in an error.</li>
 </ul>
-<div id="0cc4fddd" class="cell" data-execution_count="28">
+<div id="9c4c9b23" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>t[<span class="fl">1</span>] <span class="op">=</span> <span class="fl">99</span>  <span class="co"># Trying to modify a tuple element will result in an error</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>LoadError: MethodError: no method matching setindex!(::Tuple{Int64, String, Bool}, ::Int64, ::Int64)
@@ -683,7 +684,7 @@ The function `setindex!` exists, but no method is defined for this combination o
 
 Stacktrace:
  [1] top-level scope
-   @ In[867]:1</code></pre>
+   @ In[413]:1</code></pre>
 </div>
 </div>
 <p>The above line will raise an error because tuples are immutable in Julia, and their elements cannot be modified after creation.</p>
@@ -695,7 +696,7 @@ Stacktrace:
 <li><strong>Positional and Keyword Arguments</strong>:</li>
 </ul>
 <p>When defining functions with a variable number of arguments, Julia uses <em>tuples</em> to capture positional arguments and <em>named tuples</em> for keyword arguments:</p>
-<div id="79701d53" class="cell" data-execution_count="29">
+<div id="462e72f7" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">example_function</span>(args<span class="op">...</span>; kwargs<span class="op">...</span>)</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Positional arguments type: "</span>, <span class="fu">typeof</span>(args))</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Keyword arguments type: "</span>, <span class="fu">typeof</span>(kwargs))</span>
@@ -709,15 +710,15 @@ Keyword arguments type: Base.Pairs{Symbol, Any, Tuple{Symbol, Symbol}, @NamedTup
 </div>
 </div>
 <p>In this example, <code>args</code> is of type <code>Tuple</code>, containing all positional arguments, while <code>kwargs</code> is based on a <code>NamedTuple</code>, containing all keyword arguments. The arguments are captured using the <code>args...</code> and <code>kwargs...</code> syntax. The <code>kwargs</code> argument is actually a ‘Base.Pairs’:</p>
-<div id="85e6961f" class="cell" data-execution_count="30">
+<div id="43c534d8" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>kw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="869">
+<div class="cell-output cell-output-display" data-execution_count="415">
 <pre><code>pairs(::NamedTuple) with 2 entries:
   :name =&gt; "Alice"
   :age  =&gt; 30</code></pre>
 </div>
 </div>
-<div id="f6106fa6" class="cell" data-execution_count="31">
+<div id="88df3e1d" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Type of kw: "</span>, <span class="fu">typeof</span>(kw))</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(kw isa <span class="bu">Base</span>.<span class="dt">Pairs</span>)</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(kw isa <span class="dt">AbstractDict</span>)</span>
@@ -738,14 +739,14 @@ kx[:age]: 30</code></pre>
 </div>
 </div>
 <p>Actually, the values are a <code>NamedTuple</code>:</p>
-<div id="ba5c7a12" class="cell" data-execution_count="32">
+<div id="4fc0f4df" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">values</span>(kw))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="871">
+<div class="cell-output cell-output-display" data-execution_count="417">
 <pre><code>@NamedTuple{name::String, age::Int64}</code></pre>
 </div>
 </div>
 <p>Contrary to a <code>Dict</code>, you cannot add entries to a <code>Base.Pairs</code>:</p>
-<div id="d5610fad" class="cell" data-execution_count="33">
+<div id="ebe2a973" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>kw[<span class="op">:</span>height] <span class="op">=</span> <span class="fl">5.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>LoadError: MethodError: no method matching setindex!(::@NamedTuple{name::String, age::Int64}, ::Float64, ::Symbol)
@@ -757,14 +758,14 @@ Stacktrace:
  [1] setindex!(v::@Kwargs{name::String, age::Int64}, value::Float64, key::Symbol)
    @ Base.Iterators ./iterators.jl:325
  [2] top-level scope
-   @ In[872]:1</code></pre>
+   @ In[418]:1</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>Returning Tuples</strong>:</li>
 </ul>
 <p>In Julia, when a function returns multiple values separated by commas, they are automatically returned as a tuple:</p>
-<div id="a07b6786" class="cell" data-execution_count="34">
+<div id="49e07fe6" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">return_multiple_values</span>()</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">1</span>, <span class="st">"Julia"</span>, <span class="cn">true</span></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -783,11 +784,11 @@ Stacktrace:
 <h2 class="anchored" data-anchor-id="composite-types">Composite Types</h2>
 <section id="introduction-to-struct" class="level3">
 <h3 class="anchored" data-anchor-id="introduction-to-struct">Introduction to <code>struct</code></h3>
-<p>In Julia, you can define your own custom data types using the <code>struct</code> keyword. Composite types are user-defined types that group together different pieces of data into one object. A <code>struct</code> is a great way to create a type that can represent a complex entity with multiple fields.</p>
+<p>In Julia, you can define your own custom data types using the <code>struct</code> keyword. <a href="https://docs.julialang.org/en/v1/manual/types/#Composite-Types">Composite types</a> are user-defined types that group together different pieces of data into one object. A <code>struct</code> is a great way to create a type that can represent a complex entity with multiple fields.</p>
 <ul>
 <li><strong>Creating a custom <code>struct</code></strong>:</li>
 </ul>
-<div id="83844e7f" class="cell" data-execution_count="35">
+<div id="b7379ff2" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a simple struct for a point in 2D space</span></span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Point</span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
@@ -798,19 +799,19 @@ Stacktrace:
 <ul>
 <li><strong>Creating an instance of a struct</strong>:</li>
 </ul>
-<div id="f15075dd" class="cell" data-execution_count="36">
+<div id="73989ffe" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fu">Point</span>(<span class="fl">3.0</span>, <span class="fl">4.0</span>)  <span class="co"># Creates a Point with x = 3.0 and y = 4.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="875">
+<div class="cell-output cell-output-display" data-execution_count="421">
 <pre><code>Point(3.0, 4.0)</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>Accessing fields of a struct</strong>:</li>
 </ul>
-<div id="326d7c06" class="cell" data-execution_count="37">
+<div id="fccbc39d" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>p.x  <span class="co"># Access the 'x' field of the Point instance</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>p.y  <span class="co"># Access the 'y' field of the Point instance</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="876">
+<div class="cell-output cell-output-display" data-execution_count="422">
 <pre><code>4.0</code></pre>
 </div>
 </div>
@@ -818,9 +819,9 @@ Stacktrace:
 <ul>
 <li><strong>Get the names of the fields</strong>:</li>
 </ul>
-<div id="3593fae9" class="cell" data-execution_count="38">
+<div id="93b78045" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fieldnames</span>(Point)  <span class="co"># Returns the names of the fields in the Point struct</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="877">
+<div class="cell-output cell-output-display" data-execution_count="423">
 <pre><code>(:x, :y)</code></pre>
 </div>
 </div>
@@ -831,14 +832,14 @@ Stacktrace:
 <ul>
 <li><strong>Creating a mutable struct</strong>:</li>
 </ul>
-<div id="d47e460a" class="cell" data-execution_count="39">
+<div id="3198bcb5" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> MutablePoint</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">::</span><span class="dt">Float64</span></span>
 <span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now you can modify the fields of <code>MutablePoint</code> instances after they are created.</p>
-<div id="771603e1" class="cell" data-execution_count="40">
+<div id="5738f200" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>mp <span class="op">=</span> <span class="fu">MutablePoint</span>(<span class="fl">1.0</span>, <span class="fl">2.0</span>)</span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>mp.x <span class="op">=</span> <span class="fl">3.0</span>  <span class="co"># Modify the 'x' field</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -846,7 +847,7 @@ Stacktrace:
 <section id="example-struct-for-a-circle" class="level3">
 <h3 class="anchored" data-anchor-id="example-struct-for-a-circle">Example: <code>struct</code> for a Circle</h3>
 <p>We can create a more complex type, such as a <code>Circle</code>, which has a center represented by a <code>Point</code> and a radius:</p>
-<div id="e5ef691e" class="cell" data-execution_count="41">
+<div id="5eec5b16" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Circle</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    center<span class="op">::</span><span class="dt">Point</span></span>
 <span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    radius<span class="op">::</span><span class="dt">Float64</span></span>
@@ -855,16 +856,16 @@ Stacktrace:
 <ul>
 <li><strong>Creating an instance of <code>Circle</code></strong>:</li>
 </ul>
-<div id="70ea8e1c" class="cell" data-execution_count="42">
+<div id="dcad22a4" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="fu">Circle</span>(<span class="fu">Point</span>(<span class="fl">0.0</span>, <span class="fl">0.0</span>), <span class="fl">5.0</span>)  <span class="co"># Create a circle with center (0, 0) and radius 5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="881">
+<div class="cell-output cell-output-display" data-execution_count="427">
 <pre><code>Circle(Point(0.0, 0.0), 5.0)</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>Accessing fields of a nested struct</strong>:</li>
 </ul>
-<div id="5ff8bc69" class="cell" data-execution_count="43">
+<div id="3d6c68d9" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>c.center.x  <span class="co"># Access the x field of the center of the circle</span></span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>c.center.y  <span class="co"># Access the y field of the center of the circle</span></span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>c.radius    <span class="co"># Access the radius of the circle</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -923,7 +924,7 @@ Correction of Exercise 1:
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="65184bc5" class="cell" data-execution_count="44">
+<div id="71049a49" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the Point struct</span></span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Point</span>
 <span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
@@ -1011,7 +1012,7 @@ Correction of Exercise 2:
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="507e39bc" class="cell" data-execution_count="45">
+<div id="0f2078b2" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create two complex numbers</span></span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>z1 <span class="op">=</span> <span class="fu">Complex</span><span class="dt">{Float64}</span>(<span class="fl">3.0</span>, <span class="fl">4.0</span>)  <span class="co"># z1 = 3.0 + 4.0im</span></span>
 <span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>z2 <span class="op">=</span> <span class="fu">Complex</span><span class="dt">{Float64}</span>(<span class="fl">1.0</span>, <span class="fl">2.0</span>)  <span class="co"># z2 = 1.0 + 2.0im</span></span>
@@ -1091,7 +1092,7 @@ Correction of Exercise 3:
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="d19794bd" class="cell" data-execution_count="46">
+<div id="b81fe624" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an array of integers from 1 to 10</span></span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>)  <span class="co"># Convert UnitRange to an array</span></span>
 <span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1115,7 +1116,7 @@ Correction of Exercise 3:
 <span id="cb81-21"><a href="#cb81-21" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"NamedTuple: "</span>, nt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Modified array: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-Error: MethodError(setindex!, (("John", 25, 5.9), "Alice", 1), 0x0000000000006aa5)
+Error: MethodError(setindex!, (("John", 25, 5.9), "Alice", 1), 0x000000000000697c)
 NamedTuple: (name = "John", age = 25, height = 5.9)</code></pre>
 </div>
 </div>

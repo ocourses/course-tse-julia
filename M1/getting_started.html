@@ -369,7 +369,7 @@ window.Quarto = {
 </header>
 
 
-<p>This page provides an introduction to the Julia programming language, including its key features and installation process. You’ll learn how to install Julia on different operating systems and how to verify the installation. It also covers using the Julia REPL for interactive coding, creating and running Julia scripts, and managing packages with Julia’s built-in package manager, <code>Pkg</code>. Additionally, this page provides resources for learning and getting help with Julia, including official documentation, community platforms, and an overview of the Julia ecosystem.</p>
+<p>This page provides an introduction to the <a href="https://julialang.org">Julia programming language</a>, including its key features and installation process. You’ll learn how to install Julia on different operating systems and how to verify the installation. It also covers using the Julia REPL for interactive coding, creating and running Julia scripts, and managing packages with Julia’s built-in package manager, <code>Pkg</code>. Additionally, this page provides resources for learning and getting help with Julia, including official documentation, community platforms, and an overview of the Julia ecosystem.</p>
 <p>Key Topics:</p>
 <ul>
 <li><strong>Introduction to Julia</strong>: What makes Julia ideal for scientific computing and data analysis.</li>
@@ -405,7 +405,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="download-julia">Download Julia</h3>
 <p>To get started with Julia, you first need to install the language on your computer. The official Julia website provides the installation files for various operating systems, including Windows, macOS, and Linux. Follow these steps:</p>
 <ol type="1">
-<li>Visit the official <a href="https://julialang.org/downloads/">Julia Downloads page</a>.</li>
+<li>Visit the official <a href="https://julialang.org/downloads/">Julia Downloads</a> page.</li>
 <li>Choose the appropriate version of Julia for your operating system.</li>
 <li>Download the installer (the latest stable version is recommended for most users).</li>
 </ol>
@@ -443,8 +443,8 @@ window.Quarto = {
 <p>After installation, you can verify that Julia is correctly installed by opening a terminal or command prompt and typing the following command:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will launch the Julia REPL (Read-Eval-Print Loop), where you can start running Julia commands interactively. You should see something similar to the following:</p>
-<div id="f81d9bc9" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="111">
+<div id="59176622" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="45">
 <div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>               _</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  (_)     <span class="op">|</span> (_) (_)    <span class="op">|</span></span>
@@ -462,7 +462,7 @@ window.Quarto = {
 </section>
 <section id="installing-package-manager" class="level3">
 <h3 class="anchored" data-anchor-id="installing-package-manager">Installing Package Manager</h3>
-<p>Julia includes a built-in package manager, <code>Pkg</code>, that allows you to easily manage external packages (libraries) for your projects.</p>
+<p>Julia includes a built-in <a href="https://docs.julialang.org/en/v1/stdlib/Pkg/">package manager</a>, <code>Pkg</code>, that allows you to easily manage external packages (libraries) for your projects.</p>
 <ol type="1">
 <li><p>To start using <code>Pkg</code>, open the Julia REPL and type:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
@@ -476,14 +476,14 @@ window.Quarto = {
 </section>
 <section id="using-the-julia-repl" class="level2">
 <h2 class="anchored" data-anchor-id="using-the-julia-repl">Using the Julia REPL</h2>
-<p>The Julia REPL (Read-Eval-Print Loop) is an interactive command-line environment for executing Julia code. It allows you to run Julia code line-by-line, evaluate expressions, and see the results immediately.</p>
+<p>The <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">Julia REPL</a> (Read-Eval-Print Loop) is an interactive command-line environment for executing Julia code. It allows you to run Julia code line-by-line, evaluate expressions, and see the results immediately.</p>
 <section id="starting-the-repl" class="level3">
 <h3 class="anchored" data-anchor-id="starting-the-repl">Starting the REPL</h3>
 <p>To start the Julia REPL, open your terminal or command prompt and simply type:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You should see the Julia prompt, which looks like this:</p>
-<div id="a2862ab7" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="112">
+<div id="8706cf6a" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="46">
 <div class="sourceCode" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>               _</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  (_)     <span class="op">|</span> (_) (_)    <span class="op">|</span></span>
@@ -542,7 +542,7 @@ window.Quarto = {
 <li>Package mode</li>
 <li>Shell mode</li>
 </ul>
-<p>Visit the <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">command-line REPL page</a> for more details.</p>
+<p>Visit the <a href="https://docs.julialang.org/en/v1/stdlib/REPL/">command-line REPL</a> page for more details.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Help mode</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Package mode</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Shell mode</a></li></ul>
 <div class="tab-content">
@@ -587,7 +587,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="running-a-julia-script">Running a Julia Script</h3>
 <p>To run a Julia script, open your terminal or command prompt, navigate to the directory where the script is located, and then use the following command:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span> myscript.jl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will execute the code in <code>myscript.jl</code> and output any results in the terminal. If your script includes print statements, those outputs will be displayed.</p>
+<p>This will execute the code in <code>myscript.jl</code> and output any results in the terminal. If your script includes print statements, those outputs will be displayed. See the <a href="https://docs.julialang.org/en/v1/manual/command-line-interface/">command-line interface</a> page for more details.</p>
 </section>
 <section id="example-running-a-script" class="level3">
 <h3 class="anchored" data-anchor-id="example-running-a-script">Example: Running a Script</h3>
@@ -622,7 +622,7 @@ window.Quarto = {
 </section>
 <section id="running-julia-scripts-in-ides" class="level3">
 <h3 class="anchored" data-anchor-id="running-julia-scripts-in-ides">Running Julia Scripts in IDEs</h3>
-<p>If you’re using an IDE like VS Code with the Julia extension, you can run the script directly from within the editor by pressing the “Run” button or using the appropriate keyboard shortcut. This is convenient for testing and iterating on your code without having to switch back and forth between the editor and the terminal.</p>
+<p>If you’re using an IDE like VS Code with the Julia extension, you can run the script directly from within the editor by pressing the “Run” button or using the appropriate keyboard shortcut. This is convenient for testing and iterating on your code without having to switch back and forth between the editor and the terminal. See the <a href="https://www.julia-vscode.org/docs/stable/userguide/runningcode/">Running Code</a> page from Julia in VS Code documentation for more details.</p>
 <p><img width="100%" src="../assets/images/myscript.png"></p>
 </section>
 </section>
@@ -783,11 +783,11 @@ Note
 <h3 class="anchored" data-anchor-id="using-installed-packages">Using Installed Packages</h3>
 <p>Once a package is installed, you can use it by importing it into your code using the <code>using</code> keyword. This makes the functions and types of the package available for use.</p>
 <p>Example:</p>
-<div id="ba1ee0e8" class="cell" data-execution_count="4">
+<div id="b31dbe75" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(A <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, B <span class="op">=</span> [<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="113">
+<div class="cell-output cell-output-display" data-execution_count="47">
 <div><div style="float: left;"><span>4×2 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
 <table class="data-frame caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -883,7 +883,7 @@ Note
 <div class="sourceCode" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>] activate .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will activate the environment in the current directory. You can also specify a different directory or environment path by providing it after <code>activate</code>. If you want to come back to the global environment, type:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>] activate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that the packages installed in the global environment are visible from any other environment.</p>
+<p>Note that the packages installed in the global environment are visible from any other environment. See the <a href="https://pkgdocs.julialang.org/v1/environments/">Working with Environments</a> page for more details.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
