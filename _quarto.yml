@@ -38,9 +38,9 @@ website:
   favicon: assets/images/logo-julia.svg
   open-graph: true
   twitter-card: true
-  site-url: https://ocots.github.io/course-tse-julia-M1/
-  repo-url: https://github.com/ocots/course-tse-julia-M1
-  issue-url: https://github.com/ocots/course-tse-julia-M1/issues/new/choose
+  site-url: https://ocots.github.io/course-tse-julia/
+  repo-url: https://github.com/ocots/course-tse-julia
+  issue-url: https://github.com/ocots/course-tse-julia/issues/new/choose
   repo-actions: [edit, source, issue]
   page-navigation: true
   back-to-top-navigation: true
@@ -59,7 +59,7 @@ website:
     title: false
     tools:
       - icon: github
-        href: https://github.com/ocots/course-tse-julia-M1
+        href: https://github.com/ocots/course-tse-julia
     left:
       - text: "Master 1"
         href: M1/index.qmd
