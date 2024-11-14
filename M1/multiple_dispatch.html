@@ -320,7 +320,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="what-is-multiple-dispatch">What is Multiple Dispatch?</h2>
 <p>In languages with <strong>single dispatch</strong>, such as Python, Java, or C++, method selection is determined solely by the type of one object, often the first argument or the calling object (e.g., <code>object.method()</code>). In contrast, <strong>multiple dispatch</strong> in Julia means that methods are chosen based on all arguments, making functions truly polymorphic in response to different type combinations.</p>
 <p>This behavior can be seen in Julia with the syntax:</p>
-<div id="494f0951" class="cell" data-execution_count="2">
+<div id="ad2b1a79" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">my_function</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Called with Int and Float64"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="basic-examples-of-function-methods-based-on-argument-types" class="level3">
 <h3 class="anchored" data-anchor-id="basic-examples-of-function-methods-based-on-argument-types">Basic Examples of Function Methods Based on Argument Types</h3>
 <p>Let’s define a function <code>add</code> that handles different types of input. We’ll create two methods for the <code>add</code> function: one for adding two integers and one for adding two floats.</p>
-<div id="cc1b4d91" class="cell" data-execution_count="3">
+<div id="f0318267" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method for adding two integers</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
@@ -372,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now, depending on the types of the arguments, Julia will dispatch the appropriate method:</p>
-<div id="57d15b76" class="cell" data-execution_count="4">
+<div id="004910ee" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">2</span>, <span class="fl">3</span>))         <span class="co"># Calls the method for integers</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">2.5</span>, <span class="fl">3.5</span>))     <span class="co"># Calls the method for floats</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">2</span>, <span class="fl">3.5</span>))       <span class="co"># Calls the method for integer + float</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -411,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="example-of-ambiguous-dispatch-with-different-argument-types" class="level3">
 <h3 class="anchored" data-anchor-id="example-of-ambiguous-dispatch-with-different-argument-types">Example of Ambiguous Dispatch with Different Argument Types</h3>
 <p>Let’s define two methods for the function <code>multiply</code> where the ambiguity arises because of overlapping types:</p>
-<div id="bd381093" class="cell" data-execution_count="5">
+<div id="ed1892be" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method for multiplying an integer by a float</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
@@ -426,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now, let’s try to call <code>multiply</code> with arguments that could match both methods, like this:</p>
-<div id="3e9526a1" class="cell" data-execution_count="6">
+<div id="e6162123" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">multiply</span>(<span class="fl">2</span>, <span class="fl">3.5</span>))   <span class="co"># Ambiguous: could match either method</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">multiply</span>(<span class="fl">2.5</span>, <span class="fl">3</span>))   <span class="co"># Ambiguous: could match either method</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -446,7 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><strong>Use <code>@which</code> to Debug</strong>: If you encounter ambiguous dispatch, use the <code>@which</code> macro to check which methods Julia is considering for dispatch.</li>
 </ol>
-<div id="756d6a3e" class="cell" data-execution_count="7">
+<div id="e7b8157e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@which</span> <span class="fu">multiply</span>(<span class="fl">2</span>, <span class="fl">3.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 multiply(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[6]:2
@@ -476,7 +476,7 @@ multiply(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[6]:2
 <section id="type-stable-dispatch" class="level4">
 <h4 class="anchored" data-anchor-id="type-stable-dispatch">Type-Stable Dispatch</h4>
 <p>Here’s an example of a type-stable function using multiple dispatch, where the type of the argument is known at compile time:</p>
-<div id="48c09bef" class="cell" data-execution_count="8">
+<div id="36698157" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-stable method for adding numbers</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
@@ -500,7 +500,7 @@ multiply(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[6]:2
 <section id="type-unstable-dispatch" class="level4">
 <h4 class="anchored" data-anchor-id="type-unstable-dispatch">Type-Unstable Dispatch</h4>
 <p>Now, let’s look at an example of type-unstable dispatch, where the type of the argument is not clear, leading to less optimized code:</p>
-<div id="e2fe275a" class="cell" data-execution_count="9">
+<div id="4333a9c5" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-unstable method that could take either an Int or a Float</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x, y)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
@@ -523,7 +523,7 @@ multiply(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[6]:2
 <p>To ensure type stability with multiple dispatch, follow these best practices:</p>
 <ol type="1">
 <li><p><strong>Use Specific Type Annotations</strong>: Always annotate function arguments with specific types when possible. This helps Julia optimize the function and prevents ambiguity.</p>
-<div id="72d96b6f" class="cell" data-execution_count="10">
+<div id="d26edd01" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -534,7 +534,7 @@ multiply(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[6]:2
 <li><p><strong>Avoid Abstract Types When Possible</strong>: While abstract types are useful for defining generic interfaces, they can introduce type instability if the actual types are not known at compile time. If performance is critical, avoid using abstract types in performance-sensitive functions.</p></li>
 <li><p><strong>Ensure Consistent Return Types</strong>: Try to ensure that a function always returns the same type, regardless of the input types. This makes the function type-stable and allows for better optimization.</p></li>
 <li><p><strong>Use <code>@code_typed</code> and <code>@code_warntype</code> to Check Type Stability</strong>: Julia provides macros like <code>@code_typed</code> and <code>@code_warntype</code> to inspect the types of a function’s variables and ensure type stability.</p>
-<div id="b30daaef" class="cell" data-execution_count="11">
+<div id="ffc081dc" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@code_warntype</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MethodInstance for add(::Int64, ::Int64)
@@ -566,7 +566,7 @@ Body::Int64
 <h3 class="anchored" data-anchor-id="using-code_warntype-to-detect-type-instability">Using <code>@code_warntype</code> to Detect Type Instability</h3>
 <p>Type instability can significantly degrade performance, as it prevents the JIT compiler from optimizing code. To detect type instability, you can use the <code>@code_warntype</code> macro. This macro helps you identify whether a function is type-stable or if there are parts of your code where the types are unknown at compile time.</p>
 <p>For example, let’s look at a function with potential type instability:</p>
-<div id="dfdb1ca6" class="cell" data-execution_count="12">
+<div id="127cced6" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function with possible type instability</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x, y)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
@@ -606,7 +606,7 @@ Body::Float64
 <section id="example-1-performance-gains-from-type-stable-dispatch" class="level4">
 <h4 class="anchored" data-anchor-id="example-1-performance-gains-from-type-stable-dispatch">Example 1: Performance Gains from Type-Stable Dispatch</h4>
 <p>Here’s an example showing how multiple dispatch can help achieve performance gains by using type-stable code:</p>
-<div id="006fd862" class="cell" data-execution_count="13">
+<div id="f49a51cf" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-stable method for adding two numbers</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
@@ -624,8 +624,8 @@ Body::Float64
 <span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2</span>)       <span class="co"># Fast execution (type-stable)</span></span>
 <span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">add</span>(<span class="fl">1.0</span>, <span class="fl">2.0</span>)   <span class="co"># Fast execution (type-stable)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.916 ns (0 allocations: 0 bytes)
-  0.916 ns (0 allocations: 0 bytes)</code></pre>
+<pre><code>  1.000 ns (0 allocations: 0 bytes)
+  1.000 ns (0 allocations: 0 bytes)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>3.0</code></pre>
@@ -636,7 +636,7 @@ Body::Float64
 <section id="example-2-performance-loss-due-to-type-instability" class="level4">
 <h4 class="anchored" data-anchor-id="example-2-performance-loss-due-to-type-instability">Example 2: Performance Loss Due to Type Instability</h4>
 <p>Let’s compare this with a version of the function that introduces type instability:</p>
-<div id="471c5fe1" class="cell" data-execution_count="14">
+<div id="d529da0f" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-unstable method</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x, y)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
@@ -646,8 +646,8 @@ Body::Float64
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2</span>)       <span class="co"># Slower due to type instability</span></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2.0</span>)     <span class="co"># Slower due to type instability</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.917 ns (0 allocations: 0 bytes)
-  0.916 ns (0 allocations: 0 bytes)</code></pre>
+<pre><code>  1.000 ns (0 allocations: 0 bytes)
+  0.958 ns (0 allocations: 0 bytes)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>3.0</code></pre>
@@ -678,7 +678,7 @@ Body::Float64
 <h3 class="anchored" data-anchor-id="avoiding-unnecessary-ambiguity">Avoiding Unnecessary Ambiguity</h3>
 <p>Ambiguity in multiple dispatch occurs when Julia is unable to select a single method based on the types of the arguments passed to a function. This can result in runtime errors or unexpected behavior, and it’s a common pitfall when defining methods with general argument types or missing type annotations.</p>
 <p>Here’s an example of ambiguous dispatch:</p>
-<div id="d57c8755" class="cell" data-execution_count="15">
+<div id="0413ea91" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ambiguous dispatch: both methods can match the arguments</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
@@ -701,7 +701,7 @@ Body::Float64
 <li><strong>Be explicit with types</strong>: Use concrete types whenever possible instead of abstract types like <code>AbstractFloat</code> or <code>Number</code>, which can match a wide range of types.</li>
 <li><strong>Use <code>@which</code> to inspect method resolution</strong>: The <code>@which</code> macro allows you to see which method Julia would choose for a particular function call, helping you detect ambiguities ahead of time.</li>
 </ul>
-<div id="b30c529c" class="cell" data-execution_count="16">
+<div id="e749aef3" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect method resolution</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@which</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
@@ -718,7 +718,7 @@ add(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[4]:12
 <section id="keep-method-definitions-simple" class="level4">
 <h4 class="anchored" data-anchor-id="keep-method-definitions-simple">1. <strong>Keep Method Definitions Simple</strong></h4>
 <p>Try to avoid overly complicated type hierarchies in method definitions. If your methods are too general or involve a large number of types, Julia may take longer to resolve them.</p>
-<div id="ec414a31" class="cell" data-execution_count="17">
+<div id="1e333177" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of a simple method definition</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">process</span>(x<span class="op">::</span><span class="dt">Int</span>)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> <span class="fl">2</span></span>
@@ -737,7 +737,7 @@ add(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[4]:12
 <section id="use-abstract-types-for-broad-categories" class="level4">
 <h4 class="anchored" data-anchor-id="use-abstract-types-for-broad-categories">2. <strong>Use Abstract Types for Broad Categories</strong></h4>
 <p>If you need to work with different types that share common properties, use abstract types to group them. However, be careful not to make the abstraction too broad, which could lead to ambiguity.</p>
-<div id="ca67eddd" class="cell" data-execution_count="18">
+<div id="423ac31f" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Abstract type for geometric shapes</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract type</span> Shape <span class="kw">end</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -768,7 +768,7 @@ add(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[4]:12
 <section id="avoid-overloading-functions-with-similar-signatures" class="level4">
 <h4 class="anchored" data-anchor-id="avoid-overloading-functions-with-similar-signatures">3. <strong>Avoid Overloading Functions with Similar Signatures</strong></h4>
 <p>Overloading a function with similar argument types can create ambiguity and slow down dispatch. When methods are too similar, Julia has to inspect more options to find the most appropriate one.</p>
-<div id="5d328284" class="cell" data-execution_count="19">
+<div id="60e59ca2" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Potential ambiguity with similar signatures</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
@@ -786,7 +786,7 @@ add(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[4]:12
 <section id="use-eltype-to-define-dispatch-based-on-container-types" class="level4">
 <h4 class="anchored" data-anchor-id="use-eltype-to-define-dispatch-based-on-container-types">4. <strong>Use <code>eltype</code> to Define Dispatch Based on Container Types</strong></h4>
 <p>For methods dealing with containers (e.g., arrays), you can use the <code>eltype</code> function to dispatch based on the element type inside the container, rather than the container type itself.</p>
-<div id="a11d75fd" class="cell" data-execution_count="20">
+<div id="525bad9c" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dispatching based on element type inside a container</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">process_array</span>(x<span class="op">::</span><span class="dt">AbstractArray</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">eltype</span>(x) <span class="op">&lt;:</span><span class="dt"> Integer</span></span>
@@ -856,7 +856,7 @@ Correction of Exercise 1:
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="316fa92a" class="cell" data-execution_count="21">
+<div id="4ce3f586" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the add method for different combinations of Int and Float64</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
@@ -934,7 +934,7 @@ Correction of Exercise 2:
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="e8cd97cf" class="cell" data-execution_count="22">
+<div id="637ebd82" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define multiply methods for Int and Float64</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
@@ -1006,7 +1006,7 @@ Correction of Exercise 3:
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="2a0a5402" class="cell" data-execution_count="23">
+<div id="db5b9a39" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to calculate the sum of an array</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum_elements</span>(arr<span class="op">::</span><span class="dt">AbstractArray</span>)</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">sum</span>(arr)</span>

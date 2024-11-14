@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/getting_started.html</loc>
-    <lastmod>2024-11-14T16:55:57.140Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/basic-types.html</loc>
-    <lastmod>2024-11-14T16:55:57.140Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/interoperability.html</loc>
-    <lastmod>2024-11-14T16:55:57.176Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/multiple_dispatch.html</loc>
-    <lastmod>2024-11-14T16:55:57.176Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/why_julia.html</loc>
-    <lastmod>2024-11-14T16:55:57.176Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/syntax.html</loc>
-    <lastmod>2024-11-14T16:55:57.176Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia/tmp/exercices-syntax.html</loc>
+    <lastmod>2024-11-08T10:49:02.348Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M2/index.html</loc>
-    <lastmod>2024-11-14T16:55:57.180Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M2/resources/TP1-distributions.html</loc>
-    <lastmod>2024-11-14T16:55:57.184Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/index.html</loc>
-    <lastmod>2024-11-14T16:55:57.248Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/about.html</loc>
-    <lastmod>2024-11-14T16:55:57.200Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/tmp/exercices-syntax.html</loc>
-    <lastmod>2024-11-14T16:55:57.248Z</lastmod>
+    <lastmod>2024-11-04T15:13:12.087Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M2/resources/TP2-linear-regression.html</loc>
-    <lastmod>2024-11-14T16:55:57.192Z</lastmod>
+    <lastmod>2024-10-26T21:23:47.168Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia/M2/exercices-linear_regression.html</loc>
-    <lastmod>2024-11-14T16:55:57.180Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia/about.html</loc>
+    <lastmod>2024-10-21T19:18:37.082Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia/M2/exercices-distribution_of_random_variables.html</loc>
-    <lastmod>2024-11-14T16:55:57.180Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/metaprogramming.html</loc>
-    <lastmod>2024-11-14T16:55:57.176Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/foretaste_of_julia_code.html</loc>
-    <lastmod>2024-11-14T16:55:57.140Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia/M1/multiple_dispatch.html</loc>
+    <lastmod>2024-11-14T22:00:16.942Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/modules_and_packages.html</loc>
-    <lastmod>2024-11-14T16:55:57.176Z</lastmod>
+    <lastmod>2024-11-05T14:51:31.772Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/metaprogramming.html</loc>
+    <lastmod>2024-11-05T14:42:43.215Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/getting_started.html</loc>
+    <lastmod>2024-11-13T20:52:33.655Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/why_julia.html</loc>
+    <lastmod>2024-11-14T22:00:23.465Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/basic-types.html</loc>
+    <lastmod>2024-11-13T21:38:45.696Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/syntax.html</loc>
+    <lastmod>2024-11-14T21:59:25.498Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/index.html</loc>
-    <lastmod>2024-11-14T16:55:57.176Z</lastmod>
+    <lastmod>2024-11-14T16:23:16.126Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/advanced-types.html</loc>
-    <lastmod>2024-11-14T16:55:57.140Z</lastmod>
+    <lastmod>2024-11-14T21:59:22.293Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/foretaste_of_julia_code.html</loc>
+    <lastmod>2024-11-07T21:46:22.502Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/interoperability.html</loc>
+    <lastmod>2024-11-05T14:42:59.198Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/index.html</loc>
+    <lastmod>2024-10-25T21:03:14.327Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M2/exercices-linear_regression.html</loc>
+    <lastmod>2024-10-26T21:37:02.640Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M2/resources/TP1-distributions.html</loc>
+    <lastmod>2024-10-26T22:08:33.318Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M2/exercices-distribution_of_random_variables.html</loc>
+    <lastmod>2024-10-27T19:24:43.365Z</lastmod>
   </url>
 </urlset>
