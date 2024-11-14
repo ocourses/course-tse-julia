@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Multiple Dispatch in Julia – Julia course</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../M1/modules_and_packages.html" rel="next">
+<link href="../M1/advanced-types.html" rel="prev">
+<link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/quarto-auto-dark-mode-1.0.0/auto-dark-mode.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "?",
+    "H"
+  ],
+  "show-item-context": true,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../assets/css/styles.css">
+<meta property="og:title" content="Multiple Dispatch in Julia – Julia course">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://ocots.github.io/course-tse-julia/M1/assets/images/logo-julia.png">
+<meta property="og:site_name" content="Julia course">
+<meta name="twitter:title" content="Multiple Dispatch in Julia – Julia course">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://ocots.github.io/course-tse-julia/M1/assets/images/logo-julia.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/images/logo-julia.svg" alt="Julia course." class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../M1/index.html" aria-current="page"> 
+<span class="menu-text">Master 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../M2/index.html"> 
+<span class="menu-text">Master 2</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ocots/course-tse-julia" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/multiple_dispatch.html">Multiple Dispatch</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../M1/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Master 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/foretaste_of_julia_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foretaste of Julia Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/why_julia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Julia?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/syntax.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syntax</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/basic-types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/advanced-types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/multiple_dispatch.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Multiple Dispatch</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/modules_and_packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules and Packages</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/metaprogramming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Metaprogramming</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/interoperability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interoperability</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-multiple-dispatch" id="toc-what-is-multiple-dispatch" class="nav-link active" data-scroll-target="#what-is-multiple-dispatch">What is Multiple Dispatch?</a></li>
+  <li><a href="#why-is-julias-dispatch-system-powerful-and-unique" id="toc-why-is-julias-dispatch-system-powerful-and-unique" class="nav-link" data-scroll-target="#why-is-julias-dispatch-system-powerful-and-unique">Why is Julia’s Dispatch System Powerful and Unique?</a>
+  <ul class="collapse">
+  <li><a href="#benefits-of-multiple-dispatch" id="toc-benefits-of-multiple-dispatch" class="nav-link" data-scroll-target="#benefits-of-multiple-dispatch">Benefits of Multiple Dispatch</a></li>
+  </ul></li>
+  <li><a href="#defining-methods-with-multiple-dispatch" id="toc-defining-methods-with-multiple-dispatch" class="nav-link" data-scroll-target="#defining-methods-with-multiple-dispatch">Defining Methods with Multiple Dispatch</a>
+  <ul class="collapse">
+  <li><a href="#basic-examples-of-function-methods-based-on-argument-types" id="toc-basic-examples-of-function-methods-based-on-argument-types" class="nav-link" data-scroll-target="#basic-examples-of-function-methods-based-on-argument-types">Basic Examples of Function Methods Based on Argument Types</a></li>
+  <li><a href="#syntax-and-conventions-for-defining-multiple-methods-with-type-annotations" id="toc-syntax-and-conventions-for-defining-multiple-methods-with-type-annotations" class="nav-link" data-scroll-target="#syntax-and-conventions-for-defining-multiple-methods-with-type-annotations">Syntax and Conventions for Defining Multiple Methods with Type Annotations</a></li>
+  </ul></li>
+  <li><a href="#examples-of-ambiguous-dispatch" id="toc-examples-of-ambiguous-dispatch" class="nav-link" data-scroll-target="#examples-of-ambiguous-dispatch">Examples of Ambiguous Dispatch</a>
+  <ul class="collapse">
+  <li><a href="#explanation-of-ambiguous-dispatch-and-why-it-can-occur" id="toc-explanation-of-ambiguous-dispatch-and-why-it-can-occur" class="nav-link" data-scroll-target="#explanation-of-ambiguous-dispatch-and-why-it-can-occur">Explanation of Ambiguous Dispatch and Why It Can Occur</a></li>
+  <li><a href="#example-of-ambiguous-dispatch-with-different-argument-types" id="toc-example-of-ambiguous-dispatch-with-different-argument-types" class="nav-link" data-scroll-target="#example-of-ambiguous-dispatch-with-different-argument-types">Example of Ambiguous Dispatch with Different Argument Types</a></li>
+  <li><a href="#resolving-ambiguity-tips-for-avoiding-or-resolving-ambiguous-dispatches" id="toc-resolving-ambiguity-tips-for-avoiding-or-resolving-ambiguous-dispatches" class="nav-link" data-scroll-target="#resolving-ambiguity-tips-for-avoiding-or-resolving-ambiguous-dispatches">Resolving Ambiguity: Tips for Avoiding or Resolving Ambiguous Dispatches</a></li>
+  </ul></li>
+  <li><a href="#type-stability-and-multiple-dispatch" id="toc-type-stability-and-multiple-dispatch" class="nav-link" data-scroll-target="#type-stability-and-multiple-dispatch">Type Stability and Multiple Dispatch</a>
+  <ul class="collapse">
+  <li><a href="#explanation-of-type-stability-and-its-importance-for-performance" id="toc-explanation-of-type-stability-and-its-importance-for-performance" class="nav-link" data-scroll-target="#explanation-of-type-stability-and-its-importance-for-performance">Explanation of Type Stability and Its Importance for Performance</a></li>
+  <li><a href="#how-multiple-dispatch-and-type-stability-are-related" id="toc-how-multiple-dispatch-and-type-stability-are-related" class="nav-link" data-scroll-target="#how-multiple-dispatch-and-type-stability-are-related">How Multiple Dispatch and Type Stability Are Related</a></li>
+  <li><a href="#examples-illustrating-type-stable-and-type-unstable-dispatch-cases" id="toc-examples-illustrating-type-stable-and-type-unstable-dispatch-cases" class="nav-link" data-scroll-target="#examples-illustrating-type-stable-and-type-unstable-dispatch-cases">Examples Illustrating Type-Stable and Type-Unstable Dispatch Cases</a></li>
+  <li><a href="#best-practices-for-ensuring-type-stability-with-multiple-dispatch" id="toc-best-practices-for-ensuring-type-stability-with-multiple-dispatch" class="nav-link" data-scroll-target="#best-practices-for-ensuring-type-stability-with-multiple-dispatch">Best Practices for Ensuring Type Stability with Multiple Dispatch</a></li>
+  </ul></li>
+  <li><a href="#performance-and-optimization-with-multiple-dispatch" id="toc-performance-and-optimization-with-multiple-dispatch" class="nav-link" data-scroll-target="#performance-and-optimization-with-multiple-dispatch">Performance and Optimization with Multiple Dispatch</a>
+  <ul class="collapse">
+  <li><a href="#how-multiple-dispatch-allows-julia-to-generate-efficient-machine-code" id="toc-how-multiple-dispatch-allows-julia-to-generate-efficient-machine-code" class="nav-link" data-scroll-target="#how-multiple-dispatch-allows-julia-to-generate-efficient-machine-code">How Multiple Dispatch Allows Julia to Generate Efficient Machine Code</a></li>
+  <li><a href="#using-code_warntype-to-detect-type-instability" id="toc-using-code_warntype-to-detect-type-instability" class="nav-link" data-scroll-target="#using-code_warntype-to-detect-type-instability">Using <code>@code_warntype</code> to Detect Type Instability</a></li>
+  <li><a href="#examples-of-performance-gains-with-multiple-dispatch-and-type-stable-code" id="toc-examples-of-performance-gains-with-multiple-dispatch-and-type-stable-code" class="nav-link" data-scroll-target="#examples-of-performance-gains-with-multiple-dispatch-and-type-stable-code">Examples of Performance Gains with Multiple Dispatch and Type-Stable Code</a></li>
+  <li><a href="#best-practices-for-performance-optimization-with-multiple-dispatch" id="toc-best-practices-for-performance-optimization-with-multiple-dispatch" class="nav-link" data-scroll-target="#best-practices-for-performance-optimization-with-multiple-dispatch">Best Practices for Performance Optimization with Multiple Dispatch</a></li>
+  </ul></li>
+  <li><a href="#common-pitfalls-and-tips" id="toc-common-pitfalls-and-tips" class="nav-link" data-scroll-target="#common-pitfalls-and-tips">Common Pitfalls and Tips</a>
+  <ul class="collapse">
+  <li><a href="#avoiding-unnecessary-ambiguity" id="toc-avoiding-unnecessary-ambiguity" class="nav-link" data-scroll-target="#avoiding-unnecessary-ambiguity">Avoiding Unnecessary Ambiguity</a></li>
+  <li><a href="#tips-for-efficient-dispatch-in-complex-type-hierarchies" id="toc-tips-for-efficient-dispatch-in-complex-type-hierarchies" class="nav-link" data-scroll-target="#tips-for-efficient-dispatch-in-complex-type-hierarchies">Tips for Efficient Dispatch in Complex Type Hierarchies</a></li>
+  <li><a href="#summary-of-tips" id="toc-summary-of-tips" class="nav-link" data-scroll-target="#summary-of-tips">Summary of Tips:</a></li>
+  <li><a href="#exercise-1-defining-methods-using-multiple-dispatch" id="toc-exercise-1-defining-methods-using-multiple-dispatch" class="nav-link" data-scroll-target="#exercise-1-defining-methods-using-multiple-dispatch">Exercise 1: Defining Methods Using Multiple Dispatch</a></li>
+  <li><a href="#exercise-2-identifying-and-resolving-ambiguous-dispatch-cases" id="toc-exercise-2-identifying-and-resolving-ambiguous-dispatch-cases" class="nav-link" data-scroll-target="#exercise-2-identifying-and-resolving-ambiguous-dispatch-cases">Exercise 2: Identifying and Resolving Ambiguous Dispatch Cases</a></li>
+  <li><a href="#exercise-3-analyzing-type-stability-with-code_warntype" id="toc-exercise-3-analyzing-type-stability-with-code_warntype" class="nav-link" data-scroll-target="#exercise-3-analyzing-type-stability-with-code_warntype">Exercise 3: Analyzing Type Stability with <span class="citation" data-cites="code_warntype">@code_warntype</span></a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/multiple_dispatch.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/multiple_dispatch.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/multiple_dispatch.html">Multiple Dispatch</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Multiple Dispatch in Julia</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img class="do-not-accept-dark-mode centering" width="60%" src="../assets/images/Sign-Plate-Work-in-Progress.jpg"></p>
+<p>Julia’s <strong>multiple dispatch</strong> system is a defining feature and core paradigm of the language. Multiple dispatch allows Julia to select which method to execute based on the types of all arguments provided to a function, rather than just the first one. This approach enables Julia to adaptively execute optimized methods for each specific combination of argument types, resulting in highly flexible and efficient code.</p>
+<section id="what-is-multiple-dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-multiple-dispatch">What is Multiple Dispatch?</h2>
+<p>In languages with <strong>single dispatch</strong>, such as Python, Java, or C++, method selection is determined solely by the type of one object, often the first argument or the calling object (e.g., <code>object.method()</code>). In contrast, <strong>multiple dispatch</strong> in Julia means that methods are chosen based on all arguments, making functions truly polymorphic in response to different type combinations.</p>
+<p>This behavior can be seen in Julia with the syntax:</p>
+<div id="494f0951" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">my_function</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Called with Int and Float64"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">my_function</span>(x<span class="op">::</span><span class="dt">String</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Called with String and Int"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>my_function (generic function with 2 methods)</code></pre>
+</div>
+</div>
+<p>In this example, Julia will dynamically determine the appropriate method based on the types of both arguments passed to <code>my_function</code>. This flexibility is central to Julia’s design and unlocks substantial benefits for performance and usability.</p>
+</section>
+<section id="why-is-julias-dispatch-system-powerful-and-unique" class="level2">
+<h2 class="anchored" data-anchor-id="why-is-julias-dispatch-system-powerful-and-unique">Why is Julia’s Dispatch System Powerful and Unique?</h2>
+<p>Julia’s dispatch system is distinctive because it combines the flexibility of dynamic typing with the performance of compiled languages. With multiple dispatch, Julia compiles specialized versions of functions for specific type combinations, enabling it to achieve high performance close to that of statically compiled languages like C and Fortran. This capability solves the “two-language problem,” where developers often prototype in high-level languages (e.g., Python, R) but rewrite performance-critical parts in low-level languages for speed.</p>
+<section id="benefits-of-multiple-dispatch" class="level3">
+<h3 class="anchored" data-anchor-id="benefits-of-multiple-dispatch">Benefits of Multiple Dispatch</h3>
+<ol type="1">
+<li><p><strong>Performance</strong>: Julia’s compiler generates efficient machine code for specific type combinations, allowing function calls to avoid the overhead of type checks and branching, which are often required in other dynamically typed languages.</p></li>
+<li><p><strong>Code Flexibility and Reusability</strong>: Multiple dispatch allows developers to write more modular and reusable code. Functions can be extended to handle new types by simply defining additional methods, without modifying existing code.</p></li>
+<li><p><strong>Cleaner, More Intuitive Code</strong>: With multiple dispatch, function definitions naturally describe the intended behavior for specific types, making code easier to read and understand. There’s no need for verbose type checking inside functions, which keeps code concise.</p></li>
+</ol>
+</section>
+</section>
+<section id="defining-methods-with-multiple-dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="defining-methods-with-multiple-dispatch">Defining Methods with Multiple Dispatch</h2>
+<p>In Julia, you can define multiple methods for the same function, each specialized for different combinations of argument types. This is done by specifying the types of the function’s arguments using type annotations. Julia will then choose the appropriate method based on the types of the arguments passed at runtime.</p>
+<section id="basic-examples-of-function-methods-based-on-argument-types" class="level3">
+<h3 class="anchored" data-anchor-id="basic-examples-of-function-methods-based-on-argument-types">Basic Examples of Function Methods Based on Argument Types</h3>
+<p>Let’s define a function <code>add</code> that handles different types of input. We’ll create two methods for the <code>add</code> function: one for adding two integers and one for adding two floats.</p>
+<div id="cc1b4d91" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method for adding two integers</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Method for adding two floats</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Method for adding an integer and a float</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>add (generic function with 3 methods)</code></pre>
+</div>
+</div>
+<p>Now, depending on the types of the arguments, Julia will dispatch the appropriate method:</p>
+<div id="57d15b76" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">2</span>, <span class="fl">3</span>))         <span class="co"># Calls the method for integers</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">2.5</span>, <span class="fl">3.5</span>))     <span class="co"># Calls the method for floats</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">2</span>, <span class="fl">3.5</span>))       <span class="co"># Calls the method for integer + float</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5
+6.0
+5.5</code></pre>
+</div>
+</div>
+</section>
+<section id="syntax-and-conventions-for-defining-multiple-methods-with-type-annotations" class="level3">
+<h3 class="anchored" data-anchor-id="syntax-and-conventions-for-defining-multiple-methods-with-type-annotations">Syntax and Conventions for Defining Multiple Methods with Type Annotations</h3>
+<p>In Julia, function methods are defined using the <code>function</code> keyword, followed by the function name and its parameter types. The types are specified using the <code>::Type</code> syntax.</p>
+<ul>
+<li><strong>Basic Method Definition</strong>: The function is defined with specific types for its arguments.</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">function_name</span>(arg1<span class="op">::</span><span class="dt">Type1</span>, arg2<span class="op">::</span><span class="dt">Type2</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Function body</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><strong>Extending Methods</strong>: You can add more methods to the same function by simply defining new methods with different argument types.</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">function_name</span>(arg1<span class="op">::</span><span class="dt">NewType1</span>, arg2<span class="op">::</span><span class="dt">NewType2</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># New function body</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This flexibility allows for highly efficient and adaptable function definitions based on the types of the arguments provided.</p>
+</section>
+</section>
+<section id="examples-of-ambiguous-dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="examples-of-ambiguous-dispatch">Examples of Ambiguous Dispatch</h2>
+<p>Ambiguous dispatch occurs when Julia cannot determine which method to call because multiple methods are applicable for the given arguments. This happens when there is overlap in the argument types of different methods, making it unclear which method should be selected.</p>
+<section id="explanation-of-ambiguous-dispatch-and-why-it-can-occur" class="level3">
+<h3 class="anchored" data-anchor-id="explanation-of-ambiguous-dispatch-and-why-it-can-occur">Explanation of Ambiguous Dispatch and Why It Can Occur</h3>
+<p>When you define multiple methods for the same function, each method is associated with specific types of arguments. Ambiguous dispatch happens when there are two or more methods that could potentially match the types of the arguments passed to the function. Julia relies on the order of method definitions and their specificity to resolve which method to dispatch, but sometimes it’s unable to make a clear decision, resulting in ambiguity.</p>
+</section>
+<section id="example-of-ambiguous-dispatch-with-different-argument-types" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-ambiguous-dispatch-with-different-argument-types">Example of Ambiguous Dispatch with Different Argument Types</h3>
+<p>Let’s define two methods for the function <code>multiply</code> where the ambiguity arises because of overlapping types:</p>
+<div id="bd381093" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method for multiplying an integer by a float</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Method for multiplying a float by an integer</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>multiply (generic function with 2 methods)</code></pre>
+</div>
+</div>
+<p>Now, let’s try to call <code>multiply</code> with arguments that could match both methods, like this:</p>
+<div id="3e9526a1" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">multiply</span>(<span class="fl">2</span>, <span class="fl">3.5</span>))   <span class="co"># Ambiguous: could match either method</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">multiply</span>(<span class="fl">2.5</span>, <span class="fl">3</span>))   <span class="co"># Ambiguous: could match either method</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>7.0
+7.5</code></pre>
+</div>
+</div>
+<p>In this case, the methods <code>multiply(x::Int, y::Float64)</code> and <code>multiply(x::Float64, y::Int)</code> both match, and Julia cannot decide which one to dispatch to, that is why the error occurs.</p>
+</section>
+<section id="resolving-ambiguity-tips-for-avoiding-or-resolving-ambiguous-dispatches" class="level3">
+<h3 class="anchored" data-anchor-id="resolving-ambiguity-tips-for-avoiding-or-resolving-ambiguous-dispatches">Resolving Ambiguity: Tips for Avoiding or Resolving Ambiguous Dispatches</h3>
+<p>To avoid ambiguous dispatch, you can:</p>
+<ol type="1">
+<li><strong>Ensure Type Specificity</strong>: Make sure that the types of the arguments in your methods are sufficiently specific to avoid overlap.
+<ul>
+<li>For example, instead of using <code>Int</code> and <code>Float64</code>, you could use more specific types like <code>Int32</code> or <code>BigInt</code>.</li>
+</ul></li>
+<li><strong>Use <code>@which</code> to Debug</strong>: If you encounter ambiguous dispatch, use the <code>@which</code> macro to check which methods Julia is considering for dispatch.</li>
+</ol>
+<div id="756d6a3e" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@which</span> <span class="fu">multiply</span>(<span class="fl">2</span>, <span class="fl">3.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+multiply(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[6]:2
+</div>
+</div>
+<p>This will show you which methods Julia is trying to call and help identify why the ambiguity is occurring.</p>
+<ol start="3" type="1">
+<li><p><strong>Use Union Types</strong>: If you have multiple types that could potentially match and you want to specify a preferred type, use union types (e.g., <code>Int64</code> or <code>Float64</code>).</p></li>
+<li><p><strong>Refactor Methods</strong>: If methods are too generic, consider refining your method definitions or splitting them into more specific functions to avoid ambiguity.</p></li>
+</ol>
+<p>By carefully managing method definitions and ensuring clear, unambiguous type signatures, you can avoid these conflicts and make your code more predictable.</p>
+</section>
+</section>
+<section id="type-stability-and-multiple-dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="type-stability-and-multiple-dispatch">Type Stability and Multiple Dispatch</h2>
+<section id="explanation-of-type-stability-and-its-importance-for-performance" class="level3">
+<h3 class="anchored" data-anchor-id="explanation-of-type-stability-and-its-importance-for-performance">Explanation of Type Stability and Its Importance for Performance</h3>
+<p>Type stability refers to the concept that the type of a variable or expression is known at compile time. In Julia, type stability is important because it allows the Just-In-Time (JIT) compiler to generate highly optimized machine code. When the types of variables are consistent and predictable, Julia can optimize the execution of functions, leading to faster performance.</p>
+<p>On the other hand, type instability can lead to significant performance issues because Julia may need to fall back on more generic code paths, which are slower.</p>
+</section>
+<section id="how-multiple-dispatch-and-type-stability-are-related" class="level3">
+<h3 class="anchored" data-anchor-id="how-multiple-dispatch-and-type-stability-are-related">How Multiple Dispatch and Type Stability Are Related</h3>
+<p>Multiple dispatch allows Julia to define different methods for a function based on the types of its arguments. The type stability of these dispatches is crucial for performance. If Julia can predict the type of the arguments at compile time, it can optimize the corresponding method for the given types, leading to better performance. However, if the dispatch is ambiguous or the argument types are unstable, Julia might not be able to optimize the code as efficiently.</p>
+</section>
+<section id="examples-illustrating-type-stable-and-type-unstable-dispatch-cases" class="level3">
+<h3 class="anchored" data-anchor-id="examples-illustrating-type-stable-and-type-unstable-dispatch-cases">Examples Illustrating Type-Stable and Type-Unstable Dispatch Cases</h3>
+<section id="type-stable-dispatch" class="level4">
+<h4 class="anchored" data-anchor-id="type-stable-dispatch">Type-Stable Dispatch</h4>
+<p>Here’s an example of a type-stable function using multiple dispatch, where the type of the argument is known at compile time:</p>
+<div id="48c09bef" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-stable method for adding numbers</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-stable method for adding floats</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calling with specific types</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2</span>))    <span class="co"># Result is type-stable (Int)</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">1.0</span>, <span class="fl">2.0</span>))  <span class="co"># Result is type-stable (Float64)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3
+3.0</code></pre>
+</div>
+</div>
+<p>In this case, the types <code>Int</code> and <code>Float64</code> are known at compile time, and the correct method is chosen, resulting in type-stable dispatch.</p>
+</section>
+<section id="type-unstable-dispatch" class="level4">
+<h4 class="anchored" data-anchor-id="type-unstable-dispatch">Type-Unstable Dispatch</h4>
+<p>Now, let’s look at an example of type-unstable dispatch, where the type of the argument is not clear, leading to less optimized code:</p>
+<div id="e2fe275a" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-unstable method that could take either an Int or a Float</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x, y)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">multiply</span>(<span class="fl">2</span>, <span class="fl">3</span>))       <span class="co"># Ambiguous type: could be Int or Float</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">multiply</span>(<span class="fl">2.0</span>, <span class="fl">3</span>))     <span class="co"># Ambiguous type: could be Float or Int</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">multiply</span>(<span class="fl">2</span>, <span class="fl">3.0</span>))     <span class="co"># Ambiguous type: could be Int or Float</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>6
+6.0
+6.0</code></pre>
+</div>
+</div>
+<p>In this case, Julia might not know the types of the arguments at compile time, leading to type instability. This makes it harder for the JIT compiler to optimize the code.</p>
+</section>
+</section>
+<section id="best-practices-for-ensuring-type-stability-with-multiple-dispatch" class="level3">
+<h3 class="anchored" data-anchor-id="best-practices-for-ensuring-type-stability-with-multiple-dispatch">Best Practices for Ensuring Type Stability with Multiple Dispatch</h3>
+<p>To ensure type stability with multiple dispatch, follow these best practices:</p>
+<ol type="1">
+<li><p><strong>Use Specific Type Annotations</strong>: Always annotate function arguments with specific types when possible. This helps Julia optimize the function and prevents ambiguity.</p>
+<div id="72d96b6f" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>add (generic function with 3 methods)</code></pre>
+</div>
+</div></li>
+<li><p><strong>Avoid Abstract Types When Possible</strong>: While abstract types are useful for defining generic interfaces, they can introduce type instability if the actual types are not known at compile time. If performance is critical, avoid using abstract types in performance-sensitive functions.</p></li>
+<li><p><strong>Ensure Consistent Return Types</strong>: Try to ensure that a function always returns the same type, regardless of the input types. This makes the function type-stable and allows for better optimization.</p></li>
+<li><p><strong>Use <code>@code_typed</code> and <code>@code_warntype</code> to Check Type Stability</strong>: Julia provides macros like <code>@code_typed</code> and <code>@code_warntype</code> to inspect the types of a function’s variables and ensure type stability.</p>
+<div id="b30daaef" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@code_warntype</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MethodInstance for add(::Int64, ::Int64)
+  from add(x::Int64, y::Int64) @ Main In[11]:1
+Arguments
+  #self#::Core.Const(Main.add)
+  x::Int64
+  y::Int64
+Body::Int64
+1 ─ %1 = (x + y)::Int64
+└──      return %1
+</code></pre>
+</div>
+</div>
+<p>If any of the variables are shown as <code>Any</code>, it indicates a type-unstable dispatch.</p></li>
+<li><p><strong>Minimize Type Intersections</strong>: Type instability often arises when a function takes arguments of mixed or intersecting types. Be mindful of methods that could potentially match multiple types and lead to ambiguity.</p></li>
+</ol>
+<p>By following these practices, you can ensure that your use of multiple dispatch in Julia remains type-stable and performs optimally.</p>
+</section>
+</section>
+<section id="performance-and-optimization-with-multiple-dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="performance-and-optimization-with-multiple-dispatch">Performance and Optimization with Multiple Dispatch</h2>
+<section id="how-multiple-dispatch-allows-julia-to-generate-efficient-machine-code" class="level3">
+<h3 class="anchored" data-anchor-id="how-multiple-dispatch-allows-julia-to-generate-efficient-machine-code">How Multiple Dispatch Allows Julia to Generate Efficient Machine Code</h3>
+<p>Multiple dispatch is one of the key features of Julia that enables it to generate highly efficient machine code. By selecting methods based on the types of function arguments, Julia can optimize the function for those specific types at compile time. This process is known as Just-In-Time (JIT) compilation, and it allows Julia to generate specialized machine code for each method of a function.</p>
+<p>The JIT compiler leverages multiple dispatch to eliminate the overhead typically associated with dynamic typing in other languages. When a function is called with arguments of known types, Julia generates machine code specifically tailored for those types, resulting in significant performance gains compared to languages that rely on single dispatch or dynamic typing.</p>
+</section>
+<section id="using-code_warntype-to-detect-type-instability" class="level3">
+<h3 class="anchored" data-anchor-id="using-code_warntype-to-detect-type-instability">Using <code>@code_warntype</code> to Detect Type Instability</h3>
+<p>Type instability can significantly degrade performance, as it prevents the JIT compiler from optimizing code. To detect type instability, you can use the <code>@code_warntype</code> macro. This macro helps you identify whether a function is type-stable or if there are parts of your code where the types are unknown at compile time.</p>
+<p>For example, let’s look at a function with potential type instability:</p>
+<div id="dfdb1ca6" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function with possible type instability</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x, y)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for type stability</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="pp">@code_warntype</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2</span>)    <span class="co"># Type-stable</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="pp">@code_warntype</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2.0</span>)  <span class="co"># Type-unstable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MethodInstance for add(::Int64, ::Int64)
+  from add(x::Int64, y::Int64) @ Main In[11]:1
+Arguments
+  #self#::Core.Const(Main.add)
+  x::Int64
+  y::Int64
+Body::Int64
+1 ─ %1 = (x + y)::Int64
+└──      return %1
+
+MethodInstance for add(::Int64, ::Float64)
+  from add(x::Int64, y::Float64) @ Main In[4]:12
+Arguments
+  #self#::Core.Const(Main.add)
+  x::Int64
+  y::Float64
+Body::Float64
+1 ─ %1 = Main.:+::Core.Const(+)
+│   %2 = (%1)(x, y)::Float64
+└──      return %2
+</code></pre>
+</div>
+</div>
+<p>In the second case, the function <code>add(1, 2.0)</code> could result in type instability because <code>x</code> is an <code>Int</code> and <code>y</code> is a <code>Float64</code>, and Julia may not know the type of the result beforehand. This could prevent the JIT compiler from generating the most efficient machine code.</p>
+</section>
+<section id="examples-of-performance-gains-with-multiple-dispatch-and-type-stable-code" class="level3">
+<h3 class="anchored" data-anchor-id="examples-of-performance-gains-with-multiple-dispatch-and-type-stable-code">Examples of Performance Gains with Multiple Dispatch and Type-Stable Code</h3>
+<section id="example-1-performance-gains-from-type-stable-dispatch" class="level4">
+<h4 class="anchored" data-anchor-id="example-1-performance-gains-from-type-stable-dispatch">Example 1: Performance Gains from Type-Stable Dispatch</h4>
+<p>Here’s an example showing how multiple dispatch can help achieve performance gains by using type-stable code:</p>
+<div id="006fd862" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-stable method for adding two numbers</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-stable method for adding two floats</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare performance</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">BenchmarkTools</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Benchmarking type-stable code</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2</span>)       <span class="co"># Fast execution (type-stable)</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">add</span>(<span class="fl">1.0</span>, <span class="fl">2.0</span>)   <span class="co"># Fast execution (type-stable)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  0.916 ns (0 allocations: 0 bytes)
+  0.916 ns (0 allocations: 0 bytes)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>3.0</code></pre>
+</div>
+</div>
+<p>In this case, both method calls are type-stable, so Julia can generate highly optimized machine code for both integer and floating-point additions.</p>
+</section>
+<section id="example-2-performance-loss-due-to-type-instability" class="level4">
+<h4 class="anchored" data-anchor-id="example-2-performance-loss-due-to-type-instability">Example 2: Performance Loss Due to Type Instability</h4>
+<p>Let’s compare this with a version of the function that introduces type instability:</p>
+<div id="471c5fe1" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-unstable method</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x, y)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Benchmarking type-unstable code</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2</span>)       <span class="co"># Slower due to type instability</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2.0</span>)     <span class="co"># Slower due to type instability</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  0.917 ns (0 allocations: 0 bytes)
+  0.916 ns (0 allocations: 0 bytes)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>3.0</code></pre>
+</div>
+</div>
+<p>In this case, because the types of <code>x</code> and <code>y</code> are not specified, Julia cannot generate optimized machine code. The JIT compiler may need to fall back on a more generic implementation, resulting in slower performance.</p>
+</section>
+<section id="performance-impact-of-multiple-dispatch" class="level4">
+<h4 class="anchored" data-anchor-id="performance-impact-of-multiple-dispatch">Performance Impact of Multiple Dispatch</h4>
+<p>When the method is type-stable, Julia can optimize the method call for the specific types passed as arguments. However, if a method is ambiguous or type-unstable, the JIT compiler cannot specialize the code and may generate a slower generic version of the method.</p>
+<p>Thus, by carefully designing your functions with specific type annotations and leveraging multiple dispatch, you can achieve significant performance improvements in Julia.</p>
+</section>
+</section>
+<section id="best-practices-for-performance-optimization-with-multiple-dispatch" class="level3">
+<h3 class="anchored" data-anchor-id="best-practices-for-performance-optimization-with-multiple-dispatch">Best Practices for Performance Optimization with Multiple Dispatch</h3>
+<ol type="1">
+<li><p><strong>Always use specific type annotations</strong>: This ensures that the JIT compiler can generate optimized machine code for your functions.</p></li>
+<li><p><strong>Avoid using <code>Any</code> or abstract types unless necessary</strong>: Abstract types introduce ambiguity and can lead to type instability, which reduces performance.</p></li>
+<li><p><strong>Leverage <code>@code_warntype</code> to identify and fix type instability</strong>: This will help you pinpoint parts of your code where types are not known at compile time, allowing you to optimize those areas for better performance.</p></li>
+<li><p><strong>Use benchmarking tools to measure performance</strong>: Julia’s <code>BenchmarkTools</code> package allows you to easily benchmark the performance of type-stable vs.&nbsp;type-unstable code to ensure that your functions are optimized for speed.</p></li>
+</ol>
+<p>By following these practices, you can harness the full potential of multiple dispatch and achieve high-performance code in Julia.</p>
+</section>
+</section>
+<section id="common-pitfalls-and-tips" class="level2">
+<h2 class="anchored" data-anchor-id="common-pitfalls-and-tips">Common Pitfalls and Tips</h2>
+<section id="avoiding-unnecessary-ambiguity" class="level3">
+<h3 class="anchored" data-anchor-id="avoiding-unnecessary-ambiguity">Avoiding Unnecessary Ambiguity</h3>
+<p>Ambiguity in multiple dispatch occurs when Julia is unable to select a single method based on the types of the arguments passed to a function. This can result in runtime errors or unexpected behavior, and it’s a common pitfall when defining methods with general argument types or missing type annotations.</p>
+<p>Here’s an example of ambiguous dispatch:</p>
+<div id="d57c8755" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ambiguous dispatch: both methods can match the arguments</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">AbstractFloat</span>, y<span class="op">::</span><span class="dt">AbstractFloat</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calling add with different types will result in ambiguity</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2.0</span>)  <span class="co"># Ambiguous call: both methods match</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>3.0</code></pre>
+</div>
+</div>
+<p>In the example above, calling <code>add(1, 2.0)</code> creates ambiguity because Julia cannot decide whether to use the method that adds two integers or the method that adds two floats. To avoid this, you should be more specific with type annotations or rethink the method definitions to ensure that each call is uniquely resolved.</p>
+<section id="tips-for-avoiding-ambiguity" class="level4">
+<h4 class="anchored" data-anchor-id="tips-for-avoiding-ambiguity">Tips for Avoiding Ambiguity:</h4>
+<ul>
+<li><strong>Be explicit with types</strong>: Use concrete types whenever possible instead of abstract types like <code>AbstractFloat</code> or <code>Number</code>, which can match a wide range of types.</li>
+<li><strong>Use <code>@which</code> to inspect method resolution</strong>: The <code>@which</code> macro allows you to see which method Julia would choose for a particular function call, helping you detect ambiguities ahead of time.</li>
+</ul>
+<div id="b30c529c" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect method resolution</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@which</span> <span class="fu">add</span>(<span class="fl">1</span>, <span class="fl">2.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+add(x::<b>Int64</b>, y::<b>Float64</b>) in Main at In[4]:12
+</div>
+</div>
+<p>This can help you identify why a function call might be ambiguous.</p>
+</section>
+</section>
+<section id="tips-for-efficient-dispatch-in-complex-type-hierarchies" class="level3">
+<h3 class="anchored" data-anchor-id="tips-for-efficient-dispatch-in-complex-type-hierarchies">Tips for Efficient Dispatch in Complex Type Hierarchies</h3>
+<p>In complex programs, multiple dispatch can involve deeply nested type hierarchies, which can lead to slower performance if not handled carefully. Efficient dispatch in these situations requires understanding the type hierarchy and designing methods in such a way that they are resolved quickly and without ambiguity.</p>
+<p>Here are some best practices for working with complex type hierarchies:</p>
+<section id="keep-method-definitions-simple" class="level4">
+<h4 class="anchored" data-anchor-id="keep-method-definitions-simple">1. <strong>Keep Method Definitions Simple</strong></h4>
+<p>Try to avoid overly complicated type hierarchies in method definitions. If your methods are too general or involve a large number of types, Julia may take longer to resolve them.</p>
+<div id="ec414a31" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of a simple method definition</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">process</span>(x<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> <span class="fl">2</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Avoid overly complex hierarchies</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">process</span>(x<span class="op">::</span><span class="dt">AbstractArray</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">sum</span>(x)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>process (generic function with 2 methods)</code></pre>
+</div>
+</div>
+<p>By keeping the method signatures simple, you reduce the complexity that Julia needs to resolve during dispatch.</p>
+</section>
+<section id="use-abstract-types-for-broad-categories" class="level4">
+<h4 class="anchored" data-anchor-id="use-abstract-types-for-broad-categories">2. <strong>Use Abstract Types for Broad Categories</strong></h4>
+<p>If you need to work with different types that share common properties, use abstract types to group them. However, be careful not to make the abstraction too broad, which could lead to ambiguity.</p>
+<div id="ca67eddd" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Abstract type for geometric shapes</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract type</span> Shape <span class="kw">end</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Concrete types</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Circle <span class="op">&lt;:</span><span class="dt"> Shape</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    radius<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Rectangle <span class="op">&lt;:</span><span class="dt"> Shape</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    width<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    height<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Method dispatch based on the Shape type</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">area</span>(shape<span class="op">::</span><span class="dt">Shape</span>)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> shape isa Circle</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="cn">π</span> <span class="op">*</span> shape.radius<span class="op">^</span><span class="fl">2</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elseif</span> shape isa Rectangle</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> shape.width <span class="op">*</span> shape.height</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>area (generic function with 1 method)</code></pre>
+</div>
+</div>
+<p>In this example, the abstract type <code>Shape</code> allows you to define methods that apply to all shapes, but the method dispatch is based on the concrete types <code>Circle</code> and <code>Rectangle</code>.</p>
+</section>
+<section id="avoid-overloading-functions-with-similar-signatures" class="level4">
+<h4 class="anchored" data-anchor-id="avoid-overloading-functions-with-similar-signatures">3. <strong>Avoid Overloading Functions with Similar Signatures</strong></h4>
+<p>Overloading a function with similar argument types can create ambiguity and slow down dispatch. When methods are too similar, Julia has to inspect more options to find the most appropriate one.</p>
+<div id="5d328284" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Potential ambiguity with similar signatures</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">AbstractFloat</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>multiply (generic function with 5 methods)</code></pre>
+</div>
+</div>
+<p>Here, both <code>Int</code> and <code>AbstractFloat</code> can match the arguments in some cases, causing ambiguity. To avoid this, you should make the method signatures distinct enough to clearly resolve.</p>
+</section>
+<section id="use-eltype-to-define-dispatch-based-on-container-types" class="level4">
+<h4 class="anchored" data-anchor-id="use-eltype-to-define-dispatch-based-on-container-types">4. <strong>Use <code>eltype</code> to Define Dispatch Based on Container Types</strong></h4>
+<p>For methods dealing with containers (e.g., arrays), you can use the <code>eltype</code> function to dispatch based on the element type inside the container, rather than the container type itself.</p>
+<div id="a11d75fd" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dispatching based on element type inside a container</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">process_array</span>(x<span class="op">::</span><span class="dt">AbstractArray</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">eltype</span>(x) <span class="op">&lt;:</span><span class="dt"> Integer</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fu">sum</span>(x)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elseif</span> <span class="fu">eltype</span>(x) <span class="op">&lt;:</span><span class="dt"> AbstractFloat</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fu">mean</span>(x)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>process_array (generic function with 1 method)</code></pre>
+</div>
+</div>
+<p>By dispatching on the element type, you ensure that the correct method is called based on the types of the elements inside the array, rather than the array type itself.</p>
+</section>
+</section>
+<section id="summary-of-tips" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-tips">Summary of Tips:</h3>
+<ul>
+<li>Use concrete types for clearer method resolution.</li>
+<li>Be explicit with type annotations to avoid ambiguity.</li>
+<li>Simplify method definitions to improve dispatch efficiency.</li>
+<li>Group related types with abstract types for more efficient dispatch.</li>
+<li>Avoid overloading methods with very similar signatures.</li>
+<li>Use <code>eltype</code> for dispatch based on the types of elements within containers.</li>
+</ul>
+</section>
+<section id="exercise-1-defining-methods-using-multiple-dispatch" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-defining-methods-using-multiple-dispatch">Exercise 1: Defining Methods Using Multiple Dispatch</h3>
+<ol type="1">
+<li>Define a function <code>add(x, y)</code> that can handle the following cases:
+<ul>
+<li>Two integers</li>
+<li>Two floats</li>
+<li>An integer and a float</li>
+<li>A float and an integer</li>
+</ul></li>
+<li>Test the function with different combinations of argument types and print the results.</li>
+</ol>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint for Exercise 1:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Use multiple dispatch to define methods with specific type annotations for each combination of argument types.</li>
+<li>You can define the function for each pair of types separately, ensuring that Julia selects the correct method based on argument types.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correction of Exercise 1:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="316fa92a" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the add method for different combinations of Int and Float64</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Test the methods</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">3</span>, <span class="fl">4</span>))           <span class="co"># Integers</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">3.0</span>, <span class="fl">4.0</span>))       <span class="co"># Floats</span></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">3</span>, <span class="fl">4.0</span>))         <span class="co"># Int and Float</span></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">add</span>(<span class="fl">3.0</span>, <span class="fl">4</span>))         <span class="co"># Float and Int</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>7
+7.0
+7.0
+7.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-identifying-and-resolving-ambiguous-dispatch-cases" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-identifying-and-resolving-ambiguous-dispatch-cases">Exercise 2: Identifying and Resolving Ambiguous Dispatch Cases</h3>
+<ol type="1">
+<li>Write a function <code>multiply(x, y)</code> that can multiply:
+<ul>
+<li>Two integers</li>
+<li>Two floats</li>
+<li>An integer and a float</li>
+<li>A float and an integer</li>
+</ul></li>
+<li>Call the function with an ambiguous combination of arguments (e.g., <code>multiply(3, 4.0)</code>) and observe how Julia handles the ambiguity.</li>
+<li>Resolve the ambiguity by refining the method signatures and test again.</li>
+</ol>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint for Exercise 2:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Ambiguity occurs when Julia cannot decide which method to call based on the provided arguments.</li>
+<li>To resolve ambiguity, ensure that each method has a unique and clear type signature.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correction of Exercise 2:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="e8cd97cf" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define multiply methods for Int and Float64</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Attempt an ambiguous call</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">multiply</span>(<span class="fl">3</span>, <span class="fl">4.0</span>))  <span class="co"># This will cause ambiguity</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Resolve ambiguity by making the methods more specific</span></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">AbstractFloat</span>)</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(x<span class="op">::</span><span class="dt">AbstractFloat</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> y</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Test after resolving ambiguity</span></span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">multiply</span>(<span class="fl">3</span>, <span class="fl">4.0</span>))  <span class="co"># Now works as expected</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>12.0
+12.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3-analyzing-type-stability-with-code_warntype" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-analyzing-type-stability-with-code_warntype">Exercise 3: Analyzing Type Stability with <span class="citation" data-cites="code_warntype">@code_warntype</span></h3>
+<ol type="1">
+<li>Write a function <code>sum_elements(arr::AbstractArray)</code> that calculates the sum of an array’s elements.</li>
+<li>Use <code>@code_warntype</code> to analyze the function and check if it is type-stable.</li>
+<li>Modify the function if it is type-unstable, ensuring it works with specific array types like <code>Vector{Int}</code>.</li>
+<li>Test the function again with <code>@code_warntype</code> to confirm it is type-stable.</li>
+</ol>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint for Exercise 3:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Type instability can occur when Julia cannot predict the type of a variable in advance.</li>
+<li>Use <code>@code_warntype</code> to inspect the type stability of your function and modify it for better performance.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correction of Exercise 3:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="2a0a5402" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to calculate the sum of an array</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum_elements</span>(arr<span class="op">::</span><span class="dt">AbstractArray</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">sum</span>(arr)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check type stability</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="pp">@code_warntype</span> <span class="fu">sum_elements</span>([<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>])</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="co"># If the function is type-unstable, modify it for type stability</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum_elements_stable</span>(arr<span class="op">::</span><span class="dt">Vector{Int}</span>)</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">sum</span>(arr)</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Check type stability again</span></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="pp">@code_warntype</span> <span class="fu">sum_elements_stable</span>([<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MethodInstance for sum_elements(::Vector{Int64})
+  from sum_elements(arr::AbstractArray) @ Main In[24]:2
+Arguments
+  #self#::Core.Const(Main.sum_elements)
+  arr::Vector{Int64}
+Body::Int64
+1 ─ %1 = Main.sum::Core.Const(sum)
+│   %2 = (%1)(arr)::Int64
+└──      return %2
+
+MethodInstance for sum_elements_stable(::Vector{Int64})
+  from sum_elements_stable(arr::Vector{Int64}) @ Main In[24]:10
+Arguments
+  #self#::Core.Const(Main.sum_elements_stable)
+  arr::Vector{Int64}
+Body::Int64
+1 ─ %1 = Main.sum(arr)::Int64
+└──      return %1
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ocots\.github\.io\/course-tse-julia\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../M1/advanced-types.html" class="pagination-link" aria-label="Advanced Types">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Advanced Types</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../M1/modules_and_packages.html" class="pagination-link" aria-label="Modules and Packages">
+        <span class="nav-page-text">Modules and Packages</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2024, Olivier Cots</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/multiple_dispatch.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/multiple_dispatch.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,12 @@
+{
+  "hash": "e2c1fc0d1b8707cd9c2c8b64d90f8c0e",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Metaprogramming\"\npage-layout: article\njupyter: julia-1.11\n---\n\n\n\n",
+    "supporting": [
+      "metaprogramming_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
