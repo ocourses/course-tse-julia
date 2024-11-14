@@ -13,7 +13,7 @@ using Suppressor
 end
 ```
 
-This page provides an introduction to the Julia programming language, including its key features and installation process. You'll learn how to install Julia on different operating systems and how to verify the installation. It also covers using the Julia REPL for interactive coding, creating and running Julia scripts, and managing packages with Julia's built-in package manager, `Pkg`. Additionally, this page provides resources for learning and getting help with Julia, including official documentation, community platforms, and an overview of the Julia ecosystem.
+This page provides an introduction to the [Julia programming language](https://julialang.org), including its key features and installation process. You'll learn how to install Julia on different operating systems and how to verify the installation. It also covers using the Julia REPL for interactive coding, creating and running Julia scripts, and managing packages with Julia's built-in package manager, `Pkg`. Additionally, this page provides resources for learning and getting help with Julia, including official documentation, community platforms, and an overview of the Julia ecosystem.
 
 Key Topics:
 
@@ -51,7 +51,7 @@ Julia is a high-level, high-performance programming language primarily designed 
 
 To get started with Julia, you first need to install the language on your computer. The official Julia website provides the installation files for various operating systems, including Windows, macOS, and Linux. Follow these steps:
 
-1. Visit the official [Julia Downloads page](https://julialang.org/downloads/).
+1. Visit the official [Julia Downloads](https://julialang.org/downloads/) page.
 2. Choose the appropriate version of Julia for your operating system.
 3. Download the installer (the latest stable version is recommended for most users).
 
@@ -114,7 +114,7 @@ If you see this prompt, it means Julia is installed and working correctly!
 
 ### Installing Package Manager
 
-Julia includes a built-in package manager, `Pkg`, that allows you to easily manage external packages (libraries) for your projects.
+Julia includes a built-in [package manager](https://docs.julialang.org/en/v1/stdlib/Pkg/), `Pkg`, that allows you to easily manage external packages (libraries) for your projects.
 
 1. To start using `Pkg`, open the Julia REPL and type:
    ```julia
@@ -135,7 +135,7 @@ This will download and install the package, making it available for use in your 
 
 ## Using the Julia REPL
 
-The Julia REPL (Read-Eval-Print Loop) is an interactive command-line environment for executing Julia code. It allows you to run Julia code line-by-line, evaluate expressions, and see the results immediately.
+The [Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/) (Read-Eval-Print Loop) is an interactive command-line environment for executing Julia code. It allows you to run Julia code line-by-line, evaluate expressions, and see the results immediately.
 
 ### Starting the REPL
 
@@ -227,7 +227,7 @@ The different modes are:
 - Package mode
 - Shell mode
 
-Visit the [command-line REPL page](https://docs.julialang.org/en/v1/stdlib/REPL/) for more details.
+Visit the [command-line REPL](https://docs.julialang.org/en/v1/stdlib/REPL/) page for more details.
 
 ::: {.panel-tabset}
 
@@ -301,7 +301,7 @@ To run a Julia script, open your terminal or command prompt, navigate to the dir
 julia myscript.jl
 ```
 
-This will execute the code in `myscript.jl` and output any results in the terminal. If your script includes print statements, those outputs will be displayed.
+This will execute the code in `myscript.jl` and output any results in the terminal. If your script includes print statements, those outputs will be displayed. See the [command-line interface](https://docs.julialang.org/en/v1/manual/command-line-interface/) page for more details.
 
 ### Example: Running a Script
 
@@ -363,7 +363,7 @@ This command will execute the code in the script, and you’ll see the output in
 
 ### Running Julia Scripts in IDEs
 
-If you’re using an IDE like VS Code with the Julia extension, you can run the script directly from within the editor by pressing the "Run" button or using the appropriate keyboard shortcut. This is convenient for testing and iterating on your code without having to switch back and forth between the editor and the terminal.
+If you’re using an IDE like VS Code with the Julia extension, you can run the script directly from within the editor by pressing the "Run" button or using the appropriate keyboard shortcut. This is convenient for testing and iterating on your code without having to switch back and forth between the editor and the terminal. See the [Running Code](https://www.julia-vscode.org/docs/stable/userguide/runningcode/) page from Julia in VS Code documentation for more details.
 
 <img width="100%" src="../assets/images/myscript.png"/>
 
@@ -634,7 +634,7 @@ to come back to the global environment, type:
 ] activate
 ```
 
-Note that the packages installed in the global environment are visible from any other environment.
+Note that the packages installed in the global environment are visible from any other environment. See the [Working with Environments](https://pkgdocs.julialang.org/v1/environments/) page for more details.
 
 ::: {.callout-note}
 You can also activate environments directly from the Julia mode. For instance, for the current directory:

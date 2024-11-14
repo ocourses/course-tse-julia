@@ -18,7 +18,7 @@ In Julia, understanding the fundamental types and data structures is essential f
 You'll learn about:
 
 - **Basic Types** such as integers, floating-point numbers, and strings.
-- **Data Structures** like arrays, vectors, matrices, tuples, and `NamedTuple`.
+- **Data Structures** like arrays, vectors, matrices, dictionaries, tuples, and `NamedTuple`.
 - The importance of **Type Declarations** and how to use them effectively.
 - How to work with **Collections** and **Composite Types** to model more complex data.
 
@@ -113,7 +113,7 @@ These basic types are often used for simple calculations and conditionals. Julia
 
 ### Arrays, Vectors, and Matrices
 
-In Julia, arrays are fundamental data structures that can hold elements of any type. Arrays can be one-dimensional (vectors) or two-dimensional (matrices), and they can hold data of various types.
+In Julia, [arrays](https://docs.julialang.org/en/v1/manual/arrays/) are fundamental data structures that can hold elements of any type. Arrays can be one-dimensional (vectors) or two-dimensional (matrices), and they can hold data of various types.
 
 - **Creating an Array**:
 
@@ -205,7 +205,7 @@ ones(2, 3)  # Creates a 2x3 matrix filled with ones: [1.0 1.0 1.0; 1.0 1.0 1.0]
 
 ### Dictionaries (Dict)
 
-A `Dict` in Julia is an associative collection that maps keys to values. This allows for efficient lookups, insertions, and deletions based on unique keys.
+A [`Dict`](https://docs.julialang.org/en/v1/base/collections/#Dictionaries) in Julia is an associative collection that maps keys to values. This allows for efficient lookups, insertions, and deletions based on unique keys.
 
 - **Creating a Dictionary**:
 
@@ -252,6 +252,8 @@ end
 ```
 
 ### Tuples and Named Tuples
+
+Julia [Tuples](https://docs.julialang.org/en/v1/manual/types/#Tuple-Types) are ordered collections of elements, while [Named Tuples](https://docs.julialang.org/en/v1/manual/types/#Named-Tuple-Types) are tuples where elements are associated with names (keys). Tuples are immutable, meaning their elements cannot be changed after creation.
 
 #### Basic usage of Tuples and Named Tuples
 
@@ -350,7 +352,7 @@ So, `return_multiple_values()` returns a tuple with three elements.
 
 ### Introduction to `struct`
 
-In Julia, you can define your own custom data types using the `struct` keyword. Composite types are user-defined types that group together different pieces of data into one object. A `struct` is a great way to create a type that can represent a complex entity with multiple fields.
+In Julia, you can define your own custom data types using the `struct` keyword. [Composite types](https://docs.julialang.org/en/v1/manual/types/#Composite-Types) are user-defined types that group together different pieces of data into one object. A `struct` is a great way to create a type that can represent a complex entity with multiple fields.
 
 - **Creating a custom `struct`**:
 

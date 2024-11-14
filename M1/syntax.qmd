@@ -6,10 +6,11 @@ jupyter: julia-1.11
 
 ```{julia}
 #| echo: false
-using Pkg
 using Suppressor
 @suppress begin
-  Pkg.activate(".")
+    using Pkg
+    Pkg.activate(".")
+    include("../assets/julia/myshow.jl")
 end
 ```
 
@@ -20,7 +21,7 @@ visit [this page](https://cheatsheet.juliadocs.org).
 
 ### Assignment
 
-In Julia, variables are assigned using the `=` operator:
+In Julia, [variables](https://docs.julialang.org/en/v1/manual/variables/) are assigned using the `=` operator:
 
 ```{julia}
 x = 5
@@ -51,7 +52,7 @@ Julia supports Unicode characters, allowing you to use symbols and mathematical 
 nothing #| hide_line
 ```
 
-Unicode is especially helpful when writing mathematical code, making it more readable and expressive.
+Unicode is especially helpful when writing mathematical code, making it more readable and expressive. You may find the list of all available unicode characters [here](https://docs.julialang.org/en/v1/manual/unicode-input/). 
 
 ### Comments
 
@@ -99,9 +100,65 @@ nothing #| hide_line
 
 The `@show` macro is convenient for quick checks on variable values and expressions without needing to construct strings manually.
 
+### Comparison Operations
+
+Julia provides several standard comparison operators that allow you to compare values. These include:
+
+- `==`: Checks if two values are equal.
+- `!=` or `≠` (typed with `\neq` + `Tab`): Checks if two values are not equal.
+- `<`, `<=`, `>`, `>=`: Standard less than, less than or equal to, greater than, and greater than or equal to.
+- `===`: Checks if two values are identical in both type and value.
+- `!==`: Checks if two values are not identical.
+
+Examples:
+
+```{julia}
+@myshow begin #| hide_line
+5 == 5     # true
+5 != 3     # true
+5 ≠ 3      # true (using Unicode)
+5 < 10     # true
+10 >= 10   # true
+"Julia" === "Julia"  # true (identical strings)
+5 === 5.0  # false (different types: Int vs. Float)
+end #| hide_line
+nothing #| hide_line
+```
+
+Julia’s comparison operators return `Bool` values (`true` or `false`). Using these operators effectively is essential for control flow and logical expressions.
+
+In Julia, the `===` operator checks object identity, meaning it determines if two references point to the exact same memory location or the same instance. This is a stricter comparison than `==`, which only checks if two values are equivalent in terms of their contents, not if they are the same instance.
+
+Here's a breakdown of `===` in Julia:
+
+- **Singletons:** `===` is often used for checking singleton objects like `nothing`, `true`, `false`, and other immutable types that Julia reuses rather than copying. For instance, `nothing === nothing` will return `true`, and similarly, `true === true` will return `true`.
+
+- **Immutable Types:** For immutable types like `Int`, `Float64`, etc., `===` and `==` usually give the same result since identical values are often the same instance.
+
+- **Performance:** `===` is generally faster than `==` because it doesn’t need to do a value comparison, just a memory location check. This is particularly useful when checking if a value is a specific singleton (e.g., `x === nothing`).
+
+```{julia}
+@myshow begin #| hide_line
+a = 1
+b = 1
+a === b  # true, since 1 is an immutable integer, they are identical instances
+
+x = [1, 2]
+y = x
+x === y  # true, because x and y refer to the same object in memory
+
+x == [1, 2]   # true, because the contents are the same
+x === [1, 2]  # false, because they are different instances in memory
+end #| hide_line
+nothing #| hide_line
+```
+
+In summary, `===` is especially useful for checking identity rather than equality, often applied to singletons or cases where knowing the exact instance matters, as it allows for efficient and clear comparisons.
+
+
 ## Control Flows and Logical Operators
 
-Control flow in Julia is managed through conditional statements and loops. Logical operators allow for conditions to be combined or negated.
+[Control flow in Julia](https://docs.julialang.org/en/v1/manual/control-flow/) is managed through conditional statements and loops. Logical operators allow for conditions to be combined or negated.
 
 ### Conditional Statements
 Julia supports `if`, `elseif`, and `else` for conditional checks:
@@ -207,7 +264,7 @@ These control flows and logical operators allow for flexibility in executing con
 
 ## Arithmetics
 
-Julia supports a variety of arithmetic operations that can be performed on numeric types. Below are some of the most commonly used operations:
+Julia supports a variety of [arithmetic operations](https://docs.julialang.org/en/v1/manual/mathematical-operations/) that can be performed on numeric types. Below are some of the most commonly used operations:
 
 ### Basic Arithmetic Operations
 You can perform basic arithmetic operations using standard operators:
@@ -268,7 +325,7 @@ These arithmetic operations can be combined and nested to perform complex calcul
 
 ## Functions
 
-Julia offers flexible ways to define functions, with options for positional arguments, keyword arguments, optional arguments with default values, and variable-length arguments. Let’s explore each of these in detail.
+Julia offers flexible ways to define [functions](https://docs.julialang.org/en/v1/manual/functions/), with options for positional arguments, keyword arguments, optional arguments with default values, and variable-length arguments. Let’s explore each of these in detail.
 
 ### Defining Functions
 
@@ -358,7 +415,7 @@ Here’s how the argument combinations work:
 This flexibility makes it easy to call functions with varying levels of detail without explicitly specifying each parameter.
 
 ### Mutation and the Bang `!` Convention
-In Julia, functions that modify or mutate their arguments typically end with a `!`, following the "bang" convention. This is not enforced by the language but is a widely followed convention in Julia to indicate mutation.
+In Julia, functions that modify or mutate their arguments typically end with a `!`, following the ["bang" convention](https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention). This is not enforced by the language but is a widely followed convention in Julia to indicate mutation.
 
 ```{julia}
 function add_one!(array)
@@ -386,7 +443,7 @@ end
 
 ## Scoping and Closure
 
-In Julia, scoping rules determine the visibility and lifetime of variables. Understanding scope and closures is essential for writing efficient and error-free code.
+In Julia, [scoping rules](https://docs.julialang.org/en/v1/manual/variables-and-scoping/) determine the visibility and lifetime of variables. Understanding scope and closures is essential for writing efficient and error-free code.
 
 ### Variable Scope
 Scope in Julia refers to the region of code where a variable is accessible. There are two primary scopes: global and local.

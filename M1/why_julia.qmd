@@ -7,7 +7,7 @@ Paraphrasing [Why Julia?](https://juliahub.com/assets/pdf/why_julia.pdf),
 Julia is a fast and expressive programming language, delivering the speed of C++
 and Fortran together with the productivity of Python, MATLAB, and R. This
 fundamentally empowers diverse teams to work together to develop and deploy
-performant programs at scale by solving the two [language problem](https://scientificcoder.com/how-to-solve-the-two-language-problem).
+performant programs at scale by solving the [two language problem](https://scientificcoder.com/how-to-solve-the-two-language-problem).
 
 ## Benefits of Julia
 
