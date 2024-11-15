@@ -606,7 +606,7 @@ struct SetContainer{T} <: AbstractContainer{T}
     data::Set{T}
 end
 
-struct FloatVectorContainter <: AbstractContainer{Float64}
+struct FloatVectorContainer <: AbstractContainer{Float64}
     data::Vector{Float64}
 end
 
@@ -617,7 +617,7 @@ end
 # Usage:
 vec = VectorContainer([1, 2, 3])
 set = SetContainer(Set([1, 2, 3]))
-flo = FloatVectorContainter([1.0, 2.0, 3.0])
+flo = FloatVectorContainer([1.0, 2.0, 3.0])
 
 print_container_info(vec)
 print_container_info(set)

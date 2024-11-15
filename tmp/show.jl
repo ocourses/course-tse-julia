@@ -14,17 +14,27 @@ function myshow_f(ex::Expr)::Expr
 
     # If it's an assignment, show the left-hand side value after the assignment
     elseif ex.head == :(=)
-        return quote
-            $ex       # Perform the assignment
-            @show $(ex.args[1])  # Show the left-hand side (variable)
-            nothing   # Return nothing for assignment (no value)
+        if (
+            length(ex.args)==2 && 
+            ex.args[1] isa Expr &&
+            ex.args[1].head == :call
+        )
+            return ex
+        else
+            return esc(quote
+                $ex       # Perform the assignment
+                @show $(ex.args[1])  # Show the left-hand side (variable)
+                nothing   # Return nothing for assignment (no value)
+            end)
         end
+    elseif ex.head == :function
+        return ex
     else
         # For non-assignment expressions, show the expression and its evaluated result
-        return quote
+        return esc(quote
             $ex  # Evaluate the expression and store the result
             @show $ex  # Show the expression and its result
-        end
+        end)
     end
 end
 
@@ -32,6 +42,44 @@ end
 macro myshow(ex)
     return myshow_f(ex)  # Ensure expression is evaluated in the correct context
 end
+
+a = 20
+
+dump(quote
+    function f(x) 
+        return x
+    end
+end)
+
+@myshow begin
+    function f(x) 
+        return x
+    end
+end
+
+@myshow begin #| hide_line
+    a = 10
+    b = 3
+    
+    sum = a + b
+    difference = a - b
+    product = a * b
+    quotient = a / b
+    rational = a // b
+end
+
+println("a = ", a)
+
+dump(quote
+    a = 10
+    b = 3
+    
+    sum = a + b
+    difference = a - b
+    product = a * b
+    quotient = a / b
+    rational = a // b
+end)
 
 # Test the macro
 @myshow begin

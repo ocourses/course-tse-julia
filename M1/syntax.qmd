@@ -198,12 +198,15 @@ Julia includes standard logical operators to build more complex conditions:
 - `!` for logical NOT
 
 ```{julia}
+@myshow begin #| hide_line
 a = true
 b = false
 
-println(a && b)  # Outputs: false
-println(a || b)  # Outputs: true
-println(!a)      # Outputs: false
+a && b
+a || b
+!a
+end #| hide_line
+nothing #| hide_line
 ```
 
 ### Loops
@@ -276,29 +279,32 @@ You can perform basic arithmetic operations using standard operators:
 - **Division**: `/` (returns a floating-point result) and `//` (returns a rational number)
 
 ```{julia}
+@myshow begin #| hide_line
 a = 10
 b = 3
 
-sum = a + b           # Outputs: 13
-difference = a - b    # Outputs: 7
-product = a * b       # Outputs: 30
-quotient = a / b      # Outputs: 3.3333...
-rational = a // b     # Outputs: 10//3
+sum = a + b
+difference = a - b
+product = a * b
+quotient = a / b
+rational = a // b
+end #| hide_line
 nothing #| hide_line
 ```
+
 
 ### Modulo Operation
 The modulo operator `%` returns the remainder of a division operation. It is useful for determining if a number is even or odd, or for wrapping around values.
 
 ```{julia}
-modulus_result = a % b  # Outputs: 1 (remainder of 10 divided by 3)
+modulus_result = a % b  # remainder of 10 divided by 3
 ```
 
 ### Exponentiation
 You can perform exponentiation using the `^` operator. 
 
 ```{julia}
-b = a ^ 2          # Outputs: 100 (10 squared)
+a^2          # 10 squared
 ```
 
 ### Using Arithmetic in Control Flow
@@ -341,8 +347,11 @@ end
 # Using assignment syntax
 multiply(a, b) = a * b
 
-println(add(2, 3))         # Outputs: 5
-println(multiply(2, 3))    # Outputs: 6
+@myshow begin #| hide_line
+add(2, 3)
+multiply(2, 3)
+end #| hide_line
+nothing #| hide_line
 ```
 
 ### Positional and Keyword Arguments
@@ -358,8 +367,8 @@ function greet(name; punctuation = "!")
     return "Hello, " * name * punctuation
 end
 
-println(greet("Alice"))                     # Outputs: "Hello, Alice!"
-println(greet("Alice", punctuation = "?"))   # Outputs: "Hello, Alice?"
+println(greet("Alice"))
+println(greet("Alice", punctuation = "?"))
 ```
 
 In this example, `punctuation` is a keyword argument with a default value of `"!"`. You could also define a keyword argument without a default value if needed.
@@ -376,7 +385,7 @@ function sum_all(args...)
     return total
 end
 
-println(sum_all(1, 2, 3, 4))  # Outputs: 10
+sum_all(1, 2, 3, 4)
 ```
 
 ### Default Values for Optional Arguments
@@ -387,8 +396,11 @@ function power(base, exponent=2)
     return base ^ exponent
 end
 
-println(power(3))      # Outputs: 9 (since exponent defaults to 2)
-println(power(3, 3))   # Outputs: 27
+@myshow begin #| hide_line
+power(3)      # Outputs: 9 (since exponent defaults to 2)
+power(3, 3)   # Outputs: 27
+end #| hide_line
+nothing #| hide_line
 ```
 
 ### Multiple Optional Positional Arguments
@@ -400,10 +412,13 @@ function calculate(a=1, b=2, c=3)
     return a + b * c
 end
 
-println(calculate())        # Outputs: 7 (1 + 2 * 3)
-println(calculate(5))       # Outputs: 11 (5 + 2 * 3)
-println(calculate(5, 4))    # Outputs: 17 (5 + 4 * 3)
-println(calculate(5, 4, 1)) # Outputs: 9  (5 + 4 * 1)
+@myshow begin #| hide_line
+calculate()        # Outputs: 7  (1 + 2 * 3)
+calculate(5)       # Outputs: 11 (5 + 2 * 3)
+calculate(5, 4)    # Outputs: 17 (5 + 4 * 3)
+calculate(5, 4, 1) # Outputs: 9  (5 + 4 * 1)
+end #| hide_line
+nothing #| hide_line
 ```
 
 Here’s how the argument combinations work:
@@ -427,7 +442,7 @@ end
 
 arr = [1, 2, 3]
 add_one!(arr)
-@show arr  # Outputs: arr = [2, 3, 4]
+@show arr
 nothing #| hide_line
 ```
 
@@ -436,7 +451,7 @@ In this example, `add_one!` modifies the elements of the array `arr`. By convent
 ### Return Values
 In Julia, functions automatically return the last evaluated expression. However, you can use the `return` keyword to explicitly specify the output if needed.
 
-```{julia}
+```julia
 function multiply(a, b)
     a * b  # Returns the result of a * b
 end
@@ -470,8 +485,11 @@ function local_scope_example()
     return local_var
 end
 
-println(local_scope_example())  # Outputs: 5
-println(local_var)  # This would cause an error, as local_var is not accessible here
+@myshow begin #| hide_line
+local_scope_example()
+local_var  # This would cause an error, as local_var is not accessible here
+end #| hide_line
+nothing #|  hide
 ```
 
 ### Scope of Variables in `for` Loops
@@ -507,7 +525,10 @@ function outer_function(x)
 end
 
 closure = outer_function(3)
+@myshow begin #| hide
 closure(4)  # Outputs: 9 (3 + 2 + 4)
+end #| hide
+nothing #| hide
 ```
 
 In this example, `inner_function` forms a closure over the variables `x` and `y`, retaining access to them even after `outer_function` has finished executing.
@@ -519,17 +540,20 @@ A closure is a function that captures variables from its surrounding lexical sco
 To illustrate the difference between referencing a global variable and capturing a variable in a closure, let’s first create a function that uses a global variable:
 
 ```{julia}
+@myshow begin #| hide
 factor = 2
 
 function multiply_by_global(x)
     return x * factor
 end
 
-println(multiply_by_global(5))  # Outputs: 10
+multiply_by_global(5)  # Outputs: 10
 
 # Update the global variable `factor`
 factor = 3
-println(multiply_by_global(5))  # Outputs: 15 (factor is now 3)
+multiply_by_global(5)  # Outputs: 15 (factor is now 3)
+end #| hide
+nothing #| hide
 ```
 
 In this example, `multiply_by_global` uses the global variable `factor`, so whenever `factor` is updated, the result of calling `multiply_by_global` changes.
@@ -545,13 +569,16 @@ end
 double = make_multiplier(2)   # `factor` is captured as 2 in this closure
 triple = make_multiplier(3)   # `factor` is captured as 3 in this closure
 
-println(double(5))  # Outputs: 10
-println(triple(5))  # Outputs: 15
+@myshow begin #| hide
+double(5)  # Outputs: 10
+triple(5)  # Outputs: 15
 
 # Even if we change `factor` globally, it doesn't affect the closure
 factor = 10
-println(double(5))  # Still outputs: 10
-println(triple(5))  # Still outputs: 15
+double(5)  # Still outputs: 10
+triple(5)  # Still outputs: 15
+end #| hide
+nothing #| hide
 ```
 
 In this example, `make_multiplier` returns a function that captures the `factor` variable when the closure is created. This means that `double` will always multiply by `2`, and `triple` will always multiply by `3`, regardless of any subsequent changes to `factor`.

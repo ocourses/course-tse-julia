@@ -5,7 +5,7 @@
 function CodeBlock(el)
   if el.classes:includes('cell-code') then
     el.text = filter_lines(el.text, function(line)
-      return not line:match("#| ?hide_line%s*$")
+      return not (line:match("#|%s*hide_line%s*$") or line:match("#|%s*hide%s*$")) 
     end)
     return el
   end
