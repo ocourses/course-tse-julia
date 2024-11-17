@@ -85,7 +85,9 @@ website:
               href: M1/basic-types.qmd
             - text: Advanced Types
               href: M1/advanced-types.qmd
-            - text: Multiple Dispatch
+            - text: Type Stability
+              href: M1/type_stability.qmd
+            - text: Methods and Multiple Dispatch
               href: M1/multiple_dispatch.qmd
             - text: Modules and Packages
               href: M1/modules_and_packages.qmd
@@ -93,6 +95,10 @@ website:
               href: M1/metaprogramming.qmd
             - text: Interoperability
               href: M1/interoperability.qmd
+            - text: Performance
+              href: M1/performance.qmd
+            - text: Miscellaneous
+              href: M1/miscellaneous.qmd
             - text: "---"
     - id: M2
       collapse-level: 3

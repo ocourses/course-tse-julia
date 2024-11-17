@@ -6,11 +6,7 @@ jupyter: julia-1.11
 
 ```{julia}
 #| echo: false
-using Pkg
-using Suppressor
-@suppress begin
-  Pkg.activate(".")
-end
+include("activate.jl")
 ```
 
 In Julia, understanding the fundamental types and data structures is essential for efficient coding and problem-solving. This page provides an introduction to some of the basic types in Julia, including integers, floating-point numbers, strings, and composite types like arrays and tuples. We’ll also explore more advanced data structures and their practical uses.
@@ -32,10 +28,13 @@ Julia is a dynamically typed language, meaning that variable types are determine
 In Julia, variables do not require explicit type declarations. The type of a variable is inferred based on the value assigned to it.
 
 ```{julia}
+@myshow begin #| hide
 x = 10          # x is inferred to be of type Int64
 y = 3.14        # y is inferred to be of type Float64
 z = "Hello"     # z is inferred to be of type String
-nothing #| hide_line
+
+typeof(x), typeof(y), typeof(z)
+end #| hide
 ```
 
 Even though Julia automatically infers types, you can still explicitly specify them when necessary, particularly for performance optimization or for ensuring that a variable matches a particular type.
@@ -43,20 +42,34 @@ Even though Julia automatically infers types, you can still explicitly specify t
 ### Strong Typing
 While Julia uses dynamic typing, it is strongly typed. This means that Julia will enforce type constraints on operations, and will raise errors when an operation is attempted with incompatible types.
 
+You can add an integer and a float,
+
 ```{julia}
 #| error: true
-a = 5           # Integer
-b = 2.0         # Float
+@myshow begin #| hide
+n = 5           # Integer
+x = 2.0         # Float
+n + x           # we can add an Int64 and a Float64
+end #| hide
+```
 
-# This will raise an error because you can't add an integer and a string
-c = a + "hello"  # Error: cannot convert string to Int
+but you cannot add an integer and a string:
+
+```{julia}
+#| error: true
+@myshow begin #| hide
+s = "Hello"     # String
+n + s           # Error: does not make sense to add an Int64 and a String
+end #| hide
 ```
 
 We see from the error message that we can add an Integer and a Char: `+(::Integer, ::AbstractChar)` is a valid operation. This is because a Char can be treated as an integer in Julia.
 
 ```{julia}
+@myshow begin #| hide
 c = 'a'      # Char
 c + 128448   # This will work because Char can be treated as an integer
+end #| hide
 ```
 
 Julia allows flexibility compared to statically typed languages like C or Java, but still ensures that operations make sense for the types involved.
@@ -104,12 +117,16 @@ d = true       # d is of type Bool
 
 # Char type
 e = 'α'        # e is of type Char
-nothing #| hide_line
+nothing #| hide
 ```
 
 These basic types are often used for simple calculations and conditionals. Julia allows operations between different types, but it will raise an error if the types are incompatible.
 
 ## Collections and Data Structures
+
+### Julia as an Array Programming Language
+
+Julia is designed as an [array programming language](https://en.wikipedia.org/wiki/Array_programming), focusing on operations that apply to entire arrays or subarrays rather than individual elements. This paradigm simplifies code for numerical, scientific, and data-intensive applications. By leveraging features like broadcasting and vectorized operations, Julia allows for efficient and concise code, enhancing performance without sacrificing readability. Array programming is central to Julia’s capabilities, enabling fast computation on large datasets and making it ideal for high-performance scientific computing.
 
 ### Arrays, Vectors, and Matrices
 
@@ -186,6 +203,52 @@ push!(arr, 40)  # Adds 40 to the end of the array
 ```{julia}
 pop!(arr)  # Removes the last element, which is 40 in this case
 ```
+
+#### Mutation Inside a Function
+
+When working with arrays inside a function, it's important to note that reassigning the entire array (e.g., `v = [1, 2]`) does not mutate the original array but rather creates a new one locally scoped to the function. To modify the contents of an array in place, use either `v[:] = ...` or the more flexible broadcasting syntax `v .= ...`.
+
+- **Incorrect way** (does not mutate the original vector):
+
+```{julia}
+function incorrect_mutate(v)
+    v = [1, 2]  # This creates a new array and does not affect the input
+end
+
+vec = [10, 20]
+incorrect_mutate(vec)
+println(vec)  # Outputs: [10, 20]
+```
+
+- **Correct way** using `v[:] = ...`:
+
+```{julia}
+function correct_mutate(v)
+    v[:] = [1, 2]  # Mutates the input vector
+end
+
+vec = [10, 20]
+correct_mutate(vec)
+println(vec)  # Outputs: [1, 2]
+```
+
+- **Using broadcasting (`v .= ...`)**:
+
+```{julia}
+function flexible_mutate(v)
+    v .= [1, 2]  # More flexible, works for both vectors and matrices
+end
+
+vec = [10, 20]
+flexible_mutate(vec)
+println(vec)  # Outputs: [1, 2]
+
+mat = [10 20; 30 40]
+mat .= [1 2; 3 4]  # Updates all elements in-place
+println(mat)  # Outputs: [1 2; 3 4]
+```
+
+Using `v .= ...` is preferred for its flexibility, as it works seamlessly for arrays of any shape, including matrices. Without broadcasting, you would need to use `M[:, :] = ...` for matrices to achieve the same effect.
 
 #### Special Arrays
 
@@ -300,7 +363,7 @@ function example_function(args...; kwargs...)
 end
 
 kw = example_function(1, 2, 3; name="Alice", age=30)
-nothing #| hide_line
+nothing #| hide
 ```
 
 In this example, `args` is of type `Tuple`, containing all positional arguments, while `kwargs` is based on a `NamedTuple`, containing all keyword arguments. The arguments are captured using the `args...` and `kwargs...` syntax. The `kwargs` argument is actually a 'Base.Pairs':
@@ -310,14 +373,16 @@ kw
 ```
 
 ```{julia}
-println("Type of kw: ", typeof(kw))
-println(kw isa Base.Pairs)
-println(kw isa AbstractDict)
-println("Keys: ", keys(kw))
-println("Values: ", values(kw))
-println("Pairs: ", pairs(kw))
-println("kx[:name]: ", kw[:name])
-println("kx[:age]: ", kw[:age])
+@myshow begin #| hide
+typeof(kw)
+kw isa Base.Pairs
+kw isa AbstractDict
+keys(kw)
+values(kw)
+pairs(kw)
+kw[:name]
+kw[:age]
+end #| hide
 ```
 
 Actually, the values are a `NamedTuple`:
@@ -405,7 +470,7 @@ Now you can modify the fields of `MutablePoint` instances after they are created
 ```{julia}
 mp = MutablePoint(1.0, 2.0)
 mp.x = 3.0  # Modify the 'x' field
-nothing #| hide_line
+nothing #| hide
 ```
 
 ### Example: `struct` for a Circle
@@ -431,12 +496,120 @@ c = Circle(Point(0.0, 0.0), 5.0)  # Create a circle with center (0, 0) and radiu
 c.center.x  # Access the x field of the center of the circle
 c.center.y  # Access the y field of the center of the circle
 c.radius    # Access the radius of the circle
-nothing #| hide_line
+nothing #| hide
 ```
+
+### Adding a Custom Constructor
+
+Julia allows you to define custom constructors for structs. These constructors enable additional logic during object creation, such as validating inputs or providing default values. Here's an example of a custom constructor for a `Circle` that ensures the radius is always positive and converts the center coordinates to `Float64` if they are not already:
+
+```{julia}
+struct Circle
+    center::Point
+    radius::Float64
+end
+
+# Define a custom constructor
+function Circle(x::Real, y::Real, radius::Real)
+    if radius <= 0
+        throw(DomainError(radius, "Radius must be positive"))
+    end
+    Circle(Point(float(x), float(y)), float(radius))
+end
+nothing #| hide
+```
+
+- **Explanation**:
+  - The custom constructor accepts the center's `x` and `y` coordinates and the `radius` as inputs.
+  - It checks if the radius is positive, throwing an error otherwise.
+  - It converts the inputs to `Float64` using `float`, ensuring consistency with the field types defined in the `Circle` struct.
+
+- **Usage**:
+
+```{julia}
+#| error: true
+
+@myshow begin #| hide
+# Create a Circle using the custom constructor
+c = Circle(0, 0, 5)  # Creates a Circle with center (0.0, 0.0) and radius 5.0
+
+# Attempt to create a Circle with an invalid radius
+c = Circle(0, 0, -3)  # Throws an error: "Radius must be positive"
+end #| hide
+```
+
+### Function-like Object (Callable `struct`)
+
+In Julia, you can make a `struct` "callable" by defining the `call` method for it. This allows instances of the `struct` to be used like functions. This feature is useful for encapsulating parameters or states in a type while still allowing it to behave like a function.
+
+Here’s an example that demonstrates a callable struct for a **linear transformation**:
+
+```{julia}
+# Define a callable struct for a linear transformation
+struct LinearTransform
+    a::Float64  # Slope
+    b::Float64  # Intercept
+end
+
+# Define the call method for LinearTransform
+function (lt::LinearTransform)(x::Real)
+    lt.a * x + lt.b  # Apply the linear transformation
+end
+```
+
+- **Explanation**:
+  - The `LinearTransform` struct stores the parameters of the linear function \( y = ax + b \).
+  - By defining the `call` method for the struct, you enable instances of `LinearTransform` to behave like a function.
+
+- **Usage**:
+
+```{julia}
+# Create an instance of LinearTransform
+lt = LinearTransform(2.0, 3.0)  # y = 2x + 3
+
+@myshow begin #| hide
+# Call the instance like a function
+typeof(lt)  # Output: LinearTransform
+y1 = lt(5)   # Calculates 2 * 5 + 3 = 13
+y2 = lt(-1)  # Calculates 2 * -1 + 3 = 1
+end #| hide
+```
+
+### Extending the Concept: Composable Linear Transforms
+
+You can take this idea further by allowing composition of transformations. For example:
+
+```{julia}
+# Define a method to compose two LinearTransform objects
+function (lt1::LinearTransform)(lt2::LinearTransform)
+    LinearTransform(lt1.a * lt2.a, lt1.a * lt2.b + lt1.b)
+end
+
+# Example usage
+lt1 = LinearTransform(2.0, 3.0)  # y = 2x + 3
+lt2 = LinearTransform(0.5, 1.0)  # y = 0.5x + 1
+
+# Compose the two transformations
+lt_composed = lt1(lt2)  # Equivalent to y = 2 * (0.5x + 1) + 3
+
+@myshow begin #| hide
+# Call the composed transformation
+y = lt_composed(4)  # Calculates 2 * (0.5 * 4 + 1) + 3 = 9
+end #| hide
+```
+
+::: {.callout-note}
+The previous composition is equivalent in pure Julia to:
+
+```{julia}
+y = (lt1 ∘ lt2)(4)
+```
+:::
 
 ### Conclusion
 
-In Julia, `struct` allows you to create complex custom types that can hold different types of data. By default, structs are immutable, but you can use `mutable struct` if you need to change the data after creation. This is useful for organizing and managing related data in your programs.
+- In Julia, `struct` allows you to create complex custom types that can hold different types of data. Custom constructors provide flexibility for struct initialization, allowing validation and preprocessing of input data. This is especially useful for enforcing constraints and ensuring type consistency. By default, structs are immutable, but you can use `mutable struct` if you need to change the data after creation.
+- Using a callable struct allows you to represent parameterized functions or transformations in a concise and reusable way. The concept can be extended further to support operations like composition or chaining, making it a powerful tool for [functional-style programming](https://en.wikipedia.org/wiki/Functional_programming) in Julia.
 
 ## Exercises
 
@@ -554,17 +727,14 @@ println("Complex number with the largest real part: ", max_z)
 ```
 :::
 
-### Exercise 3: Manipulating Arrays and Tuples
+### Exercise 3: Manipulating Tuples
 
-1. Create an **array** `arr` of integers from 1 to 10. 
-2. Use broadcasting (`.=`) to multiply all elements of the array by 2.
-3. Create a **tuple** `t` with three elements: a string, an integer, and a float.
-4. Try to mutate the first element of the tuple and handle any errors using a `try-catch` block.
-5. Create a **NamedTuple** `nt` with fields `name`, `age`, and `height`, and initialize it with your details.
+1. Create a **tuple** `t` with three elements: a string, an integer, and a float.
+2. Try to mutate the first element of the tuple and handle any errors using a `try-catch` block.
+3. Create a **NamedTuple** `nt` with fields `name`, `age`, and `height`, and initialize it with your details.
 
 ::: {.callout-tip collapse="true" icon=false}
 ## Hint for Exercise 3:
-- Use the `.` operator for broadcasting and mutation of arrays.
 - Remember that tuples are immutable, so you can't modify their elements.
 - Use a `try-catch` block to catch errors if an operation fails.
 :::
@@ -573,13 +743,6 @@ println("Complex number with the largest real part: ", max_z)
 ## Correction of Exercise 3:
 
 ```{julia}
-# Create an array of integers from 1 to 10
-arr = collect(1:10)  # Convert UnitRange to an array
-
-# Use broadcasting to multiply all elements of the array by 2
-arr .= arr .* 2  # Broadcasting .*= operator
-println("Modified array: ", arr)
-
 # Create a tuple with three elements: a string, an integer, and a float
 t = ("John", 25, 5.9)
 

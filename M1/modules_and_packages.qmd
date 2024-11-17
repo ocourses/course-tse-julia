@@ -6,9 +6,12 @@ jupyter: julia-1.11
 
 ```{julia}
 #| echo: false
-using Pkg
-using Suppressor
-@suppress begin
-  Pkg.activate(".")
-end
+include("activate.jl")
 ```
+
+
+## References
+
+- [Modules documentation](https://docs.julialang.org/en/v1/manual/modules/)
+- [Environment documentation](https://pkgdocs.julialang.org/v1/environments/)
+- [Creating packages documentation](https://pkgdocs.julialang.org/v1/creating-packages/)

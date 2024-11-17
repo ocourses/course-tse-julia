@@ -6,17 +6,37 @@ jupyter: julia-1.11
 
 ```{julia}
 #| echo: false
-using Suppressor
-@suppress begin
-    using Pkg
-    Pkg.activate(".")
-    include("../assets/julia/myshow.jl")
-end
-nothing
+include("activate.jl")
 ```
 
-In this page, we present the fundamentals of Julia syntax. If you want a cheatsheet, please 
-visit [this page](https://cheatsheet.juliadocs.org).
+## Introduction to Julia as an Imperative Programming Language
+
+Julia is fundamentally an **imperative programming language**, where the flow of execution is defined by sequences of commands or statements that change the program's state. Core features include:
+
+- **Assignment statements** to store values in variables.
+- **Control flows** for decision-making and iteration.
+- **Arithmetic operations** for calculations.
+
+While imperative programming emphasizes how a task is accomplished (e.g., through loops, conditionals, and assignments), **declarative programming** focuses on what the result should be, leaving the "how" to the language or framework.
+
+### Imperative vs. Declarative Programming
+
+| Feature                        | Imperative Programming          | Declarative Programming         |
+|--------------------------------|----------------------------------|----------------------------------|
+| **Approach**                   | Step-by-step instructions       | Describes desired outcomes       |
+| **Examples**                   | Julia, Python, C, Java          | SQL, HTML, Functional languages  |
+| **Control Structures**         | Loops, conditionals             | Abstract execution (queries)     |
+| **State Management**           | Explicit and mutable            | Implicit and immutable           |
+
+Julia is versatile and can incorporate elements of declarative programming, such as high-level operations on collections and functional programming paradigms, but its foundation is firmly rooted in imperative concepts.
+
+::: {.callout-tip}
+In this page, we present the fundamentals of Julia syntax. If you want a cheatsheet, click on the image below.
+
+<a href="https://cheatsheet.juliadocs.org">
+  <img class="centering" width="80%" style="max-width: 400px;" src="./images/cheatsheet-julia.png"/>
+</a>
+:::
 
 ## Basics
 
@@ -27,7 +47,7 @@ In Julia, [variables](https://docs.julialang.org/en/v1/manual/variables/) are as
 ```{julia}
 x = 5
 y = "Hello, Julia!"
-nothing #| hide_line
+nothing #| hide
 ```
 
 Julia is dynamically typed, which means variables do not require explicit type declarations. Types are inferred based on the assigned value.
@@ -40,20 +60,19 @@ typeof(x)
 typeof(y)
 ```
 
+Variables act as labels pointing to values and can be reassigned without restrictions on type. This dynamic behavior is a hallmark of imperative languages.
+
 ### Unicode Characters
 
-Julia supports Unicode characters, allowing you to use symbols and mathematical notation in variable names and operations. For instance, Greek letters and symbols like α and β can be typed using the tab completion shortcut:
-
-- Type `\alpha`, then press `Tab` to get `α`.
-- Type `\beta`, then press `Tab` to get `β`.
+Julia supports Unicode characters, enhancing code readability, especially for mathematical and scientific computations:
 
 ```{julia}
 α = 10
 β = α + 5
-nothing #| hide_line
+println("β = $β")
 ```
 
-Unicode is especially helpful when writing mathematical code, making it more readable and expressive. You may find the list of all available unicode characters [here](https://docs.julialang.org/en/v1/manual/unicode-input/). 
+Unicode symbols can be entered using `\name` followed by `Tab` (e.g., `\alpha → α`). A complete list of Unicode characters is available in the [Julia Unicode documentation](https://docs.julialang.org/en/v1/manual/unicode-input).
 
 ### Comments
 
@@ -68,25 +87,21 @@ multiline comment
 =#
 ```
 
-### Print
+### Printing Output
 
-To display output in Julia, you can use the `println` function:
+For debugging or displaying results, Julia provides the println function:
 
 ```{julia}
 println("Hello, Julia!")  # Prints: Hello, Julia!
 println("The value of α is ", α)
 ```
 
-Printing output is helpful for debugging and tracking variable values in your code.
-
-### The `@show` Macro
-
-Julia also provides the `@show` macro, which is particularly useful for debugging. It prints both the name of a variable and its value in the following format: `variable_name = value`.
+Additionally, the `@show` macro prints both variable names and values:
 
 ```{julia}
 x = 42
 @show x   # Prints: x = 42
-nothing #| hide_line
+nothing #| hide
 ```
 
 You can also use `@show` with multiple variables or expressions:
@@ -96,25 +111,24 @@ a = 10
 b = 20
 @show a + b  # Prints: a + b = 30
 @show a, b   # Prints: a = 10, b = 20
-nothing #| hide_line
+nothing #| hide
 ```
-
-The `@show` macro is convenient for quick checks on variable values and expressions without needing to construct strings manually.
 
 ### Comparison Operations
 
-Julia provides several standard comparison operators that allow you to compare values. These include:
+Julia includes standard comparison operators for equality and order:
 
-- `==`: Checks if two values are equal.
-- `!=` or `≠` (typed with `\neq` + `Tab`): Checks if two values are not equal.
-- `<`, `<=`, `>`, `>=`: Standard less than, less than or equal to, greater than, and greater than or equal to.
-- `===`: Checks if two values are identical in both type and value.
-- `!==`: Checks if two values are not identical.
+| Operator | Purpose                | Example     | Result |
+|----------|------------------------|-------------|--------|
+| `==`     | Equality check         | `5 == 5`    | `true` |
+| `!=` or `≠` | Inequality check    | `5 != 3`    | `true` |
+| `<`, `<=` | Less than, or equal   | `5 < 10`    | `true` |
+| `===`    | Object (type and value) identity check  | `5 === 5.0` | `false` |
 
 Examples:
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 5 == 5     # true
 5 != 3     # true
 5 ≠ 3      # true (using Unicode)
@@ -122,8 +136,7 @@ Examples:
 10 >= 10   # true
 "Julia" === "Julia"  # true (identical strings)
 5 === 5.0  # false (different types: Int vs. Float)
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 Julia’s comparison operators return `Bool` values (`true` or `false`). Using these operators effectively is essential for control flow and logical expressions.
@@ -139,7 +152,7 @@ Here's a breakdown of `===` in Julia:
 - **Performance:** `===` is generally faster than `==` because it doesn’t need to do a value comparison, just a memory location check. This is particularly useful when checking if a value is a specific singleton (e.g., `x === nothing`).
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 a = 1
 b = 1
 a === b  # true, since 1 is an immutable integer, they are identical instances
@@ -150,8 +163,7 @@ x === y  # true, because x and y refer to the same object in memory
 
 x == [1, 2]   # true, because the contents are the same
 x === [1, 2]  # false, because they are different instances in memory
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 In summary, `===` is especially useful for checking identity rather than equality, often applied to singletons or cases where knowing the exact instance matters, as it allows for efficient and clear comparisons.
@@ -191,22 +203,25 @@ println(y)  # Outputs "Greater" if x > 5, otherwise "Not greater"
 ```
 
 ### Logical Operators
-Julia includes standard logical operators to build more complex conditions:
 
-- `&&` for logical AND
-- `||` for logical OR
-- `!` for logical NOT
+Julia includes standard logical operators, that combine or negate conditions:
+
+| Operator | Purpose        | Example        | Result |
+|----------|----------------|----------------|--------|
+| `&&`     | Logical AND    | `true && false` | `false` |
+| `` || ``  | Logical OR     | `true || false` | `true` |
+| `!`      | Logical NOT    | `!true`        | `false` |
+
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 a = true
 b = false
 
 a && b
 a || b
 !a
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 ### Loops
@@ -279,7 +294,7 @@ You can perform basic arithmetic operations using standard operators:
 - **Division**: `/` (returns a floating-point result) and `//` (returns a rational number)
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 a = 10
 b = 3
 
@@ -288,8 +303,7 @@ difference = a - b
 product = a * b
 quotient = a / b
 rational = a // b
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 
@@ -347,11 +361,10 @@ end
 # Using assignment syntax
 multiply(a, b) = a * b
 
-@myshow begin #| hide_line
+@myshow begin #| hide
 add(2, 3)
 multiply(2, 3)
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 ### Positional and Keyword Arguments
@@ -385,7 +398,9 @@ function sum_all(args...)
     return total
 end
 
+@myshow begin #| hide
 sum_all(1, 2, 3, 4)
+end #| hide
 ```
 
 ### Default Values for Optional Arguments
@@ -396,11 +411,10 @@ function power(base, exponent=2)
     return base ^ exponent
 end
 
-@myshow begin #| hide_line
+@myshow begin #| hide
 power(3)      # Outputs: 9 (since exponent defaults to 2)
 power(3, 3)   # Outputs: 27
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 ### Multiple Optional Positional Arguments
@@ -412,13 +426,12 @@ function calculate(a=1, b=2, c=3)
     return a + b * c
 end
 
-@myshow begin #| hide_line
+@myshow begin #| hide
 calculate()        # Outputs: 7  (1 + 2 * 3)
 calculate(5)       # Outputs: 11 (5 + 2 * 3)
 calculate(5, 4)    # Outputs: 17 (5 + 4 * 3)
 calculate(5, 4, 1) # Outputs: 9  (5 + 4 * 1)
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 Here’s how the argument combinations work:
@@ -440,13 +453,37 @@ function add_one!(array)
     end
 end
 
+@myshow begin #| hide
 arr = [1, 2, 3]
 add_one!(arr)
-@show arr
-nothing #| hide_line
+arr  # Outputs: [2, 3, 4]
+end #| hide
 ```
 
 In this example, `add_one!` modifies the elements of the array `arr`. By convention, the `!` at the end of the function name indicates that the function mutates its input.
+
+### Broadcasting
+
+Julia supports **broadcasting**, a powerful feature that applies a function element-wise to arrays or other collections. Broadcasting is denoted by a `.` placed before the function call or operator.
+
+```{julia}
+# Define a simple function
+function square(x)
+    return x^2
+end
+
+# Apply the function to a vector using broadcasting
+vec = [1, 2, 3, 4]
+squared_vec = square.(vec)
+
+println("Original vector: ", vec)
+println("Squared vector: ", squared_vec)
+```
+
+In this example:
+
+- The function `square(x)` is applied to each element of `vec` using the `.` operator.
+- Broadcasting works seamlessly with both built-in and user-defined functions, making it easy to perform element-wise operations on arrays of any shape.
 
 ### Return Values
 In Julia, functions automatically return the last evaluated expression. However, you can use the `return` keyword to explicitly specify the output if needed.
@@ -473,22 +510,29 @@ function access_global()
     return global_var
 end
 
+@myshow begin #| hide
 access_global()  # Outputs: 10
+end #| hide
 ```
 
 - **Local Scope**: Variables defined within a function or a block (e.g., loops or conditionals) have local scope and cannot be accessed outside of that block.
 
 ```{julia}
-#| error: true
 function local_scope_example()
     local_var = 5
     return local_var
 end
 
-@myshow begin #| hide_line
+@myshow begin #| hide
 local_scope_example()
+end #| hide
+```
+
+If you try to access `local_var` outside the function, you will get an error because it is not defined in the global scope.
+
+```{julia}
+#| error: true
 local_var  # This would cause an error, as local_var is not accessible here
-end #| hide_line
 nothing #|  hide
 ```
 
@@ -528,7 +572,6 @@ closure = outer_function(3)
 @myshow begin #| hide
 closure(4)  # Outputs: 9 (3 + 2 + 4)
 end #| hide
-nothing #| hide
 ```
 
 In this example, `inner_function` forms a closure over the variables `x` and `y`, retaining access to them even after `outer_function` has finished executing.
@@ -553,7 +596,6 @@ multiply_by_global(5)  # Outputs: 10
 factor = 3
 multiply_by_global(5)  # Outputs: 15 (factor is now 3)
 end #| hide
-nothing #| hide
 ```
 
 In this example, `multiply_by_global` uses the global variable `factor`, so whenever `factor` is updated, the result of calling `multiply_by_global` changes.
@@ -562,6 +604,7 @@ In this example, `multiply_by_global` uses the global variable `factor`, so when
 Now, let’s use a closure to capture the `factor` variable inside a function. Here, the captured value of `factor` remains fixed at the time the closure was created, regardless of changes to the variable afterward.
 
 ```{julia}
+@myshow begin #| hide
 function make_multiplier(factor)
     return (x) -> x * factor  # Returns a closure that captures `factor`
 end
@@ -569,16 +612,14 @@ end
 double = make_multiplier(2)   # `factor` is captured as 2 in this closure
 triple = make_multiplier(3)   # `factor` is captured as 3 in this closure
 
-@myshow begin #| hide
 double(5)  # Outputs: 10
 triple(5)  # Outputs: 15
 
 # Even if we change `factor` globally, it doesn't affect the closure
-factor = 10
+factor = 4
 double(5)  # Still outputs: 10
 triple(5)  # Still outputs: 15
 end #| hide
-nothing #| hide
 ```
 
 In this example, `make_multiplier` returns a function that captures the `factor` variable when the closure is created. This means that `double` will always multiply by `2`, and `triple` will always multiply by `3`, regardless of any subsequent changes to `factor`.

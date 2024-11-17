@@ -28,7 +28,7 @@ function myshow_f(ex::Expr)::Expr
             end)
         end
     elseif ex.head == :function
-        return ex
+        return esc(quote $ex end)
     else
         # For non-assignment expressions, show the expression and its evaluated result
         return esc(quote

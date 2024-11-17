@@ -4,6 +4,11 @@ page-layout: article
 jupyter: julia-1.11
 ---
 
+```{julia}
+#| echo: false
+include("activate.jl")
+```
+
 Julia is a high-level, high-performance programming language primarily designed for numerical and scientific computing. Its syntax is familiar to users of other technical computing environments, while its flexibility and performance make it an excellent choice for a wide range of applications. In this section, we will look at a few simple examples to illustrate some core features of Julia and demonstrate its intuitive and powerful design.
 
 ## Variables

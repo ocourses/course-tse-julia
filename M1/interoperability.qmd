@@ -6,9 +6,10 @@ jupyter: julia-1.11
 
 ```{julia}
 #| echo: false
-using Pkg
-using Suppressor
-@suppress begin
-  Pkg.activate(".")
-end
+include("activate.jl")
 ```
+
+## References
+
+- [Calling C and Fortran Code](https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/)
+- [Calling Python, R, and Other Languages](https://forem.julialang.org/ifihan/interoperability-in-julia-1m26)

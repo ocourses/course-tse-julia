@@ -6,11 +6,7 @@ jupyter: julia-1.11
 
 ```{julia}
 #| echo: false
-using Pkg
-using Suppressor
-@suppress begin
-  Pkg.activate(".")
-end
+include("activate.jl")
 ```
 
 This page provides an introduction to the [Julia programming language](https://julialang.org), including its key features and installation process. You'll learn how to install Julia on different operating systems and how to verify the installation. It also covers using the Julia REPL for interactive coding, creating and running Julia scripts, and managing packages with Julia's built-in package manager, `Pkg`. Additionally, this page provides resources for learning and getting help with Julia, including official documentation, community platforms, and an overview of the Julia ecosystem.
@@ -26,6 +22,10 @@ Key Topics:
 - **Package Management**: Installing, updating, and managing Julia packages.
 - **Getting Help**: Accessing Julia documentation and community resources.
 - **Julia Ecosystem**: Introduction to JuliaHub, JuliaSim, and JuliaCon, as well as other valuable tools and resources within the Julia ecosystem.
+
+::: {.callout-tip}
+This guide is designed for beginners and provides a comprehensive overview of the Julia programming language. Whether you're new to programming or an experienced developer looking to learn Julia, this guide will help you get started with the language. If you want to go deeper into specific topics, check out the [Julia Documentation](https://docs.julialang.org) and other resources mentioned in this guide. The website [Modern Julia Workflows](https://modernjuliaworkflows.org) is a great resource for learning advanced Julia programming techniques.
+:::
 
 ## Introduction to Julia Programming Language
 

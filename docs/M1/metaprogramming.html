@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Metaprogramming – Julia course</title>
+<title>Metaprogramming and introspection in Julia – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -176,8 +176,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../M1/type_stability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Type Stability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../M1/multiple_dispatch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Dispatch</span></a>
+ <span class="menu-text">Methods and Multiple Dispatch</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -198,6 +204,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Interoperability</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/performance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Performance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../M1/miscellaneous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Miscellaneous</span></a>
+  </div>
+</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
       </ul>
   </li>
@@ -206,15 +224,21 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/metaprogramming.html">Metaprogramming</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Metaprogramming</h1>
+<h1 class="title">Metaprogramming and introspection in Julia</h1>
 </div>
 
 
@@ -231,8 +255,15 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><a href="https://docs.julialang.org/en/v1/manual/metaprogramming/">Metaprogramming documentation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Reflective_programming">Reflective programming</a></li>
+</ul>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -675,7 +706,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024, Olivier Cots</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

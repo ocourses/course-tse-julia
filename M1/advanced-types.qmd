@@ -6,15 +6,7 @@ jupyter: julia-1.11
 
 ```{julia}
 #| echo: false
-using Suppressor
-@suppress begin
-    using Pkg
-    Pkg.activate(".")
-    include("../assets/julia/myshow.jl")
-    using Markdown
-    using QuizQuestions
-end
-nothing
+include("activate.jl")
 ```
 
 In this section, we will delve into some of the more advanced features of Julia's type system and error handling. We will explore the hierarchical structure of types, how to define and work with parametric types, as well as how to handle type conversions and promotions. Additionally, we will look at how to manage errors in Julia, including common error types and exception handling mechanisms.
@@ -26,7 +18,6 @@ Topics Covered:
 - **Type Hierarchies**: Understanding Julia's abstract and concrete types.
 - **Type Annotations and Declarations**: How to specify types in functions and variables.
 - **Parametric Types**: Creating generic types and functions.
-- **Type Stability**: Ensuring that your code is type-stable for better performance.
 - **Type Conversion and Promotion**: Working with different types and converting between them.
 - **Union Types**: Handling multiple types in a single variable.
 - **Special Types**: Working with `Nothing`, `Any`, and `Missing`.
@@ -35,6 +26,14 @@ Topics Covered:
 ## Type Hierarchies
 
 In Julia, types are organized into a hierarchy with `Any` as the root. At the top, `Any` is the most general type, and all other types are subtypes of `Any`. The type hierarchy enables Julia to provide flexibility while supporting efficient dispatch based on types.
+
+```{julia}
+using GraphRecipes, Plots
+default(size=(800, 800))
+@suppress_err begin #| hide
+plot(AbstractFloat, fontsize=10, nodeshape=:rect, nodesize=0.08)
+end #| hide
+```
 
 ### Abstract and Concrete Types
 
@@ -45,16 +44,25 @@ Types in Julia can be [**abstract**](https://docs.julialang.org/en/v1/manual/typ
 
 For example, Julia’s `Real` and `AbstractFloat` types are abstract, while `Int64` and `Float64` are concrete subtypes.
 
+```{julia}
+@myshow begin #| hide
+n::Int64 = 42
+typeof(n)
+r::Real = 3.14
+typeof(r)
+end #| hide
+```
+
 ### Checking if a Type is Concrete
 
 In Julia, you can use the `isconcretetype` function to check if a type is concrete (meaning it can be instantiated) or abstract (which serves as a blueprint for other types but cannot be instantiated directly).
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 isconcretetype(Int64)
 isconcretetype(AbstractFloat)
-end  #| hide_line
-nothing #| hide_line
+end  #| hide
+nothing #| hide
 ```
 
 The `isconcretetype` function returns `true` for concrete types (like `Int64` or `Float64`) and `false` for abstract types (like `AbstractFloat` or `Real`).
@@ -64,11 +72,10 @@ The `isconcretetype` function returns `true` for concrete types (like `Int64` or
 You can use the `typeof()` function to get the type of a variable:
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 a = 42
 typeof(a)
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 The `typeof()` function returns the concrete type of the variable.
@@ -78,12 +85,11 @@ The `typeof()` function returns the concrete type of the variable.
 Let's instantiate a variable with a specific concrete type, check its type using `typeof()`, and verify if it’s concrete using `isconcretetype`:
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 a = 3.14
 typeof(a)
 isconcretetype(typeof(a))
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 
@@ -92,29 +98,28 @@ nothing #| hide_line
 The `isa` operator is used to check if a value is an instance of a specific type:
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 a = 42
 a isa Int64
 a isa Number
 a isa Float64
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 The `isa` operator is often used for type checking within functions or when validating data.
+
 
 ### The `<:` Operator
 
 The `<:` operator checks if a type is a subtype of another type in the hierarchy. It can be used for checking if one type is a more general or more specific type than another:
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 Int64 <: Real
 Float64 <: Real
 Real <: Number
 Number <: Real
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 ### Creating Custom Abstract Types
@@ -140,11 +145,10 @@ circle = Circle(5.0)
 rectangle = Rectangle(3.0, 4.0)
 
 # Check if they are subtypes of Shape
-@myshow begin #| hide_line
+@myshow begin #| hide
 circle isa Shape
 rectangle isa Shape
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 ### Getting Subtypes and Parent Types
@@ -159,7 +163,13 @@ To find all direct subtypes of a specific type, you can use the `subtypes()` fun
 subtypes(AbstractFloat)
 ```
 
-This will return all direct subtypes of `AbstractFloat`.
+This will return all direct subtypes of `AbstractFloat`. To visualize the type hierarchy, you can use the `plot` function from the `GraphRecipes` package or for a textual representation, you can do the following:
+
+```{julia}
+using AbstractTrees
+AbstractTrees.children(d::DataType) = subtypes(d)
+print_tree(Real)
+```
 
 #### Getting the Parent Type
 
@@ -179,7 +189,11 @@ To get the entire chain of parent types, you can use the `supertypes()` function
 supertypes(Float64)
 ```
 
-This code will return the list of all parent types of `Float64`, starting from `Float64` itself and going up the type hierarchy to `Any`.
+This code will return the list of all parent types of `Float64`, starting from `Float64` itself and going up the type hierarchy to `Any`. This can be useful for understanding the relationships between different types in Julia. To print the list of parent types in a more readable format, you can use the `join` function:
+
+```{julia}
+join(supertypes(Float64), " -> ")
+```
 
 ### Type Hierarchies and Performance
 
@@ -415,7 +429,7 @@ You can explicitly declare the type of a variable by using a type annotation:
 ```{julia}
 x::Int = 10  # x is an integer
 y::Float64 = 3.14  # y is a Float64
-nothing #| hide_line
+nothing #| hide
 ```
 
 In this example, `x` is explicitly declared as an integer (`Int`), and `y` is declared as a `Float64`. Type annotations can also be used with mutable and immutable structs.
@@ -425,16 +439,15 @@ In this example, `x` is explicitly declared as an integer (`Int`), and `y` is de
 You can specify types for function arguments to ensure that the function only accepts values of a specific type:
 
 ```{julia}
+#| error: true
 function add(a::Int, b::Int)
     return a + b
 end
 
+@myshow begin #| hide
 add(3, 4)
-```
-
-```{julia}
-#| error: true
 add(3, "4")  # Error: "4" is a String, not an Int
+end #| hide
 ```
 
 In the above example, `a` and `b` must both be `Int`s. If you try to pass a value of the wrong type (like `"4"`), Julia will throw an error.
@@ -447,7 +460,7 @@ You can also annotate the return type of a function:
 function multiply(a::Int, b::Int)::Int
     return a * b
 end
-nothing #| hide_line
+nothing #| hide
 ```
 
 Here, the function `multiply` is declared to return an `Int`, ensuring that the result will always be an integer.
@@ -569,12 +582,10 @@ struct Pair{T, S}
     second::S
 end
 
+@myshow begin #| hide
 pair1 = Pair(1, "apple")  # Pair of Int and String
 pair2 = Pair(3.14, true)  # Pair of Float64 and Bool
-
-@show pair1
-@show pair2
-nothing #| hide_line
+end #| hide
 ```
 
 In this case, `Pair` can be instantiated with any two types `T` and `S`, making it more versatile.
@@ -848,590 +859,6 @@ radioq(choices, answer)
 
 ::: 
 
-## Parametric Functions
-
-You can define **parametric functions** in Julia that work with different types, which are specified using type parameters. These functions are flexible and can operate on any type that is passed to them when called.
-
-### Example: Identity Function
-
-Here’s an example of a simple identity function `id`, which returns whatever value is passed to it, regardless of its type:
-
-```{julia}
-function id(x::T) where T
-    return x
-end
-
-@myshow begin #| hide_line
-id(42)       # Integer
-id(3.14)     # Float64
-id("Hello")  # String
-end #| hide_line
-nothing #| hide_line
-```
-
-In this case, the function `id` works for any type `T`, and you can pass an `Int`, `Float64`, `String`, or any other type. Julia automatically infers the type of `T` based on the argument passed to the function. This makes `id` a highly flexible function.
-
-You can specify the return type of a parametric function by adding a return type annotation:
-
-```{julia}
-function double(x::T)::T where {T <: Number}
-    return 2x
-end
-
-double(12) # Integer
-```
-
-You can also force to return a specific type:
-
-```{julia}
-function triple(x::T)::Float64 where {T <: Real}
-    return 3x
-end
-
-triple(12) # Float64
-```
-
-### Constraints on Parametric Functions
-
-You can also add **constraints** to parametric functions, ensuring that the parametric type parameter must be a subtype of a specific type. This is useful when you want the function to operate only on certain types, such as numeric types or specific structures.
-
-#### Example: Adding a Constraint on Numbers
-
-Here’s an example where we define a function `add_one` that only works with numeric types. The type parameter `T` is constrained to be a subtype of `Number`:
-
-```{julia}
-function add_one(x::T) where T <: Number
-    return x + 1
-end
-
-add_one(3)       # Valid: 3 + 1 = 4
-```
-
-```{julia}
-add_one(3.14)    # Valid: 3.14 + 1 = 4.14
-```
-
-```{julia}
-#| error: true
-add_one("Hello")  # Error: String is not a subtype of Number
-```
-
-In this case, the function `add_one` will only accept types that are subtypes of `Number` (such as `Int`, `Float64`, etc.). If you try to pass a non-numeric type like `String`, Julia will throw an error.
-
-#### Restricting to More Specific Types
-
-You can further restrict the parametric type to more specific types. For example, you could specify that a function should only accept `Int64` or a specific subtype of `Number`, excluding other subtypes like `Float64` or `Complex`:
-
-```{julia}
-function double(x::T) where T <: Int64
-    return x * 2
-end
-
-double(10)    # Valid: 10 * 2 = 20
-```
-
-```{julia}
-#| error: true
-double(3.14)  # Error: Float64 is not a subtype of Int64
-```
-
-### Comparison with Type Annotations
-
-When you use **type annotations**, you specify a fixed type for a function argument. For example, if you want to ensure that an argument is a subtype of `Number`, you can use a type annotation like this:
-
-```{julia}
-function display_number(x::Number)
-    println("The number is: ", x)
-end
-nothing #| hide_line
-```
-
-In this case, `x` can be of any type that is a subtype of `Number` (such as `Int`, `Float64`, etc.). However, the type is not explicitly accessible in the function body.
-
-On the other hand, **parametric functions with constraints** allow you to achieve the same flexibility but also give you direct access to the type parameter. For example, you can write a function with a parametric type `T` constrained to `Number`, and you will have access to the type `T` directly:
-
-```{julia}
-function display_number_constrained(x::T) where T <: Number
-    println("The number is of type: ", T)
-    println("The number is: ", x)
-end
-nothing #| hide_line
-```
-
-In this parametric version, `T` is directly accessible inside the function body, allowing you to print the type along with the value. This provides more flexibility if you need to work with the type itself.
-
-Both functions will accept any subtype of `Number`, but the parametric version also allows you to access and use the type parameter explicitly, while the annotated version does not.
-
-### Multiple Constrained Arguments
-
-You can also add constraints on **multiple arguments** to ensure that they all have the same type. This is useful when you want to perform operations on multiple variables that should all belong to the same type, but still want the flexibility of working with different types.
-
-Here’s an example where we define a function that accepts two arguments, both constrained to be of the same type:
-
-```{julia}
-function add_numbers(x::T, y::T) where T <: Number
-    return x + y
-end
-
-add_numbers(3, 4)       # Valid: 3 + 4 = 7
-```
-
-```{julia}
-add_numbers(2.5, 3.5)   # Valid: 2.5 + 3.5 = 6.0
-```
-
-```{julia}
-#| error: true
-add_numbers(3, 3.5)     # Error: Arguments have different types (Int and Float64)
-```
-
-In this case, the function `add_numbers` will only accept two arguments that have the same type `T`. If you try to pass arguments of different types, such as an `Int` and a `Float64`, Julia will throw an error. This ensures that the function works with consistent types for both arguments while maintaining flexibility for different numeric types.
-
-### Parametric Arguments and Vectors
-
-You can also use parametric types with multiple arguments to ensure that both the elements of a vector and the vector itself conform to a specific type. Here’s an example where we define a function that accepts a vector of a parametric type and a second parametric argument:
-
-```{julia}
-function add_elements(vec::Vector{T}, value::T) where T
-    return [x + value for x in vec]
-end
-
-add_elements([1, 2, 3], 2)  # Valid: Adds 2 to each element of the vector
-```
-
-```{julia}
-add_elements([1.5, 2.5, 3.5], 1.0)  # Valid: Adds 1.0 to each element of the vector
-```
-
-```{julia}
-#| error: true
-add_elements([1, 2, 3], 3.14)  # Error: Vector contains Int, but value is Float64
-```
-
-In this example, both the vector and the `value` passed to the function must have the same type `T`. If you try to pass a vector of `Int` with a `Float64` value, Julia will throw an error, ensuring type consistency between the vector elements and the value being added.
-
-### Summary
-
-- **Parametric Functions** allow you to define functions that can work with multiple types, using type parameters that are inferred when the function is called.
-- **Type Annotations** are used when you want to specify a fixed type for a function argument, but they don’t offer the same flexibility as parametric functions.
-- **Constraints on Parametric Functions** let you restrict the type parameter to specific types or subtypes, ensuring that the function only operates on valid types.
-- **Restricting to More Specific Types** allows you to narrow the scope of types further, offering more control over the types accepted by the function.
-- **Multiple Constrained Arguments** ensures that two or more arguments in a function have the same type, while still providing flexibility for different types, ensuring consistency in operations with multiple parameters.
-- **Using Parametric Arguments with Vectors** allows you to define functions that ensure both the vector elements and the second argument match a specific type, ensuring consistency in operations.
-
-### Quiz
-
-::: {.callout-caution collapse="true" icon=false}
-## Quiz: Parametric Functions in Julia
-
-```{julia}
-#| echo: false
-NUMQUESTION = 0
-nothing #| hide
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What is a parametric function in Julia?**"
-```
-
-<p style="margin-top:-50px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["A function that can only work with a fixed type.",
-           "A function that works with multiple types, specified by type parameters.",
-           "A function that cannot be defined without specifying a type.",
-           "A function that operates only on numeric types."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What does the following function `id` do?**"
-```
-
-<p style="margin-top:-30px"> </p>
-
-```julia
-function id(x::T) where T
-    return x
-end
-```
-
-<p style="margin-top:-20px"> </p>
-
-
-```{julia}
-#| echo: false
-choices = ["It returns the type of the argument.",
-           "It returns the argument without any modification.",
-           "It adds one to the argument.",
-           "It prints the argument."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What happens when you call `add_one(3)` with the following function?**"
-```
-
-<p style="margin-top:-30px"> </p>
-
-```julia
-function add_one(x::T) where T <: Number
-    return x + 1
-end
-```
-
-<p style="margin-top:-20px"> </p>
-
-
-```{julia}
-#| echo: false
-choices = ["It will add one to any type.",
-           "It will add one to a numeric argument and throw an error for non-numeric types.",
-           "It will add one to a string argument and return a new string.",
-           "It will throw an error for all inputs."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What does the following function do?**"
-```
-
-<p style="margin-top:-30px"> </p>
-
-```julia
-function double(x::T) where T <: Int64
-    return x * 2
-end
-```
-
-<p style="margin-top:-20px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["It doubles the argument if it's an Int64.",
-           "It doubles the argument if it's a Float64.",
-           "It adds two to the argument if it's an Int64.",
-           "It throws an error for any argument."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What is the advantage of using parametric functions with constraints?**"
-```
-
-<p style="margin-top:-50px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["They allow the function to work with any type.",
-           "They restrict the function to only accept types that meet the constraints.",
-           "They make the function less flexible but more efficient.",
-           "They allow the function to modify the types passed to it."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What happens when you call `add_numbers(3, 3.5)` with the following function?**"
-```
-
-<p style="margin-top:-30px"> </p>
-
-```julia
-function add_numbers(x::T, y::T) where T <: Number
-    return x + y
-end
-```
-
-<p style="margin-top:-20px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["It will add the two numbers together.",
-           "It will throw an error because the arguments have different types.",
-           "It will add the numbers and print the result.",
-           "It will return the sum of the arguments as a string."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What does the following code do?**"
-```
-
-<p style="margin-top:-30px"> </p>
-
-```julia
-function add_elements(vec::Vector{T}, value::T) where T
-    return [x + value for x in vec]
-end
-```
-
-<p style="margin-top:-20px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["It adds the `value` to each element in the `vec`.",
-           "It multiplies each element in the vector by `value`.",
-           "It throws an error if the vector and value types don’t match.",
-           "It adds the `value` to the vector itself."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What happens when you call `add_elements([1, 2, 3], 3.14)`?**"
-```
-
-<p style="margin-top:-30px"> </p>
-
-```julia
-add_elements([1, 2, 3], 3.14)
-```
-
-<p style="margin-top:-20px"> </p>
-
-
-```{julia}
-#| echo: false
-choices = ["It will return a new vector with the elements increased by 3.14.",
-           "It will return an error because the vector and value types don’t match.",
-           "It will add `3.14` to each element in the vector and return the result.",
-           "It will multiply each element of the vector by 3.14."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What happens when you call `add_elements([1, 2, 3], 3.14)` when the vector contains `Int` and the value is `Float64`?**"
-```
-
-<p style="margin-top:-30px"> </p>
-
-```julia
-add_elements([1, 2, 3], 3.14)
-```
-
-<p style="margin-top:-20px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["It will throw an error because the types don't match.",
-           "It will work because `Int` can be automatically converted to `Float64`.",
-           "It will return a new vector where each element is added to `3.14`.",
-           "It will return a vector with elements `4.14`, `5.14`, `6.14`."]
-answer = 2
-radioq(choices, answer)
-```
-
-::: 
-
-
-## Type Stability in Julia
-
-In Julia, **type stability** is a key concept for writing efficient code. Type stability means that the type of a variable or expression can be determined at compile time, enabling the Julia compiler to optimize the code. When working with advanced types, such as parametric abstract types, it's important to ensure that your code remains type stable, as this allows Julia's Just-In-Time (JIT) compiler to generate more efficient machine code.
-
-### Why is Type Stability Important?
-
-Type instability can cause the JIT compiler to generate multiple versions of a function or method, which can degrade performance. Type stability, on the other hand, helps Julia avoid unnecessary runtime checks and ensures that the type of every variable is known before runtime.
-
-For instance, if you define a function where the type of its output cannot be predicted based on the input types, Julia may have to fall back to a slower, more generic approach.
-
-### Example of Type Instability and Stability
-
-Let’s consider an example using parametric types:
-
-```{julia}
-function sum_elements(arr::Vector{T}) where T
-    s = 0
-    for x in arr
-        s += x  # Type instability: T is not known to be a number
-    end
-    return s
-end
-nothing #| hide_line
-```
-
-In this case, the function `sum_elements` is type unstable because Julia cannot guarantee that `T` will always be a numeric type. This can lead to inefficiencies.
-
-Now, let's fix this by enforcing type stability:
-
-```{julia}
-function sum_elements(arr::Vector{T}) where T <: Number
-    s = zero(T)  # Start with the appropriate type for T
-    for x in arr
-        s += x
-    end
-    return s
-end
-nothing #| hide_line
-```
-
-In this version, we restrict the type of `T` to be a subtype of `Number`, ensuring that the type of `s` is always numeric and enabling better performance through type stability.
-
-### Key Points for Ensuring Type Stability
-
-- Use **specific type annotations** whenever possible, especially with parametric types.
-- Avoid mixing types that could lead to ambiguities in the function’s return type.
-- Always initialize variables with types that are known, such as using `zero(T)` for numeric types.
-- When dealing with generic code, try to define methods that narrow the possible types of variables (e.g., `T <: Number`).
-
-Ensuring type stability not only helps with performance but also aids in catching potential type errors early during development.
-
-::: {.callout-note}
-To ensure type stability, the return type of a function should be predictable based on the input types (and not the values), and the types of all variables should be known at compile time.
-:::
-
-### Quiz
-
-::: {.callout-caution collapse="true" icon=false}
-## Quiz: Type Stability in Julia
-
-```{julia}
-#| echo: false
-NUMQUESTION = 0
-nothing #| hide
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). Why is type stability important in Julia?**"
-```
-
-<p style="margin-top:-50px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["It allows the Julia compiler to optimize code and avoid unnecessary runtime checks.",
-           "It prevents type errors from occurring in the code.",
-           "It makes code easier to write and debug.",
-           "It forces the use of static typing in all functions."]
-answer = 1
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What is the issue with the following function in terms of type stability?**"
-```
-
-<p style="margin-top:-30px"> </p>
-
-```julia
-function sum_elements(arr::Vector{T}) where T
-    s = 0
-    for x in arr
-        s += x  # Type instability: T is not known to be a number
-    end
-    return s
-end
-```
-
-<p style="margin-top:-20px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["The variable `s` is not initialized properly.",
-           "The type of `T` is not restricted to numeric types, leading to type instability.",
-           "The function does not return anything.",
-           "The loop does not iterate over the array correctly."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). How is type stability ensured in the following corrected version of the code?**"
-```
-
-<p style="margin-top:-30px"> </p>
-
-```julia
-function sum_elements(arr::Vector{T}) where T <: Number
-    s = zero(T)  # Start with the appropriate type for T
-    for x in arr
-        s += x
-    end
-    return s
-end
-```
-
-<p style="margin-top:-20px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["By initializing `s` with a numeric zero value (`zero(T)`) and restricting `T` to `Number`.",
-           "By ensuring that `arr` is always of type `Vector{Int}`.",
-           "By defining a default return type for the function.",
-           "By using an abstract type for the argument `arr`."]
-answer = 1
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). What does type instability typically cause in Julia?**"
-```
-
-<p style="margin-top:-50px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["It can lead to more efficient code execution.",
-           "It can cause the JIT compiler to generate multiple versions of a function, degrading performance.",
-           "It improves code readability and makes debugging easier.",
-           "It allows Julia to use static typing for optimization."]
-answer = 2
-radioq(choices, answer)
-```
-
-```{julia}
-#| echo: false
-NUMQUESTION += 1 
-md"**Question $(NUMQUESTION). Which of the following is a recommended strategy for ensuring type stability in Julia?**"
-```
-
-<p style="margin-top:-50px"> </p>
-
-```{julia}
-#| echo: false
-choices = ["Use generic types in functions to handle various types without constraints.",
-           "Avoid using any type annotations for function arguments.",
-           "Use specific type annotations and initialize variables with known types.",
-           "Always avoid parametric types in functions."]
-answer = 3
-radioq(choices, answer)
-```
-
-:::
-
 ## Type Conversion and Promotion
 
 In Julia, type conversion and promotion are mechanisms that allow for flexibility when working with different types, enabling smooth interactions and arithmetic between varying data types. Conversion changes the type of a value, while promotion ensures two values have a common type for an operation.
@@ -1441,13 +868,12 @@ In Julia, type conversion and promotion are mechanisms that allow for flexibilit
 Type conversion in Julia is typically achieved with the `convert` function, which tries to change a value from one type to another. For conversions between `Float64` and `Int`, methods like `round` and `floor` are commonly used to handle fractional parts safely. To convert numbers to strings, use the `string()` function instead.
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 round(Int, 3.84)   
 floor(Int, 3.14)
 convert(Float64, 5)
 string(123)
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
 In these examples:
@@ -1462,8 +888,9 @@ In these examples:
 In many cases, Julia will automatically convert types when it is unambiguous. For instance, you can directly assign an integer to a floating-point variable, and Julia will automatically convert it.
 
 ```{julia}
+@myshow begin #| hide
 y::Float64 = 10  # The integer 10 is converted to 10.0 (Float64)
-y                # Output: 10.0
+end #| hide
 ```
 
 ### Type Promotion
@@ -1471,15 +898,18 @@ y                # Output: 10.0
 Type promotion is used when combining two values of different types in an operation. Julia promotes values to a common type using the `promote` function, which returns values in their promoted type. This is useful when performing arithmetic on values of different types.
 
 ```{julia}
-@myshow begin #| hide_line
+@myshow begin #| hide
 a, b = promote(3, 4.5)  # Promotes both values to Float64
 typeof(a)
 typeof(b)
-end #| hide_line
-nothing #| hide_line
+end #| hide
 ```
 
-In this example, `promote` converts both `3` (an `Int`) and `4.5` (a `Float64`) to `Float64` so they can be added, subtracted, or multiplied without any type conflicts.
+In this example, `promote` converts both `3` (an `Int`) and `4.5` (a `Float64`) to `Float64` so they can be added, subtracted, or multiplied without any type conflicts. 
+
+::: {.callout-warning}
+Be aware that promotion has nothing to do with the type hierarchy. For instance, although every `Int` value can also be represented as a `Float64` value, `Int` is not a subtype of `Float64`.
+:::
 
 ### Summary
 
@@ -2074,23 +1504,27 @@ Julia has several built-in error types that are commonly used:
 
 - **`ArgumentError`**: Raised when a function receives an argument that is inappropriate or out of expected range.
 - **`BoundsError`**: Occurs when trying to access an index that is out of bounds for an array or collection.
-- **`DivisionByZeroError`**: Triggered when an attempt is made to divide by zero.
-- **`IOError`**: Raised for errors related to input/output operations, such as reading from or writing to files.
+- **`DivideError`**: Raised when division by zero is attempted.
+- **`DomainError`**: Raised when a mathematical function is called with an argument outside its domain. For instance, taking the square root of a negative number.
+- **`MethodError`**: Occurs when a method is called with incorrect arguments or types.
 
 ### Raising Errors with `throw`
 
 In Julia, you can explicitly raise an error using the `throw` function. This is useful for defining custom error conditions in your code. To throw an error, call `throw` with an instance of an error type:
 
 ```{julia}
+#| error: true
 function divide(a, b)
     if b == 0
-        throw(DivisionByZeroError("Division by zero is not allowed"))
+        throw(DivideError())
     end
     return a / b
 end
+
+divide(10, 0)  # Will raise a DivideError
 ```
 
-In this example, the function `divide` will throw a `DivisionByZeroError` if the second argument `b` is zero, making the function safer and more robust.
+In this example, the function `divide` will throw a `DivideError` if the second argument `b` is zero, making the function safer and more robust.
 
 ### Handling Errors with `try`/`catch`
 
@@ -2107,6 +1541,7 @@ end
 ```
 
 In this example:
+
 - If `divide(10, 0)` raises an error, the program catches it and prints a custom message instead of stopping execution.
 - The variable `e` holds the error, which can be printed or used for further handling.
 
@@ -2202,7 +1637,7 @@ md"**Question $(NUMQUESTION). What does the following code do in Julia?**"
 ```julia
 function divide(a, b)
     if b == 0
-        throw(DivisionByZeroError("Division by zero is not allowed"))
+        throw(DivideError())
     end
     return a / b
 end
@@ -2212,7 +1647,7 @@ end
 
 ```{julia}
 #| echo: false
-choices = ["It raises a DivisionByZeroError when b equals 0.",
+choices = ["It raises a DivideError when b equals 0.",
            "It raises an ArgumentError when a or b is invalid.",
            "It throws a BoundsError if a or b are not numbers.",
            "It performs division and returns the result."]

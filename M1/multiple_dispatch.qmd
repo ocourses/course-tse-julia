@@ -1,25 +1,19 @@
 ---
-title: "Multiple Dispatch in Julia"
+title: "Methods and Multiple Dispatch in Julia"
 page-layout: article
 jupyter: julia-1.11
 ---
 
 ```{julia}
 #| echo: false
-using Suppressor
-@suppress begin
-    using Pkg
-    Pkg.activate(".")
-    using Markdown
-    using QuizQuestions
-    include("../assets/julia/myshow.jl")
-end
-nothing
+include("activate.jl")
 ```
 
-<img class="do-not-accept-dark-mode centering" width="60%" src="../assets/images/Sign-Plate-Work-in-Progress.jpg" />
+::: {.callout-note}
+This page is still under construction. For more details about methods and multiple dispatch in Julia, please refer to the official [Julia Methods Documentation](https://docs.julialang.org/en/v1/manual/methods/).
+:::
 
-Julia’s **multiple dispatch** system is a defining feature and core paradigm of the language. Multiple dispatch allows Julia to select which method to execute based on the types of all arguments provided to a function, rather than just the first one. This approach enables Julia to adaptively execute optimized methods for each specific combination of argument types, resulting in highly flexible and efficient code.
+Julia’s [**multiple dispatch**](https://en.wikipedia.org/wiki/Multiple_dispatch) system is a defining feature and core paradigm of the language. Multiple dispatch allows Julia to select which method to execute based on the types of all arguments provided to a function, rather than just the first one. This approach enables Julia to adaptively execute optimized methods for each specific combination of argument types, resulting in highly flexible and efficient code.
 
 ## What is Multiple Dispatch?
 
@@ -27,7 +21,7 @@ In languages with **single dispatch**, such as Python, Java, or C++, method sele
 
 This behavior can be seen in Julia with the syntax:
 
-```{julia}
+```julia
 function my_function(x::Int, y::Float64)
     println("Called with Int and Float64")
 end
@@ -39,7 +33,7 @@ end
 
 In this example, Julia will dynamically determine the appropriate method based on the types of both arguments passed to `my_function`. This flexibility is central to Julia's design and unlocks substantial benefits for performance and usability.
 
-## Why is Julia’s Dispatch System Powerful and Unique?
+### Why is Julia’s Dispatch System Powerful and Unique?
 
 Julia’s dispatch system is distinctive because it combines the flexibility of dynamic typing with the performance of compiled languages. With multiple dispatch, Julia compiles specialized versions of functions for specific type combinations, enabling it to achieve high performance close to that of statically compiled languages like C and Fortran. This capability solves the “two-language problem,” where developers often prototype in high-level languages (e.g., Python, R) but rewrite performance-critical parts in low-level languages for speed.
 
@@ -51,534 +45,461 @@ Julia’s dispatch system is distinctive because it combines the flexibility of 
 
 3. **Cleaner, More Intuitive Code**: With multiple dispatch, function definitions naturally describe the intended behavior for specific types, making code easier to read and understand. There’s no need for verbose type checking inside functions, which keeps code concise.
 
-## Defining Methods with Multiple Dispatch
+## Specialization and Method Selection
 
 In Julia, you can define multiple methods for the same function, each specialized for different combinations of argument types. This is done by specifying the types of the function's arguments using type annotations. Julia will then choose the appropriate method based on the types of the arguments passed at runtime.
 
-### Basic Examples of Function Methods Based on Argument Types
+### Basic Examples
 
-Let’s define a function `add` that handles different types of input. We’ll create two methods for the `add` function: one for adding two integers and one for adding two floats.
+Let’s define a function `f` that handles different types of input.
 
 ```{julia}
-# Method for adding two integers
-function add(x::Int, y::Int)
-    return x + y
-end
-
-# Method for adding two floats
-function add(x::Float64, y::Float64)
-    return x + y
-end
-
-# Method for adding an integer and a float
-function add(x::Int, y::Float64)
-    return x + y
-end
+f(x::Int, y::Int) = println("($x, $y) ∈ ℤ × ℤ")
+f(x::Float64, y::Float64) = println("($x, $y) ∈ ℝ × ℝ")
+f(x::Int, y::Float64) = println("($x, $y) ∈ ℤ × ℝ")
 ```
 
 Now, depending on the types of the arguments, Julia will dispatch the appropriate method:
 
 ```{julia}
-println(add(2, 3))         # Calls the method for integers
-println(add(2.5, 3.5))     # Calls the method for floats
-println(add(2, 3.5))       # Calls the method for integer + float
+f(2, 3)         # Calls the method for integers
+f(2.5, 3.5)     # Calls the method for floats
+f(2, 3.5)       # Calls the mixed-type method
 ```
 
-### Syntax and Conventions for Defining Multiple Methods with Type Annotations
-
-In Julia, function methods are defined using the `function` keyword, followed by the function name and its parameter types. The types are specified using the `::Type` syntax.
-
-- **Basic Method Definition**: The function is defined with specific types for its arguments.
-
-```julia
-function function_name(arg1::Type1, arg2::Type2)
-    # Function body
-end
-```
-
-- **Extending Methods**: You can add more methods to the same function by simply defining new methods with different argument types.
-
-```julia
-function function_name(arg1::NewType1, arg2::NewType2)
-    # New function body
-end
-```
-
-This flexibility allows for highly efficient and adaptable function definitions based on the types of the arguments provided.
-
-## Examples of Ambiguous Dispatch
+## Ambiguous Dispatch
 
 Ambiguous dispatch occurs when Julia cannot determine which method to call because multiple methods are applicable for the given arguments. This happens when there is overlap in the argument types of different methods, making it unclear which method should be selected.
 
-### Explanation of Ambiguous Dispatch and Why It Can Occur
+### Why Ambiguous Dispatch Can Occur?
 
 When you define multiple methods for the same function, each method is associated with specific types of arguments. Ambiguous dispatch happens when there are two or more methods that could potentially match the types of the arguments passed to the function. Julia relies on the order of method definitions and their specificity to resolve which method to dispatch, but sometimes it’s unable to make a clear decision, resulting in ambiguity.
 
-### Example of Ambiguous Dispatch with Different Argument Types
+### Example of Ambiguous Dispatch
 
-Let’s define two methods for the function `multiply` where the ambiguity arises because of overlapping types:
+Let’s define methods for the function `g` where the ambiguity arises because of overlapping types:
 
 ```{julia}
-# Method for multiplying an integer by a float
-function multiply(x::Int, y::Float64)
-    return x * y
-end
-
-# Method for multiplying a float by an integer
-function multiply(x::Float64, y::Int)
-    return x * y
-end
+g(x::Real, y::Real) = println("($x, $y) ∈ ℝ × ℝ")
+g(x::Integer, y::Real) = println("($x, $y) ∈ ℤ × ℝ")
+g(x::Real, y::Integer) = println("($x, $y) ∈ ℝ × ℤ")
 ```
 
-Now, let’s try to call `multiply` with arguments that could match both methods, like this:
+Let first call `g` with arguments that match only one method:
+
+```{julia}
+g(1.0, 2.0)    # Calls the method for two floats
+g(1, 2.0)      # Calls the method for integer and float
+g(1.0, 2)      # Calls the method for float and integer
+```
+
+Now, let’s try to call `g` with arguments that could match both methods, like this:
 
 ```{julia}
 #| error: true
-println(multiply(2, 3.5))   # Ambiguous: could match either method
-println(multiply(2.5, 3))   # Ambiguous: could match either method
+g(2, 3)        # Error: Ambiguous dispatch
 ```
 
-In this case, the methods `multiply(x::Int, y::Float64)` and `multiply(x::Float64, y::Int)` both match, and Julia cannot decide which one to dispatch to, that is why the error occurs.
+In this case, the methods `g(x::Integer, y::Real)` and `g(x::Real, y::Integer)` both match, and Julia cannot decide which one to dispatch to, that is why the error occurs. To resolve this ambiguity, you can follow the advice in the error message and define another specialized method that covers the ambiguous case: `g(x::Integer, y::Integer)`. You can also refactor the existing methods to avoid ambiguity: replace for instance `Real` with `Float64` or `Integer` with `Int`.
 
-### Resolving Ambiguity: Tips for Avoiding or Resolving Ambiguous Dispatches
+## Parametric Functions
 
-To avoid ambiguous dispatch, you can:
+You can define **parametric functions** in Julia that work with different types, which are specified using type parameters. These functions are flexible and can operate on any type that is passed to them when called.
 
-1. **Ensure Type Specificity**: Make sure that the types of the arguments in your methods are sufficiently specific to avoid overlap.
-   - For example, instead of using `Int` and `Float64`, you could use more specific types like `Int32` or `BigInt`.
+### Example: Identity Function
 
-2. **Use `@which` to Debug**: If you encounter ambiguous dispatch, use the `@which` macro to check which methods Julia is considering for dispatch.
+Here’s an example of a simple identity function `id`, which returns whatever value is passed to it, regardless of its type:
 
 ```{julia}
-@which multiply(2, 3.5)
+function id(x::T) where T
+    return x
+end
+
+@myshow begin #| hide
+id(42)       # Integer
+id(3.14)     # Float64
+id("Hello")  # String
+end #| hide
+nothing #| hide
 ```
 
-This will show you which methods Julia is trying to call and help identify why the ambiguity is occurring.
+In this case, the function `id` works for any type `T`, and you can pass an `Int`, `Float64`, `String`, or any other type. Julia automatically infers the type of `T` based on the argument passed to the function. This makes `id` a highly flexible function.
 
-3. **Use Union Types**: If you have multiple types that could potentially match and you want to specify a preferred type, use union types (e.g., `Int64` or `Float64`).
-
-4. **Refactor Methods**: If methods are too generic, consider refining your method definitions or splitting them into more specific functions to avoid ambiguity.
-
-By carefully managing method definitions and ensuring clear, unambiguous type signatures, you can avoid these conflicts and make your code more predictable.
-
-## Type Stability and Multiple Dispatch
-
-### Explanation of Type Stability and Its Importance for Performance
-
-Type stability refers to the concept that the type of a variable or expression is known at compile time. In Julia, type stability is important because it allows the Just-In-Time (JIT) compiler to generate highly optimized machine code. When the types of variables are consistent and predictable, Julia can optimize the execution of functions, leading to faster performance.
-
-On the other hand, type instability can lead to significant performance issues because Julia may need to fall back on more generic code paths, which are slower.
-
-### How Multiple Dispatch and Type Stability Are Related
-
-Multiple dispatch allows Julia to define different methods for a function based on the types of its arguments. The type stability of these dispatches is crucial for performance. If Julia can predict the type of the arguments at compile time, it can optimize the corresponding method for the given types, leading to better performance. However, if the dispatch is ambiguous or the argument types are unstable, Julia might not be able to optimize the code as efficiently.
-
-### Examples Illustrating Type-Stable and Type-Unstable Dispatch Cases
-
-#### Type-Stable Dispatch
-
-Here’s an example of a type-stable function using multiple dispatch, where the type of the argument is known at compile time:
+You can specify the return type of a parametric function by adding a return type annotation:
 
 ```{julia}
-# Type-stable method for adding numbers
-function add(x::Int, y::Int)
-    return x + y
+function double(x::T)::T where {T <: Number}
+    return 2x
 end
 
-# Type-stable method for adding floats
-function add(x::Float64, y::Float64)
-    return x + y
-end
-
-# Calling with specific types
-println(add(1, 2))    # Result is type-stable (Int)
-println(add(1.0, 2.0))  # Result is type-stable (Float64)
+double(12) # Integer
 ```
 
-In this case, the types `Int` and `Float64` are known at compile time, and the correct method is chosen, resulting in type-stable dispatch.
-
-#### Type-Unstable Dispatch
-
-Now, let’s look at an example of type-unstable dispatch, where the type of the argument is not clear, leading to less optimized code:
+You can also force to return a specific type:
 
 ```{julia}
-# Type-unstable method that could take either an Int or a Float
-function multiply(x, y)
-    return x * y
+function triple(x::T)::Float64 where {T <: Real}
+    return 3x
 end
 
-println(multiply(2, 3))       # Ambiguous type: could be Int or Float
-println(multiply(2.0, 3))     # Ambiguous type: could be Float or Int
-println(multiply(2, 3.0))     # Ambiguous type: could be Int or Float
+triple(12) # Float64
 ```
 
-In this case, Julia might not know the types of the arguments at compile time, leading to type instability. This makes it harder for the JIT compiler to optimize the code.
+### Constraints on Parametric Functions
 
-### Best Practices for Ensuring Type Stability with Multiple Dispatch
+You can also add **constraints** to parametric functions, ensuring that the parametric type parameter must be a subtype of a specific type. This is useful when you want the function to operate only on certain types, such as numeric types or specific structures.
 
-To ensure type stability with multiple dispatch, follow these best practices:
+#### Example: Adding a Constraint on Numbers
 
-1. **Use Specific Type Annotations**: Always annotate function arguments with specific types when possible. This helps Julia optimize the function and prevents ambiguity.
-   
-   ```{julia}
-   function add(x::Int, y::Int)
-       return x + y
-   end
-   ```
-
-2. **Avoid Abstract Types When Possible**: While abstract types are useful for defining generic interfaces, they can introduce type instability if the actual types are not known at compile time. If performance is critical, avoid using abstract types in performance-sensitive functions.
-
-3. **Ensure Consistent Return Types**: Try to ensure that a function always returns the same type, regardless of the input types. This makes the function type-stable and allows for better optimization.
-
-4. **Use `@code_typed` and `@code_warntype` to Check Type Stability**: Julia provides macros like `@code_typed` and `@code_warntype` to inspect the types of a function’s variables and ensure type stability.
-
-   ```{julia}
-   @code_warntype add(1, 2)
-   ```
-
-   If any of the variables are shown as `Any`, it indicates a type-unstable dispatch.
-
-5. **Minimize Type Intersections**: Type instability often arises when a function takes arguments of mixed or intersecting types. Be mindful of methods that could potentially match multiple types and lead to ambiguity.
-
-By following these practices, you can ensure that your use of multiple dispatch in Julia remains type-stable and performs optimally.
-
-## Performance and Optimization with Multiple Dispatch
-
-### How Multiple Dispatch Allows Julia to Generate Efficient Machine Code
-
-Multiple dispatch is one of the key features of Julia that enables it to generate highly efficient machine code. By selecting methods based on the types of function arguments, Julia can optimize the function for those specific types at compile time. This process is known as Just-In-Time (JIT) compilation, and it allows Julia to generate specialized machine code for each method of a function.
-
-The JIT compiler leverages multiple dispatch to eliminate the overhead typically associated with dynamic typing in other languages. When a function is called with arguments of known types, Julia generates machine code specifically tailored for those types, resulting in significant performance gains compared to languages that rely on single dispatch or dynamic typing.
-
-### Using `@code_warntype` to Detect Type Instability
-
-Type instability can significantly degrade performance, as it prevents the JIT compiler from optimizing code. To detect type instability, you can use the `@code_warntype` macro. This macro helps you identify whether a function is type-stable or if there are parts of your code where the types are unknown at compile time.
-
-For example, let’s look at a function with potential type instability:
+Here’s an example where we define a function `add_one` that only works with numeric types. The type parameter `T` is constrained to be a subtype of `Number`:
 
 ```{julia}
-# Function with possible type instability
-function add(x, y)
-    return x + y
+function add_one(x::T) where T <: Number
+    return x + 1
 end
 
-# Check for type stability
-@code_warntype add(1, 2)    # Type-stable
-@code_warntype add(1, 2.0)  # Type-unstable
+add_one(3)       # Valid: 3 + 1 = 4
 ```
 
-In the second case, the function `add(1, 2.0)` could result in type instability because `x` is an `Int` and `y` is a `Float64`, and Julia may not know the type of the result beforehand. This could prevent the JIT compiler from generating the most efficient machine code.
-
-### Examples of Performance Gains with Multiple Dispatch and Type-Stable Code
-
-#### Example 1: Performance Gains from Type-Stable Dispatch
-
-Here’s an example showing how multiple dispatch can help achieve performance gains by using type-stable code:
-
 ```{julia}
-# Type-stable method for adding two numbers
-function add(x::Int, y::Int)
-    return x + y
-end
-
-# Type-stable method for adding two floats
-function add(x::Float64, y::Float64)
-    return x + y
-end
-
-# Compare performance
-using BenchmarkTools
-
-# Benchmarking type-stable code
-@btime add(1, 2)       # Fast execution (type-stable)
-@btime add(1.0, 2.0)   # Fast execution (type-stable)
+add_one(3.14)    # Valid: 3.14 + 1 = 4.14
 ```
 
-In this case, both method calls are type-stable, so Julia can generate highly optimized machine code for both integer and floating-point additions.
-
-#### Example 2: Performance Loss Due to Type Instability
-
-Let’s compare this with a version of the function that introduces type instability:
-
 ```{julia}
-# Type-unstable method
-function add(x, y)
-    return x + y
-end
-
-# Benchmarking type-unstable code
-@btime add(1, 2)       # Slower due to type instability
-@btime add(1, 2.0)     # Slower due to type instability
+#| error: true
+add_one("Hello")  # Error: String is not a subtype of Number
 ```
 
-In this case, because the types of `x` and `y` are not specified, Julia cannot generate optimized machine code. The JIT compiler may need to fall back on a more generic implementation, resulting in slower performance.
+In this case, the function `add_one` will only accept types that are subtypes of `Number` (such as `Int`, `Float64`, etc.). If you try to pass a non-numeric type like `String`, Julia will throw an error.
 
-#### Performance Impact of Multiple Dispatch
+#### Restricting to More Specific Types
 
-When the method is type-stable, Julia can optimize the method call for the specific types passed as arguments. However, if a method is ambiguous or type-unstable, the JIT compiler cannot specialize the code and may generate a slower generic version of the method.
-
-Thus, by carefully designing your functions with specific type annotations and leveraging multiple dispatch, you can achieve significant performance improvements in Julia.
-
-### Best Practices for Performance Optimization with Multiple Dispatch
-
-1. **Always use specific type annotations**: This ensures that the JIT compiler can generate optimized machine code for your functions.
-
-2. **Avoid using `Any` or abstract types unless necessary**: Abstract types introduce ambiguity and can lead to type instability, which reduces performance.
-
-3. **Leverage `@code_warntype` to identify and fix type instability**: This will help you pinpoint parts of your code where types are not known at compile time, allowing you to optimize those areas for better performance.
-
-4. **Use benchmarking tools to measure performance**: Julia’s `BenchmarkTools` package allows you to easily benchmark the performance of type-stable vs. type-unstable code to ensure that your functions are optimized for speed.
-
-By following these practices, you can harness the full potential of multiple dispatch and achieve high-performance code in Julia.
-
-## Common Pitfalls and Tips
-
-### Avoiding Unnecessary Ambiguity
-
-Ambiguity in multiple dispatch occurs when Julia is unable to select a single method based on the types of the arguments passed to a function. This can result in runtime errors or unexpected behavior, and it’s a common pitfall when defining methods with general argument types or missing type annotations.
-
-Here’s an example of ambiguous dispatch:
+You can further restrict the parametric type to more specific types. For example, you could specify that a function should only accept `Int64` or a specific subtype of `Number`, excluding other subtypes like `Float64` or `Complex`:
 
 ```{julia}
-# Ambiguous dispatch: both methods can match the arguments
-function add(x::Int, y::Int)
-    return x + y
-end
-
-function add(x::AbstractFloat, y::AbstractFloat)
-    return x + y
-end
-
-# Calling add with different types will result in ambiguity
-add(1, 2.0)  # Ambiguous call: both methods match
-```
-
-In the example above, calling `add(1, 2.0)` creates ambiguity because Julia cannot decide whether to use the method that adds two integers or the method that adds two floats. To avoid this, you should be more specific with type annotations or rethink the method definitions to ensure that each call is uniquely resolved.
-
-#### Tips for Avoiding Ambiguity:
-- **Be explicit with types**: Use concrete types whenever possible instead of abstract types like `AbstractFloat` or `Number`, which can match a wide range of types.
-- **Use `@which` to inspect method resolution**: The `@which` macro allows you to see which method Julia would choose for a particular function call, helping you detect ambiguities ahead of time.
-
-```{julia}
-# Inspect method resolution
-@which add(1, 2.0)
-```
-
-This can help you identify why a function call might be ambiguous.
-
-### Tips for Efficient Dispatch in Complex Type Hierarchies
-
-In complex programs, multiple dispatch can involve deeply nested type hierarchies, which can lead to slower performance if not handled carefully. Efficient dispatch in these situations requires understanding the type hierarchy and designing methods in such a way that they are resolved quickly and without ambiguity.
-
-Here are some best practices for working with complex type hierarchies:
-
-#### 1. **Keep Method Definitions Simple**
-Try to avoid overly complicated type hierarchies in method definitions. If your methods are too general or involve a large number of types, Julia may take longer to resolve them.
-
-```{julia}
-# Example of a simple method definition
-function process(x::Int)
+function double(x::T) where T <: Int64
     return x * 2
 end
 
-# Avoid overly complex hierarchies
-function process(x::AbstractArray)
-    return sum(x)
-end
+double(10)    # Valid: 10 * 2 = 20
 ```
-
-By keeping the method signatures simple, you reduce the complexity that Julia needs to resolve during dispatch.
-
-#### 2. **Use Abstract Types for Broad Categories**
-If you need to work with different types that share common properties, use abstract types to group them. However, be careful not to make the abstraction too broad, which could lead to ambiguity.
 
 ```{julia}
-# Abstract type for geometric shapes
-abstract type Shape end
-
-# Concrete types
-struct Circle <: Shape
-    radius::Float64
-end
-
-struct Rectangle <: Shape
-    width::Float64
-    height::Float64
-end
-
-# Method dispatch based on the Shape type
-function area(shape::Shape)
-    if shape isa Circle
-        return π * shape.radius^2
-    elseif shape isa Rectangle
-        return shape.width * shape.height
-    end
-end
+#| error: true
+double(3.14)  # Error: Float64 is not a subtype of Int64
 ```
 
-In this example, the abstract type `Shape` allows you to define methods that apply to all shapes, but the method dispatch is based on the concrete types `Circle` and `Rectangle`.
+### Comparison with Type Annotations
 
-#### 3. **Avoid Overloading Functions with Similar Signatures**
-Overloading a function with similar argument types can create ambiguity and slow down dispatch. When methods are too similar, Julia has to inspect more options to find the most appropriate one.
+When you use **type annotations**, you specify a fixed type for a function argument. For example, if you want to ensure that an argument is a subtype of `Number`, you can use a type annotation like this:
 
 ```{julia}
-# Potential ambiguity with similar signatures
-function multiply(x::Int, y::Int)
-    return x * y
+function display_number(x::Number)
+    println("The number is: ", x)
 end
-
-function multiply(x::Int, y::AbstractFloat)
-    return x * y
-end
+nothing #| hide
 ```
 
-Here, both `Int` and `AbstractFloat` can match the arguments in some cases, causing ambiguity. To avoid this, you should make the method signatures distinct enough to clearly resolve.
+In this case, `x` can be of any type that is a subtype of `Number` (such as `Int`, `Float64`, etc.). However, the type is not explicitly accessible in the function body.
 
-#### 4. **Use `eltype` to Define Dispatch Based on Container Types**
-For methods dealing with containers (e.g., arrays), you can use the `eltype` function to dispatch based on the element type inside the container, rather than the container type itself.
+On the other hand, **parametric functions with constraints** allow you to achieve the same flexibility but also give you direct access to the type parameter. For example, you can write a function with a parametric type `T` constrained to `Number`, and you will have access to the type `T` directly:
 
 ```{julia}
-# Dispatching based on element type inside a container
-function process_array(x::AbstractArray)
-    if eltype(x) <: Integer
-        return sum(x)
-    elseif eltype(x) <: AbstractFloat
-        return mean(x)
-    end
+function display_number_constrained(x::T) where T <: Number
+    println("The number is of type: ", T)
+    println("The number is: ", x)
 end
+nothing #| hide
 ```
 
-By dispatching on the element type, you ensure that the correct method is called based on the types of the elements inside the array, rather than the array type itself.
+In this parametric version, `T` is directly accessible inside the function body, allowing you to print the type along with the value. This provides more flexibility if you need to work with the type itself.
 
-### Summary of Tips:
-- Use concrete types for clearer method resolution.
-- Be explicit with type annotations to avoid ambiguity.
-- Simplify method definitions to improve dispatch efficiency.
-- Group related types with abstract types for more efficient dispatch.
-- Avoid overloading methods with very similar signatures.
-- Use `eltype` for dispatch based on the types of elements within containers.
+Both functions will accept any subtype of `Number`, but the parametric version also allows you to access and use the type parameter explicitly, while the annotated version does not.
 
-### Exercise 1: Defining Methods Using Multiple Dispatch
+### Multiple Constrained Arguments
 
-1. Define a function `add(x, y)` that can handle the following cases:
-   - Two integers
-   - Two floats
-   - An integer and a float
-   - A float and an integer
-2. Test the function with different combinations of argument types and print the results.
+You can also add constraints on **multiple arguments** to ensure that they all have the same type. This is useful when you want to perform operations on multiple variables that should all belong to the same type, but still want the flexibility of working with different types.
 
-::: {.callout-tip collapse="true" icon=false}
-## Hint for Exercise 1:
-- Use multiple dispatch to define methods with specific type annotations for each combination of argument types.
-- You can define the function for each pair of types separately, ensuring that Julia selects the correct method based on argument types.
-:::
+Here’s an example where we define a function that accepts two arguments, both constrained to be of the same type:
+
+```{julia}
+function add_numbers(x::T, y::T) where T <: Number
+    return x + y
+end
+
+add_numbers(3, 4)       # Valid: 3 + 4 = 7
+```
+
+```{julia}
+add_numbers(2.5, 3.5)   # Valid: 2.5 + 3.5 = 6.0
+```
+
+```{julia}
+#| error: true
+add_numbers(3, 3.5)     # Error: Arguments have different types (Int and Float64)
+```
+
+In this case, the function `add_numbers` will only accept two arguments that have the same type `T`. If you try to pass arguments of different types, such as an `Int` and a `Float64`, Julia will throw an error. This ensures that the function works with consistent types for both arguments while maintaining flexibility for different numeric types.
+
+### Parametric Arguments and Vectors
+
+You can also use parametric types with multiple arguments to ensure that both the elements of a vector and the vector itself conform to a specific type. Here’s an example where we define a function that accepts a vector of a parametric type and a second parametric argument:
+
+```{julia}
+function add_elements(vec::Vector{T}, value::T) where T
+    return [x + value for x in vec]
+end
+
+add_elements([1, 2, 3], 2)  # Valid: Adds 2 to each element of the vector
+```
+
+```{julia}
+add_elements([1.5, 2.5, 3.5], 1.0)  # Valid: Adds 1.0 to each element of the vector
+```
+
+```{julia}
+#| error: true
+add_elements([1, 2, 3], 3.14)  # Error: Vector contains Int, but value is Float64
+```
+
+In this example, both the vector and the `value` passed to the function must have the same type `T`. If you try to pass a vector of `Int` with a `Float64` value, Julia will throw an error, ensuring type consistency between the vector elements and the value being added.
+
+### Summary
+
+- **Parametric Functions** allow you to define functions that can work with multiple types, using type parameters that are inferred when the function is called.
+- **Type Annotations** are used when you want to specify a fixed type for a function argument, but they don’t offer the same flexibility as parametric functions.
+- **Constraints on Parametric Functions** let you restrict the type parameter to specific types or subtypes, ensuring that the function only operates on valid types.
+- **Restricting to More Specific Types** allows you to narrow the scope of types further, offering more control over the types accepted by the function.
+- **Multiple Constrained Arguments** ensures that two or more arguments in a function have the same type, while still providing flexibility for different types, ensuring consistency in operations with multiple parameters.
+- **Using Parametric Arguments with Vectors** allows you to define functions that ensure both the vector elements and the second argument match a specific type, ensuring consistency in operations.
+
+### Quiz
 
 ::: {.callout-caution collapse="true" icon=false}
-## Correction of Exercise 1:
+## Quiz: Parametric Functions in Julia
 
 ```{julia}
-# Define the add method for different combinations of Int and Float64
-function add(x::Int, y::Int)
-    return x + y
-end
-
-function add(x::Float64, y::Float64)
-    return x + y
-end
-
-function add(x::Int, y::Float64)
-    return x + y
-end
-
-function add(x::Float64, y::Int)
-    return x + y
-end
-
-# Test the methods
-println(add(3, 4))           # Integers
-println(add(3.0, 4.0))       # Floats
-println(add(3, 4.0))         # Int and Float
-println(add(3.0, 4))         # Float and Int
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
 ```
-:::
-
-### Exercise 2: Identifying and Resolving Ambiguous Dispatch Cases
-
-1. Write a function `multiply(x, y)` that can multiply:
-   - Two integers
-   - Two floats
-   - An integer and a float
-   - A float and an integer
-2. Call the function with an ambiguous combination of arguments (e.g., `multiply(3, 4.0)`) and observe how Julia handles the ambiguity.
-3. Resolve the ambiguity by refining the method signatures and test again.
-
-::: {.callout-tip collapse="true" icon=false}
-## Hint for Exercise 2:
-- Ambiguity occurs when Julia cannot decide which method to call based on the provided arguments.
-- To resolve ambiguity, ensure that each method has a unique and clear type signature.
-:::
-
-::: {.callout-caution collapse="true" icon=false}
-## Correction of Exercise 2:
 
 ```{julia}
-# Define multiply methods for Int and Float64
-function multiply(x::Int, y::Int)
-    return x * y
-end
-
-function multiply(x::Float64, y::Float64)
-    return x * y
-end
-
-# Attempt an ambiguous call
-println(multiply(3, 4.0))  # This will cause ambiguity
-
-# Resolve ambiguity by making the methods more specific
-function multiply(x::Int, y::AbstractFloat)
-    return x * y
-end
-
-function multiply(x::AbstractFloat, y::Int)
-    return x * y
-end
-
-# Test after resolving ambiguity
-println(multiply(3, 4.0))  # Now works as expected
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is a parametric function in Julia?**"
 ```
-:::
 
-### Exercise 3: Analyzing Type Stability with @code_warntype
-
-1. Write a function `sum_elements(arr::AbstractArray)` that calculates the sum of an array's elements.
-2. Use `@code_warntype` to analyze the function and check if it is type-stable.
-3. Modify the function if it is type-unstable, ensuring it works with specific array types like `Vector{Int}`.
-4. Test the function again with `@code_warntype` to confirm it is type-stable.
-
-::: {.callout-tip collapse="true" icon=false}
-## Hint for Exercise 3:
-- Type instability can occur when Julia cannot predict the type of a variable in advance.
-- Use `@code_warntype` to inspect the type stability of your function and modify it for better performance.
-:::
-
-::: {.callout-caution collapse="true" icon=false}
-## Correction of Exercise 3:
+<p style="margin-top:-50px"> </p>
 
 ```{julia}
-# Define a function to calculate the sum of an array
-function sum_elements(arr::AbstractArray)
-    return sum(arr)
-end
-
-# Check type stability
-@code_warntype sum_elements([1, 2, 3, 4])
-
-# If the function is type-unstable, modify it for type stability
-function sum_elements_stable(arr::Vector{Int})
-    return sum(arr)
-end
-
-# Check type stability again
-@code_warntype sum_elements_stable([1, 2, 3, 4])
+#| echo: false
+choices = ["A function that can only work with a fixed type.",
+           "A function that works with multiple types, specified by type parameters.",
+           "A function that cannot be defined without specifying a type.",
+           "A function that operates only on numeric types."]
+answer = 2
+radioq(choices, answer)
 ```
-:::
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the following function `id` do?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function id(x::T) where T
+    return x
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+
+```{julia}
+#| echo: false
+choices = ["It returns the type of the argument.",
+           "It returns the argument without any modification.",
+           "It adds one to the argument.",
+           "It prints the argument."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when you call `add_one(3)` with the following function?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function add_one(x::T) where T <: Number
+    return x + 1
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+
+```{julia}
+#| echo: false
+choices = ["It will add one to any type.",
+           "It will add one to a numeric argument and throw an error for non-numeric types.",
+           "It will add one to a string argument and return a new string.",
+           "It will throw an error for all inputs."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the following function do?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function double(x::T) where T <: Int64
+    return x * 2
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It doubles the argument if it's an Int64.",
+           "It doubles the argument if it's a Float64.",
+           "It adds two to the argument if it's an Int64.",
+           "It throws an error for any argument."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the advantage of using parametric functions with constraints?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["They allow the function to work with any type.",
+           "They restrict the function to only accept types that meet the constraints.",
+           "They make the function less flexible but more efficient.",
+           "They allow the function to modify the types passed to it."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when you call `add_numbers(3, 3.5)` with the following function?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function add_numbers(x::T, y::T) where T <: Number
+    return x + y
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will add the two numbers together.",
+           "It will throw an error because the arguments have different types.",
+           "It will add the numbers and print the result.",
+           "It will return the sum of the arguments as a string."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the following code do?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function add_elements(vec::Vector{T}, value::T) where T
+    return [x + value for x in vec]
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It adds the `value` to each element in the `vec`.",
+           "It multiplies each element in the vector by `value`.",
+           "It throws an error if the vector and value types don’t match.",
+           "It adds the `value` to the vector itself."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when you call `add_elements([1, 2, 3], 3.14)`?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+add_elements([1, 2, 3], 3.14)
+```
+
+<p style="margin-top:-20px"> </p>
+
+
+```{julia}
+#| echo: false
+choices = ["It will return a new vector with the elements increased by 3.14.",
+           "It will return an error because the vector and value types don’t match.",
+           "It will add `3.14` to each element in the vector and return the result.",
+           "It will multiply each element of the vector by 3.14."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when you call `add_elements([1, 2, 3], 3.14)` when the vector contains `Int` and the value is `Float64`?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+add_elements([1, 2, 3], 3.14)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will throw an error because the types don't match.",
+           "It will work because `Int` can be automatically converted to `Float64`.",
+           "It will return a new vector where each element is added to `3.14`.",
+           "It will return a vector with elements `4.14`, `5.14`, `6.14`."]
+answer = 2
+radioq(choices, answer)
+```
+
+::: 
+

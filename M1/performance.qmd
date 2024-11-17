@@ -1,0 +1,16 @@
+---
+title: "Performance in Julia"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+include("activate.jl")
+```
+
+See
+
+- [Julia is fast](https://github.com/mitmath/JuliaComputation/blob/Fall24/notebooks/3_Julia%20is%20fast.ipynb)
+- [The Relationship between Vectorized and Devectorized Code](https://www.johnmyleswhite.com/notebook/2013/12/22/the-relationship-between-vectorized-and-devectorized-code/)
+- [The need for speed](https://julia.quantecon.org/software_engineering/need_for_speed.html#understanding-multiple-dispatch-in-julia)

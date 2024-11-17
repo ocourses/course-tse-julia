@@ -12,7 +12,9 @@
       href: basic-types.qmd
     - text: Advanced Types
       href: advanced-types.qmd
-    - text: Multiple Dispatch
+    - text: Type Stability
+      href: type_stability.qmd
+    - text: Methods and Multiple Dispatch
       href: multiple_dispatch.qmd
     - text: Modules and Packages
       href: modules_and_packages.qmd
@@ -20,3 +22,7 @@
       href: metaprogramming.qmd
     - text: Interoperability
       href: interoperability.qmd
+    - text: Performance
+      href: performance.qmd
+    - text: Miscellaneous
+      href: miscellaneous.qmd

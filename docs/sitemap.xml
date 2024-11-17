@@ -18,47 +18,63 @@
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/multiple_dispatch.html</loc>
-    <lastmod>2024-11-14T22:00:16.942Z</lastmod>
+    <lastmod>2024-11-17T21:56:10.639Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/modules_and_packages.html</loc>
-    <lastmod>2024-11-05T14:51:31.772Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia/M1/foretaste_of_julia_code.html</loc>
+    <lastmod>2024-11-17T10:33:19.027Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/metaprogramming.html</loc>
-    <lastmod>2024-11-05T14:42:43.215Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia/M1/advanced-types.html</loc>
+    <lastmod>2024-11-17T22:38:46.564Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/getting_started.html</loc>
-    <lastmod>2024-11-13T20:52:33.655Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/why_julia.html</loc>
-    <lastmod>2024-11-14T22:00:23.465Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/basic-types.html</loc>
-    <lastmod>2024-11-13T21:38:45.696Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/syntax.html</loc>
-    <lastmod>2024-11-15T14:32:29.576Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia/M1/miscellaneous.html</loc>
+    <lastmod>2024-11-17T22:25:16.537Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/index.html</loc>
     <lastmod>2024-11-14T16:23:16.126Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/advanced-types.html</loc>
-    <lastmod>2024-11-15T10:36:03.020Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia/M1/syntax.html</loc>
+    <lastmod>2024-11-17T22:34:10.448Z</lastmod>
   </url>
   <url>
-    <loc>https://ocots.github.io/course-tse-julia/M1/foretaste_of_julia_code.html</loc>
-    <lastmod>2024-11-07T21:46:22.502Z</lastmod>
+    <loc>https://ocots.github.io/course-tse-julia/M1/type_stability.html</loc>
+    <lastmod>2024-11-17T22:42:47.540Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/basic-types.html</loc>
+    <lastmod>2024-11-17T22:29:31.158Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/why_julia.html</loc>
+    <lastmod>2024-11-17T22:52:32.495Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/getting_started.html</loc>
+    <lastmod>2024-11-17T22:50:45.732Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/metaprogramming.html</loc>
+    <lastmod>2024-11-17T22:24:29.305Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/performance.html</loc>
+    <lastmod>2024-11-17T17:43:50.122Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/modules_and_packages.html</loc>
+    <lastmod>2024-11-17T17:47:17.267Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/test.html</loc>
+    <lastmod>2024-11-17T21:17:26.888Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/interoperability.html</loc>
-    <lastmod>2024-11-05T14:42:59.198Z</lastmod>
+    <lastmod>2024-11-17T17:53:19.181Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/index.html</loc>

@@ -48,20 +48,25 @@ creators of numerical-analysis softwares, please visite the [Wikipedia](https://
 Julia is made for scientific computing as shown by the table below which compares some languages in terms
 of differential equation solvers. For more details visit this [page](https://www.stochasticlifestyle.com/comparison-differential-equation-solver-suites-matlab-r-julia-python-c-fortran/).
 
-<a href="./images/de_solver_software_comparsion.pdf">
-  <img class="centering" width="100%" src="./images/de_solver_software_comparsion.png"/>
-</a>
+:::{.column-page}
+  <a href="./images/de_solver_software_comparsion.pdf">
+    <img class="centering" width="100%" style="max-width:1400px" src="./images/de_solver_software_comparsion.png"/>
+  </a>
+:::
 
 You can find [here](https://github.com/sswatson/cheatsheets) cheatsheets. One interesting is the comparison with Python and R.
 
+:::{.column-page}
 <a href="./images/jpr-cheatsheet.pdf">
-  <img class="centering" width="100%" src="./images/jpr-cheatsheet.png"/>
+  <img class="centering" width="100%" style="max-width:1400px" src="./images/jpr-cheatsheet.png"/>
 </a>
+:::
 
 One goal of Julia is to be efficient and high-level. This is illustrated by the following figure 
 given by the [Mandelbrot benchmark project](https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/mandelbrot.html#mandelbrot).
 
+:::{.column-page}
 <a href="./images/comparison.png">
-  <img class="centering" width="80%" src="./images/comparison-big.png"/>
+  <img class="centering" width="80%" style="max-width:800px" src="./images/comparison-big.png"/>
 </a>
-
+:::

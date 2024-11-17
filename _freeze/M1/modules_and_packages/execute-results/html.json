@@ -1,8 +1,8 @@
 {
-  "hash": "0fd1031c253d814d61b01dd4b5b9994d",
+  "hash": "5d879d380c1ca1a18beb884846e92260",
   "result": {
     "engine": "jupyter",
-    "markdown": "---\ntitle: \"Modules and packages\"\npage-layout: article\njupyter: julia-1.11\n---\n\n\n\n",
+    "markdown": "---\ntitle: \"Modules and packages\"\npage-layout: article\njupyter: julia-1.11\n---\n\n\n\n## References\n\n- [Modules documentation](https://docs.julialang.org/en/v1/manual/modules/)\n- [Environment documentation](https://pkgdocs.julialang.org/v1/environments/)\n- [Creating packages documentation](https://pkgdocs.julialang.org/v1/creating-packages/)\n\n",
     "supporting": [
       "modules_and_packages_files"
     ],
