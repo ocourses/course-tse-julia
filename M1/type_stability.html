@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Metaprogramming and introspection in Julia – Julia course</title>
+<title>Type stability in Julia – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../M1/interoperability.html" rel="next">
-<link href="../M1/modules_and_packages.html" rel="prev">
+<link href="../M1/multiple_dispatch.html" rel="next">
+<link href="../M1/advanced-types.html" rel="prev">
 <link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -72,10 +106,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../assets/css/styles.css">
-<meta property="og:title" content="Metaprogramming and introspection in Julia – Julia course">
+<meta property="og:title" content="Type stability in Julia – Julia course">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://ocots.github.io/course-tse-julia/M1/assets/images/logo-julia.png">
 <meta property="og:site_name" content="Julia course">
-<meta name="twitter:title" content="Metaprogramming and introspection in Julia – Julia course">
+<meta name="twitter:title" content="Type stability in Julia – Julia course">
+<meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://ocots.github.io/course-tse-julia/M1/assets/images/logo-julia.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -117,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/metaprogramming.html">Metaprogramming</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/type_stability.html">Type Stability</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -176,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/type_stability.html" class="sidebar-item-text sidebar-link">
+  <a href="../M1/type_stability.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Type Stability</span></a>
   </div>
 </li>
@@ -194,7 +230,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/metaprogramming.html" class="sidebar-item-text sidebar-link active">
+  <a href="../M1/metaprogramming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Metaprogramming</span></a>
   </div>
 </li>
@@ -229,16 +265,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
+  <li><a href="#why-is-type-stability-important" id="toc-why-is-type-stability-important" class="nav-link active" data-scroll-target="#why-is-type-stability-important">Why is Type Stability Important?</a></li>
+  <li><a href="#example-of-type-instability-and-stability" id="toc-example-of-type-instability-and-stability" class="nav-link" data-scroll-target="#example-of-type-instability-and-stability">Example of Type Instability and Stability</a></li>
+  <li><a href="#key-points-for-ensuring-type-stability" id="toc-key-points-for-ensuring-type-stability" class="nav-link" data-scroll-target="#key-points-for-ensuring-type-stability">Key Points for Ensuring Type Stability</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/type_stability.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/type_stability.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/metaprogramming.html">Metaprogramming</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/type_stability.html">Type Stability</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Metaprogramming and introspection in Julia</h1>
+<h1 class="title">Type stability in Julia</h1>
 </div>
 
 
@@ -255,12 +293,72 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This page is still under construction. For more details about type stability and performance tips, please refer to the official <a href="docs.julialang.org/en/v1/manual/performance-tips">Julia Performance Tips Documentation</a> or visit the page <a href="https://ucidatascienceinitiative.github.io/IntroToJulia/Html/WhyJulia">Why Does Julia Work So Well?</a>.</p>
+</div>
+</div>
+<p>In Julia, <strong>type stability</strong> is a key concept for writing efficient code. Type stability means that the type of a variable or expression can be determined at compile time, enabling the Julia compiler to optimize the code. When working with advanced types, such as parametric abstract types, it’s important to ensure that your code remains type stable, as this allows Julia’s Just-In-Time (JIT) compiler to generate more efficient machine code.</p>
+<section id="why-is-type-stability-important" class="level3">
+<h3 class="anchored" data-anchor-id="why-is-type-stability-important">Why is Type Stability Important?</h3>
+<p>Type instability can cause the JIT compiler to generate multiple versions of a function or method, which can degrade performance. Type stability, on the other hand, helps Julia avoid unnecessary runtime checks and ensures that the type of every variable is known before runtime.</p>
+<p>For instance, if you define a function where the type of its output cannot be predicted based on the input types, Julia may have to fall back to a slower, more generic approach.</p>
+</section>
+<section id="example-of-type-instability-and-stability" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-type-instability-and-stability">Example of Type Instability and Stability</h3>
+<p>Let’s consider an example using parametric types:</p>
+<div id="ea80acdf" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum_elements</span>(arr<span class="op">::</span><span class="dt">Vector{T}</span>) <span class="kw">where</span> T</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> arr</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        s <span class="op">+=</span> x  <span class="co"># Type instability: T is not known to be a number</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this case, the function <code>sum_elements</code> is type unstable because Julia cannot guarantee that <code>T</code> will always be a numeric type. This can lead to inefficiencies.</p>
+<p>Now, let’s fix this by enforcing type stability:</p>
+<div id="dfed3e8f" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum_elements</span>(arr<span class="op">::</span><span class="dt">Vector{T}</span>) <span class="kw">where</span> T <span class="op">&lt;:</span><span class="dt"> Number</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="fu">zero</span>(T)  <span class="co"># Start with the appropriate type for T</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> arr</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        s <span class="op">+=</span> x</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this version, we restrict the type of <code>T</code> to be a subtype of <code>Number</code>, ensuring that the type of <code>s</code> is always numeric and enabling better performance through type stability.</p>
+</section>
+<section id="key-points-for-ensuring-type-stability" class="level3">
+<h3 class="anchored" data-anchor-id="key-points-for-ensuring-type-stability">Key Points for Ensuring Type Stability</h3>
 <ul>
-<li><a href="https://docs.julialang.org/en/v1/manual/metaprogramming/">Metaprogramming documentation</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Reflective_programming">Reflective programming</a></li>
+<li>Use <strong>specific type annotations</strong> whenever possible, especially with parametric types.</li>
+<li>Avoid mixing types that could lead to ambiguities in the function’s return type.</li>
+<li>Always initialize variables with types that are known, such as using <code>zero(T)</code> for numeric types.</li>
+<li>When dealing with generic code, try to define methods that narrow the possible types of variables (e.g., <code>T &lt;: Number</code>).</li>
 </ul>
+<p>Ensuring type stability not only helps with performance but also aids in catching potential type errors early during development.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To ensure type stability, the return type of a function should be predictable based on the input types (and not the values), and the types of all variables should be known at compile time.</p>
+</div>
+</div>
 
 
 </section>
@@ -688,13 +786,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../M1/modules_and_packages.html" class="pagination-link" aria-label="Modules and Packages">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Modules and Packages</span>
+      <a href="../M1/advanced-types.html" class="pagination-link" aria-label="Advanced Types">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Advanced Types</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../M1/interoperability.html" class="pagination-link" aria-label="Interoperability">
-        <span class="nav-page-text">Interoperability</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../M1/multiple_dispatch.html" class="pagination-link" aria-label="Methods and Multiple Dispatch">
+        <span class="nav-page-text">Methods and Multiple Dispatch</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -706,7 +804,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024, Olivier Cots</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/metaprogramming.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/type_stability.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/type_stability.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
