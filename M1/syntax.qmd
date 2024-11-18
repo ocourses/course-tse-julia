@@ -443,6 +443,10 @@ Here’s how the argument combinations work:
 
 This flexibility makes it easy to call functions with varying levels of detail without explicitly specifying each parameter.
 
+::: {.callout-tip}
+If a function has many optional arguments, consider using keyword arguments to improve readability and avoid confusion about the order of arguments.
+:::
+
 ### Mutation and the Bang `!` Convention
 In Julia, functions that modify or mutate their arguments typically end with a `!`, following the ["bang" convention](https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention). This is not enforced by the language but is a widely followed convention in Julia to indicate mutation.
 

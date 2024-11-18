@@ -46,10 +46,10 @@ For example, Julia’s `Real` and `AbstractFloat` types are abstract, while `Int
 
 ```{julia}
 @myshow begin #| hide
-n::Int64 = 42
-typeof(n)
-r::Real = 3.14
-typeof(r)
+n::Int64 = 42   # Int64 is a concrete type
+typeof(n)       # Output: Int64 (concrete type)
+r::Real = 3.14  # Real is an abstract type
+typeof(r)       # Output: Float64 (concrete type)
 end #| hide
 ```
 
