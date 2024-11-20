@@ -20,6 +20,7 @@ main.content #title-block-header{
     justify-content: center;
     align-items: center;
     margin: auto;
+    z-index:100;
 }
 
 #particles-js {
