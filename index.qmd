@@ -2,7 +2,7 @@
 title-block-banner: true
 title: "Julia course"
 subtitle: "An introduction to Julia programming language"
-author: "Olivier Cots and Joseph Gergaud"
+author: "[Olivier Cots](https://github.com/ocots) and Joseph Gergaud"
 date: last-modified
 page-layout: custom
 template-partials: 

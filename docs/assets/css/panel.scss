@@ -1,0 +1,103 @@
+
+.panel{
+
+ z-index:100;
+
+  &.hide{
+    display:none;
+  }
+
+  h1{
+    font-size:1.8em;
+    font-weight:700;
+    text-align:center;
+    //margin-bottom:10px;
+    color:#222;
+    margin-top:-4px;
+  }
+
+  .r-version{
+    display:block;
+    margin-bottom:7px;
+    text-align:center;
+    font-size:.75em;
+  }
+
+  h2{
+    font-weight:400;
+    font-size:.8em;
+    margin-bottom:16px;
+    text-align:center;
+    line-height:1.3em;
+  }
+
+  li{
+    font-size:1.1em;
+    font-weight:400;
+    text-align:center;
+    height:34px;
+    line-height:34px;
+    background:#fff;
+    margin-top:10px;
+    color:#222;
+    @include border-radius(4px);
+    //@include transition(background .2s ease, color .2s ease);
+    a{
+      display:block;
+      width:100%;
+      height:100%;
+      &:visited{
+        color:#222;
+      }
+      color:#222;
+      //@include transition(color .2s ease);
+      span:after{
+        font-family:'icomoon';
+        margin-left:10px;
+        vertical-align:top;
+      }
+    }
+
+
+    .label,
+    .svg-wrap{
+      display:inline-block;
+      vertical-align:top;
+    }
+
+    .svg-wrap{
+      width:18px;
+      height:34px;
+      margin-left:6px;
+      svg{
+        fill:#222;
+        width:100%;
+        height:100%;
+        @include transition(fill .2s ease);
+      }
+    }
+
+    // &:nth-of-type(1) a span:after{
+    //   content:"\e601";
+    // }
+
+    // &:nth-of-type(2) a span:after{
+    //   content:"\e600";
+    // }
+    
+    &:hover{
+
+      background:#222;
+      color:#fff;
+      a{
+        color:#fff;
+      }
+      
+      svg{
+        fill:#fff;
+      }
+
+    }
+
+  }
+}
