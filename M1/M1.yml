@@ -12,6 +12,14 @@
       href: basic-types.qmd
     - text: Advanced Types
       href: advanced-types.qmd
+
+- title: Applications
+  links:
+    - text: The Newton Method
+      href: newton_method.qmd
+
+- title: Work in progress
+  links:
     - text: Type Stability
       href: type_stability.qmd
     - text: Methods and Multiple Dispatch

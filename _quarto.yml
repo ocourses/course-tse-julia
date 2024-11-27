@@ -68,12 +68,12 @@ website:
   sidebar:
     - id: M1
       style: "floating"
-      collapse-level: 3
+      collapse-level: 2
       contents:
         - section: "Master 1"
           href: M1/index.qmd
           contents:
-            - text: "Getting started"
+            - text: Getting started
               href: M1/getting_started.qmd
             - text: Foretaste of Julia Code
               href: M1/foretaste_of_julia_code.qmd
@@ -85,21 +85,27 @@ website:
               href: M1/basic-types.qmd
             - text: Advanced Types
               href: M1/advanced-types.qmd
-            - text: Type Stability
-              href: M1/type_stability.qmd
-            - text: Methods and Multiple Dispatch
-              href: M1/multiple_dispatch.qmd
-            - text: Modules and Packages
-              href: M1/modules_and_packages.qmd
-            - text: Metaprogramming
-              href: M1/metaprogramming.qmd
-            - text: Interoperability
-              href: M1/interoperability.qmd
-            - text: Performance
-              href: M1/performance.qmd
-            - text: Miscellaneous
-              href: M1/miscellaneous.qmd
+            - section: "Applications"
+              contents: 
+                - text: The Newton Method
+                  href: M1/newton_method.qmd
             - text: "---"
+            - section: "Work in progress"
+              contents: 
+                - text: Type Stability
+                  href: M1/type_stability.qmd
+                - text: Methods and Multiple Dispatch
+                  href: M1/multiple_dispatch.qmd
+                - text: Modules and Packages
+                  href: M1/modules_and_packages.qmd
+                - text: Metaprogramming
+                  href: M1/metaprogramming.qmd
+                - text: Interoperability
+                  href: M1/interoperability.qmd
+                - text: Performance
+                  href: M1/performance.qmd
+                - text: Miscellaneous
+                  href: M1/miscellaneous.qmd
     - id: M2
       collapse-level: 3
       contents:

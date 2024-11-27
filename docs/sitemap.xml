@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/about.html</loc>
-    <lastmod>2024-10-21T19:18:37.082Z</lastmod>
+    <lastmod>2024-11-20T21:52:41.098Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/multiple_dispatch.html</loc>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/advanced-types.html</loc>
-    <lastmod>2024-11-18T08:19:48.949Z</lastmod>
+    <lastmod>2024-11-26T15:45:29.100Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/miscellaneous.html</loc>
@@ -34,11 +34,11 @@
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/index.html</loc>
-    <lastmod>2024-11-14T16:23:16.126Z</lastmod>
+    <lastmod>2024-11-26T11:20:22.157Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/syntax.html</loc>
-    <lastmod>2024-11-18T08:14:57.913Z</lastmod>
+    <lastmod>2024-11-26T12:41:28.795Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/type_stability.html</loc>
@@ -54,7 +54,7 @@
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/getting_started.html</loc>
-    <lastmod>2024-11-17T22:50:45.732Z</lastmod>
+    <lastmod>2024-11-26T11:21:36.571Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/metaprogramming.html</loc>
@@ -91,5 +91,9 @@
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M2/exercices-distribution_of_random_variables.html</loc>
     <lastmod>2024-10-27T19:24:43.365Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/newton_method.html</loc>
+    <lastmod>2024-11-26T23:42:01.302Z</lastmod>
   </url>
 </urlset>

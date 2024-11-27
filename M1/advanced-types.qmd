@@ -592,13 +592,11 @@ In this case, `Pair` can be instantiated with any two types `T` and `S`, making 
 
 ### Parametric Abstract Types
 
-In Julia, parametric abstract types allow you to define an abstract type that is parameterized by another type. This enables the creation of more flexible and reusable abstractions, where the type's behavior can be customized based on the type of its parameter.
-
-Parametric abstract types are used to create a family of types that can represent a wide range of concrete types, without specifying exactly which type is being used. The parameter can be a single type or even a tuple of types.
+Parametric abstract types allow you to define abstract types that are parameterized by other types.
 
 #### Syntax:
 
-```{julia}
+```julia
 abstract type AbstractContainer{T} end
 ```
 
@@ -642,13 +640,37 @@ print_container_info(flo)
 - `FloatVectorContainer` is a concrete subtype of `AbstractContainer` that specifies `Float64` as the type for `T`.
 - The function `print_container_info` accepts any container that is a subtype of `AbstractContainer` and prints the type of elements inside the container.
 
-#### Benefits:
+### Constrained Parametric Types
 
-- **Flexibility:** You can create containers (or other structures) that work with a wide range of types without needing to explicitly define separate types for each use case.
-- **Code Reusability:** By using parametric types, you avoid duplicating code for different types of containers or structures, making your codebase more maintainable.
-- **Static Type Checking:** Julia's type system ensures that the correct type is used at compile-time, providing both flexibility and safety.
+Constrained parametric types allow you to restrict acceptable type parameters using `<:`, ensuring greater control and type safety.
 
-Parametric abstract types are useful for designing generic libraries, where behavior can be customized according to the types being used.
+```{julia}
+struct RealPair{T <: Real}
+    first::T
+    second::T
+end
+
+# Valid:
+pair = RealPair(1.0, 2.5)
+
+# Constraining a function:****
+function sum_elements(container::AbstractContainer{T}) where T <: Real
+    return sum(container.data)
+end
+
+vec = VectorContainer([1.0, 2.0, 3.0])
+println(sum_elements(vec))  # Outputs: 6.0
+```
+
+In this example, `RealPair` is a struct that only accepts type parameters that are subtypes of `Real`. Similarly, the `sum_elements` function only works with containers that hold elements of type `T` that are subtypes of `Real`. The following code will throw an error because `String` is not a subtype of `Real`:
+
+```{julia}
+#| error: true
+# Invalid (throws an error):
+invalid_pair = RealPair("a", "b")
+```
+
+Constraints enhance type safety, clarify requirements, and support robust generic programming.
 
 ### Quiz
 

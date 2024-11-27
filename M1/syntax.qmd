@@ -9,25 +9,13 @@ jupyter: julia-1.11
 include("activate.jl")
 ```
 
-## Introduction to Julia as an Imperative Programming Language
-
-Julia is fundamentally an **imperative programming language**, where the flow of execution is defined by sequences of commands or statements that change the program's state. Core features include:
+Julia is fundamentally an [imperative programming language](https://en.wikipedia.org/wiki/Imperative_programming), where the flow of execution is defined by sequences of commands or statements that change the program's state. Core features include:
 
 - **Assignment statements** to store values in variables.
 - **Control flows** for decision-making and iteration.
 - **Arithmetic operations** for calculations.
 
-While imperative programming emphasizes how a task is accomplished (e.g., through loops, conditionals, and assignments), **declarative programming** focuses on what the result should be, leaving the "how" to the language or framework.
-
-### Imperative vs. Declarative Programming
-
-| Feature                        | Imperative Programming          | Declarative Programming         |
-|--------------------------------|----------------------------------|----------------------------------|
-| **Approach**                   | Step-by-step instructions       | Describes desired outcomes       |
-| **Examples**                   | Julia, Python, C, Java          | SQL, HTML, Functional languages  |
-| **Control Structures**         | Loops, conditionals             | Abstract execution (queries)     |
-| **State Management**           | Explicit and mutable            | Implicit and immutable           |
-
+While imperative programming emphasizes how a task is accomplished (e.g., through loops, conditionals, and assignments), [declarative programming](https://en.wikipedia.org/wiki/Declarative_programming) focuses on what the result should be, leaving the "how" to the language or framework.
 Julia is versatile and can incorporate elements of declarative programming, such as high-level operations on collections and functional programming paradigms, but its foundation is firmly rooted in imperative concepts.
 
 ::: {.callout-tip}

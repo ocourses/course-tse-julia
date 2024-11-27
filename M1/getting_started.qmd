@@ -112,7 +112,7 @@ Markdown.parse("```julia\n$(banner)\njulia>\n```")
 
 If you see this prompt, it means Julia is installed and working correctly!
 
-### Installing Package Manager
+### Discover the Package Manager
 
 Julia includes a built-in [package manager](https://docs.julialang.org/en/v1/stdlib/Pkg/), `Pkg`, that allows you to easily manage external packages (libraries) for your projects.
 
