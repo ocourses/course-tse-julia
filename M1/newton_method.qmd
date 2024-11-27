@@ -32,6 +32,14 @@ The function should return:
    - An approximation of the root.
    - The number of iterations performed.
 
+Stopping criteria for the bisection method include:
+
+| **Condition**  | **Description** |
+|----------------|-----------------|
+| The length of the interval $[a, b]$    | $\leq \texttt{tol}$: The interval has shrunk to a size less than or equal to the tolerance. |
+| Function value at midpoint of $[a, b]$ | $\texttt{abs}(f((a + b)/2)) \leq \texttt{tol}$: The function value at the midpoint is close enough to zero. |
+| Maximum number of iterations reached   | The bisection algorithm terminates after reaching the predefined maximum iterations. |
+
 3. **Example Problem**: Use the bisection method to find the root of $f(x) = \cos(x) - x$ on the interval $[0, 1]$.
 
 4. **Analysis**:
@@ -69,7 +77,7 @@ function bisection(f, a, b; tol=1e-12, max_iter=100)
         mid = (a + b) / 2
         
         # Check if the midpoint is a root
-        if isapprox(f(mid), 0, atol=tol)
+        if abs(f(mid)) ≤ tol
             return mid, iter_count
         elseif f(a) * f(mid) < 0
             b = mid  # Root is in [a, mid]
@@ -127,7 +135,7 @@ function bisection_analysis(f, a, b; tol=1e-12, max_iter=100, true_root=nothing)
             push!(errors, abs(mid - true_root))
         end
 
-        if isapprox(f(mid), 0, atol=tol)
+        if abs(f(mid)) ≤ tol
             break
         elseif f(a) * f(mid) < 0
             b = mid
@@ -180,7 +188,9 @@ where $f'(x_k)$ is the derivative of $f(x)$ evaluated at $x_k$. The method relie
 
 ### Exercise: Apply Newton's Method to Find a Root
 
-1. **Objective**: Use the Newton method to find the root of $f(x) = \cos(x) - x$, starting with the initial guess $x_0 = 0$.
+1. **Objective**: Use the Newton method to find the root of 
+    $$f(x) = \cos(x) - x,$$ 
+    starting from the initial iterate $x_0 = 0$.
 
 2. **Function Signature**: Define a function `newton(f, df, x0; tol=1e-12, max_iter=100)` that takes:
    - A continuous function `f`.
@@ -194,9 +204,17 @@ The function should return:
    - The approximate root.
    - The number of iterations performed.
 
-3. **Example Problem**: Use the Newton method to find the root of $f(x) = \cos(x) - x$ with $f'(x) = -\sin(x) - 1$ starting at $x_0 = 0$.
+The stopping criteria for the Newton method include:
 
-4. **Analysis**:
+| **Condition**                                | **Description**                                                                 |
+|----------------------------------------------|---------------------------------------------------------------------------------|
+| Difference between consecutive iterations    | $\texttt{abs}(x_{k+1} - x_k) \leq \texttt{tol}$: The method converges when the change between successive approximations is less than or equal to the tolerance. |
+| Maximum number of iterations reached         | The Newton method terminates after reaching the predefined maximum iterations.  |
+
+
+1. **Example Problem**: Use the Newton method to find the root of $f(x) = \cos(x) - x$ starting at $x_0 = 0$.
+
+2. **Analysis**:
    - Record the approximate root at each iteration.
    - Calculate the absolute error $|x_k - x^*|$ where $x^* \approx 0.7390851332151607$ is the true root.
    - Plot the error on a logarithmic scale and determine the **order of convergence**.
