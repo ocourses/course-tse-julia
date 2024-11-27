@@ -15,8 +15,8 @@
 
 - title: Applications
   links:
-    - text: The Newton Method
-      href: newton_method.qmd
+    - text: Root-Finding Methods
+      href: root_finding.qmd
 
 - title: Work in progress
   links:

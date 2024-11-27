@@ -87,8 +87,8 @@ website:
               href: M1/advanced-types.qmd
             - section: "Applications"
               contents: 
-                - text: The Newton Method
-                  href: M1/newton_method.qmd
+                - text: Root-Finding Methods
+                  href: M1/root_finding.qmd
             - text: "---"
             - section: "Work in progress"
               contents: 

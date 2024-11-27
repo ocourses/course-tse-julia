@@ -54,7 +54,7 @@
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/newton_method.html</loc>
-    <lastmod>2024-11-27T09:32:28.944Z</lastmod>
+    <lastmod>2024-11-27T10:18:11.107Z</lastmod>
   </url>
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M1/getting_started.html</loc>
@@ -95,5 +95,9 @@
   <url>
     <loc>https://ocots.github.io/course-tse-julia/M2/exercices-distribution_of_random_variables.html</loc>
     <lastmod>2024-10-27T19:24:43.365Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocots.github.io/course-tse-julia/M1/root_finding.html</loc>
+    <lastmod>2024-11-27T11:09:30.990Z</lastmod>
   </url>
 </urlset>
