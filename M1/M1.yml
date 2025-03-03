@@ -6,11 +6,11 @@
       href: foretaste_of_julia_code.qmd
     - text: Why Julia?
       href: why_julia.qmd
-    - text: Syntax Essentials
+    - text: Syntax Essentials and Scoping
       href: syntax.qmd
-    - text: Basic Types
+    - text: Basic Types and Data Structures
       href: basic-types.qmd
-    - text: Advanced Types
+    - text: Type System and Error Handling
       href: advanced-types.qmd
 
 - title: Applications

@@ -21,15 +21,6 @@ Julia combines the speed of low-level languages like C++ and Fortran with the pr
 - **Unified Language**: Supports both prototyping and deployment, solving the two-language problem.
 - **Rich Ecosystem**: More than 10,000 registered packages and a large community of contributors.
 
-## Key Users of Julia
-
-- **Pharmaceuticals**: AstraZeneca, Merck, Pfizer
-- **Technology**: Amazon, Apple, Google
-- **Finance**: BlackRock, Federal Reserve Bank of New York
-- **Space**: NASA, INPE
-- **Energy**: Los Alamos, Mitsubishi Electric
-- **Robotics**: MIT, UC Berkeley
-
 ## The Two-Language Problem
 
 Traditionally, programming required both a high-level, slower language for prototyping and a low-level, faster language for production, causing inefficiencies. Julia unifies these two needs into one language, allowing:
