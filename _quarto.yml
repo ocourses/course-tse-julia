@@ -73,8 +73,7 @@ website:
       style: "floating"
       collapse-level: 2
       contents:
-        - section: "Content of the course"
-          href: src/index.qmd
+        - section: "Julia language"
           contents:
             - text: Getting started
               href: src/getting_started.qmd
@@ -88,24 +87,7 @@ website:
               href: src/basic-types.qmd
             - text: Type System and Error Handling
               href: src/advanced-types.qmd
-            - section: "Applications"
-              contents: 
-                - text: Root-Finding Methods
-                  href: src/root_finding.qmd
-            - text: "---"
-            - section: "Work in progress"
-              contents: 
-                - text: Type Stability
-                  href: src/type_stability.qmd
-                - text: Methods and Multiple Dispatch
-                  href: src/multiple_dispatch.qmd
-                - text: Modules and Packages
-                  href: src/modules_and_packages.qmd
-                - text: Metaprogramming
-                  href: src/metaprogramming.qmd
-                - text: Interoperability
-                  href: src/interoperability.qmd
-                - text: Performance
-                  href: src/performance.qmd
-                - text: Miscellaneous
-                  href: src/miscellaneous.qmd
+        - section: "Applications"
+          contents: 
+            - text: Root-Finding Methods
+              href: src/root_finding.qmd
