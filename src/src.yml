@@ -1,4 +1,4 @@
-- title: Content
+- title: Julia language
   links:
     - text: Getting started
       href: getting_started.qmd
@@ -17,20 +17,3 @@
   links:
     - text: Root-Finding Methods
       href: root_finding.qmd
-
-- title: Work in progress
-  links:
-    - text: Type Stability
-      href: type_stability.qmd
-    - text: Methods and Multiple Dispatch
-      href: multiple_dispatch.qmd
-    - text: Modules and Packages
-      href: modules_and_packages.qmd
-    - text: Metaprogramming
-      href: metaprogramming.qmd
-    - text: Interoperability
-      href: interoperability.qmd
-    - text: Performance
-      href: performance.qmd
-    - text: Miscellaneous
-      href: miscellaneous.qmd

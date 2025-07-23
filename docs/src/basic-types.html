@@ -103,6 +103,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script>
+
+    // fonction pour cacher les menus de navigation
+    function hideNavbar() {
+        // Sélection des éléments par leur ID
+        const sidebar = document.getElementById('quarto-sidebar');
+        const marginSidebar = document.getElementById('quarto-margin-sidebar');
+        const documentContent = document.getElementById('quarto-document-content');
+
+        // Cacher les éléments
+        sidebar.style.visibility = 'hidden';
+        marginSidebar.style.visibility = 'hidden';
+        documentContent.className = 'content column-page';
+    }
+
+    // fonction pour rendre visibles les menus de navigation
+    function showNavbar() {
+        // Sélection des éléments par leur ID
+        const sidebar = document.getElementById('quarto-sidebar');
+        const marginSidebar = document.getElementById('quarto-margin-sidebar');
+        const documentContent = document.getElementById('quarto-document-content');
+
+        // Rendre visibles les éléments
+        sidebar.style.visibility = 'visible';
+        marginSidebar.style.visibility = 'visible';
+        documentContent.className = 'content';
+    }
+
+    // fonction pour basculer la visibilité des menus de navigation
+    function toggleHideNavbar() {
+        // Sélection des éléments par leur ID
+        const sidebar = document.getElementById('quarto-sidebar');
+        const marginSidebar = document.getElementById('quarto-margin-sidebar');
+
+        // Si le menu de navigation est visible, le cacher
+        if (sidebar.style.visibility === 'visible') {
+            hideNavbar();
+        } else {
+            showNavbar();
+        }
+    }
+
+    // fonction pour ajouter des écouteurs d'événements pour basculer la visibilité des menus de navigation
+    function addEventListenerToToggleHideNavbar() {
+
+        // Ajout aux objets de la classe 'quarto-reader-toggle' d'un écouteur d'événements pour le clic
+        document.querySelectorAll('.quarto-reader-toggle').forEach(function(element) {
+            element.addEventListener('click', function() {
+                toggleHideNavbar();
+                return false;
+            });
+        });
+
+        // Ajout d'un écouteur d'événements pour la touche 'r'
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'l') {
+                window.quartoToggleReader();
+                toggleHideNavbar();
+                return false;
+            }
+        });
+    }
+
+    // fonction pour cacher les menus de navigation lors du chargement de la page si 
+    // la classe 'quarto-reader-toggle' est accompagnée de la classe 'reader'
+    // (c'est-à-dire si le mode de lecture est activé)
+    // sinon, on affiche les menus de navigation
+    function hideNavbarIfReader() {
+        if (document.querySelector('.quarto-reader-toggle.reader')) {
+            hideNavbar();
+        } else {
+            showNavbar();
+        }
+    }
+
+    // Ajout d'un écouteur d'événements pour le chargement de la page
+    if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+    ) {
+        // call on next available tick
+        setTimeout(addEventListenerToToggleHideNavbar, 1);
+        setTimeout(hideNavbarIfReader, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", addEventListenerToToggleHideNavbar);
+        document.addEventListener("DOMContentLoaded", hideNavbarIfReader);
+    }
+
+</script>
+<script src="https://unpkg.com/freezeframe/dist/freezeframe.min.js"></script>
 
 
 <link rel="stylesheet" href="../assets/css/styles.css">
@@ -134,13 +225,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../src/index.html" aria-current="page"> 
+    <a class="nav-link" href="../src/index.html"> 
 <span class="menu-text">Content of the course</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
     <a href="https://github.com/ocourses/course-tse-julia" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -149,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/index.html">Content of the course</a></li><li class="breadcrumb-item"><a href="../src/basic-types.html">Basic Types and Data Structures</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/getting_started.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/basic-types.html">Basic Types and Data Structures</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -163,8 +259,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../src/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Content of the course</span></a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Julia language</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -206,77 +302,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Type System and Error Handling</span></a>
   </div>
 </li>
-          <li class="sidebar-item sidebar-item-section">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Applications</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../src/root_finding.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Root-Finding Methods</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Work in progress</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../src/type_stability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Type Stability</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../src/multiple_dispatch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Methods and Multiple Dispatch</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../src/modules_and_packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Modules and Packages</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../src/metaprogramming.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Metaprogramming</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../src/interoperability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Interoperability</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../src/performance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Performance</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../src/miscellaneous.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Miscellaneous</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
       </ul>
   </li>
     </ul>
@@ -330,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/index.html">Content of the course</a></li><li class="breadcrumb-item"><a href="../src/basic-types.html">Basic Types and Data Structures</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/getting_started.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/basic-types.html">Basic Types and Data Structures</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Basic Types and Data Structures in Julia</h1>
 </div>
@@ -1832,4 +1874,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
