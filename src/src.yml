@@ -1,0 +1,36 @@
+- title: Content
+  links:
+    - text: Getting started
+      href: getting_started.qmd
+    - text: Foretaste of Julia Code
+      href: foretaste_of_julia_code.qmd
+    - text: Why Julia?
+      href: why_julia.qmd
+    - text: Syntax Essentials and Scoping
+      href: syntax.qmd
+    - text: Basic Types and Data Structures
+      href: basic-types.qmd
+    - text: Type System and Error Handling
+      href: advanced-types.qmd
+
+- title: Applications
+  links:
+    - text: Root-Finding Methods
+      href: root_finding.qmd
+
+- title: Work in progress
+  links:
+    - text: Type Stability
+      href: type_stability.qmd
+    - text: Methods and Multiple Dispatch
+      href: multiple_dispatch.qmd
+    - text: Modules and Packages
+      href: modules_and_packages.qmd
+    - text: Metaprogramming
+      href: metaprogramming.qmd
+    - text: Interoperability
+      href: interoperability.qmd
+    - text: Performance
+      href: performance.qmd
+    - text: Miscellaneous
+      href: miscellaneous.qmd

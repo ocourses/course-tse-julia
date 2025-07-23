@@ -1,0 +1,1788 @@
+---
+title: "Advanced Types and Error Handling in Julia"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+include("activate.jl")
+```
+
+In this section, we will delve into some of the more advanced features of Julia's type system and error handling. We will explore the hierarchical structure of types, how to define and work with parametric types, as well as how to handle type conversions and promotions. Additionally, we will look at how to manage errors in Julia, including common error types and exception handling mechanisms.
+
+By the end of this page, you'll have a deeper understanding of Julia's flexible and powerful type system, which is essential for writing efficient, type-safe code. We will also cover how to manage and handle errors gracefully to ensure that your programs run smoothly.
+
+Topics Covered:
+
+- **Type Hierarchies**: Understanding Julia's abstract and concrete types.
+- **Type Annotations and Declarations**: How to specify types in functions and variables.
+- **Parametric Types**: Creating generic types and functions.
+- **Type Conversion and Promotion**: Working with different types and converting between them.
+- **Union Types**: Handling multiple types in a single variable.
+- **Special Types**: Working with `Nothing`, `Any`, and `Missing`.
+- **Errors and Exception Handling**: Raising and handling errors with `try`/`catch` blocks.
+
+## Type Hierarchies
+
+In Julia, types are organized into a hierarchy with `Any` as the root. At the top, `Any` is the most general type, and all other types are subtypes of `Any`. The type hierarchy enables Julia to provide flexibility while supporting efficient dispatch based on types.
+
+```{julia}
+using GraphRecipes, Plots
+default(size=(800, 800))
+@suppress_err begin #| hide
+plot(AbstractFloat, fontsize=10, nodeshape=:rect, nodesize=0.08)
+end #| hide
+```
+
+### Abstract and Concrete Types
+
+Types in Julia can be [**abstract**](https://docs.julialang.org/en/v1/manual/types/#man-abstract-types) or **concrete**:
+
+- **Abstract types** serve as nodes in the hierarchy but cannot be instantiated. They provide a framework for organizing related types.
+- **Concrete types** can be instantiated and are the actual types used for values.
+
+For example, Julia’s `Real` and `AbstractFloat` types are abstract, while `Int64` and `Float64` are concrete subtypes.
+
+```{julia}
+@myshow begin #| hide
+n::Int64 = 42   # Int64 is a concrete type
+typeof(n)       # Output: Int64 (concrete type)
+r::Real = 3.14  # Real is an abstract type
+typeof(r)       # Output: Float64 (concrete type)
+end #| hide
+```
+
+### Checking if a Type is Concrete
+
+In Julia, you can use the `isconcretetype` function to check if a type is concrete (meaning it can be instantiated) or abstract (which serves as a blueprint for other types but cannot be instantiated directly).
+
+```{julia}
+@myshow begin #| hide
+isconcretetype(Int64)
+isconcretetype(AbstractFloat)
+end  #| hide
+nothing #| hide
+```
+
+The `isconcretetype` function returns `true` for concrete types (like `Int64` or `Float64`) and `false` for abstract types (like `AbstractFloat` or `Real`).
+
+### Get the Type of a Variable
+
+You can use the `typeof()` function to get the type of a variable:
+
+```{julia}
+@myshow begin #| hide
+a = 42
+typeof(a)
+end #| hide
+```
+
+The `typeof()` function returns the concrete type of the variable.
+
+### Example
+
+Let's instantiate a variable with a specific concrete type, check its type using `typeof()`, and verify if it’s concrete using `isconcretetype`:
+
+```{julia}
+@myshow begin #| hide
+a = 3.14
+typeof(a)
+isconcretetype(typeof(a))
+end #| hide
+```
+
+
+### The `isa` Operator
+
+The `isa` operator is used to check if a value is an instance of a specific type:
+
+```{julia}
+@myshow begin #| hide
+a = 42
+a isa Int64
+a isa Number
+a isa Float64
+end #| hide
+```
+
+The `isa` operator is often used for type checking within functions or when validating data.
+
+
+### The `<:` Operator
+
+The `<:` operator checks if a type is a subtype of another type in the hierarchy. It can be used for checking if one type is a more general or more specific type than another:
+
+```{julia}
+@myshow begin #| hide
+Int64 <: Real
+Float64 <: Real
+Real <: Number
+Number <: Real
+end #| hide
+```
+
+### Creating Custom Abstract Types
+
+Julia allows you to create your own abstract types. For example, you can define a custom abstract type `Shape`, and create concrete subtypes like `Circle` and `Rectangle`.
+
+```{julia}
+# Define abstract type
+abstract type Shape end
+
+# Define concrete subtypes
+struct Circle <: Shape
+    radius::Float64
+end
+
+struct Rectangle <: Shape
+    width::Float64
+    height::Float64
+end
+
+# Create instances
+circle = Circle(5.0)
+rectangle = Rectangle(3.0, 4.0)
+
+# Check if they are subtypes of Shape
+@myshow begin #| hide
+circle isa Shape
+rectangle isa Shape
+end #| hide
+```
+
+### Getting Subtypes and Parent Types
+
+In Julia, you can use the `subtypes()` function to find all direct subtypes of a given type. Additionally, the `supertypes()` function can be used to get the entire chain of parent (super) types for a given type.
+
+#### Getting Subtypes
+
+To find all direct subtypes of a specific type, you can use the `subtypes()` function. Here’s an example:
+
+```{julia}
+subtypes(AbstractFloat)
+```
+
+This will return all direct subtypes of `AbstractFloat`. To visualize the type hierarchy, you can use the `plot` function from the `GraphRecipes` package or for a textual representation, you can do the following:
+
+```{julia}
+using AbstractTrees
+AbstractTrees.children(d::DataType) = subtypes(d)
+print_tree(Real)
+```
+
+#### Getting the Parent Type
+
+To find the immediate supertype (parent type) of a specific type, you can use the `supertype()` function. Here’s an example:
+
+```{julia}
+supertype(Int64)
+```
+
+This will return the immediate parent type of `Int64`.
+
+#### Getting the List of All Parent Types
+
+To get the entire chain of parent types, you can use the `supertypes()` function, which directly returns all the parent types of a given type. Here's an example that shows how to do this for `Float64`:
+
+```{julia}
+supertypes(Float64)
+```
+
+This code will return the list of all parent types of `Float64`, starting from `Float64` itself and going up the type hierarchy to `Any`. This can be useful for understanding the relationships between different types in Julia. To print the list of parent types in a more readable format, you can use the `join` function:
+
+```{julia}
+join(supertypes(Float64), " -> ")
+```
+
+### Type Hierarchies and Performance
+
+The type hierarchy plays a crucial role in enabling multiple dispatch in Julia, allowing for efficient method selection based on the types of function arguments. By organizing types into a well-defined hierarchy, Julia can quickly select the most specific method for a given operation, optimizing performance, especially in scientific and numerical computing.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Type Hierarchies in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the purpose of an abstract type in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It defines a concrete implementation for other types.",
+           "It can be instantiated and used directly.",
+           "It provides a blueprint for organizing related types but cannot be instantiated.",
+           "It is used for type annotations in functions."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which of the following types is a concrete type?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["AbstractFloat", "Real", "Int64", "Number"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What does the `isconcretetype` function return for `AbstractFloat`?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["true", "false", "Error: Undefined type", "null"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What will the following code return?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+typeof(42)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Int64", "Integer", "Number", "Real"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the purpose of the `isa` operator in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["To check if a variable's value matches a specific type.",
+           "To check if a variable is an instance of a specific type or any of its subtypes.",
+           "To check if a type is concrete.",
+           "To check if a variable is a subtype of `Any`."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What will be the result of the following code?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+Int64 <: Real
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["true", "false", "Error: Type mismatch", "true for Float64 but not for Int64"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What will the following code return?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+isconcretetype(Int64)
+isconcretetype(AbstractFloat)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["true for Int64 and false for AbstractFloat",
+           "false for both types",
+           "true for AbstractFloat and false for Int64",
+           "false for both types if using a different syntax"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What does the `<:` operator check in Julia?**
+"""
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["If one type is a subtype of another.",
+           "If two types are exactly the same.",
+           "If a type can be instantiated.",
+           "If a type is abstract."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the result of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+subtypes(Real)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Returns a list of all types that are subtypes of `Real`.",
+           "Returns an error because `Real` is abstract.",
+           "Returns `Any` as the only subtype of `Real`.",
+           "Shows `Real` as a parent type with no subtypes."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What does the `supertype` function return for `Float64`?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+supertype(Float64)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Int", "Real", "Number", "AbstractFloat"]
+answer = 4
+radioq(choices, answer)
+```
+
+:::
+
+## Type Annotations and Declarations
+
+In Julia, you can specify types for variables, function arguments, and return values. Type annotations help to provide clarity in your code, and in some cases, they can enable Julia’s just-in-time (JIT) compiler to generate more efficient code. While type annotations are optional, they are recommended for improving code readability and performance.
+
+### Variable Type Annotations
+
+You can explicitly declare the type of a variable by using a type annotation:
+
+```{julia}
+x::Int = 10  # x is an integer
+y::Float64 = 3.14  # y is a Float64
+nothing #| hide
+```
+
+In this example, `x` is explicitly declared as an integer (`Int`), and `y` is declared as a `Float64`. Type annotations can also be used with mutable and immutable structs.
+
+### Function Argument Type Annotations
+
+You can specify types for function arguments to ensure that the function only accepts values of a specific type:
+
+```{julia}
+#| error: true
+function add(a::Int, b::Int)
+    return a + b
+end
+
+@myshow begin #| hide
+add(3, 4)
+add(3, "4")  # Error: "4" is a String, not an Int
+end #| hide
+```
+
+In the above example, `a` and `b` must both be `Int`s. If you try to pass a value of the wrong type (like `"4"`), Julia will throw an error.
+
+### Return Type Annotations
+
+You can also annotate the return type of a function:
+
+```{julia}
+function multiply(a::Int, b::Int)::Int
+    return a * b
+end
+nothing #| hide
+```
+
+Here, the function `multiply` is declared to return an `Int`, ensuring that the result will always be an integer.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Type Annotations and Declarations in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the primary purpose of type annotations in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["To make code run faster by skipping type checks.",
+           "To specify the exact memory address of a variable.",
+           "To provide clarity in the code and enable optimizations by the compiler.",
+           "To prevent errors from occurring in the code."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following correctly applies a type annotation to a variable?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["a = 10::Int",
+           "Int::a = 10",
+           "a::Int = 10",
+           "a:Int = 10"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"""
+**Question $(NUMQUESTION). What will happen if the following code is executed?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function add(a::Int, b::Int)
+    return a + b
+end
+
+add(3, "4")
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will throw a type error because `\"4\"` is a String, not an Int.",
+           "It will convert \"4\" to an Int and return 7.",
+           "It will throw a syntax error.",
+           "It will ignore the type annotation and return 7."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). In Julia, what will the following code output?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function multiply(a::Int, b::Int)::Int
+    return a * b
+end
+multiply(3, 4)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["12", "12.0", "Error: Incorrect type", "Nothing"]
+answer = 1
+radioq(choices, answer)
+```
+
+:::
+
+## Parametric Types
+
+Parametric types in Julia allow you to create types that can work with multiple data types, providing flexibility and enabling generic programming. This is particularly useful when you want to create functions, structs, or methods that can handle various types without needing to duplicate code.
+
+### Parametric Composite Types
+
+A parametric struct can take one or more type parameters:
+
+```{julia}
+struct Pair{T, S}
+    first::T
+    second::S
+end
+
+@myshow begin #| hide
+pair1 = Pair(1, "apple")  # Pair of Int and String
+pair2 = Pair(3.14, true)  # Pair of Float64 and Bool
+end #| hide
+```
+
+In this case, `Pair` can be instantiated with any two types `T` and `S`, making it more versatile.
+
+### Parametric Abstract Types
+
+Parametric abstract types allow you to define abstract types that are parameterized by other types.
+
+#### Syntax:
+
+```julia
+abstract type AbstractContainer{T} end
+```
+
+Here, `AbstractContainer` is an abstract type that takes a type parameter `T`. Any concrete type that is a subtype of `AbstractContainer` can specify the concrete type for `T`.
+
+#### Example:
+
+```{julia}
+abstract type AbstractContainer{T} end
+
+struct VectorContainer{T} <: AbstractContainer{T}
+    data::Vector{T}
+end
+
+struct SetContainer{T} <: AbstractContainer{T}
+    data::Set{T}
+end
+
+struct FloatVectorContainer <: AbstractContainer{Float64}
+    data::Vector{Float64}
+end
+
+function print_container_info(container::AbstractContainer{T}) where T
+    println("Container holds values of type: ", T)
+end
+
+# Usage:
+vec = VectorContainer([1, 2, 3])
+set = SetContainer(Set([1, 2, 3]))
+flo = FloatVectorContainer([1.0, 2.0, 3.0])
+
+print_container_info(vec)
+print_container_info(set)
+print_container_info(flo)
+```
+
+#### Explanation:
+
+- `AbstractContainer{T}` is a parametric abstract type, where `T` represents the type of elements contained within the container.
+- `VectorContainer` and `SetContainer` are concrete subtypes of `AbstractContainer`, each using a different data structure (`Vector` and `Set`) to store elements of type `T`.
+- `FloatVectorContainer` is a concrete subtype of `AbstractContainer` that specifies `Float64` as the type for `T`.
+- The function `print_container_info` accepts any container that is a subtype of `AbstractContainer` and prints the type of elements inside the container.
+
+### Constrained Parametric Types
+
+Constrained parametric types allow you to restrict acceptable type parameters using `<:`, ensuring greater control and type safety.
+
+```{julia}
+struct RealPair{T <: Real}
+    first::T
+    second::T
+end
+
+# Valid:
+pair = RealPair(1.0, 2.5)
+
+# Constraining a function:****
+function sum_elements(container::AbstractContainer{T}) where T <: Real
+    return sum(container.data)
+end
+
+vec = VectorContainer([1.0, 2.0, 3.0])
+println(sum_elements(vec))  # Outputs: 6.0
+```
+
+In this example, `RealPair` is a struct that only accepts type parameters that are subtypes of `Real`. Similarly, the `sum_elements` function only works with containers that hold elements of type `T` that are subtypes of `Real`. The following code will throw an error because `String` is not a subtype of `Real`:
+
+```{julia}
+#| error: true
+# Invalid (throws an error):
+invalid_pair = RealPair("a", "b")
+```
+
+Constraints enhance type safety, clarify requirements, and support robust generic programming.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Parametric Types in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is a parametric type in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["A type that is defined for a specific data type.",
+           "A type that can work with multiple data types, specified by parameters.",
+           "A type that can only work with abstract types.",
+           "A type that doesn't require any parameters."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the role of `T` and `S` in the `Pair` struct example?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+struct Pair{T, S}
+    first::T
+    second::S
+end
+
+pair1 = Pair(1, "apple")  # Pair of Int and String
+pair2 = Pair(3.14, true)  # Pair of Float64 and Bool
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`T` and `S` define the data types of the first and second elements of the pair.",
+           "`T` is used for the first element, and `S` is used for the second element.",
+           "`T` and `S` are unused in this case, they are placeholders.",
+           "`T` defines the data type of both elements in the pair."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when you instantiate `Pair(1, 'apple')` in the provided code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+pair1 = Pair(1, "apple")  # Pair of Int and String
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will create a pair with an `Int` and a `String`.",
+           "It will throw an error because `Int` and `String` can't be combined.",
+           "It will create a pair with `Int64` and `String`.",
+           "It will cause a runtime error because the types don't match."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the benefit of using parametric types like `AbstractContainer{T}`?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+abstract type AbstractContainer{T} end
+
+struct VectorContainer{T} <: AbstractContainer{T}
+    data::Vector{T}
+end
+
+struct SetContainer{T} <: AbstractContainer{T}
+    data::Set{T}
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It allows you to specify concrete types directly in the struct.",
+           "It makes the code less flexible and more specific.",
+           "It allows you to create types that can handle any type of data, with type safety.",
+           "It makes the code more complex and harder to maintain."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `print_container_info` function do?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function print_container_info(container::AbstractContainer{T}) where T
+    println("Container holds values of type: ", T)
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It prints the type of the container.",
+           "It prints the number of elements in the container.",
+           "It prints the values inside the container.",
+           "It returns the type of the container."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the purpose of `AbstractContainer{T}` in the code example?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+abstract type AbstractContainer{T} end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It defines a concrete container type.",
+           "It defines an abstract type that can be used to create containers for any data type `T`.",
+           "It defines a container for a specific type of data.",
+           "It restricts containers to hold only numeric types."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What would be the output of `print_container_info(vec)` if `vec` is `VectorContainer([1, 2, 3])`?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+vec = VectorContainer([1, 2, 3])
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will print the type `Vector{Int}`.",
+           "It will print the type `AbstractContainer{Int}`.",
+           "It will print the values inside the container.",
+           "It will throw an error because `VectorContainer` is not defined."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). How does using parametric types help with code reusability?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It reduces the need to define separate functions for different data types.",
+           "It forces you to create new types for every use case.",
+           "It makes the code less reusable.",
+           "It requires more boilerplate code."]
+answer = 2
+radioq(choices, answer)
+```
+
+::: 
+
+## Type Conversion and Promotion
+
+In Julia, type conversion and promotion are mechanisms that allow for flexibility when working with different types, enabling smooth interactions and arithmetic between varying data types. Conversion changes the type of a value, while promotion ensures two values have a common type for an operation.
+
+### Type Conversion
+
+Type conversion in Julia is typically achieved with the `convert` function, which tries to change a value from one type to another. For conversions between `Float64` and `Int`, methods like `round` and `floor` are commonly used to handle fractional parts safely. To convert numbers to strings, use the `string()` function instead.
+
+```{julia}
+@myshow begin #| hide
+round(Int, 3.84)   
+floor(Int, 3.14)
+convert(Float64, 5)
+string(123)
+end #| hide
+```
+
+In these examples:
+
+- `round` rounds a `Float64` to the nearest `Int`.
+- `floor` converts a `Float64` to the nearest lower `Int`.
+- Converting an `Int` to `Float64` represents the integer as a floating-point number.
+- `string()` converts an integer to its string representation.
+
+### Automatic Conversion
+
+In many cases, Julia will automatically convert types when it is unambiguous. For instance, you can directly assign an integer to a floating-point variable, and Julia will automatically convert it.
+
+```{julia}
+@myshow begin #| hide
+y::Float64 = 10  # The integer 10 is converted to 10.0 (Float64)
+end #| hide
+```
+
+### Type Promotion
+
+Type promotion is used when combining two values of different types in an operation. Julia promotes values to a common type using the `promote` function, which returns values in their promoted type. This is useful when performing arithmetic on values of different types.
+
+```{julia}
+@myshow begin #| hide
+a, b = promote(3, 4.5)  # Promotes both values to Float64
+typeof(a)
+typeof(b)
+end #| hide
+```
+
+In this example, `promote` converts both `3` (an `Int`) and `4.5` (a `Float64`) to `Float64` so they can be added, subtracted, or multiplied without any type conflicts. 
+
+::: {.callout-warning}
+Be aware that promotion has nothing to do with the type hierarchy. For instance, although every `Int` value can also be represented as a `Float64` value, `Int` is not a subtype of `Float64`.
+:::
+
+### Summary
+
+- `convert(Type, value)`: Converts `value` to the specified `Type`, if possible.
+- `promote(x, y)`: Returns both `x` and `y` promoted to a common type.
+- Type promotion rules allow Julia to handle operations between different types smoothly, making the language both powerful and flexible for numerical and data processing tasks.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Type Conversion and Promotion in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `convert` function do in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It converts a value from one type to another, if possible.",
+           "It automatically promotes values to a common type.",
+           "It converts numbers to strings.",
+           "It changes a value to a boolean type."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the output of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+println(round(Int, 3.14))   # Rounds 3.14 to the nearest integer, output: 3
+println(floor(Int, 3.14))   # Floors 3.14 to the nearest integer, output: 3
+println(convert(Float64, 5))  # Converts Int to Float64, output: 5.0
+println(string(123))         # Converts Int to String, output: "123"
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["3, 3, 5.0, '123'",
+           "3, 3, 5.0, 123",
+           "3, 3.14, 5, '123'",
+           "5.0, 3, 5, '123'"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when an integer is assigned to a `Float64` variable in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+y::Float64 = 10  # The integer 10 is automatically converted to 10.0 (Float64)
+println(y)       # Output: 10.0
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Julia automatically converts the integer to a Float64.",
+           "Julia throws a type error because of the type mismatch.",
+           "The conversion needs to be done explicitly using `convert`.",
+           "The variable `y` will be set to the integer value of 10."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `promote` function do in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+a, b = promote(3, 4.5)  # Promotes both values to Float64
+println(a)              # Output: 3.0
+println(b)              # Output: 4.5
+println(typeof(a))      # Output: Float64
+println(typeof(b))      # Output: Float64
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It promotes two values to a common type for an operation.",
+           "It converts both values to integers.",
+           "It converts values to strings for display.",
+           "It checks if two values have the same type."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What will happen if we try to add an `Int` and a `String` in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+println(3 + "Hello")  # Attempting to add Int and String
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will throw a type error.",
+           "It will concatenate the string and the number.",
+           "It will promote the number to a string.",
+           "Julia will automatically convert both to a common type."]
+answer = 1
+radioq(choices, answer)
+```
+
+:::
+
+
+## Union Types
+
+In Julia, `Union` types are used to create variables or function arguments that can accept multiple types. This is particularly useful when you want to allow a function to work with multiple types without needing to write separate methods for each one.
+
+A `Union` type is created by specifying a list of types within `Union{}`. This allows a variable to hold values of any type listed in the union.
+
+```{julia}
+function process(x::Union{Int, Nothing})
+    println("The input is: ", x)
+end
+
+process(5)        # Works with an Int
+process(nothing)  # Works with nothing of type Nothing
+```
+
+In this example, `process` can accept both `Int` and `Nothing` types, making it versatile across multiple input types.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Union Types in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is a `Union` type in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["A type that allows a variable to accept multiple types.",
+           "A type that restricts a variable to only one type.",
+           "A built-in function for type conversion.",
+           "A type that can only accept floating-point numbers."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the output of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function process_number(x::Union{Int, Float64})
+    println("The input is: ", x)
+end
+
+process_number(5)       # Works with an Int
+process_number(3.14)    # Works with a Float64
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["The input is: 5, The input is: 3.14",
+           "The input is: 5, The input is: 3",
+           "The input is: 3.14, The input is: 5",
+           "The input is: 5, The input is: 3.0"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following scenarios would benefit from using a `Union` type?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+# Example using Union to handle multiple types in a function
+function add_one(x::Union{Int, Float64})
+    return x + 1
+end
+
+println(add_one(3))     # Output: 4 (Int)
+println(add_one(2.5))   # Output: 3.5 (Float64)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["When a function needs to accept both integers and floating-point numbers.",
+           "When a function accepts only integers.",
+           "When a function is only designed to accept floating-point numbers.",
+           "When there is a strict requirement to accept a specific type."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when a value of a type not listed in the `Union` is passed to a function?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function process_number(x::Union{Int, Float64})
+    println("The input is: ", x)
+end
+
+process_number("Hello")  # Trying to pass a String
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will throw a `MethodError` because `String` is not part of the Union.",
+           "It will automatically convert the string to an integer.",
+           "It will work without issue because `String` is compatible with `Union`.",
+           "It will throw a `TypeError` due to the type mismatch."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). How does the `add_one` function handle both `Int` and `Float64` types?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function add_one(x::Union{Int, Float64})
+    return x + 1
+end
+
+println(add_one(3))     # Output: 4 (Int)
+println(add_one(2.5))   # Output: 3.5 (Float64)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It works for both types without needing separate methods.",
+           "It throws an error for `Int` but works for `Float64`.",
+           "It requires type checking before execution.",
+           "It only works for `Float64` types."]
+answer = 1
+radioq(choices, answer)
+```
+
+:::
+
+## Special Types
+
+Julia provides several special types to handle different programming needs, including types for flexible assignments, missing values, and functions without specific return values.
+
+### `Nothing`
+
+The `Nothing` type represents the absence of a meaningful value, commonly used when a function does not return anything. It’s similar to `void` in other programming languages. Functions in Julia that do not return a value explicitly return `nothing` by default.
+
+```{julia}
+# Example of a function that returns `Nothing`
+function print_message(msg::String)
+    println(msg)
+    return nothing  # Explicitly returns `nothing`
+end
+
+result = print_message("Hello!")  # Returns `nothing`
+println(result === nothing)       # Output: true
+```
+
+Using `Nothing` is useful when you want to indicate that a function has no specific return value, yet you still want to call it as part of a larger program flow.
+
+### `Any`
+
+`Any` is the most general type in Julia and serves as the root of Julia’s type hierarchy. Declaring a variable or argument as `Any` allows it to hold values of any type, making it versatile but potentially less performant since Julia cannot infer a specific type.
+
+```{julia}
+# Example of using `Any` as a type
+function describe(value::Any)
+    println("Value: ", value)
+    println("Type: ", typeof(value))
+end
+
+describe(42)         # Works with Int
+describe("Hello")    # Works with String
+describe(3.14)       # Works with Float64
+```
+
+Using `Any` can be beneficial when handling inputs of unpredictable types, such as in data processing functions where input data may be heterogeneous.
+
+### `Missing`
+
+The `Missing` type is used to represent missing or unknown data, especially useful in data analysis. Julia’s `missing` value is an instance of `Missing` and can be assigned to variables or included in data structures like arrays and tables. Operations with `missing` generally propagate `missing` to indicate the presence of missing data.
+
+```{julia}
+# Example of using `missing` in an array
+data = [1, 2, missing, 4, 5]
+
+# Check for missing values in the array
+for item in data
+    if item === missing
+        println("Missing data detected.")
+    else
+        println("Value: ", item)
+    end
+end
+```
+
+The `missing` value enables handling of incomplete data in Julia programs without causing errors, making it especially useful in fields like data science.
+
+In data analysis, you often want to perform calculations or operations on data while ignoring `missing` values. Julia provides the `skipmissing` function, which creates an iterator that skips over any `missing` values in a collection.
+
+```{julia}
+using Statistics
+
+# Example array with missing values
+data = [1, 2, missing, 4, 5, missing, 7]
+
+# Summing values while skipping missing entries
+sum_no_missing = sum(skipmissing(data))
+println("Sum without missing values: ", sum_no_missing)  # Output: 19
+
+# Calculating the mean while skipping missing values
+mean_no_missing = mean(skipmissing(data))
+println("Mean without missing values: ", mean_no_missing)  # Output: 3.8
+```
+
+In this example:
+
+- `skipmissing(data)` returns an iterator that excludes `missing` values from the `data` array.
+- Using `sum(skipmissing(data))` and `mean(skipmissing(data))` allows us to calculate the sum and mean, respectively, without considering any `missing` entries.
+
+The `skipmissing` function is especially useful when handling datasets with incomplete data, enabling accurate calculations without manually filtering out `missing` values.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Special Types in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `Nothing` type represent in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It represents the absence of a meaningful value.",
+           "It is used for undefined variables.",
+           "It is a placeholder for missing data.",
+           "It is a special type for numeric values."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the result of calling the following function in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+# Example of a function that returns `Nothing`
+function print_message(msg::String)
+    println(msg)
+    return nothing  # Explicitly returns `nothing`
+end
+
+result = print_message("Hello!")
+println(result === nothing)  # Output: true
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`nothing` is returned and the output is true.",
+           "`nothing` is returned but the output is false.",
+           "The function throws an error because nothing cannot be returned.",
+           "The function returns a string 'nothing'."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the advantage of using `Any` as a type in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+# Example of using `Any` as a type
+function describe(value::Any)
+    println("Value: ", value)
+    println("Type: ", typeof(value))
+end
+
+describe(42)         # Works with Int
+describe("Hello")    # Works with String
+describe(3.14)       # Works with Float64
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It allows variables to hold any type, making the code flexible.",
+           "It increases performance by restricting the type of variable.",
+           "It prevents runtime errors related to data types.",
+           "It makes type inference more precise."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the following code do in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+data = [1, 2, missing, 4, 5]
+for item in data
+    if item === missing
+        println("Missing data detected.")
+    else
+        println("Value: ", item)
+    end
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It checks for missing values and prints a message for each.",
+           "It sums all the values and skips missing ones.",
+           "It throws an error when encountering missing data.",
+           "It replaces missing data with a default value."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the purpose of the `skipmissing` function in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+using Statistics
+
+# Example array with missing values
+data = [1, 2, missing, 4, 5, missing, 7]
+
+# Summing values while skipping missing entries
+sum_no_missing = sum(skipmissing(data))
+println("Sum without missing values: ", sum_no_missing)  # Output: 19
+
+# Calculating the mean while skipping missing values
+mean_no_missing = mean(skipmissing(data))
+println("Mean without missing values: ", mean_no_missing)  # Output: 3.8
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It creates an iterator that skips `missing` values during computations.",
+           "It replaces `missing` values with `0`.",
+           "It prints out the number of `missing` values.",
+           "It raises an error if `missing` values are encountered."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the main use of the `Missing` type in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+# Example of using `missing` in an array
+data = [1, 2, missing, 4, 5]
+
+# Check for missing values in the array
+for item in data
+    if item === missing
+        println("Missing data detected.")
+    else
+        println("Value: ", item)
+    end
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["To represent missing or unknown data in a collection.",
+           "To represent variables with no value assigned.",
+           "To hold any type of data including missing entries.",
+           "To prevent errors when dealing with `Nothing`."]
+answer = 1
+radioq(choices, answer)
+```
+
+:::
+
+## Errors and Exception Handling
+
+Julia provides a powerful framework for managing and [handling errors](https://docs.julialang.org/en/v1/manual/control-flow/#Exception-Handling), which helps in writing robust programs. Error handling in Julia involves various built-in error types and mechanisms, including `throw` for raising errors and `try`/`catch` blocks for handling exceptions.
+
+### Common Error Types in Julia
+
+Julia has several built-in error types that are commonly used:
+
+- **`ArgumentError`**: Raised when a function receives an argument that is inappropriate or out of expected range.
+- **`BoundsError`**: Occurs when trying to access an index that is out of bounds for an array or collection.
+- **`DivideError`**: Raised when division by zero is attempted.
+- **`DomainError`**: Raised when a mathematical function is called with an argument outside its domain. For instance, taking the square root of a negative number.
+- **`MethodError`**: Occurs when a method is called with incorrect arguments or types.
+
+### Raising Errors with `throw`
+
+In Julia, you can explicitly raise an error using the `throw` function. This is useful for defining custom error conditions in your code. To throw an error, call `throw` with an instance of an error type:
+
+```{julia}
+#| error: true
+function divide(a, b)
+    if b == 0
+        throw(DivideError())
+    end
+    return a / b
+end
+
+divide(10, 0)  # Will raise a DivideError
+```
+
+In this example, the function `divide` will throw a `DivideError` if the second argument `b` is zero, making the function safer and more robust.
+
+### Handling Errors with `try`/`catch`
+
+Julia provides `try`/`catch` blocks for managing exceptions gracefully. Code within a `try` block runs until an error is encountered. If an error is thrown, control passes to the `catch` block, where you can handle the error.
+
+Here’s an example of using `try`/`catch` with the `divide` function:
+
+```{julia}
+try
+    println(divide(10, 0))  # Will raise an error
+catch e
+    println("Error: ", e)  # Handles the error
+end
+```
+
+In this example:
+
+- If `divide(10, 0)` raises an error, the program catches it and prints a custom message instead of stopping execution.
+- The variable `e` holds the error, which can be printed or used for further handling.
+
+### Using `finally` for Cleanup
+
+In Julia, `finally` is a block used in conjunction with `try` and `catch` to ensure that certain cleanup actions are executed regardless of whether an error occurs or not. This is useful for tasks like closing files, releasing resources, or resetting variables that need to be done after the execution of a `try-catch` block.
+
+The code inside the `finally` block is always executed, even if an exception is thrown and caught. This makes it ideal for situations where you need to guarantee that some actions occur after the main code runs, like resource deallocation.
+
+#### Syntax:
+```{julia}
+try
+    # Code that might throw an error
+catch exception
+    # Code to handle the error
+finally
+    # Cleanup code that will always run
+end
+```
+
+#### Example:
+```{julia}
+function safe_file_read(filename::String)
+    file = nothing
+    try
+        file = open(filename, "r")
+        data = read(file, String)
+        return data
+    catch e
+        println("An error occurred: ", e)
+    finally
+        if file !== nothing
+            close(file)
+            println("File closed.")
+        end
+    end
+end
+
+# Test with a valid file
+println(safe_file_read("example.txt"))
+
+# Test with an invalid file
+println(safe_file_read("nonexistent.txt"))
+```
+
+#### Explanation:
+- The `finally` block ensures that the file is always closed after reading, even if an error occurs (e.g., file not found, read error).
+- If the `open` operation is successful, the `finally` block will still execute and close the file, ensuring proper resource management.
+- If an exception is thrown in the `try` block (like a non-existent file), it will be caught and handled by the `catch` block, but the `finally` block will still execute to close the file (if opened).
+
+#### Use Cases for `finally`:
+- Closing files or network connections.
+- Releasing resources (e.g., database connections, locks).
+- Resetting the program state to a known clean state.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Errors and Exception Handling in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which error type is raised when an index is out of bounds in an array?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["ArgumentError", 
+           "BoundsError", 
+           "DivisionByZeroError", 
+           "IOError"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the following code do in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function divide(a, b)
+    if b == 0
+        throw(DivideError())
+    end
+    return a / b
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It raises a DivideError when b equals 0.",
+           "It raises an ArgumentError when a or b is invalid.",
+           "It throws a BoundsError if a or b are not numbers.",
+           "It performs division and returns the result."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when the following `try`/`catch` block is executed?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+try
+    println(divide(10, 0))  # Will raise an error
+catch e
+    println("Error: ", e)  # Handles the error
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["The program throws an error and stops execution.",
+           "The error is caught and a custom error message is printed.",
+           "The program silently ignores the error.",
+           "The program prints the result of the division."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the purpose of the `finally` block in Julia's exception handling?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["To ensure that cleanup code runs regardless of whether an error occurs.",
+           "To catch all errors and handle them.",
+           "To rethrow any errors that are caught.",
+           "To perform the main logic of the program."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the output of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function safe_file_read(filename::String)
+    file = nothing
+    try
+        file = open(filename, "r")
+        data = read(file, String)
+        return data
+    catch e
+        println("An error occurred: ", e)
+    finally
+        if file !== nothing
+            close(file)
+            println("File closed.")
+        end
+    end
+end
+
+# Test with a valid file
+println(safe_file_read("example.txt"))
+
+# Test with an invalid file
+println(safe_file_read("nonexistent.txt"))
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["The program prints data from the file and closes it.",
+           "The program raises an error and does not close the file.",
+           "The program tries to read a file, catches errors, and always closes the file.",
+           "The program prints the error but skips file closing."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following is an appropriate use case for the `finally` block?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Ensuring a file is closed after reading, regardless of errors.",
+           "To catch all exceptions without handling them.",
+           "To prevent specific types of errors from being raised.",
+           "To handle errors and return a value from the `finally` block."]
+answer = 1
+radioq(choices, answer)
+```
+
+:::

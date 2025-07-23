@@ -1,0 +1,67 @@
+---
+title: "Type stability in Julia"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+include("activate.jl")
+```
+
+::: {.callout-note}
+This page is still under construction. For more details about type stability and performance tips, please refer to the official [Julia Performance Tips Documentation](docs.julialang.org/en/v1/manual/performance-tips) or visit the page [Why Does Julia Work So Well?](https://ucidatascienceinitiative.github.io/IntroToJulia/Html/WhyJulia).
+:::
+
+In Julia, **type stability** is a key concept for writing efficient code. Type stability means that the type of a variable or expression can be determined at compile time, enabling the Julia compiler to optimize the code. When working with advanced types, such as parametric abstract types, it's important to ensure that your code remains type stable, as this allows Julia's Just-In-Time (JIT) compiler to generate more efficient machine code.
+
+### Why is Type Stability Important?
+
+Type instability can cause the JIT compiler to generate multiple versions of a function or method, which can degrade performance. Type stability, on the other hand, helps Julia avoid unnecessary runtime checks and ensures that the type of every variable is known before runtime.
+
+For instance, if you define a function where the type of its output cannot be predicted based on the input types, Julia may have to fall back to a slower, more generic approach.
+
+### Example of Type Instability and Stability
+
+Let’s consider an example using parametric types:
+
+```{julia}
+function sum_elements(arr::Vector{T}) where T
+    s = 0
+    for x in arr
+        s += x  # Type instability: T is not known to be a number
+    end
+    return s
+end
+nothing #| hide
+```
+
+In this case, the function `sum_elements` is type unstable because Julia cannot guarantee that `T` will always be a numeric type. This can lead to inefficiencies.
+
+Now, let's fix this by enforcing type stability:
+
+```{julia}
+function sum_elements(arr::Vector{T}) where T <: Number
+    s = zero(T)  # Start with the appropriate type for T
+    for x in arr
+        s += x
+    end
+    return s
+end
+nothing #| hide
+```
+
+In this version, we restrict the type of `T` to be a subtype of `Number`, ensuring that the type of `s` is always numeric and enabling better performance through type stability.
+
+### Key Points for Ensuring Type Stability
+
+- Use **specific type annotations** whenever possible, especially with parametric types.
+- Avoid mixing types that could lead to ambiguities in the function’s return type.
+- Always initialize variables with types that are known, such as using `zero(T)` for numeric types.
+- When dealing with generic code, try to define methods that narrow the possible types of variables (e.g., `T <: Number`).
+
+Ensuring type stability not only helps with performance but also aids in catching potential type errors early during development.
+
+::: {.callout-note}
+To ensure type stability, the return type of a function should be predictable based on the input types (and not the values), and the types of all variables should be known at compile time.
+:::

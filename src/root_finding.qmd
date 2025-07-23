@@ -1,0 +1,382 @@
+---
+title: "Root-Finding Methods: Bisection and Newton"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+include("activate.jl")
+```
+
+Root-finding methods are fundamental tools in numerical analysis for solving equations of the form $f(x) = 0$. This page introduces two key techniques: the Bisection Method and Newton's Method. Each offers unique strengths and is suited to different problem contexts.
+
+The **Bisection Method** is a robust and straightforward approach that requires only function evaluations, not derivatives. It systematically narrows down the interval containing a root, making it particularly useful when derivative information is unavailable or the function is non-differentiable.
+
+The **Newton Method**, in contrast, leverages derivative information to achieve rapid (quadratic) convergence under appropriate conditions. This efficiency, however, comes at the cost of requiring the computation of derivatives, making it more sensitive to initial guesses and less versatile for certain types of problems.
+
+In this chapter, we explore:
+
+- The principles and implementation of the Bisection Method, along with a coding exercise.
+- Newton's iteration formula, its application, and an exercise to deepen your understanding of this powerful technique.
+
+By the end, you'll have a strong grasp of these foundational methods, paving the way for more advanced numerical algorithms.
+
+## The Bisection Method
+
+The bisection method is an iterative numerical technique for finding a root of a continuous function $f(x)$ on a closed interval $[a, b]$. The method assumes that $f(a)$ and $f(b)$ have opposite signs, which guarantees, by the Intermediate Value Theorem, that there is at least one root in $[a, b]$. The procedure works by repeatedly halving the interval and selecting the subinterval where the sign change occurs. 
+
+### Exercise: Implement the Bisection Method
+
+1. **Objective**: Implement the bisection method in Julia and analyze its behavior.
+
+2. **Function Signature**: Define a function `bisection(f, a, b; tol=1e-12, max_iter=100)` that takes:
+   - A continuous function `f`.
+   - The interval bounds `a` and `b`.
+   - An optional tolerance `tol` for stopping criteria.
+   - An optional maximum number of iterations `max_iter`.
+
+The function should return:
+
+   - An approximation of the root.
+   - The number of iterations performed.
+
+Stopping criteria for the bisection method include:
+
+| **Condition**  | **Description** |
+|----------------|-----------------|
+| The length of the interval $[a, b]$    | $\leq \texttt{tol}$: The interval has shrunk to a size less than or equal to the tolerance. |
+| Function value at midpoint of $[a, b]$ | $\texttt{abs}(f((a + b)/2)) \leq \texttt{tol}$: The function value at the midpoint is close enough to zero. |
+| Maximum number of iterations reached   | The bisection algorithm terminates after reaching the predefined maximum iterations. |
+
+3. **Example Problem**: Use the bisection method to find the root of $f(x) = \cos(x) - x$ on the interval $[0, 1]$.
+
+4. **Analysis**:
+   - Record the approximate root at each iteration.
+   - Calculate the absolute error $|x_k - x^*|$ where $x^* = 0.7390851332151607$ is the true root.
+   - Plot the error on a logarithmic scale and determine the [order and rate of convergence](https://en.wikipedia.org/wiki/Rate_of_convergence).
+
+5. **Discussion**:
+   - Observe the behavior of the error as the iterations progress.
+   - Conclude that the bisection method has a **linear convergence order**.
+
+::: {.callout-tip collapse="true" icon=false}
+### Hint to implement the Bisection Method
+
+- Use a loop to halve the interval and check the signs of $f(a)$, $f(b)$, and $f(\text{midpoint})$.
+- Stop the iterations when $|b - a| / 2 \leq \text{tol}$ or the maximum number of iterations is reached.
+- Handle cases where the initial interval does not satisfy the conditions for the method.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+### Correction for the Bisection Method
+```{julia}
+function bisection(f, a, b; tol=1e-12, max_iter=100)
+    # Check if the initial interval is valid
+    if f(a) * f(b) > 0
+        error("The function must have opposite signs at the endpoints a and b.")
+    end
+    
+    # Initialize variables
+    mid = (a + b) / 2
+    iter_count = 0
+    
+    while (b - a) / 2 > tol && iter_count < max_iter
+        iter_count += 1
+        mid = (a + b) / 2
+        
+        # Check if the midpoint is a root
+        if abs(f(mid)) ≤ tol
+            return mid, iter_count
+        elseif f(a) * f(mid) < 0
+            b = mid  # Root is in [a, mid]
+        else
+            a = mid  # Root is in [mid, b]
+        end
+    end
+    
+    # Return the midpoint as the approximate root
+    return mid, iter_count
+end
+
+# Example usage
+f(x) = cos(x) - x
+root, iterations = bisection(f, 0, 1)
+println("Approximate root: $root")
+println("Evaluated function at the root: $(f(root))")
+println("Number of iterations: $iterations", "\n")
+
+# Exact root for comparison
+exact_root = 0.7390851332151607
+println("Exact root: $exact_root")
+println("Evaluated function at the exact root: $(f(exact_root))")
+println("Absolute error: $(abs(root - exact_root))")
+println("Relative error: $(abs(root - exact_root) / exact_root)")
+```
+:::
+
+::: {.callout-tip collapse="true" icon=false}
+### Hint to Analyze the Bisection Method
+
+You can follow the steps below to analyze the convergence of the bisection method:
+
+- Use a vector to store the midpoints at each iteration for comparison with the exact root.
+- If the true root is known, calculate the absolute error $|x_k - x^*|$ for each midpoint $x_k$.
+- Plot the errors on a logarithmic scale to visualize the linear convergence behavior of the method.
+- Fit a regression line to the log of the errors to estimate the convergence rate. You can use the `Polynomials` package in Julia for this purpose.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+### Correction for Analysis
+
+To analyze the convergence of the bisection method for $f(x) = \cos(x) - x$ on the interval $[0, 1]$, we compute the approximate root at each iteration and calculate the absolute error. Using the exact root $x^* \approx 0.7390851332151607$, we determine the error $|x_k - x^*|$. We also plot the error on a logarithmic scale to observe the convergence behavior.
+
+Below is the Julia code for the analysis:
+
+```{julia}
+using Plots
+
+function bisection_analysis(f, a, b; tol=1e-12, max_iter=100, true_root=nothing)
+    if f(a) * f(b) > 0
+        error("The function must have opposite signs at the endpoints a and b.")
+    end
+
+    midpoints = []
+    errors = []
+    iter_count = 0
+    mid = (a + b) / 2
+    
+    while (b - a) / 2 > tol && iter_count < max_iter
+        iter_count += 1
+        mid = (a + b) / 2
+        push!(midpoints, mid)
+        
+        if !isnothing(true_root)
+            push!(errors, abs(mid - true_root))
+        end
+
+        if abs(f(mid)) ≤ tol
+            break
+        elseif f(a) * f(mid) < 0
+            b = mid
+        else
+            a = mid
+        end
+    end
+    
+    return mid, iter_count, midpoints, errors
+end
+
+# Exact root for reference
+true_root = 0.7390851332151607
+f(x) = cos(x) - x
+root, iterations, midpoints, errors = bisection_analysis(f, 0, 1, true_root=true_root)
+
+# Print the approximate root and error
+println("Approximate root: $root")
+println("Number of iterations: $iterations")
+println("Final error: $(errors[end])", "\n")
+
+# Plot the errors on a logarithmic scale
+plt = plot(1:iterations, errors, yscale=:log10, xlabel="Iteration", ylabel="Absolute Error", 
+    title="Convergence of the Bisection Method", label="Computed Error",
+    seriestype=:scatter, markersize=4, markerstrokewidth=0, z_order=:front)
+
+# Compute by linear regression the convergence rate
+using Polynomials
+line = fit(1:iterations, log10.(errors), 1)
+println("Linear fit: $line")
+println("Convergence rate: $(10^(line.coeffs[2]))")
+
+# add the linear regression line to the plot
+plot!(plt, 1:iterations, 10 .^ line.(1:iterations), label="Linear Regression", 
+    linewidth=2, z_order=:back)
+```
+:::
+
+
+## The Newton Method
+
+The **Newton Method**, or **Newton-Raphson Method**, is an iterative numerical technique for finding roots of a nonlinear equation $f(x) = 0$. Unlike the bisection method, Newton's method leverages the derivative of $f(x)$ to achieve a much faster rate of convergence under suitable conditions. Specifically, it exhibits **quadratic convergence**, meaning the number of accurate decimal places roughly doubles at each iteration once close to the root.
+
+### Newton's Iteration Formula
+
+Given an initial guess $x_0$, the Newton iteration is defined as:
+
+$$
+x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)},
+$$
+
+where $f'(x_k)$ is the derivative of $f(x)$ evaluated at $x_k$. The method relies on the approximation of $f(x)$ by its tangent line at $x_k$. The next iterate $x_{k+1}$ is where this tangent line intersects the $x$-axis.
+
+### Exercise: Apply Newton's Method to Find a Root
+
+1. **Objective**: Use the Newton method to find the root of 
+    $$f(x) = \cos(x) - x,$$ 
+    starting from the initial iterate $x_0 = 0$.
+
+2. **Function Signature**: Define a function `newton(f, df, x0; tol=1e-12, max_iter=100)` that takes:
+   - A continuous function `f`.
+   - Its derivative `df`.
+   - The initial guess `x0`.
+   - An optional tolerance `tol` for stopping criteria.
+   - An optional maximum number of iterations `max_iter`.
+
+The function should return:
+
+   - The approximate root.
+   - The number of iterations performed.
+
+The stopping criteria for the Newton method include:
+
+| **Condition**                                | **Description**                                                                 |
+|----------------------------------------------|---------------------------------------------------------------------------------|
+| Difference between consecutive iterations    | $\texttt{abs}(x_{k+1} - x_k) \leq \texttt{tol}$: The method converges when the change between successive approximations is less than or equal to the tolerance. |
+| Maximum number of iterations reached         | The Newton method terminates after reaching the predefined maximum iterations.  |
+
+
+1. **Example Problem**: Use the Newton method to find the root of $f(x) = \cos(x) - x$ starting at $x_0 = 0$.
+
+2. **Analysis**:
+   - Record the approximate root at each iteration.
+   - Calculate the absolute error $|x_k - x^*|$ where $x^* \approx 0.7390851332151607$ is the true root.
+   - Plot the error on a logarithmic scale and determine the **order of convergence**.
+
+::: {.callout-tip collapse="true" icon=false}
+### Hint for Implementation
+
+- Use the Newton iteration formula to update the guess at each iteration.
+- Stop the iterations when $|x_{k+1} - x_k| \leq \text{tol}$ or the maximum number of iterations is reached.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+### Correction for the Newton Method
+
+```{julia}
+function newton(f, df, x0; tol=1e-12, max_iter=100)
+    xk = x0
+    iter_count = 0
+
+    while iter_count < max_iter
+        iter_count += 1
+        x_next = xk - f(xk) / df(xk)
+
+        # Check if the difference is within the tolerance
+        if abs(x_next - xk) < tol
+            return x_next, iter_count
+        end
+
+        xk = x_next
+    end
+
+    return xk, iter_count
+end
+
+# Example usage
+f(x) = cos(x) - x
+df(x) = -sin(x) - 1
+x0 = 0
+root, iterations = newton(f, df, x0)
+
+println("Approximate root: $root")
+println("Evaluated function at the root: $(f(root))")
+println("Number of iterations: $iterations", "\n")
+
+# Exact root for comparison
+exact_root = 0.7390851332151607
+println("Exact root: $exact_root")
+println("Evaluated function at the exact root: $(f(exact_root))")
+println("Absolute error: $(abs(root - exact_root))")
+println("Relative error: $(abs(root - exact_root) / exact_root)")
+```
+:::
+
+::: {.callout-tip collapse="true" icon=false}
+### Hint for Analysis
+
+You can follow the steps below to analyze the convergence of the Newton method:
+
+- Compute the error at each iteration as $|x_k - x^*|$, where $x^*$ is the known or highly accurate root.
+- Observe the convergence pattern by plotting the error on a logarithmic scale.
+- For Newton's method, quadratic convergence is expected when the initial guess is close to the root and the function is well-behaved (e.g., with a non-zero derivative at the root).
+- Fit a quadratic polynomial to the logarithm of the error to verify quadratic convergence.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+### Correction for Analysis
+
+To analyze the convergence of the Newton method for $f(x) = \cos(x) - x$, we compute the approximate root at each iteration and calculate the absolute error. Using the exact root $x^* \approx 0.7390851332151607$, we determine the error $|x_k - x^*|$. We also plot the error on a logarithmic scale to observe the convergence behavior.
+
+Below is the Julia code for the analysis:
+
+```{julia}
+using Plots
+using Polynomials
+
+function newton_analysis(f, df, x0; tol=1e-12, max_iter=100, true_root=nothing)
+    xk = x0
+    iter_count = 0
+    approximations = []
+    errors = []
+
+    while iter_count < max_iter
+        iter_count += 1
+        x_next = xk - f(xk) / df(xk)
+        push!(approximations, x_next)
+
+        if !isnothing(true_root)
+            push!(errors, abs(x_next - true_root))
+        end
+
+        if abs(x_next - xk) < tol
+            break
+        end
+
+        xk = x_next
+    end
+
+    return approximations, errors
+end
+
+# Exact root for reference
+true_root = 0.7390851332151607
+f(x) = cos(x) - x
+df(x) = -sin(x) - 1
+x0 = 0
+approximations, errors = newton_analysis(f, df, x0, true_root=true_root)
+
+# Exclude zero values for quadratic fitting
+non_zero_errors = filter(e -> e > 0, errors)  # Only non-zero errors
+indices_non_zero = findall(e -> e > 0, errors)  # Indices of non-zero errors
+
+if length(non_zero_errors) > 2
+    # Fit a quadratic polynomial to the log of non-zero errors
+    p = fit(indices_non_zero, log10.(non_zero_errors), 2)  # Fit quadratic to log10 of errors
+    println("Quadratic fit: $p")
+
+    # Replace zero errors with the values predicted by the quadratic fit
+    for i in 1:length(errors)
+        if errors[i] == 0
+            errors[i] = 10^p(i)  # Replace with the fitted value at the iteration
+        end
+    end
+end
+
+# Print the approximate root and error
+println("Approximate root: $(approximations[end])")
+println("Final error: $(errors[end])")
+
+# Create the plot
+plt = plot(1:length(errors), errors, yscale=:log10, xlabel="Iteration", ylabel="Absolute Error", 
+    title="Convergence of the Newton Method", label="Computed Error",
+    seriestype=:scatter, markersize=5, markerstrokewidth=0, z_order=:front)
+
+# Add the fitted quadratic to the plot
+iterations = 1:length(errors)
+fitted_values = 10 .^ p.(iterations)
+plot!(plt, iterations, fitted_values, label="Quadratic Fit", linewidth=2, z_order=:back)
+
+# Show the plot
+display(plt)
+```
+:::

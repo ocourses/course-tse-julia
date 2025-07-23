@@ -1,0 +1,17 @@
+---
+title: "Modules and packages"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+include("activate.jl")
+```
+
+
+## References
+
+- [Modules documentation](https://docs.julialang.org/en/v1/manual/modules/)
+- [Environment documentation](https://pkgdocs.julialang.org/v1/environments/)
+- [Creating packages documentation](https://pkgdocs.julialang.org/v1/creating-packages/)

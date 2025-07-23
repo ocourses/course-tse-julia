@@ -1,0 +1,63 @@
+---
+title: "Why Julia?"
+page-layout: article
+---
+
+Paraphrasing [Why Julia?](https://juliahub.com/assets/pdf/why_julia.pdf), 
+Julia is a fast and expressive programming language, delivering the speed of C++
+and Fortran together with the productivity of Python, MATLAB, and R. This
+fundamentally empowers diverse teams to work together to develop and deploy
+performant programs at scale by solving the [two language problem](https://scientificcoder.com/how-to-solve-the-two-language-problem).
+
+## Benefits of Julia
+
+Julia combines the speed of low-level languages like C++ and Fortran with the productivity of high-level languages like Python, MATLAB, and R. Here are some of its key benefits:
+
+- **High Performance**: Optimized for native compilation, multi-threading, and GPU compute, Julia can achieve speeds close to C++.
+- **High Productivity**: Expressive and dynamic, Julia is up to 100x faster than traditional high-level languages.
+- **Ease of Use**: Clear and simple syntax, making it easy to learn, write, and analyze.
+- **Composability**: Packages are designed to work seamlessly together and with custom code.
+- **Interoperability**: Julia integrates well with languages like Python, R, C++, and Java.
+- **Unified Language**: Supports both prototyping and deployment, solving the two-language problem.
+- **Rich Ecosystem**: More than 10,000 registered packages and a large community of contributors.
+
+## The Two-Language Problem
+
+Traditionally, programming required both a high-level, slower language for prototyping and a low-level, faster language for production, causing inefficiencies. Julia unifies these two needs into one language, allowing:
+
+| Aspect                       | High-Level Language (e.g., Python)    | Low-Level Language (e.g., C++) |
+|------------------------------|---------------------------------------|--------------------------------|
+| **Pros**                     | Easy to write and read               | Fast in production             |
+| **Cons**                     | Slow in production                   | Complex, lengthy code          |
+| **Julia’s Solution**         | Combines ease of high-level with speed of low-level, eliminating the need for separate languages for research and production. |
+
+## Comparisons
+
+If you want to know for instance the date of the first public release, the price and the names of the
+creators of numerical-analysis softwares, please visite the [Wikipedia](https://en.wikipedia.org/wiki/Comparison_of_numerical-analysis_software) page.
+
+Julia is made for scientific computing as shown by the table below which compares some languages in terms
+of differential equation solvers. For more details visit this [page](https://www.stochasticlifestyle.com/comparison-differential-equation-solver-suites-matlab-r-julia-python-c-fortran/).
+
+:::{.column-page}
+  <a href="./images/de_solver_software_comparsion.pdf">
+    <img class="centering" width="100%" style="max-width:1400px" src="./images/de_solver_software_comparsion.png"/>
+  </a>
+:::
+
+You can find [here](https://github.com/sswatson/cheatsheets) cheatsheets. One interesting is the comparison with Python and R.
+
+:::{.column-page}
+<a href="./images/jpr-cheatsheet.pdf">
+  <img class="centering" width="100%" style="max-width:1400px" src="./images/jpr-cheatsheet.png"/>
+</a>
+:::
+
+One goal of Julia is to be efficient and high-level. This is illustrated by the following figure 
+given by the [Mandelbrot benchmark project](https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/mandelbrot.html#mandelbrot).
+
+:::{.column-page}
+<a href="./images/comparison.png">
+  <img class="centering" width="80%" style="max-width:800px" src="./images/comparison-big.png"/>
+</a>
+:::
