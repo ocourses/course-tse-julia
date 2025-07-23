@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Interoperability – Julia course</title>
+<title>Why Julia? – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../M1/performance.html" rel="next">
-<link href="../M1/metaprogramming.html" rel="prev">
+<link href="../src/syntax.html" rel="next">
+<link href="../src/foretaste_of_julia_code.html" rel="prev">
 <link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -73,11 +73,17 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../assets/css/styles.css">
-<meta property="og:title" content="Interoperability – Julia course">
-<meta property="og:image" content="https://ocourses.github.io/course-tse-julia/M1/assets/images/logo-julia.png">
+<meta property="og:title" content="Why Julia? – Julia course">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://ocourses.github.io/course-tse-julia/src/images/de_solver_software_comparsion.png">
 <meta property="og:site_name" content="Julia course">
-<meta name="twitter:title" content="Interoperability – Julia course">
-<meta name="twitter:image" content="https://ocourses.github.io/course-tse-julia/M1/assets/images/logo-julia.png">
+<meta property="og:image:height" content="3556">
+<meta property="og:image:width" content="5187">
+<meta name="twitter:title" content="Why Julia? – Julia course">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://ocourses.github.io/course-tse-julia/src/images/de_solver_software_comparsion.png">
+<meta name="twitter:image-height" content="3556">
+<meta name="twitter:image-width" content="5187">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -99,12 +105,8 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../M1/index.html" aria-current="page"> 
-<span class="menu-text">Master 1</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../M2/index.html"> 
-<span class="menu-text">Master 2</span></a>
+    <a class="nav-link active" href="../src/index.html" aria-current="page"> 
+<span class="menu-text">Content of the course</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -118,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/type_stability.html">Work in progress</a></li><li class="breadcrumb-item"><a href="../M1/interoperability.html">Interoperability</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/index.html">Content of the course</a></li><li class="breadcrumb-item"><a href="../src/why_julia.html">Why Julia?</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -132,8 +134,8 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../M1/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Master 1</span></a>
+            <a href="../src/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Content of the course</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -141,37 +143,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/getting_started.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/getting_started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/foretaste_of_julia_code.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/foretaste_of_julia_code.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foretaste of Julia Code</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/why_julia.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/why_julia.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Why Julia?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/syntax.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/syntax.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Syntax Essentials and Scoping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/basic-types.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/basic-types.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Basic Types and Data Structures</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/advanced-types.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/advanced-types.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Type System and Error Handling</span></a>
   </div>
 </li>
@@ -186,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/root_finding.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/root_finding.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Root-Finding Methods</span></a>
   </div>
 </li>
@@ -195,52 +197,52 @@ ul.task-list li input[type="checkbox"] {
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Work in progress</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/type_stability.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/type_stability.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Type Stability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/multiple_dispatch.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/multiple_dispatch.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Methods and Multiple Dispatch</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/modules_and_packages.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/modules_and_packages.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Modules and Packages</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/metaprogramming.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/metaprogramming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Metaprogramming</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/interoperability.html" class="sidebar-item-text sidebar-link active">
+  <a href="../src/interoperability.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interoperability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/performance.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/performance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Performance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../M1/miscellaneous.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/miscellaneous.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Miscellaneous</span></a>
   </div>
 </li>
@@ -258,16 +260,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
+  <li><a href="#benefits-of-julia" id="toc-benefits-of-julia" class="nav-link active" data-scroll-target="#benefits-of-julia">Benefits of Julia</a></li>
+  <li><a href="#the-two-language-problem" id="toc-the-two-language-problem" class="nav-link" data-scroll-target="#the-two-language-problem">The Two-Language Problem</a></li>
+  <li><a href="#comparisons" id="toc-comparisons" class="nav-link" data-scroll-target="#comparisons">Comparisons</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/M1/interoperability.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/M1/interoperability.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/src/why_julia.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/src/why_julia.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../M1/index.html">Master 1</a></li><li class="breadcrumb-item"><a href="../M1/type_stability.html">Work in progress</a></li><li class="breadcrumb-item"><a href="../M1/interoperability.html">Interoperability</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/index.html">Content of the course</a></li><li class="breadcrumb-item"><a href="../src/why_julia.html">Why Julia?</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Interoperability</h1>
+<h1 class="title">Why Julia?</h1>
 </div>
 
 
@@ -284,12 +288,70 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Paraphrasing <a href="https://juliahub.com/assets/pdf/why_julia.pdf">Why Julia?</a>, Julia is a fast and expressive programming language, delivering the speed of C++ and Fortran together with the productivity of Python, MATLAB, and R. This fundamentally empowers diverse teams to work together to develop and deploy performant programs at scale by solving the <a href="https://scientificcoder.com/how-to-solve-the-two-language-problem">two language problem</a>.</p>
+<section id="benefits-of-julia" class="level2">
+<h2 class="anchored" data-anchor-id="benefits-of-julia">Benefits of Julia</h2>
+<p>Julia combines the speed of low-level languages like C++ and Fortran with the productivity of high-level languages like Python, MATLAB, and R. Here are some of its key benefits:</p>
 <ul>
-<li><a href="https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/">Calling C and Fortran Code</a></li>
-<li><a href="https://forem.julialang.org/ifihan/interoperability-in-julia-1m26">Calling Python, R, and Other Languages</a></li>
+<li><strong>High Performance</strong>: Optimized for native compilation, multi-threading, and GPU compute, Julia can achieve speeds close to C++.</li>
+<li><strong>High Productivity</strong>: Expressive and dynamic, Julia is up to 100x faster than traditional high-level languages.</li>
+<li><strong>Ease of Use</strong>: Clear and simple syntax, making it easy to learn, write, and analyze.</li>
+<li><strong>Composability</strong>: Packages are designed to work seamlessly together and with custom code.</li>
+<li><strong>Interoperability</strong>: Julia integrates well with languages like Python, R, C++, and Java.</li>
+<li><strong>Unified Language</strong>: Supports both prototyping and deployment, solving the two-language problem.</li>
+<li><strong>Rich Ecosystem</strong>: More than 10,000 registered packages and a large community of contributors.</li>
 </ul>
+</section>
+<section id="the-two-language-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-two-language-problem">The Two-Language Problem</h2>
+<p>Traditionally, programming required both a high-level, slower language for prototyping and a low-level, faster language for production, causing inefficiencies. Julia unifies these two needs into one language, allowing:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 38%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspect</th>
+<th>High-Level Language (e.g., Python)</th>
+<th>Low-Level Language (e.g., C++)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pros</strong></td>
+<td>Easy to write and read</td>
+<td>Fast in production</td>
+</tr>
+<tr class="even">
+<td><strong>Cons</strong></td>
+<td>Slow in production</td>
+<td>Complex, lengthy code</td>
+</tr>
+<tr class="odd">
+<td><strong>Julia’s Solution</strong></td>
+<td>Combines ease of high-level with speed of low-level, eliminating the need for separate languages for research and production.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="comparisons" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="comparisons">Comparisons</h2>
+<p>If you want to know for instance the date of the first public release, the price and the names of the creators of numerical-analysis softwares, please visite the <a href="https://en.wikipedia.org/wiki/Comparison_of_numerical-analysis_software">Wikipedia</a> page.</p>
+<p>Julia is made for scientific computing as shown by the table below which compares some languages in terms of differential equation solvers. For more details visit this <a href="https://www.stochasticlifestyle.com/comparison-differential-equation-solver-suites-matlab-r-julia-python-c-fortran/">page</a>.</p>
+<div class="column-page">
+<p><a href="./images/de_solver_software_comparsion.pdf"> <img class="centering" width="100%" style="max-width:1400px" src="./images/de_solver_software_comparsion.png"> </a></p>
+</div>
+<p>You can find <a href="https://github.com/sswatson/cheatsheets">here</a> cheatsheets. One interesting is the comparison with Python and R.</p>
+<div class="column-page">
+<p><a href="./images/jpr-cheatsheet.pdf"> <img class="centering" width="100%" style="max-width:1400px" src="./images/jpr-cheatsheet.png"> </a></p>
+</div>
+<p>One goal of Julia is to be efficient and high-level. This is illustrated by the following figure given by the <a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/mandelbrot.html#mandelbrot">Mandelbrot benchmark project</a>.</p>
+<div class="column-page">
+<p><a href="./images/comparison.png"> <img class="centering" width="80%" style="max-width:800px" src="./images/comparison-big.png"> </a></p>
+</div>
 
 
 </section>
@@ -696,13 +758,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../M1/metaprogramming.html" class="pagination-link" aria-label="Metaprogramming">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Metaprogramming</span>
+      <a href="../src/foretaste_of_julia_code.html" class="pagination-link" aria-label="Foretaste of Julia Code">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Foretaste of Julia Code</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../M1/performance.html" class="pagination-link" aria-label="Performance">
-        <span class="nav-page-text">Performance</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../src/syntax.html" class="pagination-link" aria-label="Syntax Essentials and Scoping">
+        <span class="nav-page-text">Syntax Essentials and Scoping</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -713,8 +775,8 @@ ul.task-list li input[type="checkbox"] {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright 2024, Olivier Cots</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/M1/interoperability.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/M1/interoperability.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p>Copyright 2025, Olivier Cots</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/src/why_julia.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/src/why_julia.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
