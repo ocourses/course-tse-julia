@@ -153,13 +153,13 @@ window.Quarto = {
 <link rel="stylesheet" href="../assets/css/styles.css">
 <meta property="og:title" content="Julia Syntax Essentials and Variable Scoping – Julia course">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://ocots.github.io/course-tse-julia/M1/images/cheatsheet-julia.png">
+<meta property="og:image" content="https://ocourses.github.io/course-tse-julia/M1/images/cheatsheet-julia.png">
 <meta property="og:site_name" content="Julia course">
 <meta property="og:image:height" content="986">
 <meta property="og:image:width" content="1008">
 <meta name="twitter:title" content="Julia Syntax Essentials and Variable Scoping – Julia course">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://ocots.github.io/course-tse-julia/M1/images/cheatsheet-julia.png">
+<meta name="twitter:image" content="https://ocourses.github.io/course-tse-julia/M1/images/cheatsheet-julia.png">
 <meta name="twitter:image-height" content="986">
 <meta name="twitter:image-width" content="1008">
 <meta name="twitter:card" content="summary_large_image">
@@ -193,7 +193,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-    <a href="https://github.com/ocots/course-tse-julia" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://github.com/ocourses/course-tse-julia" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -393,7 +393,7 @@ window.Quarto = {
   <li><a href="#exercise-instructions" id="toc-exercise-instructions" class="nav-link" data-scroll-target="#exercise-instructions">Exercise Instructions</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/syntax.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/syntax.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/M1/syntax.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/M1/syntax.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -443,18 +443,18 @@ Tip
 <section id="assignment" class="level3">
 <h3 class="anchored" data-anchor-id="assignment">Assignment</h3>
 <p>In Julia, <a href="https://docs.julialang.org/en/v1/manual/variables/">variables</a> are assigned using the <code>=</code> operator:</p>
-<div id="13b1c143" class="cell" data-execution_count="2">
+<div id="4459efbe" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">5</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="st">"Hello, Julia!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Julia is dynamically typed, which means variables do not require explicit type declarations. Types are inferred based on the assigned value.</p>
-<div id="d12ede60" class="cell" data-execution_count="3">
+<div id="aae968d8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="86">
 <pre><code>Int64</code></pre>
 </div>
 </div>
-<div id="30ff1563" class="cell" data-execution_count="4">
+<div id="5dcee75a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="87">
 <pre><code>String</code></pre>
@@ -465,7 +465,7 @@ Tip
 <section id="unicode-characters" class="level3">
 <h3 class="anchored" data-anchor-id="unicode-characters">Unicode Characters</h3>
 <p>Julia supports Unicode characters, enhancing code readability, especially for mathematical and scientific computations:</p>
-<div id="956bf51c" class="cell" data-execution_count="5">
+<div id="7e3a34c7" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>α <span class="op">=</span> <span class="fl">10</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>β <span class="op">=</span> α <span class="op">+</span> <span class="fl">5</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"β = </span><span class="sc">$</span><span class="st">β")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -478,7 +478,7 @@ Tip
 <section id="comments" class="level3">
 <h3 class="anchored" data-anchor-id="comments">Comments</h3>
 <p>Comments are written with the <code>#</code> symbol. Julia also supports multiline comments with <code>#=</code> and <code>=#</code>:</p>
-<div id="e93a6e38" class="cell" data-execution_count="6">
+<div id="237f9b09" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a single-line comment</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#= </span></span>
@@ -490,7 +490,7 @@ Tip
 <section id="printing-output" class="level3">
 <h3 class="anchored" data-anchor-id="printing-output">Printing Output</h3>
 <p>For debugging or displaying results, Julia provides the println function:</p>
-<div id="8756c9a2" class="cell" data-execution_count="7">
+<div id="48afd0a0" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Hello, Julia!"</span>)  <span class="co"># Prints: Hello, Julia!</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"The value of α is "</span>, α)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -499,7 +499,7 @@ The value of α is 10</code></pre>
 </div>
 </div>
 <p>Additionally, the <code>@show</code> macro prints both variable names and values:</p>
-<div id="0a92d830" class="cell" data-execution_count="8">
+<div id="f21451a4" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">42</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@show</span> x   <span class="co"># Prints: x = 42</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -507,7 +507,7 @@ The value of α is 10</code></pre>
 </div>
 </div>
 <p>You can also use <code>@show</code> with multiple variables or expressions:</p>
-<div id="8e6afd30" class="cell" data-execution_count="9">
+<div id="b334c637" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">10</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">20</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@show</span> a <span class="op">+</span> b  <span class="co"># Prints: a + b = 30</span></span>
@@ -564,7 +564,7 @@ The value of α is 10</code></pre>
 </tbody>
 </table>
 <p>Examples:</p>
-<div id="8cb94882" class="cell" data-execution_count="10">
+<div id="d8ed15af" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5</span> <span class="op">==</span> <span class="fl">5</span>     <span class="co"># true</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fl">5</span> <span class="op">!=</span> <span class="fl">3</span>     <span class="co"># true</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fl">5</span> <span class="op">≠</span> <span class="fl">3</span>      <span class="co"># true (using Unicode)</span></span>
@@ -590,7 +590,7 @@ julia&gt; 5 === 5.0 = false</code></pre>
 <li><p><strong>Immutable Types:</strong> For immutable types like <code>Int</code>, <code>Float64</code>, etc., <code>===</code> and <code>==</code> usually give the same result since identical values are often the same instance.</p></li>
 <li><p><strong>Performance:</strong> <code>===</code> is generally faster than <code>==</code> because it doesn’t need to do a value comparison, just a memory location check. This is particularly useful when checking if a value is a specific singleton (e.g., <code>x === nothing</code>).</p></li>
 </ul>
-<div id="1f1d993c" class="cell" data-execution_count="11">
+<div id="5a67cd3b" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">1</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">1</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">===</span> b  <span class="co"># true, since 1 is an immutable integer, they are identical instances</span></span>
@@ -621,7 +621,7 @@ julia&gt; x === [1, 2] = false</code></pre>
 <section id="conditional-statements" class="level3">
 <h3 class="anchored" data-anchor-id="conditional-statements">Conditional Statements</h3>
 <p>Julia supports <code>if</code>, <code>elseif</code>, and <code>else</code> for conditional checks:</p>
-<div id="46656a81" class="cell" data-execution_count="12">
+<div id="db83127d" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">10</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&gt;</span> <span class="fl">5</span></span>
@@ -653,7 +653,7 @@ Tip
 <section id="ternary-operator" class="level3">
 <h3 class="anchored" data-anchor-id="ternary-operator">Ternary Operator</h3>
 <p>For simple conditional assignments, Julia has a ternary operator <code>? :</code>:</p>
-<div id="99449044" class="cell" data-execution_count="13">
+<div id="1ec643ed" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (x <span class="op">&gt;</span> <span class="fl">5</span>) ? <span class="st">"Greater"</span> <span class="op">:</span> <span class="st">"Not greater"</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(y)  <span class="co"># Outputs "Greater" if x &gt; 5, otherwise "Not greater"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -694,7 +694,7 @@ Tip
 </tr>
 </tbody>
 </table>
-<div id="2f60614b" class="cell" data-execution_count="14">
+<div id="b76d8c3e" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="cn">true</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="cn">false</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -714,7 +714,7 @@ julia&gt; !a = false</code></pre>
 <h3 class="anchored" data-anchor-id="loops">Loops</h3>
 <p>Julia provides <code>for</code> and <code>while</code> loops for iterative tasks.</p>
 <p><strong>For Loop</strong>: The <code>for</code> loop iterates over a range or collection:</p>
-<div id="bcd9a310" class="cell" data-execution_count="15">
+<div id="ab7b4edd" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -741,7 +741,7 @@ Note
 </div>
 </div>
 <p><strong>While Loop</strong>: The <code>while</code> loop executes as long as a condition is true:</p>
-<div id="8d8b08e9" class="cell" data-execution_count="16">
+<div id="ef5286b0" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="fl">1</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> count <span class="op">&lt;=</span> <span class="fl">5</span></span>
@@ -765,7 +765,7 @@ Note
 <li><code>break</code> exits the loop completely.</li>
 <li><code>continue</code> skips the current iteration and moves to the next one.</li>
 </ul>
-<div id="0c301cb5" class="cell" data-execution_count="17">
+<div id="443b1afa" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="fl">3</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span>  <span class="co"># Skips the number 3</span></span>
@@ -779,7 +779,7 @@ Note
 5</code></pre>
 </div>
 </div>
-<div id="df1068e1" class="cell" data-execution_count="18">
+<div id="678183e4" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="fl">4</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span>  <span class="co"># Exits the loop when i is 4</span></span>
@@ -807,7 +807,7 @@ Note
 <li><strong>Multiplication</strong>: <code>*</code></li>
 <li><strong>Division</strong>: <code>/</code> (returns a floating-point result) and <code>//</code> (returns a rational number)</li>
 </ul>
-<div id="9fbfce16" class="cell" data-execution_count="19">
+<div id="a638b0e3" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">10</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">3</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -830,7 +830,7 @@ julia&gt; rational = 10//3</code></pre>
 <section id="modulo-operation" class="level3">
 <h3 class="anchored" data-anchor-id="modulo-operation">Modulo Operation</h3>
 <p>The modulo operator <code>%</code> returns the remainder of a division operation. It is useful for determining if a number is even or odd, or for wrapping around values.</p>
-<div id="c9a696ba" class="cell" data-execution_count="20">
+<div id="bc98fec4" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>modulus_result <span class="op">=</span> a <span class="op">%</span> b  <span class="co"># remainder of 10 divided by 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="103">
 <pre><code>1</code></pre>
@@ -840,7 +840,7 @@ julia&gt; rational = 10//3</code></pre>
 <section id="exponentiation" class="level3">
 <h3 class="anchored" data-anchor-id="exponentiation">Exponentiation</h3>
 <p>You can perform exponentiation using the <code>^</code> operator.</p>
-<div id="9dba99a2" class="cell" data-execution_count="21">
+<div id="2042482a" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>a<span class="op">^</span><span class="fl">2</span>          <span class="co"># 10 squared</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="104">
 <pre><code>100</code></pre>
@@ -850,7 +850,7 @@ julia&gt; rational = 10//3</code></pre>
 <section id="using-arithmetic-in-control-flow" class="level3">
 <h3 class="anchored" data-anchor-id="using-arithmetic-in-control-flow">Using Arithmetic in Control Flow</h3>
 <p>You can combine arithmetic operations with control flow statements. For example, you can use the modulo operation to check if a number is even or odd:</p>
-<div id="823815f8" class="cell" data-execution_count="22">
+<div id="38bbb6e6" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a <span class="op">%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>a<span class="st"> is even"</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
@@ -920,7 +920,7 @@ julia&gt; rational = 10//3</code></pre>
 <section id="defining-functions" class="level3">
 <h3 class="anchored" data-anchor-id="defining-functions">Defining Functions</h3>
 <p>Functions in Julia can be defined using either the <code>function</code> keyword or the assignment syntax.</p>
-<div id="bc3a1a77" class="cell" data-execution_count="23">
+<div id="6c4cd565" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the `function` keyword</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(a, b)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
@@ -944,7 +944,7 @@ julia&gt; multiply(2, 3) = 6</code></pre>
 <li><p><strong>Positional Arguments</strong>: These are listed first in the parameter list and must be provided in the correct order when the function is called. Positional arguments can have default values, but it’s not required.</p></li>
 <li><p><strong>Keyword Arguments</strong>: Keyword arguments are specified after a semicolon (<code>;</code>) in the parameter list. These arguments must be provided by name when calling the function. Like positional arguments, keyword arguments can have default values, but they don’t have to.</p></li>
 </ul>
-<div id="a75541ff" class="cell" data-execution_count="24">
+<div id="e37c3003" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">greet</span>(name; punctuation <span class="op">=</span> <span class="st">"!"</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Hello, "</span> <span class="op">*</span> name <span class="op">*</span> punctuation</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -961,7 +961,7 @@ Hello, Alice?</code></pre>
 <section id="variable-number-of-arguments" class="level3">
 <h3 class="anchored" data-anchor-id="variable-number-of-arguments">Variable Number of Arguments</h3>
 <p>Julia functions can accept an arbitrary number of arguments using the splatting operator <code>...</code>. These arguments are gathered into a tuple.</p>
-<div id="094cc767" class="cell" data-execution_count="25">
+<div id="bb4715f0" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum_all</span>(args<span class="op">...</span>)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="fl">0</span></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> args</span>
@@ -979,7 +979,7 @@ Hello, Alice?</code></pre>
 <section id="default-values-for-optional-arguments" class="level3">
 <h3 class="anchored" data-anchor-id="default-values-for-optional-arguments">Default Values for Optional Arguments</h3>
 <p>In Julia, you can assign default values to both positional and keyword arguments. When the function is called without specifying a value for an argument with a default, the default value is used.</p>
-<div id="6925ff72" class="cell" data-execution_count="26">
+<div id="10f792a4" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">power</span>(base, exponent<span class="op">=</span><span class="fl">2</span>)</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> base <span class="op">^</span> exponent</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -995,7 +995,7 @@ julia&gt; power(3, 3) = 27</code></pre>
 <section id="multiple-optional-positional-arguments" class="level3">
 <h3 class="anchored" data-anchor-id="multiple-optional-positional-arguments">Multiple Optional Positional Arguments</h3>
 <p>When a function has multiple optional positional arguments, Julia will use the default values for any arguments not provided, allowing flexible combinations.</p>
-<div id="9d30e222" class="cell" data-execution_count="27">
+<div id="31b24712" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calculate</span>(a<span class="op">=</span><span class="fl">1</span>, b<span class="op">=</span><span class="fl">2</span>, c<span class="op">=</span><span class="fl">3</span>)</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b <span class="op">*</span> c</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -1036,7 +1036,7 @@ Tip
 <section id="mutation-and-the-bang-convention" class="level3">
 <h3 class="anchored" data-anchor-id="mutation-and-the-bang-convention">Mutation and the Bang <code>!</code> Convention</h3>
 <p>In Julia, functions that modify or mutate their arguments typically end with a <code>!</code>, following the <a href="https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention">“bang” convention</a>. This is not enforced by the language but is a widely followed convention in Julia to indicate mutation.</p>
-<div id="eea95e90" class="cell" data-execution_count="28">
+<div id="8cfe3341" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add_one!</span>(array)</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(array)</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>        array[i] <span class="op">+=</span> <span class="fl">1</span></span>
@@ -1057,7 +1057,7 @@ julia&gt; arr = [2, 3, 4]</code></pre>
 <section id="broadcasting" class="level3">
 <h3 class="anchored" data-anchor-id="broadcasting">Broadcasting</h3>
 <p>Julia supports <strong>broadcasting</strong>, a powerful feature that applies a function element-wise to arrays or other collections. Broadcasting is denoted by a <code>.</code> placed before the function call or operator.</p>
-<div id="4aa6167c" class="cell" data-execution_count="29">
+<div id="efa06d01" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a simple function</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">square</span>(x)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">^</span><span class="fl">2</span></span>
@@ -1097,7 +1097,7 @@ Squared vector: [1, 4, 9, 16]</code></pre>
 <ul>
 <li><strong>Global Scope</strong>: Variables defined at the top level of a module or script are in the global scope and can be accessed from anywhere in that file. However, modifying global variables from within functions is generally discouraged.</li>
 </ul>
-<div id="f58ccf9e" class="cell" data-execution_count="30">
+<div id="bee60e95" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>global_var <span class="op">=</span> <span class="fl">10</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">access_global</span>()</span>
@@ -1112,7 +1112,7 @@ Squared vector: [1, 4, 9, 16]</code></pre>
 <ul>
 <li><strong>Local Scope</strong>: Variables defined within a function or a block (e.g., loops or conditionals) have local scope and cannot be accessed outside of that block.</li>
 </ul>
-<div id="288b5294" class="cell" data-execution_count="31">
+<div id="abeaf3ca" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">local_scope_example</span>()</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    local_var <span class="op">=</span> <span class="fl">5</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> local_var</span>
@@ -1124,7 +1124,7 @@ Squared vector: [1, 4, 9, 16]</code></pre>
 </div>
 </div>
 <p>If you try to access <code>local_var</code> outside the function, you will get an error because it is not defined in the global scope.</p>
-<div id="abaa9866" class="cell" data-execution_count="32">
+<div id="d0058676" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>local_var  <span class="co"># This would cause an error, as local_var is not accessible here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>LoadError: UndefVarError: `local_var` not defined in `Main`
@@ -1138,7 +1138,7 @@ Suggestion: check for spelling errors or missing imports.</code></pre>
 <h3 class="anchored" data-anchor-id="scope-of-variables-in-for-loops">Scope of Variables in <code>for</code> Loops</h3>
 <p>In Julia, a <code>for</code> loop <em>does</em> create a new local scope for its loop variable when inside a function or another local scope. This means that a variable used as the loop variable will not overwrite an existing global variable with the same name in that context.</p>
 <p>Here’s an example:</p>
-<div id="52bc4b9a" class="cell" data-execution_count="33">
+<div id="f9ee556c" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="fl">10</span>  <span class="co"># Define a global variable `i`</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
@@ -1159,7 +1159,7 @@ Outside loop: i = 10</code></pre>
 <section id="nested-scopes" class="level3">
 <h3 class="anchored" data-anchor-id="nested-scopes">Nested Scopes</h3>
 <p>Julia allows for nested functions, which can access variables in their enclosing scopes. This is known as lexical scoping.</p>
-<div id="b9ab4501" class="cell" data-execution_count="34">
+<div id="79892bba" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">outer_function</span>(x)</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="fl">2</span></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">inner_function</span>(z)</span>
@@ -1182,7 +1182,7 @@ Outside loop: i = 10</code></pre>
 <section id="example-using-a-global-variable-vs.-capturing-a-variable-in-a-closure" class="level4">
 <h4 class="anchored" data-anchor-id="example-using-a-global-variable-vs.-capturing-a-variable-in-a-closure">Example: Using a Global Variable vs.&nbsp;Capturing a Variable in a Closure</h4>
 <p>To illustrate the difference between referencing a global variable and capturing a variable in a closure, let’s first create a function that uses a global variable:</p>
-<div id="8b4e186e" class="cell" data-execution_count="35">
+<div id="7390b16d" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">2</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply_by_global</span>(x)</span>
@@ -1209,7 +1209,7 @@ julia&gt; multiply_by_global(5) = 15</code></pre>
 <section id="example-capturing-a-variable-in-a-closure" class="level4">
 <h4 class="anchored" data-anchor-id="example-capturing-a-variable-in-a-closure">Example: Capturing a Variable in a Closure</h4>
 <p>Now, let’s use a closure to capture the <code>factor</code> variable inside a function. Here, the captured value of <code>factor</code> remains fixed at the time the closure was created, regardless of changes to the variable afterward.</p>
-<div id="ed4ace44" class="cell" data-execution_count="36">
+<div id="f9a402cd" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_multiplier</span>(factor)</span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x) <span class="op">-&gt;</span> x <span class="op">*</span> factor  <span class="co"># Returns a closure that captures `factor`</span></span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -1293,7 +1293,7 @@ Correction of Exercise 1: Temperature Converter
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="0d7d1b62" class="cell" data-execution_count="37">
+<div id="ecb389f2" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">convert_temperature</span>(value; unit)</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unit <span class="op">==</span> <span class="st">"C"</span></span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value <span class="op">*</span> <span class="fl">9</span><span class="op">/</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">32</span>  <span class="co"># Convert Celsius to Fahrenheit</span></span>
@@ -1353,7 +1353,7 @@ Correction of Exercise 2: Factorial Function with Closure
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="25e93c37" class="cell" data-execution_count="38">
+<div id="137a7073" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_factorial</span>()</span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="fl">0</span> <span class="co"># Variable to keep track of calls</span></span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">factorial</span>(n<span class="op">::</span><span class="dt">Int</span>)</span>
@@ -1419,7 +1419,7 @@ Correction of Exercise 3: Filter Even Numbers
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="464c27f4" class="cell" data-execution_count="39">
+<div id="793157e1" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">is_even</span>(x)</span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span></span>
 <span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -1530,7 +1530,7 @@ Correction of Exercise 3: Filter Even Numbers
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ocots\.github\.io\/course-tse-julia\/");
+        var filterRegex = new RegExp("https:\/\/ocourses\.github\.io\/course-tse-julia\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1877,7 +1877,7 @@ Correction of Exercise 3: Filter Even Numbers
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024, Olivier Cots</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocots/course-tse-julia/edit/main/M1/syntax.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocots/course-tse-julia/blob/main/M1/syntax.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocots/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/M1/syntax.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/M1/syntax.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
