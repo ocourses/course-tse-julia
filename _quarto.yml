@@ -51,7 +51,7 @@ website:
     type: overlay
     keyboard-shortcut: ["?", "H"]
   page-footer: 
-    center: "Copyright 2024, Olivier Cots"
+    center: "Copyright 2025, Olivier Cots"
   navbar:
     background: light
     logo: assets/images/logo-julia.svg
