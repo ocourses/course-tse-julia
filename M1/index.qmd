@@ -6,6 +6,8 @@ listing:
   id: M1-links
   template: ../assets/ejs/links.ejs
   contents: M1.yml
+sidebar: false 
+page-navigation: false
 ---
 
 This course is adressed to the students of the Master 1 "Econométrie, Statistiques" of Toulouse School of Economics. 
