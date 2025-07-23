@@ -1,0 +1,12 @@
+{
+  "hash": "3f2c1ea0bb50a6a857eb3b884c2467ba",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Metaprogramming and introspection in Julia\"\npage-layout: article\njupyter: julia-1.11\n---\n\n\n\n## References\n\n- [Metaprogramming documentation](https://docs.julialang.org/en/v1/manual/metaprogramming/)\n- [Reflective programming](https://en.wikipedia.org/wiki/Reflective_programming)\n\n",
+    "supporting": [
+      "metaprogramming_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
