@@ -509,7 +509,7 @@ One commonly used standard library is [`LinearAlgebra`](https://docs.julialang.o
 
 The `LinearAlgebra` library can be used to compute the norm of a vector. Here's how you can do that:
 
-```julia
+```{julia}
 using LinearAlgebra
 
 # Define a vector
