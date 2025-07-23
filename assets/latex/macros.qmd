@@ -1,0 +1,19 @@
+<!-- Add this at the top of the qmd to get access to macros: {{< include ../../assets/latex/macros.qmd >}} -->
+
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+\newcommand{\frp}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\veps}{\varepsilon}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\fonction}[5]{
+    \begin{array}{rcll}
+        #1 \colon & #2 & \longrightarrow & #3 \\
+                  & #4 & \longmapsto     & #5
+    \end{array}
+}

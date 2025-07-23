@@ -98,6 +98,97 @@ ul.task-list li input[type="checkbox"] {
     }
   })
   </script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script>
+
+    // fonction pour cacher les menus de navigation
+    function hideNavbar() {
+        // Sélection des éléments par leur ID
+        const sidebar = document.getElementById('quarto-sidebar');
+        const marginSidebar = document.getElementById('quarto-margin-sidebar');
+        const documentContent = document.getElementById('quarto-document-content');
+
+        // Cacher les éléments
+        sidebar.style.visibility = 'hidden';
+        marginSidebar.style.visibility = 'hidden';
+        documentContent.className = 'content column-page';
+    }
+
+    // fonction pour rendre visibles les menus de navigation
+    function showNavbar() {
+        // Sélection des éléments par leur ID
+        const sidebar = document.getElementById('quarto-sidebar');
+        const marginSidebar = document.getElementById('quarto-margin-sidebar');
+        const documentContent = document.getElementById('quarto-document-content');
+
+        // Rendre visibles les éléments
+        sidebar.style.visibility = 'visible';
+        marginSidebar.style.visibility = 'visible';
+        documentContent.className = 'content';
+    }
+
+    // fonction pour basculer la visibilité des menus de navigation
+    function toggleHideNavbar() {
+        // Sélection des éléments par leur ID
+        const sidebar = document.getElementById('quarto-sidebar');
+        const marginSidebar = document.getElementById('quarto-margin-sidebar');
+
+        // Si le menu de navigation est visible, le cacher
+        if (sidebar.style.visibility === 'visible') {
+            hideNavbar();
+        } else {
+            showNavbar();
+        }
+    }
+
+    // fonction pour ajouter des écouteurs d'événements pour basculer la visibilité des menus de navigation
+    function addEventListenerToToggleHideNavbar() {
+
+        // Ajout aux objets de la classe 'quarto-reader-toggle' d'un écouteur d'événements pour le clic
+        document.querySelectorAll('.quarto-reader-toggle').forEach(function(element) {
+            element.addEventListener('click', function() {
+                toggleHideNavbar();
+                return false;
+            });
+        });
+
+        // Ajout d'un écouteur d'événements pour la touche 'r'
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'l') {
+                window.quartoToggleReader();
+                toggleHideNavbar();
+                return false;
+            }
+        });
+    }
+
+    // fonction pour cacher les menus de navigation lors du chargement de la page si 
+    // la classe 'quarto-reader-toggle' est accompagnée de la classe 'reader'
+    // (c'est-à-dire si le mode de lecture est activé)
+    // sinon, on affiche les menus de navigation
+    function hideNavbarIfReader() {
+        if (document.querySelector('.quarto-reader-toggle.reader')) {
+            hideNavbar();
+        } else {
+            showNavbar();
+        }
+    }
+
+    // Ajout d'un écouteur d'événements pour le chargement de la page
+    if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+    ) {
+        // call on next available tick
+        setTimeout(addEventListenerToToggleHideNavbar, 1);
+        setTimeout(hideNavbarIfReader, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", addEventListenerToToggleHideNavbar);
+        document.addEventListener("DOMContentLoaded", hideNavbarIfReader);
+    }
+
+</script>
+<script src="https://unpkg.com/freezeframe/dist/freezeframe.min.js"></script>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -179,6 +270,11 @@ window.Quarto = {
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
     <a href="https://github.com/ocourses/course-tse-julia" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -702,4 +798,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

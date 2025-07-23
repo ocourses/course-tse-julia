@@ -21,6 +21,7 @@ main.content #title-block-header{
     align-items: center;
     margin: auto;
     z-index:100;
+    text-align: center;
 }
 
 #particles-js {
@@ -38,14 +39,16 @@ main.content #title-block-header{
 
 .logo {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .title-block-content .logo .img-inp{
-    height: 140px;
+    height: 100px;
 }
 
 .title-block-content .logo .img-tse{
-    height: 160px;
+    height: 120px;
 }
 
 @media (max-width: 1000px) {
@@ -63,11 +66,11 @@ main.content #title-block-header{
     }
 
     .title-block-content .logo .img-inp{
-        height: 100px;
+        height: 80px;
     }
     
     .title-block-content .logo .img-tse{
-        height: 120px;
+        height: 100px;
     }
 }
 
@@ -79,11 +82,11 @@ main.content #title-block-header{
     }
 
     .title-block-content .logo .img-inp{
-        height: 100px;
+        height: 80px;
     }
     
     .title-block-content .logo .img-tse{
-        height: 120px;
+        height: 100px;
     }
 }
 
@@ -96,10 +99,10 @@ main.content #title-block-header{
     }
 
     .title-block-content .logo .img-inp{
-        height: 80px;
+        height: 60px;
     }
     
     .title-block-content .logo .img-tse{
-        height: 100px;
+        height: 80px;
     }
 }
