@@ -38,9 +38,9 @@ website:
   favicon: assets/images/logo-julia.svg
   open-graph: true
   twitter-card: true
-  site-url: https://ocots.github.io/course-tse-julia/
-  repo-url: https://github.com/ocots/course-tse-julia
-  issue-url: https://github.com/ocots/course-tse-julia/issues/new/choose
+  site-url: https://ocourses.github.io/course-tse-julia/
+  repo-url: https://github.com/ocourses/course-tse-julia
+  issue-url: https://github.com/ocourses/course-tse-julia/issues/new/choose
   repo-actions: [edit, source, issue]
   page-navigation: true
   back-to-top-navigation: true
@@ -51,7 +51,7 @@ website:
     type: overlay
     keyboard-shortcut: ["?", "H"]
   page-footer: 
-    center: "Copyright 2024, Olivier Cots"
+    center: "Copyright 2025, Olivier Cots"
   navbar:
     background: light
     logo: assets/images/logo-julia.svg
@@ -59,63 +59,48 @@ website:
     title: false
     tools:
       - icon: github
-        href: https://github.com/ocots/course-tse-julia
+        href: https://github.com/ocourses/course-tse-julia
     left:
-      - text: "Master 1"
-        href: M1/index.qmd
-      - text: "Master 2"
-        href: M2/index.qmd
+      - text: "Content of the course"
+        href: src/index.qmd
   sidebar:
     - id: M1
       style: "floating"
       collapse-level: 2
       contents:
-        - section: "Master 1"
-          href: M1/index.qmd
+        - section: "Content of the course"
+          href: src/index.qmd
           contents:
             - text: Getting started
-              href: M1/getting_started.qmd
+              href: src/getting_started.qmd
             - text: Foretaste of Julia Code
-              href: M1/foretaste_of_julia_code.qmd
+              href: src/foretaste_of_julia_code.qmd
             - text: Why Julia?
-              href: M1/why_julia.qmd
+              href: src/why_julia.qmd
             - text: Syntax Essentials and Scoping
-              href: M1/syntax.qmd
+              href: src/syntax.qmd
             - text: Basic Types and Data Structures
-              href: M1/basic-types.qmd
+              href: src/basic-types.qmd
             - text: Type System and Error Handling
-              href: M1/advanced-types.qmd
+              href: src/advanced-types.qmd
             - section: "Applications"
               contents: 
                 - text: Root-Finding Methods
-                  href: M1/root_finding.qmd
+                  href: src/root_finding.qmd
             - text: "---"
             - section: "Work in progress"
               contents: 
                 - text: Type Stability
-                  href: M1/type_stability.qmd
+                  href: src/type_stability.qmd
                 - text: Methods and Multiple Dispatch
-                  href: M1/multiple_dispatch.qmd
+                  href: src/multiple_dispatch.qmd
                 - text: Modules and Packages
-                  href: M1/modules_and_packages.qmd
+                  href: src/modules_and_packages.qmd
                 - text: Metaprogramming
-                  href: M1/metaprogramming.qmd
+                  href: src/metaprogramming.qmd
                 - text: Interoperability
-                  href: M1/interoperability.qmd
+                  href: src/interoperability.qmd
                 - text: Performance
-                  href: M1/performance.qmd
+                  href: src/performance.qmd
                 - text: Miscellaneous
-                  href: M1/miscellaneous.qmd
-    - id: M2
-      collapse-level: 3
-      contents:
-        - section: "Master 2"
-          href: M2/index.qmd
-          contents:
-            - section: "Tutorials"
-              contents:
-                - text: Distribution of random variables
-                  href: M2/exercices-distribution_of_random_variables.qmd
-                - text: Linear regression
-                  href: M2/exercices-linear_regression.qmd
-            - text: "---"
+                  href: src/miscellaneous.qmd
