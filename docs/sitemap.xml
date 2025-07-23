@@ -2,74 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/interoperability.html</loc>
-    <lastmod>2024-11-17T17:53:19.181Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.512Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/test.html</loc>
-    <lastmod>2024-11-17T21:17:26.888Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.517Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/foretaste_of_julia_code.html</loc>
-    <lastmod>2024-11-17T10:33:19.027Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.478Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/advanced-types.html</loc>
-    <lastmod>2024-12-05T17:13:32.523Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.475Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/miscellaneous.html</loc>
-    <lastmod>2024-11-17T22:25:16.537Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.513Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/index.html</loc>
-    <lastmod>2025-07-23T20:44:10.962Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.511Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/syntax.html</loc>
-    <lastmod>2025-07-23T14:58:27.610Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.517Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/type_stability.html</loc>
-    <lastmod>2024-11-17T22:42:47.540Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocourses.github.io/course-tse-julia/about.html</loc>
-    <lastmod>2024-11-20T21:52:41.098Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.517Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/index.html</loc>
-    <lastmod>2025-07-23T20:59:44.575Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.473Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/basic-types.html</loc>
-    <lastmod>2024-11-17T22:29:31.158Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.476Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/why_julia.html</loc>
-    <lastmod>2024-12-05T17:03:43.409Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.518Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/getting_started.html</loc>
-    <lastmod>2025-07-23T20:40:53.821Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.478Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/metaprogramming.html</loc>
-    <lastmod>2024-11-17T22:24:29.305Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.512Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/performance.html</loc>
-    <lastmod>2024-11-17T17:43:50.122Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.515Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/modules_and_packages.html</loc>
-    <lastmod>2024-11-17T17:47:17.267Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.514Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/root_finding.html</loc>
-    <lastmod>2024-11-27T11:09:30.990Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.515Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/multiple_dispatch.html</loc>
-    <lastmod>2024-11-17T21:56:10.639Z</lastmod>
+    <lastmod>2025-07-23T21:03:46.514Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocourses.github.io/course-tse-julia/assets/latex/macros.html</loc>
+    <lastmod>2025-07-23T21:21:07.939Z</lastmod>
   </url>
 </urlset>

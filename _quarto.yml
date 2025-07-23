@@ -4,7 +4,7 @@ project:
   resources: 
     - assets/json/*
   preview:
-    port: 4201
+    port: 4200
     browser: true
     watch-inputs: true
 
@@ -17,6 +17,9 @@ filters:
 
 format:
   html:
+    include-in-header:
+      - file: assets/html/toggle-hide-navbar.html
+      - file: assets/html/freezeframe.html
     theme:
       light: [cosmo, assets/css/theme-quarto.scss]      
     css: 
@@ -27,6 +30,7 @@ format:
     html-math-method: katex
     number-sections: false
     code-fold: false
+    smooth-scroll: true
     grid:
       sidebar-width: 250px
       body-width: 900px
@@ -36,6 +40,7 @@ website:
   title: "Julia course"
   image: assets/images/logo-julia.png
   favicon: assets/images/logo-julia.svg
+  reader-mode: true
   open-graph: true
   twitter-card: true
   site-url: https://ocourses.github.io/course-tse-julia/
