@@ -503,8 +503,8 @@ nothing #| hide
 
 Let us look at an example. A `Duck` is an object that can be described as follows:
 
-- state: name (`name::String`) and number of feathers (`nb::Int32`);
-- location: Position on a 2-D grid (`pt::Point`).
+- state: a name (`name::String`) and number of feathers (`nb::Int32`);
+- location: a position on a 2-D grid (`pt::Point`).
 
 In order to create a `Duck`, it is necessary to define the object (as seen previously with `Point`).
 
@@ -560,6 +560,8 @@ Let us try to create a `Duck` called "Scrooge" now.
 #| error: true
 scrooge = Duck("Scrooge", 5000, 0., 1.)
 ```
+
+Great an error was thrown!
 
 ### Function-like Object (Callable `struct`)
 
