@@ -1825,17 +1825,46 @@ In order to limit data transfers between the CPU and RAM, there are intermediate
 
 $$[CPU] \Leftrightarrow [Registers] \Leftrightarrow [Caches] \Leftrightarrow [RAM] \Leftrightarrow [DISK]$$
 
-## Type-stability
+::: {.callout-caution collapse="true" icon=false}
+## The documentation of Julia mentions "Multidimensional arrays in Julia are stored in column-major order". We wish to sum the elements of a matrix. How to write a cache-efficient program to do this computation?
+
+In column-major order, the elements of each column are stored contiguously in memory. When the CPU accesses data, it pulls in cache lines (typically 64 bytes) from RAM into cache. So access patterns matter a lot.
+
+##### Cache-Friendly Access
+```{julia}
+#| eval: false
+sum = 0.
+for j in 1:n
+    for i in 1:m
+        sum = sum + A[i,j]
+    end
+end
+```
+
+##### Cache-Unfriendly Access
+```{julia}
+#| eval: false
+sum = 0.
+for i in 1:m
+    for j in 1:n
+        sum = sum + A[i,j]
+    end
+end
+```
+Each inner loop iteration skips over columns, which are non-contiguous in memory. This induces so called cache misses. 
+:::
+
+## Typing and performance
 
 *(Ref. Chris Rackauckas)*
 
-Common knowledge has it that Julia is fast because it is JIT compiled. The actual reason is the *type inference* algorithm executed before the compiler combined with *type specialization* in functions. 
+Common knowledge has it that Julia is fast because it is Just-in-Time (JIT) compiled. The actual reason is the *type inference* algorithm executed before the compiler combined with *type specialization* in functions. 
 
 Recall the *hardware* point of view. Let a CPU instruction read a value from a register. *How to interpret the memory of that value?* 
 
-This is straight forward if the instruction has the type information. An 64 bit integer and floating point number require the same memory space. However, this memory chunck is interpreted differently. The binary representation of the integer is `[sign bit][value in two's complement on 63 bits]` and `[sign bit][11 exponent bits][52 mantissa bits]` for a floating point number. This is what happens with C or Fortran code. 
+This is straight forward if the instruction has the type information. Take a 64 bit integer and a 64 bit floating point number. They require the same memory space. However, the associated memory chunck is interpreted differently. The binary representation of that integer is `[sign bit][value in two's complement on 63 bits]` and `[sign bit][11 exponent bits][52 mantissa bits]` for the floating point number. This is what happens when writing code in the C or Fortran languages, which require explicit typing.
 
-The type should be quired when unknown by the instruction. Then the associated set of operations for this type should be loaded. This is what happens with Python code. 
+In a dynamic typed language such as Python, the interpreter must operate type checks at runtime for every operation. Then the associated set of instructions for this type should be loaded. Leaving aside typing in Python makes it accessible for beginners. However, this introduces a significant execution time overhead.
 
 ::: {.callout-tip icon=false}
 
@@ -1845,7 +1874,9 @@ Type inference reduces runtime.
 
 :::
 
-Let us have a look at what can be done from a Julia *software* programming point of view. Providing hints to the type inference algorithm allows us to maximize fast executing CPU instructions. The global scope of the REPL is too dynamic to be optimized. 
+### Hinting the type
+
+In the Julia programming language, type information is not mandatory. Let us examine, from the *software* perspective, how providing hints to the type inference algorithm allows us to maximize fast executing. First, let's try to understand what the type inference algorithm is trying to do.
 
 ```{julia}
 a = 2
@@ -1855,11 +1886,11 @@ a+b
 ::: {.callout-caution collapse="true" icon=false}
 ## How does the type inference algorithm proceed on this code snipped?
 
-The value associated to `a` is the constant integer `2`. The value associated to `b` is the constant integer `3`. By the definition of the `+` operation on two integers, the result is an integer.
+The value associated to `a` is the constant integer `2`. The value associated to `b` is the constant integer `3`. By the definition of the `+` operation on two integers, the result is an integer. 
 
 :::
 
-The type of `a` and `b` was found here by human knowledge. The type inference algorithm would have associated `Any` to both `a` and `b`. Since the type of those variables could asynchronously change within the REPL, further in this section type inference in functions is only presented.
+The type of `a` and `b` was found here by human knowledge. The type inference algorithm would have associated `Any` to both `a` and `b`. Indeed, the global scope of the REPL is too dynamic to be optimized. Further in thid section we will, thus, only consider type inference in functions.
 
 ```{julia}
 function f(a,b)
@@ -1867,18 +1898,20 @@ function f(a,b)
 end
 ```
 
-At first glance, we have written one single function. Actually, different functions will be used depending on the type of the input values. This can be seen by looking at the generated CPU instructions for different executions. To be more precice, we will look at the intermediate representation (IR) generated by the LLVM Julia compiler. 
+Function `f` adds input variables `a` and `b`, for which no type hints are provided. Using `@code_llvm`, let us have a look at the associated CPU instructions for input variables of different types. *The instructions generated by the compiler bellow are not in the Assembly language but in the intermediate representation (IR). It could be seen as a hardware agnostic Assembly language.*
 
+First, we run `f` to sum two integers, `1+2`.
 ```{julia}
 @code_llvm f(1,2)
-```
+``` 
 
+Then, we run `f` to sum two floating point numbers, `1.5+2.5`.
 ```{julia}
 @code_llvm f(1.5,2.5)
 ```
 
 ::: {.callout-caution collapse="true" icon=false}
-## How do the input types impact the output type of `f`?
+## How does the type of the input variables influence the type of the returned value?
 
 The function `f(Int64, Int64)` produces an `i64` in register `%0`. `i64` refers to an integer value stored on 64 bits.
 
@@ -1887,28 +1920,30 @@ Similarly, `f(Float64, Float64)` produces a `double`. The term `double` is equiv
 
 :::
 
-Let us have a look at what happens when we mix types in the function call.
+Let us have a look at what happens when we mix types in the function call. We run `f` to add an integer `1` and a floating point number `2.5`.
 
 ```{julia}
 @code_llvm f(1,2.5)
 ```
 
-We can see the term *promote* in the output. This means the compiler decided to convert the input integer to a floating point number in order to compute the sum of two `Float64`. This choice has nothing to do with the typing hierarchy seens earlier in this lecture. The true reason is that casting a `Float64` to an `Int64` is ambiguous. 
+We can see the term *promote* in the output. This means the compiler decided to convert the input integer to a floating point number in order to compute the sum of two `Float64`. This choice has nothing to do with the typing hierarchy seens earlier in this lecture. The true reason is that casting a `Float64` to an `Int64` is ambiguous. Indeed, rounding down `2.5` produces the integer `2` and rounding up the integer `3`. The sum `1+2` and `1+3` does, anyway, not produce the expected result `1+2.5=3.5`.
 
-The following function breaks type stability. 
+### Type stability
+
+In the previous examples, identifying the type of the returned value was a relatively straightforward process. Let us examine the function `h`, which breaks type stability. We are interested in understanding the reasons behind this problem and techniques to prevent it in our own code, with the aim of achieving optimal performance.
 
 ```{julia}
 function h(x,y)
-  out = x + y
-  if out < 2
-    return out
+  z = x + y
+  if z < 2
+    return z
   else
-    return Float64(out)
+    return Float64(z)
   end
 end
 ```
 
-This is illustrated using `@code_warntype`.
+Using `@code_warntype` provides type labels for all the variables of a function. We are particularly interested in the type returned by `h`.
 
 ```{julia}
 @code_warntype h(2,5)
@@ -1917,7 +1952,7 @@ This is illustrated using `@code_warntype`.
 ::: {.callout-caution collapse="true" icon=false}
 ## Why does `h` break type stability?
 
-The type of the output of `h`, either `Int64` or `Float64`, does not depend on the type of the input parameters but on the value of their sum `x + y`. This information can not be predicted at compile time. The compiler can only restrict the output to `Union{Float64, Int64}`.
+The type of the output of `h` is said to be `Union{Float64, Int64}`. Whether it is `Int64` or `Float64` does not depend on the type of the input variables. The output type is determined by the value of the `x + y` sum. This information can not be predicted at compile time since it depends on the values for which `h` called. Thus, the compiler can only restrict the output to `Union{Float64, Int64}`.
 :::
 
 This leads us to the following general rule. 
