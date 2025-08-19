@@ -17,3 +17,5 @@
   links:
     - text: Root-Finding Methods
       href: root_finding.qmd
+    - text: Machine Learning
+      href: machine_learning.qmd
