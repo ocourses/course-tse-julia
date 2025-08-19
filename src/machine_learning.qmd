@@ -9,6 +9,8 @@ jupyter: julia-1.11
 include("activate.jl")
 ```
 
+*(Ref. Huda Nasser, [Julia Academy - Data Science](https://juliaacademy.com/p/julia-for-data-science/))*
+
 In this chapter, we will explore the fundamentals of **machine learning** by working with the **MNIST** dataset — a classic benchmark in computer vision. The MNIST dataset consists of 70,000 handwritten digits (0 through 9), split into 60,000 training images and 10,000 testing images. Each image is a grayscale 28×28 pixel image, making it ideal for experimenting with classification models.
 
 The Julia language offers powerful packages, including *Flux.jl* (for building neural networks), *MLDatasets.jl* (to access standard datasets) and *OneHotArrays* (for target batching). Throughout, the exercise we will use a set of tools (*Images.jl*, *ImageInTerminal.jl*, *Plots.jl*) in order to make visual cheks along the process. 
@@ -98,7 +100,7 @@ The network is not able to determine which digit is associated to this image. Th
 You can start by having a look at the training function within *Flux.jl* in the following way. 
 
 ```{julia}
-#| echo: false
+#| output: false 
 ? Flux.train!
 ```
 
@@ -128,7 +130,7 @@ nothing #| hide
 
 The `dataset` storage constructed in the cell above tells us to train for 200 epochs. This means that the network will see the training data 200 times.
 
-Let's *train* the neural network now!
+Let's **train** the neural network now!
 
 ```{julia}
 Flux.train!(loss, m, dataset, optimizer)
@@ -143,7 +145,37 @@ tgt = d_train.targets[1]
 println("Image classified as ", cls, " with target ", tgt, ".")
 ```
 
-### Test
+Great! Let us now have a look under the hood of `Flux.train!`. What is happening in the training loop?
+
+- Take a subset of input data with associated targets: a batch;
+- Determine whether the model `m` predicts well the targets: use the loss function;
+- Find out which direction each model parameter should move to: compute the gradient of the loss with respect to each parameter;
+- Adjust the parameters using the gradients and an optimizer.
+
+::: {.callout-caution collapse="true" icon=false}
+## Write manually the training loop based on above stated steps using *Flux.jl* utilities like `gradient`, `Flux.trainable` and `Flux.Optimise.update!`.
+
+
+```{julia}
+#| eval: false
+opt = Flux.setup(Adam(), m)
+loss(x, y) = Flux.Losses.crossentropy(x, y)
+
+# Training loop
+for epoch in 1:200
+    grads = Flux.gradient(m) do model
+      result = model(v_train)
+      loss(result, Y)
+    end
+    Flux.update!(opt, m, grads[1])
+    println("Epoch $epoch | Loss: ", loss(m(v_train), Y))
+end
+```
+
+What happens when you replace the `Adam()` optimizer by a standard `Descent()`? Or the loss by a Mean Square Error (MSE)? Can you find the available loss functions in the `Flux` package documentation?
+:::
+
+## Testing
 
 We can now evaluate our trained neural network on unseen data, the so-called test dataset.
 
@@ -159,61 +191,24 @@ end
 nothing #| hide
 ```
 
-TO DO: Visualisation avec boxplot ou violinplot
-       Mettre sous-forme d'exercice avec des questions réponses
-
-::: {.callout-tip collapse="true" icon=false}
-### Hint to implement the Bisection Method
-
-- Use a loop to halve the interval and check the signs of $f(a)$, $f(b)$, and $f(\text{midpoint})$.
-- Stop the iterations when $|b - a| / 2 \leq \text{tol}$ or the maximum number of iterations is reached.
-- Handle cases where the initial interval does not satisfy the conditions for the method.
-:::
+The results seem pretty good at first glance.
 
 ::: {.callout-caution collapse="true" icon=false}
-### Correction for the Bisection Method
+## Generate a violin plot of the predicted probability associated to the target digit for the images in the test dataset. Use the *Plots.jl* documentation to do so. 
+
+As you may have noticed, the *Plots.jl* documentation is build upon examples. Many recent documentations begin with examples before moving on to the general definition.  
+
 ```{julia}
-function bisection(f, a, b; tol=1e-12, max_iter=100)
-    # Check if the initial interval is valid
-    if f(a) * f(b) > 0
-        error("The function must have opposite signs at the endpoints a and b.")
-    end
-    
-    # Initialize variables
-    mid = (a + b) / 2
-    iter_count = 0
-    
-    while (b - a) / 2 > tol && iter_count < max_iter
-        iter_count += 1
-        mid = (a + b) / 2
-        
-        # Check if the midpoint is a root
-        if abs(f(mid)) ≤ tol
-            return mid, iter_count
-        elseif f(a) * f(mid) < 0
-            b = mid  # Root is in [a, mid]
-        else
-            a = mid  # Root is in [mid, b]
-        end
-    end
-    
-    # Return the midpoint as the approximate root
-    return mid, iter_count
-end
+using StatsPlots
 
-# Example usage
-f(x) = cos(x) - x
-root, iterations = bisection(f, 0, 1)
-println("Approximate root: $root")
-println("Evaluated function at the root: $(f(root))")
-println("Number of iterations: $iterations", "\n")
+# Array with probabilities associated to target digits for each image
+val = [m(reshape(d_test.features[:,:,i],784))[d_test.targets[i]+1] for i in 1:length(d_test.targets)]
 
-# Exact root for comparison
-exact_root = 0.7390851332151607
-println("Exact root: $exact_root")
-println("Evaluated function at the exact root: $(f(exact_root))")
-println("Absolute error: $(abs(root - exact_root))")
-println("Relative error: $(abs(root - exact_root) / exact_root)")
+group = fill("MNIST-Test", length(val))
+
+violin(group, val, legend=false, title="Violin Plot", ylabel="Target digit probability")
 ```
+
+What do you think about the models performance based on the violin plot generated by the lines of code above?
 :::
 
