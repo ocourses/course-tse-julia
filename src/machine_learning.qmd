@@ -172,7 +172,7 @@ for epoch in 1:200
 end
 ```
 
-What happens when you replace the `Adam()` optimizer by a standard `Descent()`? Or the loss by a Mean Square Error (MSE)? Can you find the available loss functions in the `Flux` package documentation?
+What happens when you replace the `Adam()` optimizer by a standard `Descent()`? Or the loss by a Mean Square Error (MSE)? Can you find the available loss functions in the *Flux.jl* package documentation?
 :::
 
 ## Testing
