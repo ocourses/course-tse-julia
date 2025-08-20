@@ -645,6 +645,24 @@ Pkg.activate(".")
 ```
 :::
 
+### Sneak peek behind the scenes
+
+In practice, a **package** is a collection of organized code, which often includes one or more modules, along with additional resources like documentation and tests. Packages are designed to be reusable and shareable, enabling users to install and integrate them into different projects. 
+
+A **module**, on the other hand, serves as a namespace that helps organize code into logical units while preventing naming conflicts. It isolates its contents from the global scope, ensuring a clean and structured codebase. But these are concepts we will go deeper into later in this lecture.
+
+```julia
+module MyModule
+export my_function
+
+function my_function(x)
+    return x + 1
+end
+end
+```
+
+Within a package, modules are accessed using the `using` keyword, allowing you to leverage the functionality provided by the module in your own code.
+
 ### Conclusion
 
 Working with packages is essential to leveraging Julia’s powerful ecosystem. Understanding how to install, update, and remove packages, as well as using environments to manage project-specific dependencies, will help you make the most out of Julia's vast libraries.
