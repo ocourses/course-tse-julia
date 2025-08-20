@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Why Julia? – Julia course</title>
+<title>Machine Learning – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../src/syntax.html" rel="next">
-<link href="../src/foretaste_of_julia_code.html" rel="prev">
+<link href="../src/root_finding.html" rel="prev">
 <link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -163,17 +196,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../assets/css/styles.css">
-<meta property="og:title" content="Why Julia? – Julia course">
+<meta property="og:title" content="Machine Learning – Julia course">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://ocourses.github.io/course-tse-julia/src/images/de_solver_software_comparsion.png">
+<meta property="og:image" content="https://ocourses.github.io/course-tse-julia/src/assets/images/logo-julia.png">
 <meta property="og:site_name" content="Julia course">
-<meta property="og:image:height" content="3556">
-<meta property="og:image:width" content="5187">
-<meta name="twitter:title" content="Why Julia? – Julia course">
+<meta name="twitter:title" content="Machine Learning – Julia course">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://ocourses.github.io/course-tse-julia/src/images/de_solver_software_comparsion.png">
-<meta name="twitter:image-height" content="3556">
-<meta name="twitter:image-width" content="5187">
+<meta name="twitter:image" content="https://ocourses.github.io/course-tse-julia/src/assets/images/logo-julia.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -215,7 +244,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/getting_started.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/why_julia.html">Why Julia?</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/root_finding.html">Applications</a></li><li class="breadcrumb-item"><a href="../src/machine_learning.html">Machine Learning</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -250,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../src/why_julia.html" class="sidebar-item-text sidebar-link active">
+  <a href="../src/why_julia.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Why Julia?</span></a>
   </div>
 </li>
@@ -291,7 +320,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../src/machine_learning.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/machine_learning.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Machine Learning</span></a>
   </div>
 </li>
@@ -307,18 +336,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#benefits-of-julia" id="toc-benefits-of-julia" class="nav-link active" data-scroll-target="#benefits-of-julia">Benefits of Julia</a></li>
-  <li><a href="#the-two-language-problem" id="toc-the-two-language-problem" class="nav-link" data-scroll-target="#the-two-language-problem">The Two-Language Problem</a></li>
-  <li><a href="#comparisons" id="toc-comparisons" class="nav-link" data-scroll-target="#comparisons">Comparisons</a></li>
+  <li><a href="#mnist-dataset" id="toc-mnist-dataset" class="nav-link active" data-scroll-target="#mnist-dataset">MNIST dataset</a></li>
+  <li><a href="#neural-network" id="toc-neural-network" class="nav-link" data-scroll-target="#neural-network">Neural network</a>
+  <ul class="collapse">
+  <li><a href="#preprocess-the-dataset" id="toc-preprocess-the-dataset" class="nav-link" data-scroll-target="#preprocess-the-dataset">Preprocess the dataset</a></li>
+  <li><a href="#set-up-the-neural-network" id="toc-set-up-the-neural-network" class="nav-link" data-scroll-target="#set-up-the-neural-network">Set-up the neural network</a></li>
+  </ul></li>
+  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training">Training</a></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/src/why_julia.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/src/why_julia.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/src/machine_learning.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/src/machine_learning.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/getting_started.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/why_julia.html">Why Julia?</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/root_finding.html">Applications</a></li><li class="breadcrumb-item"><a href="../src/machine_learning.html">Machine Learning</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Why Julia?</h1>
+<h1 class="title">Machine Learning</h1>
 </div>
 
 
@@ -335,69 +369,170 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Paraphrasing <a href="https://juliahub.com/assets/pdf/why_julia.pdf">Why Julia?</a>, Julia is a fast and expressive programming language, delivering the speed of C++ and Fortran together with the productivity of Python, MATLAB, and R. This fundamentally empowers diverse teams to work together to develop and deploy performant programs at scale by solving the <a href="https://scientificcoder.com/how-to-solve-the-two-language-problem">two language problem</a>.</p>
-<section id="benefits-of-julia" class="level2">
-<h2 class="anchored" data-anchor-id="benefits-of-julia">Benefits of Julia</h2>
-<p>Julia combines the speed of low-level languages like C++ and Fortran with the productivity of high-level languages like Python, MATLAB, and R. Here are some of its key benefits:</p>
+<p><em>(Ref. Huda Nasser, <a href="https://juliaacademy.com/p/julia-for-data-science/">Julia Academy - Data Science</a>)</em></p>
+<p>In this chapter, we will explore the fundamentals of <strong>machine learning</strong> by working with the <strong>MNIST</strong> dataset — a classic benchmark in computer vision. The MNIST dataset consists of 70,000 handwritten digits (0 through 9), split into 60,000 training images and 10,000 testing images. Each image is a grayscale 28×28 pixel image, making it ideal for experimenting with classification models.</p>
+<p>The Julia language offers powerful packages, including <em>Flux.jl</em> (for building neural networks), <em>MLDatasets.jl</em> (to access standard datasets) and <em>OneHotArrays</em> (for target batching). Throughout, the exercise we will use a set of tools (<em>Images.jl</em>, <em>ImageInTerminal.jl</em>, <em>Plots.jl</em>) in order to make visual cheks along the process.</p>
+<p>The exercise in this chapter will guide you through the following steps:</p>
+<ol type="1">
+<li>Load and visualize the MNIST dataset;</li>
+<li>Preprocess the data for model training;</li>
+<li>Build and train a simple machine learning model (here a neural network);</li>
+<li>Evaluate the model’s performance on unseen data.</li>
+</ol>
+<section id="mnist-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="mnist-dataset">MNIST dataset</h2>
+<p>The MNIST dataset can be retrieved from the <em>MLDatasets.jl</em> package. Let us load the training dataset.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">MLDatasets</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>d_train <span class="op">=</span> <span class="fu">MNIST</span>(split<span class="op">=:</span>train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Before going further, we checkout what the data we work on looks like.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Images</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ImageInTerminal</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colorview</span>(Gray,d_train.features[<span class="op">:</span>,<span class="op">:</span>,<span class="fl">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It turns out unclear at moments which digit is handwrittent on the image. To clarify this, we can look at the label associated to the image.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d_train.targets[<span class="fl">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="neural-network">Neural network</h2>
+<p>A neural network is a type of machine learning model inspired by the structure and function of the human brain. It is composed of layers of interconnected nodes called neurons, which work together to process data, recognize patterns, and make predictions.</p>
+<p>At its core, a neural network learns to approximate complex functions by adjusting the weights and biases of these connections based on the data it sees.</p>
+<p>A standard neural network for the MNIST dataset to start of with has the following structure:</p>
+<p><strong>Input (784)</strong> ⟶ <strong>Dense (32)</strong> ⟶ <strong>ReLU</strong> ⟶ <strong>Dense (10)</strong> ⟶ <strong>Softmax</strong> ⟶ <strong>Output (Digit 0–9)</strong></p>
+<p>The 28-by-28 gray-scale images are flattened into a 784 element vector. No activation function is applied at this stage — the input is just passed to the next layer. The input data is passed to a 32-neuron hidden layer which computes a weighted sum of the inputs, adds a bias, and passes the result through an activation function, here ReLU (Rectified Linear Unit) to introduce non-linearity. The output layer has 10 neurons to be consistent with the 10 possible targets (0 through 9). This being a classification task of the handwritten digit, we use a Softmax activation function to convert the outputs into probabilities that sum to 1.</p>
+<section id="preprocess-the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="preprocess-the-dataset">Preprocess the dataset</h3>
+<p>The neural network we will be using in this exercise requires a 1D-vector of length 784 input. Let us flatten the matrices representing the images of our dataset using <em>Flux.jl</em>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Flux</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>v_train <span class="op">=</span> Flux.<span class="fu">flatten</span>(d_train.features)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cn">nothing</span> <span class="co">#| hide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now we make use of <em>OneHotArrays.jl</em> to transform the target array to vectors of 10 elements with 1 at the index of the target digit.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OneHotArrays</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> <span class="fu">onehotbatch</span>(d_train.targets,<span class="fl">0</span><span class="op">:</span><span class="fl">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="set-up-the-neural-network" class="level3">
+<h3 class="anchored" data-anchor-id="set-up-the-neural-network">Set-up the neural network</h3>
+<p>Here we simply translate the neural network schematic to Julia language code.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="fu">Chain</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">Dense</span>(<span class="fl">28</span><span class="op">*</span><span class="fl">28</span>,<span class="fl">32</span>,relu),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">Dense</span>(<span class="fl">32</span>,<span class="fl">10</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>          softmax</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cn">nothing</span> <span class="co">#| hide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>What happens if we apply this neural network to one of the images?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">m</span>(v_train[<span class="op">:</span>,<span class="fl">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The network is not able to determine which digit is associated to this image. The weights and biases of the connections between the neurons have not get been adjusted since the neurol network we created as not yet been <em>trained</em>.</p>
+</section>
+</section>
+<section id="training" class="level2">
+<h2 class="anchored" data-anchor-id="training">Training</h2>
+<p>You can start by having a look at the training function within <em>Flux.jl</em> in the following way.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>? Flux.train!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Take care when changing package version to have a look at the major changes. For instance, from version 0.14 of <em>Flux.jl</em> on the syntax for <code>Flux.train!</code> changed. Indeed, it went from <code>Flux.train!(loss, params(model), data, opt)</code> to <code>Flux.train!(loss, model, data, opt_state)  # using the new "setup" from Optimisers.jl</code>.</p>
+</div>
+</div>
+<p>When a neural network makes predictions (like classifying an image as a “3” instead of a “7”), we need a way to measure the difference between the predicted output and the actual (true) target.</p>
+<p>The loss function provides this measure. It returns a numerical value that represents the “error” — the higher the value, the worse the prediction. Since we have a classification problem in this exercise, a typical loss choice is the cross-entropy loss.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss</span>(m,x, y) <span class="op">=</span> Flux.Losses.<span class="fu">crossentropy</span>(<span class="fu">m</span>(x),y)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cn">nothing</span> <span class="co">#| hide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To properly train the neural network we wish to minimize the loss function. To do so, we will be using a variant of gradient descent called ADAM.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> Flux.<span class="fu">setup</span>(<span class="fu">Adam</span>(), m)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cn">nothing</span> <span class="co">#| hide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When training a neural network, we often need to go over the training data multiple times. Each full pass over the training data is called an epoch.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">IterTools</span>: ncycle</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> <span class="fu">ncycle</span>([(v_train, Y)], <span class="fl">200</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cn">nothing</span> <span class="co">#| hide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>dataset</code> storage constructed in the cell above tells us to train for 200 epochs. This means that the network will see the training data 200 times.</p>
+<p>Let’s <strong>train</strong> the neural network now!</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Flux.<span class="fu">train!</span>(loss, m, dataset, optimizer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>So, does it work better than previously on our first image?</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tst <span class="op">=</span> <span class="fu">m</span>(v_train[<span class="op">:</span>,<span class="fl">1</span>])</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cls <span class="op">=</span> <span class="fu">argmax</span>(tst)<span class="op">-</span><span class="fl">1</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tgt <span class="op">=</span> d_train.targets[<span class="fl">1</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Image classified as "</span>, cls, <span class="st">" with target "</span>, tgt, <span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Great! Let us now have a look under the hood of <code>Flux.train!</code>. What is happening in the training loop?</p>
 <ul>
-<li><strong>High Performance</strong>: Optimized for native compilation, multi-threading, and GPU compute, Julia can achieve speeds close to C++.</li>
-<li><strong>High Productivity</strong>: Expressive and dynamic, Julia is up to 100x faster than traditional high-level languages.</li>
-<li><strong>Ease of Use</strong>: Clear and simple syntax, making it easy to learn, write, and analyze.</li>
-<li><strong>Composability</strong>: Packages are designed to work seamlessly together and with custom code.</li>
-<li><strong>Interoperability</strong>: Julia integrates well with languages like Python, R, C++, and Java.</li>
-<li><strong>Unified Language</strong>: Supports both prototyping and deployment, solving the two-language problem.</li>
-<li><strong>Rich Ecosystem</strong>: More than 10,000 registered packages and a large community of contributors.</li>
+<li>Take a subset of input data with associated targets: a batch;</li>
+<li>Determine whether the model <code>m</code> predicts well the targets: use the loss function;</li>
+<li>Find out which direction each model parameter should move to: compute the gradient of the loss with respect to each parameter;</li>
+<li>Adjust the parameters using the gradients and an optimizer.</li>
 </ul>
-</section>
-<section id="the-two-language-problem" class="level2">
-<h2 class="anchored" data-anchor-id="the-two-language-problem">The Two-Language Problem</h2>
-<p>Traditionally, programming required both a high-level, slower language for prototyping and a low-level, faster language for production, causing inefficiencies. Julia unifies these two needs into one language, allowing:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 29%">
-<col style="width: 38%">
-<col style="width: 31%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Aspect</th>
-<th>High-Level Language (e.g., Python)</th>
-<th>Low-Level Language (e.g., C++)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Pros</strong></td>
-<td>Easy to write and read</td>
-<td>Fast in production</td>
-</tr>
-<tr class="even">
-<td><strong>Cons</strong></td>
-<td>Slow in production</td>
-<td>Complex, lengthy code</td>
-</tr>
-<tr class="odd">
-<td><strong>Julia’s Solution</strong></td>
-<td>Combines ease of high-level with speed of low-level, eliminating the need for separate languages for research and production.</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="comparisons" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="comparisons">Comparisons</h2>
-<p>If you want to know for instance the date of the first public release, the price and the names of the creators of numerical-analysis softwares, please visite the <a href="https://en.wikipedia.org/wiki/Comparison_of_numerical-analysis_software">Wikipedia</a> page.</p>
-<p>Julia is made for scientific computing as shown by the table below which compares some languages in terms of differential equation solvers. For more details visit this <a href="https://www.stochasticlifestyle.com/comparison-differential-equation-solver-suites-matlab-r-julia-python-c-fortran/">page</a>.</p>
-<div class="column-page">
-<p><a href="./images/de_solver_software_comparsion.pdf"> <img class="centering" width="100%" style="max-width:1400px" src="./images/de_solver_software_comparsion.png"> </a></p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<p>You can find <a href="https://github.com/sswatson/cheatsheets">here</a> cheatsheets. One interesting is the comparison with Python and R.</p>
-<div class="column-page">
-<p><a href="./images/jpr-cheatsheet.pdf"> <img class="centering" width="100%" style="max-width:1400px" src="./images/jpr-cheatsheet.png"> </a></p>
+<div class="callout-title-container flex-fill">
+Write manually the training loop based on above stated steps using <em>Flux.jl</em> utilities like <code>gradient</code>, <code>Flux.trainable</code> and <code>Flux.Optimise.update!</code>.
 </div>
-<p>One goal of Julia is to be efficient and high-level. This is illustrated by the following figure given by the <a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/mandelbrot.html#mandelbrot">Mandelbrot benchmark project</a>.</p>
-<div class="column-page">
-<p><a href="./images/comparison.png"> <img class="centering" width="80%" style="max-width:800px" src="./images/comparison-big.png"> </a></p>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> Flux.<span class="fu">setup</span>(<span class="fu">Adam</span>(), m)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">loss</span>(x, y) <span class="op">=</span> Flux.Losses.<span class="fu">crossentropy</span>(x, y)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Training loop</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">200</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    grads <span class="op">=</span> Flux.<span class="fu">gradient</span>(m) <span class="cf">do</span> model</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>      result <span class="op">=</span> <span class="fu">model</span>(v_train)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">loss</span>(result, Y)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    Flux.<span class="fu">update!</span>(opt, m, grads[<span class="fl">1</span>])</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Epoch </span><span class="sc">$</span>epoch<span class="st"> | Loss: "</span>, <span class="fu">loss</span>(<span class="fu">m</span>(v_train), Y))</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>What happens when you replace the <code>Adam()</code> optimizer by a standard <code>Descent()</code>? Or the loss by a Mean Square Error (MSE)? Can you find the available loss functions in the <em>Flux.jl</em> package documentation?</p>
+</div>
+</div>
+</div>
+</section>
+<section id="testing" class="level2">
+<h2 class="anchored" data-anchor-id="testing">Testing</h2>
+<p>We can now evaluate our trained neural network on unseen data, the so-called test dataset.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d_test <span class="op">=</span> <span class="fu">MNIST</span>(split<span class="op">=:</span>test)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>   b <span class="op">=</span> d_test.features[<span class="op">:</span>,<span class="op">:</span>,i]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>   v_b <span class="op">=</span> <span class="fu">reshape</span>(b,<span class="fl">784</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>   a <span class="op">=</span> <span class="fu">m</span>(v_b)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>   r <span class="op">=</span> <span class="fu">argmax</span>(a)<span class="op">-</span><span class="fl">1</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">println</span>(<span class="st">"Image classified as "</span>, r, <span class="st">" with target "</span>, d_test.targets[i], <span class="st">"."</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="cn">nothing</span> <span class="co">#| hide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The results seem pretty good at first glance.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Generate a violin plot of the predicted probability associated to the target digit for the images in the test dataset. Use the <em>Plots.jl</em> documentation to do so.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>As you may have noticed, the <em>Plots.jl</em> documentation is build upon examples. Many recent documentations begin with examples before moving on to the general definition.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">StatsPlots</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Array with probabilities associated to target digits for each image</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>val <span class="op">=</span> [<span class="fu">m</span>(<span class="fu">reshape</span>(d_test.features[<span class="op">:</span>,<span class="op">:</span>,i],<span class="fl">784</span>))[d_test.targets[i]<span class="op">+</span><span class="fl">1</span>] for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(d_test.targets)]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>group <span class="op">=</span> <span class="fu">fill</span>(<span class="st">"MNIST-Test"</span>, <span class="fu">length</span>(val))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">violin</span>(group, val, legend<span class="op">=</span><span class="cn">false</span>, title<span class="op">=</span><span class="st">"Violin Plot"</span>, ylabel<span class="op">=</span><span class="st">"Target digit probability"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>What do you think about the models performance based on the violin plot generated by the lines of code above?</p>
+</div>
+</div>
 </div>
 
 
@@ -823,14 +958,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../src/foretaste_of_julia_code.html" class="pagination-link" aria-label="Foretaste of Julia Code">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Foretaste of Julia Code</span>
+      <a href="../src/root_finding.html" class="pagination-link" aria-label="Root-Finding Methods">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Root-Finding Methods</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../src/syntax.html" class="pagination-link" aria-label="Syntax Essentials and Scoping">
-        <span class="nav-page-text">Syntax Essentials and Scoping</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -841,7 +973,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2025, Olivier Cots</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/src/why_julia.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/src/why_julia.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/src/machine_learning.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/src/machine_learning.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
