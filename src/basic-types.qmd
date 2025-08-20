@@ -250,6 +250,38 @@ println(mat)  # Outputs: [1 2; 3 4]
 
 Using `v .= ...` is preferred for its flexibility, as it works seamlessly for arrays of any shape, including matrices. Without broadcasting, you would need to use `M[:, :] = ...` for matrices to achieve the same effect.
 
+::: {.callout-warning}
+To mutate an array within a function, it should be given *by reference*. In pratice, the memory address of the array is passed to the function. Any modifications to the data will thus affect the original array.
+
+Let us focus on the special case where we want to mutate a slice of the array. We can try the following lines of code.
+
+```{julia}
+function mutate_slice(v)
+    @assert(length(v) >= 2)
+    v[1] = -5
+    v[2] = -6
+end
+
+v = [1,2,3,4]
+
+mutate_slice(v[1:2])
+
+v
+```
+
+The first two elements of the array `v` have not been modified. This is because slices are passed *by copy* in Julia. This means that a duplicate of the slice is created. The function will act on the copy rather than the original data.
+
+In order to overcome this issue, let us have a look at the `view` function in Julia. It creates a **view** of an array, meaning it gives you a reference to a subset of the array rather than a copy. So when you modify the view, you're modifying the original array. This is an example of by reference behavior.
+
+```{julia}
+mutate_slice(view(v, 1:2))
+
+v
+```
+
+Great! We have mutated a slice of `v` without producing any copies. Note that copies require extra memory, which can be limited in large scale applications.
+:::
+
 #### Special Arrays
 
 Julia has built-in functions to create arrays with predefined values:
