@@ -1789,7 +1789,7 @@ radioq(choices, answer)
 
 ## Simplified hardware
 
-*(Ref. Jakob Nissen)*
+*(Ref. Jakob Nissen, [Hardware for scientists](https://viralinstruction.com/posts/hardware/))*
 
 Before we dive into the *software* side of performance, let us gain a basic understanding of computer *hardware*. The following schematic provides a simplified representation of a computer. 
 
@@ -1856,13 +1856,76 @@ Each inner loop iteration skips over columns, which are non-contiguous in memory
 
 ## Typing and performance
 
-*(Ref. Chris Rackauckas)*
+*(Ref. Chris Rackauckas, [Parallel Computing and Scientific Machine Learning (SciML): Methods and Applications](https://book.sciml.ai/notes/02-Optimizing_Serial_Code/))*
 
 Common knowledge has it that Julia is fast because it is Just-in-Time (JIT) compiled. The actual reason is the *type inference* algorithm executed before the compiler combined with *type specialization* in functions. 
 
 Recall the *hardware* point of view. Let a CPU instruction read a value from a register. *How to interpret the memory of that value?* 
 
 This is straight forward if the instruction has the type information. Take a 64 bit integer and a 64 bit floating point number. They require the same memory space. However, the associated memory chunck is interpreted differently. The binary representation of that integer is `[sign bit][value in two's complement on 63 bits]` and `[sign bit][11 exponent bits][52 mantissa bits]` for the floating point number. This is what happens when writing code in the C or Fortran languages, which require explicit typing.
+
+::: {.callout-note collapse="true"}
+## Number representation
+
+Let $b \geq 2$ be a base used for numerical encoding. Any positive number can be expressed in this base as a sum of the form  
+$$
+\sum_{k=0}^{q} c_k b^k.
+$$  
+
+Computers typically use **binary encoding**, where the base $b$ is $2$. The coefficients $c_k$, known as *bits* (and often grouped in sets of 8 called *bytes*), represent the digits in this base.
+
+**Integers** 
+
+When encoding an integer in binary using 64 bits, the first bit indicates the **sign**:
+
+- `0` represents a non-negative (positive or zero) number  
+- `1` represents a negative number  
+
+The remaining 63 bits encode the absolute value of the integer using the binary representation of its coefficients $c_k$.
+
+**Floating Point Numbers**
+
+Floating-point number encoding was standardized in 1985 by the IEEE 754 specification. In this format, a number $x$ is represented as:
+
+$$
+x = (-1)^s \times M \times 2^e
+$$
+
+where:
+- $s$ is the **sign bit** (0 for positive, 1 for negative),
+- $M$ is the **mantissa** (also called the significand),
+- $e$ is the **exponent**.
+
+*Example: Encoding $x = 6.5$*
+
+First, we convert $6.5$ into binary:
+- $6 = 4 + 2 = 2^2 + 2^1$, so in binary: `110`
+- $0.5 = 2^{-1}$, so in binary: `0.1`
+
+Thus, $6.5$ in binary is `110.1`.
+
+To express this in **normalized binary form**, we rewrite it as:
+
+$$
+6.5 = 1.101 \times 2^2
+$$
+
+Here, the exponent $e = 2$, and the mantissa $M = 1.101$.
+
+IEEE 754 uses a **bias** to store only non-negative exponent values. For double-precision (64-bit) floating-point numbers:
+- The exponent is stored using 11 bits,
+- The bias is 1023.
+
+So the encoded exponent is:
+
+$$
+e_{\text{encoded}} = e + \text{bias} = 2 + 1023 = 1025
+$$
+
+This value (1025) is written in binary and stored in the 11-bit exponent field.
+
+The **mantissa** stores only the fractional part after the leading 1 (which is implicit), so we store `101` (from `1.101`) and pad it with zeros to fill the 52-bit mantissa field.
+:::
 
 In a dynamic typed language such as Python, the interpreter must operate type checks at runtime for every operation. Then the associated set of instructions for this type should be loaded. Leaving aside typing in Python makes it accessible for beginners. However, this introduces a significant execution time overhead.
 
