@@ -104,6 +104,10 @@ You can start by having a look at the training function within *Flux.jl* in the 
 ? Flux.train!
 ```
 
+::: {.callout-warning}
+Take care when changing package version to have a look at the major changes. For instance, from version 0.14 of *Flux.jl* on the syntax for `Flux.train!` changed. Indeed, it went from `Flux.train!(loss, params(model), data, opt)` to `Flux.train!(loss, model, data, opt_state)  # using the new "setup" from Optimisers.jl`.
+:::
+
 When a neural network makes predictions (like classifying an image as a "3" instead of a "7"), we need a way to measure the difference between the predicted output and the actual (true) target.
 
 The loss function provides this measure. It returns a numerical value that represents the "error" — the higher the value, the worse the prediction. Since we have a classification problem in this exercise, a typical loss choice is the cross-entropy loss.
