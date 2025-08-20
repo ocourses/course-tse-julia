@@ -1786,3 +1786,272 @@ radioq(choices, answer)
 ```
 
 :::
+
+## Simplified hardware
+
+*(Ref. Jakob Nissen, [Hardware for scientists](https://viralinstruction.com/posts/hardware/))*
+
+Before we dive into the *software* side of performance, let us gain a basic understanding of computer *hardware*. The following schematic provides a simplified representation of a computer. 
+
+$$[CPU] \Leftrightarrow [RAM] \Leftrightarrow [DISK]$$
+
+In this figure, where the arrows represent bidirectional data flows, the three important components are:
+
+* The central processing unit (**CPU**) where all the computations occur;
+* Random access memory (**RAM**) which is a temporary memory. Data stored here is lost in case of power failure;
+* The **disk** which is the persistent storage of the computer. 
+
+The operations executed by the CPU are coordinated by its internal clock. A *clock cycle* refers to the time required to execute a basic operation. To be executed a program has to be broken down into CPU instructions, a set of operations. This translation is done by the *compiler*. Any optimisation performed at compile time allows to generate more efficient CPU instructions, which speeds up the program runtime. 
+
+::: {.callout-tip icon=false}
+
+## Remember
+
+To run, any program has to be compiled to CPU instructions. 
+
+:::
+
+The execution of a program requires data stored in the RAM. Note that the number of clock cycles required to transfer data from the RAM to the CPU is on the order of magnitude of 500 clock cycles. 
+
+::: {.callout-tip icon=false}
+
+## Remember
+
+Data transfers from RAM to CPU are slow.
+
+:::
+
+In order to limit data transfers between the CPU and RAM, there are intermediate storage spaces with, however, limited capacity. Closest to the CPU compute cores are the registers which store very limited data compared to the various levels of cache further away. The simplified computer schematic can be updated. 
+
+$$[CPU] \Leftrightarrow [Registers] \Leftrightarrow [Caches] \Leftrightarrow [RAM] \Leftrightarrow [DISK]$$
+
+::: {.callout-caution collapse="true" icon=false}
+## The documentation of Julia mentions "Multidimensional arrays in Julia are stored in column-major order". We wish to sum the elements of a matrix. How to write a cache-efficient program to do this computation?
+
+In column-major order, the elements of each column are stored contiguously in memory. When the CPU accesses data, it pulls in cache lines (typically 64 bytes) from RAM into cache. So access patterns matter a lot.
+
+##### Cache-Friendly Access
+```{julia}
+#| eval: false
+sum = 0.
+for j in 1:n
+    for i in 1:m
+        sum = sum + A[i,j]
+    end
+end
+```
+
+##### Cache-Unfriendly Access
+```{julia}
+#| eval: false
+sum = 0.
+for i in 1:m
+    for j in 1:n
+        sum = sum + A[i,j]
+    end
+end
+```
+Each inner loop iteration skips over columns, which are non-contiguous in memory. This induces so called cache misses. 
+:::
+
+## Typing and performance
+
+*(Ref. Chris Rackauckas, [Parallel Computing and Scientific Machine Learning (SciML): Methods and Applications](https://book.sciml.ai/notes/02-Optimizing_Serial_Code/))*
+
+Common knowledge has it that Julia is fast because it is Just-in-Time (JIT) compiled. The actual reason is the *type inference* algorithm executed before the compiler combined with *type specialization* in functions. 
+
+Recall the *hardware* point of view. Let a CPU instruction read a value from a register. *How to interpret the memory of that value?* 
+
+This is straight forward if the instruction has the type information. Take a 64 bit integer and a 64 bit floating point number. They require the same memory space. However, the associated memory chunck is interpreted differently. The binary representation of that integer is `[sign bit][value in two's complement on 63 bits]` and `[sign bit][11 exponent bits][52 mantissa bits]` for the floating point number. This is what happens when writing code in the C or Fortran languages, which require explicit typing.
+
+::: {.callout-note collapse="true"}
+## Number representation
+
+Let $b \geq 2$ be a base used for numerical encoding. Any positive number can be expressed in this base as a sum of the form  
+$$
+\sum_{k=0}^{q} c_k b^k.
+$$  
+
+Computers typically use **binary encoding**, where the base $b$ is $2$. The coefficients $c_k$, known as *bits* (and often grouped in sets of 8 called *bytes*), represent the digits in this base.
+
+**Integers** 
+
+When encoding an integer in binary using 64 bits, the first bit indicates the **sign**:
+
+- `0` represents a non-negative (positive or zero) number  
+- `1` represents a negative number  
+
+The remaining 63 bits encode the absolute value of the integer using the binary representation of its coefficients $c_k$.
+
+**Floating Point Numbers**
+
+Floating-point number encoding was standardized in 1985 by the IEEE 754 specification. In this format, a number $x$ is represented as:
+
+$$
+x = (-1)^s \times M \times 2^e
+$$
+
+where:
+- $s$ is the **sign bit** (0 for positive, 1 for negative),
+- $M$ is the **mantissa** (also called the significand),
+- $e$ is the **exponent**.
+
+*Example: Encoding $x = 6.5$*
+
+First, we convert $6.5$ into binary:
+- $6 = 4 + 2 = 2^2 + 2^1$, so in binary: `110`
+- $0.5 = 2^{-1}$, so in binary: `0.1`
+
+Thus, $6.5$ in binary is `110.1`.
+
+To express this in **normalized binary form**, we rewrite it as:
+
+$$
+6.5 = 1.101 \times 2^2
+$$
+
+Here, the exponent $e = 2$, and the mantissa $M = 1.101$.
+
+IEEE 754 uses a **bias** to store only non-negative exponent values. For double-precision (64-bit) floating-point numbers:
+- The exponent is stored using 11 bits,
+- The bias is 1023.
+
+So the encoded exponent is:
+
+$$
+e_{\text{encoded}} = e + \text{bias} = 2 + 1023 = 1025
+$$
+
+This value (1025) is written in binary and stored in the 11-bit exponent field.
+
+The **mantissa** stores only the fractional part after the leading 1 (which is implicit), so we store `101` (from `1.101`) and pad it with zeros to fill the 52-bit mantissa field.
+:::
+
+In a dynamic typed language such as Python, the interpreter must operate type checks at runtime for every operation. Then the associated set of instructions for this type should be loaded. Leaving aside typing in Python makes it accessible for beginners. However, this introduces a significant execution time overhead.
+
+::: {.callout-tip icon=false}
+
+## Remember
+
+Type inference reduces runtime.
+
+:::
+
+### Hinting the type
+
+In the Julia programming language, type information is not mandatory. Let us examine, from the *software* perspective, how providing hints to the type inference algorithm allows us to maximize fast executing. First, let's try to understand what the type inference algorithm is trying to do.
+
+```{julia}
+a = 2
+b = 3
+a+b
+```
+::: {.callout-caution collapse="true" icon=false}
+## How does the type inference algorithm proceed on this code snipped?
+
+The value associated to `a` is the constant integer `2`. The value associated to `b` is the constant integer `3`. By the definition of the `+` operation on two integers, the result is an integer. 
+
+:::
+
+The type of `a` and `b` was found here by human knowledge. The type inference algorithm would have associated `Any` to both `a` and `b`. Indeed, the global scope of the REPL is too dynamic to be optimized. Further in thid section we will, thus, only consider type inference in functions.
+
+```{julia}
+function f(a,b)
+    return a+b
+end
+```
+
+Function `f` adds input variables `a` and `b`, for which no type hints are provided. Using `@code_llvm`, let us have a look at the associated CPU instructions for input variables of different types. *The instructions generated by the compiler bellow are not in the Assembly language but in the intermediate representation (IR). It could be seen as a hardware agnostic Assembly language.*
+
+First, we run `f` to sum two integers, `1+2`.
+```{julia}
+@code_llvm f(1,2)
+``` 
+
+Then, we run `f` to sum two floating point numbers, `1.5+2.5`.
+```{julia}
+@code_llvm f(1.5,2.5)
+```
+
+::: {.callout-caution collapse="true" icon=false}
+## How does the type of the input variables influence the type of the returned value?
+
+The function `f(Int64, Int64)` produces an `i64` in register `%0`. `i64` refers to an integer value stored on 64 bits.
+
+
+Similarly, `f(Float64, Float64)` produces a `double`. The term `double` is equivalent to `Float64` which refers to a floating point number stored on 64 bits. 
+
+:::
+
+Let us have a look at what happens when we mix types in the function call. We run `f` to add an integer `1` and a floating point number `2.5`.
+
+```{julia}
+@code_llvm f(1,2.5)
+```
+
+We can see the term *promote* in the output. Thus, the compiler found a type that works as a common ground for the computation.
+
+### Type stability
+
+In the previous examples, identifying the type of the returned value was a relatively straightforward process. Let us examine the function `h`, which breaks type stability. We are interested in understanding the reasons behind this problem and techniques to prevent it in our own code, with the aim of achieving optimal performance.
+
+```{julia}
+function h(x,y)
+  z = x + y
+  if z < 2
+    return z
+  else
+    return Float64(z)
+  end
+end
+```
+
+Using `@code_warntype` provides type labels for all the variables of a function. We are particularly interested in the type returned by `h`.
+
+```{julia}
+@code_warntype h(2,5)
+```
+
+::: {.callout-caution collapse="true" icon=false}
+## Why does `h` break type stability?
+
+The type of the output of `h` is said to be `Union{Float64, Int64}`. Whether it is `Int64` or `Float64` does not depend on the type of the input variables. The output type is determined by the value of the `x + y` sum. This information can not be predicted at compile time since it depends on the values for which `h` is called. Thus, the compiler can only restrict the output to `Union{Float64, Int64}`.
+
+Note the color code used in the output of `@code_warntype`. The output for which the type could not be inferred is written in yellow. 
+:::
+
+An other maner to determine type-stability of a function is to use `@inferred`.
+
+```{julia}
+#| error: true
+using Test
+@inferred h(2,5)
+``` 
+
+The error raised shows this function to be a simple test (yes or no) about inference. 
+
+::: {.callout-caution collapse="true" icon=false}
+## Try `@warn_type` and `@inferred` out on previously defined function `f`. What do you get?
+
+```{julia}
+@code_warntype f(2,5)
+```
+
+The type of the sum of those two integers was correctly inferred: `Body::Int64`. Let us confirm with `@inferred`.
+
+```{julia}
+@inferred f(2,5)
+```
+
+The result of the sum is shown (and no error is thrown). This means that the type inference algorithm was successful.
+:::
+
+From this analysis we conclude the following rule.
+
+::: {.callout-tip icon=false}
+
+## Remember
+
+The type of the output of a function should be inferrable from the type of the inputs.
+
+:::
