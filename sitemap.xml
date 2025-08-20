@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ocourses.github.io/course-tse-julia/src/test.html</loc>
-    <lastmod>2025-07-23T21:03:46.517Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocourses.github.io/course-tse-julia/src/foretaste_of_julia_code.html</loc>
-    <lastmod>2025-07-23T21:03:46.478Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocourses.github.io/course-tse-julia/src/machine_learning.html</loc>
-    <lastmod>2025-08-20T21:48:21.668Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocourses.github.io/course-tse-julia/src/getting_started.html</loc>
-    <lastmod>2025-08-20T16:17:05.153Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocourses.github.io/course-tse-julia/src/why_julia.html</loc>
-    <lastmod>2025-07-23T21:03:46.518Z</lastmod>
-  </url>
-  <url>
     <loc>https://ocourses.github.io/course-tse-julia/assets/latex/macros.html</loc>
-    <lastmod>2025-07-23T21:34:35.907Z</lastmod>
+    <lastmod>2025-08-20T21:56:32.947Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/index.html</loc>
-    <lastmod>2025-07-23T21:03:46.473Z</lastmod>
+    <lastmod>2025-08-20T21:56:32.986Z</lastmod>
   </url>
   <url>
-    <loc>https://ocourses.github.io/course-tse-julia/about.html</loc>
-    <lastmod>2024-11-20T21:52:41.098Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocourses.github.io/course-tse-julia/src/basic-types.html</loc>
-    <lastmod>2025-08-20T16:17:05.152Z</lastmod>
+    <loc>https://ocourses.github.io/course-tse-julia/src/getting_started.html</loc>
+    <lastmod>2025-08-20T21:56:32.987Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/syntax.html</loc>
-    <lastmod>2025-07-23T21:03:46.517Z</lastmod>
+    <lastmod>2025-08-20T21:56:33.022Z</lastmod>
   </url>
   <url>
-    <loc>https://ocourses.github.io/course-tse-julia/src/index.html</loc>
-    <lastmod>2025-07-23T21:03:46.511Z</lastmod>
+    <loc>https://ocourses.github.io/course-tse-julia/src/foretaste_of_julia_code.html</loc>
+    <lastmod>2025-08-20T21:56:32.987Z</lastmod>
   </url>
   <url>
-    <loc>https://ocourses.github.io/course-tse-julia/src/advanced-types.html</loc>
-    <lastmod>2025-08-20T16:17:05.151Z</lastmod>
+    <loc>https://ocourses.github.io/course-tse-julia/src/basic-types.html</loc>
+    <lastmod>2025-08-20T21:56:32.987Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocourses.github.io/course-tse-julia/src/why_julia.html</loc>
+    <lastmod>2025-08-20T21:56:33.022Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocourses.github.io/course-tse-julia/src/machine_learning.html</loc>
+    <lastmod>2025-08-20T21:56:33.021Z</lastmod>
   </url>
   <url>
     <loc>https://ocourses.github.io/course-tse-julia/src/root_finding.html</loc>
-    <lastmod>2025-07-23T21:03:46.515Z</lastmod>
+    <lastmod>2025-08-20T21:56:33.021Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocourses.github.io/course-tse-julia/src/index.html</loc>
+    <lastmod>2025-08-20T21:56:33.021Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocourses.github.io/course-tse-julia/src/advanced-types.html</loc>
+    <lastmod>2025-08-20T21:56:32.987Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocourses.github.io/course-tse-julia/src/test.html</loc>
+    <lastmod>2025-08-20T21:56:33.022Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocourses.github.io/course-tse-julia/about.html</loc>
+    <lastmod>2025-08-20T21:56:32.943Z</lastmod>
   </url>
 </urlset>
