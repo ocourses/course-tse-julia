@@ -368,6 +368,12 @@ window.Quarto = {
  <span class="menu-text">Root-Finding Methods</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/machine_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Machine Learning</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -423,6 +429,7 @@ window.Quarto = {
   <li><a href="#updating-packages" id="toc-updating-packages" class="nav-link" data-scroll-target="#updating-packages">Updating Packages</a></li>
   <li><a href="#removing-packages" id="toc-removing-packages" class="nav-link" data-scroll-target="#removing-packages">Removing Packages</a></li>
   <li><a href="#package-environments" id="toc-package-environments" class="nav-link" data-scroll-target="#package-environments">Package Environments</a></li>
+  <li><a href="#sneak-peek-behind-the-scenes" id="toc-sneak-peek-behind-the-scenes" class="nav-link" data-scroll-target="#sneak-peek-behind-the-scenes">Sneak peek behind the scenes</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
   <li><a href="#julia-ecosystem" id="toc-julia-ecosystem" class="nav-link" data-scroll-target="#julia-ecosystem">Julia Ecosystem</a>
@@ -543,7 +550,7 @@ Tip
 <p>After installation, you can verify that Julia is correctly installed by opening a terminal or command prompt and typing the following command:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will launch the Julia REPL (Read-Eval-Print Loop), where you can start running Julia commands interactively. You should see something similar to the following:</p>
-<div id="6b002ad3" class="cell" data-execution_count="2">
+<div id="4c13b5a9" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
 <div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>               _</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
@@ -582,7 +589,7 @@ Tip
 <p>To start the Julia REPL, open your terminal or command prompt and simply type:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You should see the Julia prompt, which looks like this:</p>
-<div id="54c6c15a" class="cell" data-execution_count="3">
+<div id="e892e4c7" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="4">
 <div class="sourceCode" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>               _</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>   _       _ <span class="fu">_</span>(_)_     <span class="op">|</span>  Documentation<span class="op">:</span> https<span class="op">://</span>docs.julialang.org</span>
@@ -836,7 +843,7 @@ Note
 <section id="example-computing-the-norm-of-a-vector" class="level4">
 <h4 class="anchored" data-anchor-id="example-computing-the-norm-of-a-vector">Example: Computing the Norm of a Vector</h4>
 <p>The <code>LinearAlgebra</code> library can be used to compute the norm of a vector. Here’s how you can do that:</p>
-<div id="6f87f8cd" class="cell" data-execution_count="4">
+<div id="6107c491" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a vector</span></span>
@@ -888,7 +895,7 @@ Note
 <h3 class="anchored" data-anchor-id="using-installed-packages">Using Installed Packages</h3>
 <p>Once a package is installed, you can use it by importing it into your code using the <code>using</code> keyword. This makes the functions and types of the package available for use.</p>
 <p>Example:</p>
-<div id="daba4a09" class="cell" data-execution_count="5">
+<div id="fe158e82" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(A <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, B <span class="op">=</span> [<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1004,6 +1011,19 @@ Note
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+</section>
+<section id="sneak-peek-behind-the-scenes" class="level3">
+<h3 class="anchored" data-anchor-id="sneak-peek-behind-the-scenes">Sneak peek behind the scenes</h3>
+<p>In practice, a <strong>package</strong> is a collection of organized code, which often includes one or more modules, along with additional resources like documentation and tests. Packages are designed to be reusable and shareable, enabling users to install and integrate them into different projects.</p>
+<p>A <strong>module</strong>, on the other hand, serves as a namespace that helps organize code into logical units while preventing naming conflicts. It isolates its contents from the global scope, ensuring a clean and structured codebase. But these are concepts we will go deeper into later in this lecture.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> MyModule</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="kw">export</span> my_function</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">my_function</span>(x)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Within a package, modules are accessed using the <code>using</code> keyword, allowing you to leverage the functionality provided by the module in your own code.</p>
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
