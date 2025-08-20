@@ -91,3 +91,5 @@ website:
           contents: 
             - text: Root-Finding Methods
               href: src/root_finding.qmd
+            - text: Machine Learning
+              href: src/machine_learning.qmd
