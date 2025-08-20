@@ -29,7 +29,8 @@ jobs:
         uses: julia-actions/setup-julia@latest
       - run: |
           julia --project -e 'using Pkg;
-                              Pkg.add("Suppressor"); 
+                              Pkg.add("CSV");
+                              Pkg.add("Suppressor");
                               Pkg.add("IJulia");
                               Pkg.build("IJulia");
                               using IJulia;
