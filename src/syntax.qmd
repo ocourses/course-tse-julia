@@ -38,15 +38,22 @@ y = "Hello, Julia!"
 nothing #| hide
 ```
 
-Julia is dynamically typed, which means variables do not require explicit type declarations. Types are inferred based on the assigned value.
+Julia is dynamically typed, which means variables do not require explicit type declarations. Types are inferred based on the assigned value. 
+
+From math lectures, we recall $5 \in \mathbb{N}$. We expect the outcome of the `typeof` function to tell us that `x` holds an integer.
 
 ```{julia}
 typeof(x)
 ```
 
+Indeed, `Int64` is a label which refers to an integer storage format. 
+
+Similarly, the quotation marks around the sequence of characters show that `y` holds text, known as a string in programming languages—a way to represent words, sentences, or any combination of characters.
+
 ```{julia}
 typeof(y)
 ```
+The return value thus validates that the kind of data contained in `y` is a string. We would use the term character (`Char` in short) if `y` would hold a single basic unit of information (a letter, number, symbol, or control code), like in `y = "a"`. Note that it is possible to indicate to Julia the kind of data we want a variable to hold, this is called *annotating*. For `y` to hold only sequences of characters, we would write `y::String = "Hello, Julia!"`.
 
 Variables act as labels pointing to values and can be reassigned without restrictions on type. This dynamic behavior is a hallmark of imperative languages.
 
@@ -166,7 +173,7 @@ You can perform basic arithmetic operations using standard operators:
 - **Addition**: `+`
 - **Subtraction**: `-`
 - **Multiplication**: `*`
-- **Division**: `/` (returns a floating-point result) and `//` (returns a rational number)
+- **Division**: `//` (returns a rational number, the set $\mathbb{Q}$), `/` (returns a floating-point result, the set $\mathbb{R}$ in finite precision)
 
 ```{julia}
 @myshow begin #| hide
@@ -181,6 +188,7 @@ rational = a // b
 end #| hide
 ```
 
+A number in $\mathbb{Q}$ is written as a fraction of numbers from $\mathbb{N}$, designated with the label `Int`, short for integer. Numbers in $\mathbb{R}$ can have infinite digits after the coma. These are truncated to be stored on a computer and designated by the label `Float`, short for floating-point number.
 
 ### Modulo Operation
 The modulo operator `%` returns the remainder of a division operation. It is useful for determining if a number is even or odd, or for wrapping around values.
@@ -229,6 +237,8 @@ a || b
 !a
 end #| hide
 ```
+
+Data resulting from a computation with a logical operator can have only two possible values: `true` or `false`. This kind of data is refered to as a **boolean**, `Bool` in short. 
 
 ## Control Flows
 
@@ -334,11 +344,108 @@ These control flows and logical operators allow for flexibility in executing con
 
 ## Linear Algebra 
 
-** TO DO **
+The mathematical operations we executed in Julia have remained basic until now. Key data representationsfor advanced numerical computations, like linear algebra, are matrices and vectors. A term that covers these representation in programming languages is `Array`. 
+
+1. **Vector (1D Array)**
+
+The elements of a vector are encompassed by brackets and separated by comas in Julia. 
+
+```{julia}
+# Column vector (default in Julia)
+v = [1, 2, 3]
+```
+
+To access an element of the vector, the name of the vector variable (`v`) is followed by brackets which hold the element index (`1` for the first one). 
+
+```{julia}
+# Accessing elements
+println(v[1])   # Output: 1
+```
+
+Let us now see how to do the sum of two vectors.
+
+```{julia}
+# Vector operations
+w = [4, 5, 6]
+println(v + w) # Vector addition: [5, 7, 9]
+```
+
+2. **Matrix (2D Array)**
+
+A matrix is defined similarly as a vector. The elements of the matrix are given matrix line by matrix line seperated by `;`. 
+
+```{julia}
+# 2x2 Matrix
+A = [1 2; 3 4]
+```
+
+To access matrix elements the row index (`1` here) and the column index (`2` here) should be provided. 
+
+```{julia}
+# Accessing elements (row, column)
+println(A[1, 2])   # Output: 2
+```
+Find bellow standard matrix operations: transposing a matrix and multiplying matrices.
+
+```{julia}
+# Matrix transpose
+println(transpose(A))  # [1 3; 2 4]
+
+# Matrix multiplication
+B = [5 6; 7 8]
+println(A * B)     # Matrix multiplication
+```
+
+### Exercise
+
+A linear system is a system of the form `Ax=b` composed of a matrix `A` and two vectors `x` and `b`. In such a computation `A` and `b` are known and we wish to determine `x`. To do so, we need multiply `b` on the left by the inverse of `A`. Informally, we could say that we *devide $b$ by $A$*. 
+
+::: {.callout-caution collapse="true" icon=false}
+## Find the operator from the standard library `Base` to solve this linear system.
+
+```{julia}
+A = [2 3; 1 -1]
+b = [8; 2]
+
+x = A \ b
+println("Solution : x = [", x[1], ", ", x[2], "]")
+```
+:::
+
+::: {.callout-tip}
+Recall to add `LinearAlgebra` in the environment of your work directory.
+:::
 
 ## Data
 
-** TO DO **
+**Data management** is a critical component of modern computing, as most computational tasks today rely on input datasets to drive analysis, inform decisions, and generate meaningful results. Julia offers a rich ecosystem of packages for handling, transforming, and analyzing data efficiently.
+
+### Dictionaries (`Dict`)
+
+A `Dict` in Julia allows to store structured data by mapping keys to values. Let us illustrate this with the example of a dictionary storing the characteristics of a persion. 
+
+```{julia}
+# Create a dictionary
+person = Dict("name" => "Alice", "age" => 28, "city" => "Toulouse")
+```
+
+We can change the value associated to the key `"name"` as follows.
+
+```{julia}
+# Update a value
+person["name"]="Bob"
+```
+
+More information on this person can as well be added.
+
+```{julia}
+# Add a new key-value pair
+person["email"] = "bob@example.com"
+```
+
+### Standard formats
+
+Julia offers support through packages for standard file formats in data science. For instance, *JSON.jl* is associated to JSON (JavaScript Object Notation) and *CSV.jl* to CSV (Comma-Separated Values). To handle tabular data, you can store data into `DataFrame`s which are similar to pandas in Python or data.frame in R.
 
 ## Exercise
 
