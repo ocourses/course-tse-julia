@@ -73,23 +73,31 @@ website:
       style: "floating"
       collapse-level: 2
       contents:
+        - section: "Introduction"
+          contents:
+          - text: Why Julia?
+            href: src/why_julia.qmd
+          - text: Getting started
+            href: src/getting_started.qmd
+          - text: Developer set-up
+            href: src/developer_setup.qmd
+          - text: Foretaste of Julia Code
+            href: src/foretaste_of_julia_code.qmd
         - section: "Julia language"
           contents:
-            - text: Getting started
-              href: src/getting_started.qmd
-            - text: Foretaste of Julia Code
-              href: src/foretaste_of_julia_code.qmd
-            - text: Why Julia?
-              href: src/why_julia.qmd
-            - text: Syntax Essentials and Scoping
-              href: src/syntax.qmd
-            - text: Basic Types and Data Structures
-              href: src/basic-types.qmd
-            - text: Type System and Error Handling
-              href: src/advanced-types.qmd
+          - text: Core Syntax and Operations
+            href: src/syntax.qmd
+          - text: Structure your code
+            href: src/structure.qmd
+          - text: Types
+            href: src/types.qmd
+          - text: Type stability for performance
+            href: src/performance.qmd
+          - text: Auto-evaluation
+            href: src/eval.qmd
         - section: "Applications"
-          contents: 
-            - text: Root-Finding Methods
-              href: src/root_finding.qmd
-            - text: Machine Learning
-              href: src/machine_learning.qmd
+          contents:
+          - text: Root-Finding Methods
+            href: src/root_finding.qmd
+          - text: Machine Learning
+            href: src/machine_learning.qmd
