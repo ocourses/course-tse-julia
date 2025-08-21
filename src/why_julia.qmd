@@ -21,9 +21,9 @@ Julia combines the speed of low-level languages like C++ and Fortran with the pr
 
 - **Interoperability**: Julia integrates well with languages like Python, R, C++, and Java.
 
-- **High Productivity**: Expressive and dynamic, Julia is up to 100x faster than traditional high-level languages.
-
 - **High Performance**: Julia is designed for performance from the ground up. It often performs on par with statically typed languages like C or Fortran, thanks to Just-In-Time (JIT) compilation using LLVM. Support for multi-threading and GPU compute is offered.
+
+- **High Productivity**: Expressive and dynamic, Julia is up to 100x faster than traditional high-level languages.
 
 - **Multiple dispatch**: Julia uses multiple dispatch as its core paradigm, which allows for highly flexible and efficient function definitions.
 
@@ -115,6 +115,6 @@ Key features of JuliaCon:
 
 And a JuliaCon was even held here in **Toulouse**!
 
-<img class="do-not-accept-dark-mode centering" width="50%" src="images/julia_optim_2024.png" />
+<img class="do-not-accept-dark-mode centering" width="70%" src="images/julia_optim_2024.png" />
 
 

@@ -9,7 +9,7 @@ jupyter: julia-1.11
 include("activate.jl")
 ```
 
-As a beginner Julia developers, you have learned interactive coding within the REPL. The content of this page will help you level-up by explaining how to use scripts and Integrated Development Environments (IDEs). Scripts allow you to write and save code in files, making it easier to test, reuse, and share your work. This is essential for building real-world projects, where your code will often be longer and more complex. IDEs provide helpful tools like auto-completion, debugging, syntax highlighting, and version control integration, which improve productivity and help catch errors early. Using scripts and IDEs sets you up with good habits and gives you the structure needed to grow as a developer.
+As a beginner Julia developers, you have learned interactive coding within the REPL. The content of this page will help you level-up by explaining how to use scripts and Integrated Development Environments (IDEs). Scripts allow you to write and save code in files, making it easier to test, reuse, and share your work. This is essential for building real-world projects, where your code will often be longer and more complex. IDEs provide helpful tools like auto-completion, debugging, syntax highlighting, and version control integration, which improve productivity and help catch errors early (avoiding tedious debugging hours...). Using scripts and IDEs sets you up with good habits and gives you the structure needed to grow as a developer.
 
 ## Running Julia Scripts
 
@@ -94,6 +94,10 @@ This command will execute the code in the script, and you’ll see the output in
 If you’re using an IDE like VS Code with the Julia extension, you can run the script directly from within the editor by pressing the "Run" button or using the appropriate keyboard shortcut. This is convenient for testing and iterating on your code without having to switch back and forth between the editor and the terminal. See the [Running Code](https://www.julia-vscode.org/docs/stable/userguide/runningcode/) page from Julia in VS Code documentation for more details.
 
 <img width="100%" src="../assets/images/myscript.png"/>
+
+::: {.callout-tip}
+We strongly encourage you configure VS Code for Julia. This set up will be handy for the exercises in the rest of this lecture. Read why in the next section.
+:::
 
 ## Editors and Ides
 
@@ -317,3 +321,26 @@ Pkg.activate(".")
 ### Conclusion
 
 Working with packages is essential to leveraging Julia’s powerful ecosystem. Understanding how to install, update, and remove packages, as well as using environments to manage project-specific dependencies, will help you make the most out of Julia's vast libraries.
+
+## Exercise
+
+Let us put these concepts into practice to prepare your **work environment** for the exercises in this lecture.
+
+1. Navigate to your working directory dedicated to this lecture through a terminal or command prompt.
+
+2. Start Julia inside the directory using `julia`.
+
+3. Enter the package manager mode by typing `]` in the REPL.
+
+4. Activate the environment associated to this directory by typing `activate .`
+
+5. Add `Plots`, `DataFrames` and `CSV` packages to the environment using `add`.
+
+6. Check installation of packages using the `status` command. 
+
+7. In your work directory, a Project.toml and Manifest.toml file are created and packages are installed locally.
+
+::: {.callout-warning}
+Recall to activate this environment at the start of each work session for this lecture.
+:::
+

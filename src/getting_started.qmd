@@ -76,28 +76,7 @@ import Markdown
 Markdown.parse("```julia\n$(banner)\njulia>\n```")
 ```
 
-If you see this prompt, it means Julia is installed and working correctly!
-
-### Discover the Package Manager
-
-Julia includes a built-in [package manager](https://docs.julialang.org/en/v1/stdlib/Pkg/), `Pkg`, that allows you to easily manage external packages (libraries) for your projects.
-
-1. To start using `Pkg`, open the Julia REPL and type:
-   ```julia
-   using Pkg
-   ```
-
-2. You can install a package by running:
-   ```julia
-   Pkg.add("PackageName")
-   ```
-
-For example, to install the popular plotting package `Plots`, run:
-```julia
-Pkg.add("Plots")
-```
-
-This will download and install the package, making it available for use in your Julia scripts.
+If you see this prompt, it means Julia is installed and **working correctly!**
 
 ## Using the Julia REPL
 
@@ -165,10 +144,10 @@ Or press `Ctrl-D` (on most systems).
 
 ### REPL Modes
 
-The Julia REPL has different prompt modes that can be very useful to install / remove packages, run shell commands, search for help, etc.
+The Julia REPL has different prompt modes that can be very useful to install / remove packages (libraries), run shell commands, search for help, etc.
 The different modes are:
 
-- The Julian mode
+- The Julia mode
 - Help mode
 - Package mode
 - Shell mode
