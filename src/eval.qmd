@@ -1,0 +1,10 @@
+---
+title: "Auto-evaluation"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+include("activate.jl")
+```

@@ -1,0 +1,1220 @@
+---
+title: "Types"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+include("activate.jl")
+```
+
+In Julia, understanding the fundamental types and data structures is essential for efficient coding and problem-solving. This page provides an introduction to some of the basic types in Julia, including integers, floating-point numbers, strings, and composite types like arrays and tuples. We’ll also explore more advanced data structures and their practical uses.
+
+You'll learn about:
+
+- **Basic Types** such as integers, floating-point numbers, and strings.
+- **Data Structures** like arrays, vectors, matrices, dictionaries, tuples, and `NamedTuple`.
+- The importance of **Type Declarations** and how to use them effectively.
+- How to work with **Collections** and **Composite Types** to model more complex data.
+
+Whether you're a beginner or looking to deepen your understanding of Julia's type system, this page will help you get familiar with the core building blocks for handling data efficiently in Julia.
+
+In this section, we will delve into some of the more advanced features of Julia's type system and error handling. We will explore the hierarchical structure of types, how to define and work with parametric types, as well as how to handle type conversions and promotions. Additionally, we will look at how to manage errors in Julia, including common error types and exception handling mechanisms.
+
+By the end of this page, you'll have a deeper understanding of Julia's flexible and powerful type system, which is essential for writing efficient, type-safe code. We will also cover how to manage and handle errors gracefully to ensure that your programs run smoothly.
+
+Topics Covered:
+
+- **Type Hierarchies**: Understanding Julia's abstract and concrete types.
+- **Type Annotations and Declarations**: How to specify types in functions and variables.
+- **Parametric Types**: Creating generic types and functions.
+- **Type Conversion and Promotion**: Working with different types and converting between them.
+- **Union Types**: Handling multiple types in a single variable.
+- **Special Types**: Working with `Nothing`, `Any`, and `Missing`.
+- **Errors and Exception Handling**: Raising and handling errors with `try`/`catch` blocks.
+
+
+## Introduction to Types in Julia
+
+Julia is a dynamically typed language, meaning that variable types are determined at runtime. However, Julia also supports strong typing, which means that types are important and can be explicitly specified when needed. Understanding types in Julia is essential for writing efficient code, as the language uses Just-In-Time (JIT) compilation to optimize based on variable types.
+
+### Dynamic Typing
+In Julia, variables do not require explicit type declarations. The type of a variable is inferred based on the value assigned to it.
+
+```{julia}
+@myshow begin #| hide
+x = 10          # x is inferred to be of type Int64
+y = 3.14        # y is inferred to be of type Float64
+z = "Hello"     # z is inferred to be of type String
+
+typeof(x), typeof(y), typeof(z)
+end #| hide
+```
+
+Even though Julia automatically infers types, you can still explicitly specify them when necessary, particularly for performance optimization or for ensuring that a variable matches a particular type.
+
+### Strong Typing
+While Julia uses dynamic typing, it is strongly typed. This means that Julia will enforce type constraints on operations, and will raise errors when an operation is attempted with incompatible types.
+
+You can add an integer and a float,
+
+```{julia}
+#| error: true
+@myshow begin #| hide
+n = 5           # Integer
+x = 2.0         # Float
+n + x           # we can add an Int64 and a Float64
+end #| hide
+```
+
+but you cannot add an integer and a string:
+
+```{julia}
+#| error: true
+@myshow begin #| hide
+s = "Hello"     # String
+n + s           # Error: does not make sense to add an Int64 and a String
+end #| hide
+```
+
+We see from the error message that we can add an Integer and a Char: `+(::Integer, ::AbstractChar)` is a valid operation. This is because a Char can be treated as an integer in Julia.
+
+```{julia}
+@myshow begin #| hide
+c = 'a'      # Char
+c + 128448   # This will work because Char can be treated as an integer
+end #| hide
+```
+
+Julia allows flexibility compared to statically typed languages like C or Java, but still ensures that operations make sense for the types involved.
+
+### Type System and Performance
+The type system in Julia plays a key role in performance. By inferring or specifying types, Julia's JIT compiler can optimize code for specific data types, leading to faster execution. For example, when types are known at compile time, Julia can generate machine code tailored for the specific types involved.
+
+Julia’s type system also supports abstract types, allowing for more flexible and generic code, as well as parametric types that let you define functions or types that work with any data type.
+
+### Summary
+- Julia is dynamically typed but enforces strong typing.
+- Types are inferred from the values assigned to variables.
+- Julia optimizes performance based on types, making type information crucial.
+
+## Type Hierarchies
+
+In Julia, types are organized into a hierarchy with `Any` as the root. At the top, `Any` is the most general type, and all other types are subtypes of `Any`. The type hierarchy enables Julia to provide flexibility while supporting efficient dispatch based on types.
+
+```{julia}
+using GraphRecipes, Plots
+default(size=(800, 800))
+@suppress_err begin #| hide
+plot(AbstractFloat, fontsize=10, nodeshape=:rect, nodesize=0.08)
+end #| hide
+```
+
+### Abstract and Concrete Types
+
+Types in Julia can be [**abstract**](https://docs.julialang.org/en/v1/manual/types/#man-abstract-types) or **concrete**:
+
+- **Abstract types** serve as nodes in the hierarchy but cannot be instantiated. They provide a framework for organizing related types.
+- **Concrete types** can be instantiated and are the actual types used for values.
+
+For example, Julia’s `Real` and `AbstractFloat` types are abstract, while `Int64` and `Float64` are concrete subtypes.
+
+```{julia}
+@myshow begin #| hide
+n::Int64 = 42   # Int64 is a concrete type
+typeof(n)       # Output: Int64 (concrete type)
+r::Real = 3.14  # Real is an abstract type
+typeof(r)       # Output: Float64 (concrete type)
+end #| hide
+```
+
+### Checking if a Type is Concrete
+
+In Julia, you can use the `isconcretetype` function to check if a type is concrete (meaning it can be instantiated) or abstract (which serves as a blueprint for other types but cannot be instantiated directly).
+
+```{julia}
+@myshow begin #| hide
+isconcretetype(Int64)
+isconcretetype(AbstractFloat)
+end  #| hide
+nothing #| hide
+```
+
+The `isconcretetype` function returns `true` for concrete types (like `Int64` or `Float64`) and `false` for abstract types (like `AbstractFloat` or `Real`).
+
+### Get the Type of a Variable
+
+You can use the `typeof()` function to get the type of a variable:
+
+```{julia}
+@myshow begin #| hide
+a = 42
+typeof(a)
+end #| hide
+```
+
+The `typeof()` function returns the concrete type of the variable.
+
+### Example
+
+Let's instantiate a variable with a specific concrete type, check its type using `typeof()`, and verify if it’s concrete using `isconcretetype`:
+
+```{julia}
+@myshow begin #| hide
+a = 3.14
+typeof(a)
+isconcretetype(typeof(a))
+end #| hide
+```
+
+
+### The `isa` Operator
+
+The `isa` operator is used to check if a value is an instance of a specific type:
+
+```{julia}
+@myshow begin #| hide
+a = 42
+a isa Int64
+a isa Number
+a isa Float64
+end #| hide
+```
+
+The `isa` operator is often used for type checking within functions or when validating data.
+
+
+### The `<:` Operator
+
+The `<:` operator checks if a type is a subtype of another type in the hierarchy. It can be used for checking if one type is a more general or more specific type than another:
+
+```{julia}
+@myshow begin #| hide
+Int64 <: Real
+Float64 <: Real
+Real <: Number
+Number <: Real
+end #| hide
+```
+
+### Creating Custom Abstract Types
+
+Julia allows you to create your own abstract types. For example, you can define a custom abstract type `Shape`, and create concrete subtypes like `Circle` and `Rectangle`.
+
+```{julia}
+# Define abstract type
+abstract type Shape end
+
+# Define concrete subtypes
+struct Circle <: Shape
+    radius::Float64
+end
+
+struct Rectangle <: Shape
+    width::Float64
+    height::Float64
+end
+
+# Create instances
+circle = Circle(5.0)
+rectangle = Rectangle(3.0, 4.0)
+
+# Check if they are subtypes of Shape
+@myshow begin #| hide
+circle isa Shape
+rectangle isa Shape
+end #| hide
+```
+
+### Getting Subtypes and Parent Types
+
+In Julia, you can use the `subtypes()` function to find all direct subtypes of a given type. Additionally, the `supertypes()` function can be used to get the entire chain of parent (super) types for a given type.
+
+#### Getting Subtypes
+
+To find all direct subtypes of a specific type, you can use the `subtypes()` function. Here’s an example:
+
+```{julia}
+subtypes(AbstractFloat)
+```
+
+This will return all direct subtypes of `AbstractFloat`. To visualize the type hierarchy, you can use the `plot` function from the `GraphRecipes` package or for a textual representation, you can do the following:
+
+```{julia}
+using AbstractTrees
+AbstractTrees.children(d::DataType) = subtypes(d)
+print_tree(Real)
+```
+
+#### Getting the Parent Type
+
+To find the immediate supertype (parent type) of a specific type, you can use the `supertype()` function. Here’s an example:
+
+```{julia}
+supertype(Int64)
+```
+
+This will return the immediate parent type of `Int64`.
+
+#### Getting the List of All Parent Types
+
+To get the entire chain of parent types, you can use the `supertypes()` function, which directly returns all the parent types of a given type. Here's an example that shows how to do this for `Float64`:
+
+```{julia}
+supertypes(Float64)
+```
+
+This code will return the list of all parent types of `Float64`, starting from `Float64` itself and going up the type hierarchy to `Any`. This can be useful for understanding the relationships between different types in Julia. To print the list of parent types in a more readable format, you can use the `join` function:
+
+```{julia}
+join(supertypes(Float64), " -> ")
+```
+
+### Type Hierarchies and Performance
+
+The type hierarchy plays a crucial role in enabling multiple dispatch in Julia, allowing for efficient method selection based on the types of function arguments. By organizing types into a well-defined hierarchy, Julia can quickly select the most specific method for a given operation, optimizing performance, especially in scientific and numerical computing.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Type Hierarchies in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the purpose of an abstract type in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It defines a concrete implementation for other types.",
+           "It can be instantiated and used directly.",
+           "It provides a blueprint for organizing related types but cannot be instantiated.",
+           "It is used for type annotations in functions."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which of the following types is a concrete type?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["AbstractFloat", "Real", "Int64", "Number"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What does the `isconcretetype` function return for `AbstractFloat`?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["true", "false", "Error: Undefined type", "null"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What will the following code return?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+typeof(42)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Int64", "Integer", "Number", "Real"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the purpose of the `isa` operator in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["To check if a variable's value matches a specific type.",
+           "To check if a variable is an instance of a specific type or any of its subtypes.",
+           "To check if a type is concrete.",
+           "To check if a variable is a subtype of `Any`."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What will be the result of the following code?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+Int64 <: Real
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["true", "false", "Error: Type mismatch", "true for Float64 but not for Int64"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What will the following code return?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+isconcretetype(Int64)
+isconcretetype(AbstractFloat)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["true for Int64 and false for AbstractFloat",
+           "false for both types",
+           "true for AbstractFloat and false for Int64",
+           "false for both types if using a different syntax"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What does the `<:` operator check in Julia?**
+"""
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["If one type is a subtype of another.",
+           "If two types are exactly the same.",
+           "If a type can be instantiated.",
+           "If a type is abstract."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the result of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+subtypes(Real)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Returns a list of all types that are subtypes of `Real`.",
+           "Returns an error because `Real` is abstract.",
+           "Returns `Any` as the only subtype of `Real`.",
+           "Shows `Real` as a parent type with no subtypes."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What does the `supertype` function return for `Float64`?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+supertype(Float64)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Int", "Real", "Number", "AbstractFloat"]
+answer = 4
+radioq(choices, answer)
+```
+
+:::
+
+## Type Conversion and Promotion
+
+In Julia, type conversion and promotion are mechanisms that allow for flexibility when working with different types, enabling smooth interactions and arithmetic between varying data types. Conversion changes the type of a value, while promotion ensures two values have a common type for an operation.
+
+### Type Conversion
+
+Type conversion in Julia is typically achieved with the `convert` function, which tries to change a value from one type to another. For conversions between `Float64` and `Int`, methods like `round` and `floor` are commonly used to handle fractional parts safely. To convert numbers to strings, use the `string()` function instead.
+
+```{julia}
+@myshow begin #| hide
+round(Int, 3.84)   
+floor(Int, 3.14)
+convert(Float64, 5)
+string(123)
+end #| hide
+```
+
+In these examples:
+
+- `round` rounds a `Float64` to the nearest `Int`.
+- `floor` converts a `Float64` to the nearest lower `Int`.
+- Converting an `Int` to `Float64` represents the integer as a floating-point number.
+- `string()` converts an integer to its string representation.
+
+### Automatic Conversion
+
+In many cases, Julia will automatically convert types when it is unambiguous. For instance, you can directly assign an integer to a floating-point variable, and Julia will automatically convert it.
+
+```{julia}
+@myshow begin #| hide
+y::Float64 = 10  # The integer 10 is converted to 10.0 (Float64)
+end #| hide
+```
+
+### Type Promotion
+
+Type promotion is used when combining two values of different types in an operation. Julia promotes values to a common type using the `promote` function, which returns values in their promoted type. This is useful when performing arithmetic on values of different types.
+
+```{julia}
+@myshow begin #| hide
+a, b = promote(3, 4.5)  # Promotes both values to Float64
+typeof(a)
+typeof(b)
+end #| hide
+```
+
+In this example, `promote` converts both `3` (an `Int`) and `4.5` (a `Float64`) to `Float64` so they can be added, subtracted, or multiplied without any type conflicts. 
+
+::: {.callout-warning}
+Be aware that promotion has nothing to do with the type hierarchy. For instance, although every `Int` value can also be represented as a `Float64` value, `Int` is not a subtype of `Float64`.
+:::
+
+### Summary
+
+- `convert(Type, value)`: Converts `value` to the specified `Type`, if possible.
+- `promote(x, y)`: Returns both `x` and `y` promoted to a common type.
+- Type promotion rules allow Julia to handle operations between different types smoothly, making the language both powerful and flexible for numerical and data processing tasks.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Type Conversion and Promotion in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `convert` function do in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It converts a value from one type to another, if possible.",
+           "It automatically promotes values to a common type.",
+           "It converts numbers to strings.",
+           "It changes a value to a boolean type."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the output of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+println(round(Int, 3.14))   # Rounds 3.14 to the nearest integer, output: 3
+println(floor(Int, 3.14))   # Floors 3.14 to the nearest integer, output: 3
+println(convert(Float64, 5))  # Converts Int to Float64, output: 5.0
+println(string(123))         # Converts Int to String, output: "123"
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["3, 3, 5.0, '123'",
+           "3, 3, 5.0, 123",
+           "3, 3.14, 5, '123'",
+           "5.0, 3, 5, '123'"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when an integer is assigned to a `Float64` variable in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+y::Float64 = 10  # The integer 10 is automatically converted to 10.0 (Float64)
+println(y)       # Output: 10.0
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Julia automatically converts the integer to a Float64.",
+           "Julia throws a type error because of the type mismatch.",
+           "The conversion needs to be done explicitly using `convert`.",
+           "The variable `y` will be set to the integer value of 10."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `promote` function do in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+a, b = promote(3, 4.5)  # Promotes both values to Float64
+println(a)              # Output: 3.0
+println(b)              # Output: 4.5
+println(typeof(a))      # Output: Float64
+println(typeof(b))      # Output: Float64
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It promotes two values to a common type for an operation.",
+           "It converts both values to integers.",
+           "It converts values to strings for display.",
+           "It checks if two values have the same type."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What will happen if we try to add an `Int` and a `String` in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+println(3 + "Hello")  # Attempting to add Int and String
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will throw a type error.",
+           "It will concatenate the string and the number.",
+           "It will promote the number to a string.",
+           "Julia will automatically convert both to a common type."]
+answer = 1
+radioq(choices, answer)
+```
+
+:::
+
+## Composite Types
+
+### Introduction to `struct`
+
+In Julia, you can define your own custom data types using the `struct` keyword. [Composite types](https://docs.julialang.org/en/v1/manual/types/#Composite-Types) are user-defined types that group together different pieces of data into one object. A `struct` is a great way to create a type that can represent a complex entity with multiple fields.
+
+- **Creating a custom `struct`**:
+
+```{julia}
+# Define a simple struct for a point in 2D space
+struct Point
+    x::Float64
+    y::Float64
+end
+```
+
+Here, we created a `Point` struct with two fields: `x` and `y`, both of which are of type `Float64`.
+
+- **Creating an instance of a struct**:
+
+```{julia}
+p = Point(3.0, 4.0)  # Creates a Point with x = 3.0 and y = 4.0
+```
+
+- **Accessing fields of a struct**:
+
+```{julia}
+p.x  # Access the 'x' field of the Point instance
+p.y  # Access the 'y' field of the Point instance
+```
+
+You can access the fields of a struct directly using dot notation, as shown above.
+
+- **Get the names of the fields**:
+
+```{julia}
+fieldnames(Point)  # Returns the names of the fields in the Point struct
+```
+
+### Mutability of `struct`
+
+In Julia, structs are **immutable** by default, meaning once you create an instance of a struct, its fields cannot be changed. However, you can create **mutable structs** by using the `mutable struct` keyword, which allows modification of field values after creation.
+
+- **Creating a mutable struct**:
+
+```{julia}
+mutable struct MutablePoint
+    x::Float64
+    y::Float64
+end
+```
+
+Now you can modify the fields of `MutablePoint` instances after they are created.
+
+```{julia}
+mp = MutablePoint(1.0, 2.0)
+mp.x = 3.0  # Modify the 'x' field
+nothing #| hide
+```
+
+### Example: `struct` for a Circle
+
+We can create a more complex type, such as a `Circle`, which has a center represented by a `Point` and a radius:
+
+```{julia}
+struct Circle
+    center::Point
+    radius::Float64
+end
+```
+
+- **Creating an instance of `Circle`**:
+
+```{julia}
+c = Circle(Point(0.0, 0.0), 5.0)  # Create a circle with center (0, 0) and radius 5
+```
+
+- **Accessing fields of a nested struct**:
+
+```{julia}
+c.center.x  # Access the x field of the center of the circle
+c.center.y  # Access the y field of the center of the circle
+c.radius    # Access the radius of the circle
+nothing #| hide
+```
+
+### Constructor methods
+
+Let us look at an example. A `Duck` is an object that can be described as follows:
+
+- state: a name (`name::String`) and number of feathers (`nb::Int32`);
+- location: a position on a 2-D grid (`pt::Point`).
+
+In order to create a `Duck`, it is necessary to define the object (as seen previously with `Point`).
+
+```{julia}
+struct Duck
+    name::String
+    nb::Int64
+    pt::Point
+end
+nothing #| hide
+```
+
+In order to create a `Duck` with the name "Donald", we simply use the *default* constructor generated by the Julia language.
+
+```{julia}
+donald = Duck("Donald", 10000, Point(0.,0.))
+```
+
+As any function in Julia, a constructor function can be associated with several constructor methods. The object `Duck` has been defined. Still, it is possible to add so called *outer* constructor methods. For example, we can provide a method that takes two `Float64` instead of an instance of the `Point` object. 
+
+```{julia}
+Duck(name::String, nb::Int64, x::Float64, y::Float64) = Duck(name, nb, Point(x,y));
+nothing #| hide
+```
+
+We can now create another `Duck` without using the `Point` object.
+
+```{julia}
+scrooge = Duck("Scrooge", 5000, 0., 1.)
+```
+
+Oh! But Scrooge is a cheapskate. Let us look into *inner* constructor methods in order to avoid any `Duck` from being called "Scrooge". An *inner* constructor can only be defined within the definition of the object. Let us rewrite the `Duck` object in order to replace the *default* constructor method by our own constructor method.
+
+```{julia}
+struct Duck
+    name::String
+    nb::Int64
+    pt::Point
+
+    function Duck(name::String, nb::Int64, pt::Point)
+        if name == "Scrooge"
+            error("A Duck can not be a cheapskate!!")
+        end
+        new(name, nb, pt)
+    end
+end
+nothing #| hide
+```
+
+Let us try to create a `Duck` called "Scrooge" now.
+
+```{julia}
+#| error: true
+scrooge = Duck("Scrooge", 5000, 0., 1.)
+```
+
+Great an error was thrown!
+
+### Function-like Object (Callable `struct`)
+
+In Julia, you can make a `struct` "callable" by defining the `call` method for it. This allows instances of the `struct` to be used like functions. This feature is useful for encapsulating parameters or states in a type while still allowing it to behave like a function.
+
+Here’s an example that demonstrates a callable struct for a **linear transformation**:
+
+```{julia}
+# Define a callable struct for a linear transformation
+struct LinearTransform
+    a::Float64  # Slope
+    b::Float64  # Intercept
+end
+
+# Define the call method for LinearTransform
+function (lt::LinearTransform)(x::Real)
+    lt.a * x + lt.b  # Apply the linear transformation
+end
+```
+
+- **Explanation**:
+  - The `LinearTransform` struct stores the parameters of the linear function \( y = ax + b \).
+  - By defining the `call` method for the struct, you enable instances of `LinearTransform` to behave like a function.
+
+- **Usage**:
+
+```{julia}
+# Create an instance of LinearTransform
+lt = LinearTransform(2.0, 3.0)  # y = 2x + 3
+
+@myshow begin #| hide
+# Call the instance like a function
+typeof(lt)  # Output: LinearTransform
+y1 = lt(5)   # Calculates 2 * 5 + 3 = 13
+y2 = lt(-1)  # Calculates 2 * -1 + 3 = 1
+end #| hide
+```
+
+### Extending the Concept: Composable Linear Transforms
+
+You can take this idea further by allowing composition of transformations. For example:
+
+```{julia}
+# Define a method to compose two LinearTransform objects
+function (lt1::LinearTransform)(lt2::LinearTransform)
+    LinearTransform(lt1.a * lt2.a, lt1.a * lt2.b + lt1.b)
+end
+
+# Example usage
+lt1 = LinearTransform(2.0, 3.0)  # y = 2x + 3
+lt2 = LinearTransform(0.5, 1.0)  # y = 0.5x + 1
+
+# Compose the two transformations
+lt_composed = lt1(lt2)  # Equivalent to y = 2 * (0.5x + 1) + 3
+
+@myshow begin #| hide
+# Call the composed transformation
+y = lt_composed(4)  # Calculates 2 * (0.5 * 4 + 1) + 3 = 9
+end #| hide
+```
+
+::: {.callout-note}
+The previous composition is equivalent in pure Julia to:
+
+```{julia}
+y = (lt1 ∘ lt2)(4)
+```
+:::
+
+### Conclusion
+
+- In Julia, `struct` allows you to create complex custom types that can hold different types of data. Custom constructors provide flexibility for struct initialization, allowing validation and preprocessing of input data. This is especially useful for enforcing constraints and ensuring type consistency. By default, structs are immutable, but you can use `mutable struct` if you need to change the data after creation.
+- Using a callable struct allows you to represent parameterized functions or transformations in a concise and reusable way. The concept can be extended further to support operations like composition or chaining, making it a powerful tool for [functional-style programming](https://en.wikipedia.org/wiki/Functional_programming) in Julia.
+
+### Parametric Composite Types
+
+A parametric struct can take one or more type parameters:
+
+```{julia}
+struct Pair{T, S}
+    first::T
+    second::S
+end
+
+@myshow begin #| hide
+pair1 = Pair(1, "apple")  # Pair of Int and String
+pair2 = Pair(3.14, true)  # Pair of Float64 and Bool
+end #| hide
+```
+
+In this case, `Pair` can be instantiated with any two types `T` and `S`, making it more versatile.
+
+### Parametric Abstract Types
+
+Parametric abstract types allow you to define abstract types that are parameterized by other types.
+
+#### Syntax:
+
+```julia
+abstract type AbstractContainer{T} end
+```
+
+Here, `AbstractContainer` is an abstract type that takes a type parameter `T`. Any concrete type that is a subtype of `AbstractContainer` can specify the concrete type for `T`.
+
+#### Example:
+
+```{julia}
+abstract type AbstractContainer{T} end
+
+struct VectorContainer{T} <: AbstractContainer{T}
+    data::Vector{T}
+end
+
+struct SetContainer{T} <: AbstractContainer{T}
+    data::Set{T}
+end
+
+struct FloatVectorContainer <: AbstractContainer{Float64}
+    data::Vector{Float64}
+end
+
+function print_container_info(container::AbstractContainer{T}) where T
+    println("Container holds values of type: ", T)
+end
+
+# Usage:
+vec = VectorContainer([1, 2, 3])
+set = SetContainer(Set([1, 2, 3]))
+flo = FloatVectorContainer([1.0, 2.0, 3.0])
+
+print_container_info(vec)
+print_container_info(set)
+print_container_info(flo)
+```
+
+#### Explanation:
+
+- `AbstractContainer{T}` is a parametric abstract type, where `T` represents the type of elements contained within the container.
+- `VectorContainer` and `SetContainer` are concrete subtypes of `AbstractContainer`, each using a different data structure (`Vector` and `Set`) to store elements of type `T`.
+- `FloatVectorContainer` is a concrete subtype of `AbstractContainer` that specifies `Float64` as the type for `T`.
+- The function `print_container_info` accepts any container that is a subtype of `AbstractContainer` and prints the type of elements inside the container.
+
+### Constrained Parametric Types
+
+Constrained parametric types allow you to restrict acceptable type parameters using `<:`, ensuring greater control and type safety.
+
+```{julia}
+struct RealPair{T <: Real}
+    first::T
+    second::T
+end
+
+# Valid:
+pair = RealPair(1.0, 2.5)
+
+# Constraining a function:****
+function sum_elements(container::AbstractContainer{T}) where T <: Real
+    return sum(container.data)
+end
+
+vec = VectorContainer([1.0, 2.0, 3.0])
+println(sum_elements(vec))  # Outputs: 6.0
+```
+
+In this example, `RealPair` is a struct that only accepts type parameters that are subtypes of `Real`. Similarly, the `sum_elements` function only works with containers that hold elements of type `T` that are subtypes of `Real`. The following code will throw an error because `String` is not a subtype of `Real`:
+
+```{julia}
+#| error: true
+# Invalid (throws an error):
+invalid_pair = RealPair("a", "b")
+```
+
+Constraints enhance type safety, clarify requirements, and support robust generic programming.
+
+### Quiz
+
+::: {.callout-caution collapse="true" icon=false}
+## Quiz: Parametric Types in Julia
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is a parametric type in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["A type that is defined for a specific data type.",
+           "A type that can work with multiple data types, specified by parameters.",
+           "A type that can only work with abstract types.",
+           "A type that doesn't require any parameters."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the role of `T` and `S` in the `Pair` struct example?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+struct Pair{T, S}
+    first::T
+    second::S
+end
+
+pair1 = Pair(1, "apple")  # Pair of Int and String
+pair2 = Pair(3.14, true)  # Pair of Float64 and Bool
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`T` and `S` define the data types of the first and second elements of the pair.",
+           "`T` is used for the first element, and `S` is used for the second element.",
+           "`T` and `S` are unused in this case, they are placeholders.",
+           "`T` defines the data type of both elements in the pair."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when you instantiate `Pair(1, 'apple')` in the provided code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+pair1 = Pair(1, "apple")  # Pair of Int and String
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will create a pair with an `Int` and a `String`.",
+           "It will throw an error because `Int` and `String` can't be combined.",
+           "It will create a pair with `Int64` and `String`.",
+           "It will cause a runtime error because the types don't match."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the benefit of using parametric types like `AbstractContainer{T}`?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+abstract type AbstractContainer{T} end
+
+struct VectorContainer{T} <: AbstractContainer{T}
+    data::Vector{T}
+end
+
+struct SetContainer{T} <: AbstractContainer{T}
+    data::Set{T}
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It allows you to specify concrete types directly in the struct.",
+           "It makes the code less flexible and more specific.",
+           "It allows you to create types that can handle any type of data, with type safety.",
+           "It makes the code more complex and harder to maintain."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `print_container_info` function do?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function print_container_info(container::AbstractContainer{T}) where T
+    println("Container holds values of type: ", T)
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It prints the type of the container.",
+           "It prints the number of elements in the container.",
+           "It prints the values inside the container.",
+           "It returns the type of the container."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the purpose of `AbstractContainer{T}` in the code example?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+abstract type AbstractContainer{T} end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It defines a concrete container type.",
+           "It defines an abstract type that can be used to create containers for any data type `T`.",
+           "It defines a container for a specific type of data.",
+           "It restricts containers to hold only numeric types."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What would be the output of `print_container_info(vec)` if `vec` is `VectorContainer([1, 2, 3])`?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+vec = VectorContainer([1, 2, 3])
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will print the type `Vector{Int}`.",
+           "It will print the type `AbstractContainer{Int}`.",
+           "It will print the values inside the container.",
+           "It will throw an error because `VectorContainer` is not defined."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). How does using parametric types help with code reusability?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It reduces the need to define separate functions for different data types.",
+           "It forces you to create new types for every use case.",
+           "It makes the code less reusable.",
+           "It requires more boilerplate code."]
+answer = 2
+radioq(choices, answer)
+```
+
+::: 
