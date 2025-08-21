@@ -79,7 +79,7 @@ website:
             href: src/why_julia.qmd
           - text: Getting started
             href: src/getting_started.qmd
-          - text: Developer set-up
+          - text: Developer set up
             href: src/developer_setup.qmd
           - text: Foretaste of Julia Code
             href: src/foretaste_of_julia_code.qmd
