@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Julia Syntax Essentials and Variable Scoping – Julia course</title>
+<title>Core Syntax and Operations – Julia course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,15 +58,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../src/basic-types.html" rel="next">
-<link href="../src/why_julia.html" rel="prev">
+<link href="../src/structure.html" rel="next">
+<link href="../src/foretaste_of_julia_code.html" rel="prev">
 <link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -74,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f7fa5a87f004b0e5669b8d0ca4e27443.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-da65672e49ee5cd90e2fa6acd8b26451.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/quarto-auto-dark-mode-1.0.0/auto-dark-mode.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -106,6 +106,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script>
 
     // fonction pour cacher les menus de navigation
@@ -242,13 +245,13 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../assets/css/styles.css">
-<meta property="og:title" content="Julia Syntax Essentials and Variable Scoping – Julia course">
+<meta property="og:title" content="Core Syntax and Operations – Julia course">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://ocourses.github.io/course-tse-julia/src/images/cheatsheet-julia.png">
 <meta property="og:site_name" content="Julia course">
 <meta property="og:image:height" content="986">
 <meta property="og:image:width" content="1008">
-<meta name="twitter:title" content="Julia Syntax Essentials and Variable Scoping – Julia course">
+<meta name="twitter:title" content="Core Syntax and Operations – Julia course">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://ocourses.github.io/course-tse-julia/src/images/cheatsheet-julia.png">
 <meta name="twitter:image-height" content="986">
@@ -294,7 +297,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/getting_started.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/syntax.html">Syntax Essentials and Scoping</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/syntax.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/syntax.html">Core Syntax and Operations</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -309,24 +312,12 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Julia language</span></a>
+ <span class="menu-text">Introduction</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../src/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../src/foretaste_of_julia_code.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Foretaste of Julia Code</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../src/why_julia.html" class="sidebar-item-text sidebar-link">
@@ -335,20 +326,20 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../src/syntax.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Syntax Essentials and Scoping</span></a>
+  <a href="../src/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../src/basic-types.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basic Types and Data Structures</span></a>
+  <a href="../src/developer_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Developer set up</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../src/advanced-types.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Type System and Error Handling</span></a>
+  <a href="../src/foretaste_of_julia_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foretaste of Julia Code</span></a>
   </div>
 </li>
       </ul>
@@ -356,12 +347,53 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Applications</span></a>
+ <span class="menu-text">Julia language</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/syntax.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Core Syntax and Operations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structure your code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/performance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Type stability for performance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/eval.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Auto-evaluation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../src/root_finding.html" class="sidebar-item-text sidebar-link">
@@ -394,47 +426,28 @@ window.Quarto = {
   <li><a href="#printing-output" id="toc-printing-output" class="nav-link" data-scroll-target="#printing-output">Printing Output</a></li>
   <li><a href="#comparison-operations" id="toc-comparison-operations" class="nav-link" data-scroll-target="#comparison-operations">Comparison Operations</a></li>
   </ul></li>
-  <li><a href="#control-flows-and-logical-operators" id="toc-control-flows-and-logical-operators" class="nav-link" data-scroll-target="#control-flows-and-logical-operators">Control Flows and Logical Operators</a>
-  <ul class="collapse">
-  <li><a href="#conditional-statements" id="toc-conditional-statements" class="nav-link" data-scroll-target="#conditional-statements">Conditional Statements</a></li>
-  <li><a href="#ternary-operator" id="toc-ternary-operator" class="nav-link" data-scroll-target="#ternary-operator">Ternary Operator</a></li>
-  <li><a href="#logical-operators" id="toc-logical-operators" class="nav-link" data-scroll-target="#logical-operators">Logical Operators</a></li>
-  <li><a href="#loops" id="toc-loops" class="nav-link" data-scroll-target="#loops">Loops</a></li>
-  <li><a href="#breaking-and-continuing" id="toc-breaking-and-continuing" class="nav-link" data-scroll-target="#breaking-and-continuing">Breaking and Continuing</a></li>
-  </ul></li>
   <li><a href="#arithmetics" id="toc-arithmetics" class="nav-link" data-scroll-target="#arithmetics">Arithmetics</a>
   <ul class="collapse">
   <li><a href="#basic-arithmetic-operations" id="toc-basic-arithmetic-operations" class="nav-link" data-scroll-target="#basic-arithmetic-operations">Basic Arithmetic Operations</a></li>
   <li><a href="#modulo-operation" id="toc-modulo-operation" class="nav-link" data-scroll-target="#modulo-operation">Modulo Operation</a></li>
   <li><a href="#exponentiation" id="toc-exponentiation" class="nav-link" data-scroll-target="#exponentiation">Exponentiation</a></li>
-  <li><a href="#using-arithmetic-in-control-flow" id="toc-using-arithmetic-in-control-flow" class="nav-link" data-scroll-target="#using-arithmetic-in-control-flow">Using Arithmetic in Control Flow</a></li>
   <li><a href="#summary-of-arithmetic-operations" id="toc-summary-of-arithmetic-operations" class="nav-link" data-scroll-target="#summary-of-arithmetic-operations">Summary of Arithmetic Operations</a></li>
   </ul></li>
-  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
+  <li><a href="#logical-operators" id="toc-logical-operators" class="nav-link" data-scroll-target="#logical-operators">Logical Operators</a></li>
+  <li><a href="#control-flows" id="toc-control-flows" class="nav-link" data-scroll-target="#control-flows">Control Flows</a>
   <ul class="collapse">
-  <li><a href="#defining-functions" id="toc-defining-functions" class="nav-link" data-scroll-target="#defining-functions">Defining Functions</a></li>
-  <li><a href="#positional-and-keyword-arguments" id="toc-positional-and-keyword-arguments" class="nav-link" data-scroll-target="#positional-and-keyword-arguments">Positional and Keyword Arguments</a></li>
-  <li><a href="#variable-number-of-arguments" id="toc-variable-number-of-arguments" class="nav-link" data-scroll-target="#variable-number-of-arguments">Variable Number of Arguments</a></li>
-  <li><a href="#default-values-for-optional-arguments" id="toc-default-values-for-optional-arguments" class="nav-link" data-scroll-target="#default-values-for-optional-arguments">Default Values for Optional Arguments</a></li>
-  <li><a href="#multiple-optional-positional-arguments" id="toc-multiple-optional-positional-arguments" class="nav-link" data-scroll-target="#multiple-optional-positional-arguments">Multiple Optional Positional Arguments</a></li>
-  <li><a href="#mutation-and-the-bang-convention" id="toc-mutation-and-the-bang-convention" class="nav-link" data-scroll-target="#mutation-and-the-bang-convention">Mutation and the Bang <code>!</code> Convention</a></li>
-  <li><a href="#broadcasting" id="toc-broadcasting" class="nav-link" data-scroll-target="#broadcasting">Broadcasting</a></li>
-  <li><a href="#return-values" id="toc-return-values" class="nav-link" data-scroll-target="#return-values">Return Values</a></li>
+  <li><a href="#conditional-statements" id="toc-conditional-statements" class="nav-link" data-scroll-target="#conditional-statements">Conditional Statements</a></li>
+  <li><a href="#using-arithmetic-in-control-flow" id="toc-using-arithmetic-in-control-flow" class="nav-link" data-scroll-target="#using-arithmetic-in-control-flow">Using Arithmetic in Control Flow</a></li>
+  <li><a href="#ternary-operator" id="toc-ternary-operator" class="nav-link" data-scroll-target="#ternary-operator">Ternary Operator</a></li>
+  <li><a href="#loops" id="toc-loops" class="nav-link" data-scroll-target="#loops">Loops</a></li>
+  <li><a href="#breaking-and-continuing" id="toc-breaking-and-continuing" class="nav-link" data-scroll-target="#breaking-and-continuing">Breaking and Continuing</a></li>
   </ul></li>
-  <li><a href="#scoping-and-closure" id="toc-scoping-and-closure" class="nav-link" data-scroll-target="#scoping-and-closure">Scoping and Closure</a>
+  <li><a href="#linear-algebra" id="toc-linear-algebra" class="nav-link" data-scroll-target="#linear-algebra">Linear Algebra</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a>
   <ul class="collapse">
-  <li><a href="#variable-scope" id="toc-variable-scope" class="nav-link" data-scroll-target="#variable-scope">Variable Scope</a></li>
-  <li><a href="#scope-of-variables-in-for-loops" id="toc-scope-of-variables-in-for-loops" class="nav-link" data-scroll-target="#scope-of-variables-in-for-loops">Scope of Variables in <code>for</code> Loops</a></li>
-  <li><a href="#nested-scopes" id="toc-nested-scopes" class="nav-link" data-scroll-target="#nested-scopes">Nested Scopes</a></li>
-  <li><a href="#closures" id="toc-closures" class="nav-link" data-scroll-target="#closures">Closures</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  </ul></li>
-  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices">Exercices</a>
-  <ul class="collapse">
-  <li><a href="#exercise-1-temperature-converter" id="toc-exercise-1-temperature-converter" class="nav-link" data-scroll-target="#exercise-1-temperature-converter">Exercise 1: Temperature Converter</a></li>
-  <li><a href="#exercise-2-factorial-function-with-closure" id="toc-exercise-2-factorial-function-with-closure" class="nav-link" data-scroll-target="#exercise-2-factorial-function-with-closure">Exercise 2: Factorial Function with Closure</a></li>
-  <li><a href="#exercise-3-filter-even-numbers" id="toc-exercise-3-filter-even-numbers" class="nav-link" data-scroll-target="#exercise-3-filter-even-numbers">Exercise 3: Filter Even Numbers</a></li>
-  <li><a href="#exercise-instructions" id="toc-exercise-instructions" class="nav-link" data-scroll-target="#exercise-instructions">Exercise Instructions</a></li>
+  <li><a href="#least-squares-regression-line" id="toc-least-squares-regression-line" class="nav-link" data-scroll-target="#least-squares-regression-line">Least Squares Regression Line</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/src/syntax.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/src/syntax.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -442,9 +455,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/getting_started.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/syntax.html">Syntax Essentials and Scoping</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/syntax.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/syntax.html">Core Syntax and Operations</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Julia Syntax Essentials and Variable Scoping</h1>
+<h1 class="title">Core Syntax and Operations</h1>
 </div>
 
 
@@ -487,20 +500,20 @@ Tip
 <section id="assignment" class="level3">
 <h3 class="anchored" data-anchor-id="assignment">Assignment</h3>
 <p>In Julia, <a href="https://docs.julialang.org/en/v1/manual/variables/">variables</a> are assigned using the <code>=</code> operator:</p>
-<div id="121987c5" class="cell" data-execution_count="2">
+<div id="4f66b340" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">5</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="st">"Hello, Julia!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Julia is dynamically typed, which means variables do not require explicit type declarations. Types are inferred based on the assigned value.</p>
-<div id="813aaa82" class="cell" data-execution_count="3">
+<div id="d9d1c6b8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="86">
 <pre><code>Int64</code></pre>
 </div>
 </div>
-<div id="51ac87a7" class="cell" data-execution_count="4">
+<div id="dd8be0cd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="87">
 <pre><code>String</code></pre>
 </div>
 </div>
@@ -509,7 +522,7 @@ Tip
 <section id="unicode-characters" class="level3">
 <h3 class="anchored" data-anchor-id="unicode-characters">Unicode Characters</h3>
 <p>Julia supports Unicode characters, enhancing code readability, especially for mathematical and scientific computations:</p>
-<div id="1e9b632a" class="cell" data-execution_count="5">
+<div id="7474955d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>α <span class="op">=</span> <span class="fl">10</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>β <span class="op">=</span> α <span class="op">+</span> <span class="fl">5</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"β = </span><span class="sc">$</span><span class="st">β")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -522,7 +535,7 @@ Tip
 <section id="comments" class="level3">
 <h3 class="anchored" data-anchor-id="comments">Comments</h3>
 <p>Comments are written with the <code>#</code> symbol. Julia also supports multiline comments with <code>#=</code> and <code>=#</code>:</p>
-<div id="7bd345bf" class="cell" data-execution_count="6">
+<div id="aeab3f4b" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a single-line comment</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#= </span></span>
@@ -534,7 +547,7 @@ Tip
 <section id="printing-output" class="level3">
 <h3 class="anchored" data-anchor-id="printing-output">Printing Output</h3>
 <p>For debugging or displaying results, Julia provides the println function:</p>
-<div id="e60afa99" class="cell" data-execution_count="7">
+<div id="27eb2a81" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Hello, Julia!"</span>)  <span class="co"># Prints: Hello, Julia!</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"The value of α is "</span>, α)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -543,7 +556,7 @@ The value of α is 10</code></pre>
 </div>
 </div>
 <p>Additionally, the <code>@show</code> macro prints both variable names and values:</p>
-<div id="2833f6d2" class="cell" data-execution_count="8">
+<div id="825033c2" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">42</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@show</span> x   <span class="co"># Prints: x = 42</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -551,7 +564,7 @@ The value of α is 10</code></pre>
 </div>
 </div>
 <p>You can also use <code>@show</code> with multiple variables or expressions:</p>
-<div id="4d036273" class="cell" data-execution_count="9">
+<div id="8f3cba19" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">10</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">20</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@show</span> a <span class="op">+</span> b  <span class="co"># Prints: a + b = 30</span></span>
@@ -608,7 +621,7 @@ The value of α is 10</code></pre>
 </tbody>
 </table>
 <p>Examples:</p>
-<div id="bfa7e276" class="cell" data-execution_count="10">
+<div id="3468faf7" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fl">5</span> <span class="op">==</span> <span class="fl">5</span>     <span class="co"># true</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fl">5</span> <span class="op">!=</span> <span class="fl">3</span>     <span class="co"># true</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fl">5</span> <span class="op">≠</span> <span class="fl">3</span>      <span class="co"># true (using Unicode)</span></span>
@@ -634,7 +647,7 @@ julia&gt; 5 === 5.0 = false</code></pre>
 <li><p><strong>Immutable Types:</strong> For immutable types like <code>Int</code>, <code>Float64</code>, etc., <code>===</code> and <code>==</code> usually give the same result since identical values are often the same instance.</p></li>
 <li><p><strong>Performance:</strong> <code>===</code> is generally faster than <code>==</code> because it doesn’t need to do a value comparison, just a memory location check. This is particularly useful when checking if a value is a specific singleton (e.g., <code>x === nothing</code>).</p></li>
 </ul>
-<div id="f61df2ec" class="cell" data-execution_count="11">
+<div id="9fe1014a" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">1</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">1</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">===</span> b  <span class="co"># true, since 1 is an immutable integer, they are identical instances</span></span>
@@ -659,186 +672,6 @@ julia&gt; x === [1, 2] = false</code></pre>
 <p>In summary, <code>===</code> is especially useful for checking identity rather than equality, often applied to singletons or cases where knowing the exact instance matters, as it allows for efficient and clear comparisons.</p>
 </section>
 </section>
-<section id="control-flows-and-logical-operators" class="level2">
-<h2 class="anchored" data-anchor-id="control-flows-and-logical-operators">Control Flows and Logical Operators</h2>
-<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/">Control flow in Julia</a> is managed through conditional statements and loops. Logical operators allow for conditions to be combined or negated.</p>
-<section id="conditional-statements" class="level3">
-<h3 class="anchored" data-anchor-id="conditional-statements">Conditional Statements</h3>
-<p>Julia supports <code>if</code>, <code>elseif</code>, and <code>else</code> for conditional checks:</p>
-<div id="b3e58666" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">10</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&gt;</span> <span class="fl">5</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"x is greater than 5"</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elseif</span> x <span class="op">==</span> <span class="fl">5</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"x is equal to 5"</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"x is less than 5"</span>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>x is greater than 5</code></pre>
-</div>
-</div>
-<p>In Julia, blocks for <code>if</code>, <code>elseif</code>, and <code>else</code> are closed with <code>end</code>. Indentation is not required by syntax but is recommended for readability.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You can follow the <a href="https://github.com/JuliaDiff/BlueStyle">Blue Style</a> conventions for Julia code. If you want to format your code you can use the package <a href="https://domluna.github.io/JuliaFormatter.jl">JuliaFormatter.jl</a>.</p>
-</div>
-</div>
-</section>
-<section id="ternary-operator" class="level3">
-<h3 class="anchored" data-anchor-id="ternary-operator">Ternary Operator</h3>
-<p>For simple conditional assignments, Julia has a ternary operator <code>? :</code>:</p>
-<div id="c8b4e647" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (x <span class="op">&gt;</span> <span class="fl">5</span>) ? <span class="st">"Greater"</span> <span class="op">:</span> <span class="st">"Not greater"</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(y)  <span class="co"># Outputs "Greater" if x &gt; 5, otherwise "Not greater"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Greater</code></pre>
-</div>
-</div>
-</section>
-<section id="logical-operators" class="level3">
-<h3 class="anchored" data-anchor-id="logical-operators">Logical Operators</h3>
-<p>Julia includes standard logical operators, that combine or negate conditions:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Operator</th>
-<th>Purpose</th>
-<th>Example</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>&amp;&amp;</code></td>
-<td>Logical AND</td>
-<td><code>true &amp;&amp; false</code></td>
-<td><code>false</code></td>
-</tr>
-<tr class="even">
-<td><code>||</code></td>
-<td>Logical OR</td>
-<td><code>true || false</code></td>
-<td><code>true</code></td>
-</tr>
-<tr class="odd">
-<td><code>!</code></td>
-<td>Logical NOT</td>
-<td><code>!true</code></td>
-<td><code>false</code></td>
-</tr>
-</tbody>
-</table>
-<div id="0bd91b24" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="cn">true</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="cn">false</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">&amp;&amp;</span> b</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>a <span class="op">||</span> b</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>!a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; a = true
-julia&gt; b = false
-julia&gt; a &amp;&amp; b = false
-julia&gt; a || b = true
-julia&gt; !a = false</code></pre>
-</div>
-</div>
-</section>
-<section id="loops" class="level3">
-<h3 class="anchored" data-anchor-id="loops">Loops</h3>
-<p>Julia provides <code>for</code> and <code>while</code> loops for iterative tasks.</p>
-<p><strong>For Loop</strong>: The <code>for</code> loop iterates over a range or collection:</p>
-<div id="adf7e0b5" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1
-2
-3
-4
-5</code></pre>
-</div>
-</div>
-<p>This loop prints numbers from 1 to 5. The range <code>1:5</code> uses Julia’s <code>:</code> operator to create a sequence.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The for construct can loop on any iterable object. Visit the <a href="https://docs.julialang.org/en/v1/manual/control-flow/#man-loops">documentation</a> for details.</p>
-</div>
-</div>
-<p><strong>While Loop</strong>: The <code>while</code> loop executes as long as a condition is true:</p>
-<div id="82b15a7b" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> count <span class="op">&lt;=</span> <span class="fl">5</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(count)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="fl">1</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1
-2
-3
-4
-5</code></pre>
-</div>
-</div>
-<p>This loop will print numbers from 1 to 5 by incrementing <code>count</code> each time.</p>
-</section>
-<section id="breaking-and-continuing" class="level3">
-<h3 class="anchored" data-anchor-id="breaking-and-continuing">Breaking and Continuing</h3>
-<p>Julia also has <code>break</code> and <code>continue</code> for loop control.</p>
-<ul>
-<li><code>break</code> exits the loop completely.</li>
-<li><code>continue</code> skips the current iteration and moves to the next one.</li>
-</ul>
-<div id="293d7128" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="fl">3</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span>  <span class="co"># Skips the number 3</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1
-2
-4
-5</code></pre>
-</div>
-</div>
-<div id="27827ba9" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="fl">4</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span>  <span class="co"># Exits the loop when i is 4</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1
-2
-3</code></pre>
-</div>
-</div>
-<p>These control flows and logical operators allow for flexibility in executing conditional logic and repeated operations in Julia.</p>
-</section>
-</section>
 <section id="arithmetics" class="level2">
 <h2 class="anchored" data-anchor-id="arithmetics">Arithmetics</h2>
 <p>Julia supports a variety of <a href="https://docs.julialang.org/en/v1/manual/mathematical-operations/">arithmetic operations</a> that can be performed on numeric types. Below are some of the most commonly used operations:</p>
@@ -851,15 +684,15 @@ Note
 <li><strong>Multiplication</strong>: <code>*</code></li>
 <li><strong>Division</strong>: <code>/</code> (returns a floating-point result) and <code>//</code> (returns a rational number)</li>
 </ul>
-<div id="fb4bc03e" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">10</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">3</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>sum <span class="op">=</span> a <span class="op">+</span> b</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>difference <span class="op">=</span> a <span class="op">-</span> b</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>product <span class="op">=</span> a <span class="op">*</span> b</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>quotient <span class="op">=</span> a <span class="op">/</span> b</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>rational <span class="op">=</span> a <span class="op">//</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c957d3d9" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">10</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>sum <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>difference <span class="op">=</span> a <span class="op">-</span> b</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>product <span class="op">=</span> a <span class="op">*</span> b</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>quotient <span class="op">=</span> a <span class="op">/</span> b</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>rational <span class="op">=</span> a <span class="op">//</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>julia&gt; a = 10
 julia&gt; b = 3
@@ -874,9 +707,9 @@ julia&gt; rational = 10//3</code></pre>
 <section id="modulo-operation" class="level3">
 <h3 class="anchored" data-anchor-id="modulo-operation">Modulo Operation</h3>
 <p>The modulo operator <code>%</code> returns the remainder of a division operation. It is useful for determining if a number is even or odd, or for wrapping around values.</p>
-<div id="7789c61e" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>modulus_result <span class="op">=</span> a <span class="op">%</span> b  <span class="co"># remainder of 10 divided by 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div id="3deff1c2" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>modulus_result <span class="op">=</span> a <span class="op">%</span> b  <span class="co"># remainder of 10 divided by 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="96">
 <pre><code>1</code></pre>
 </div>
 </div>
@@ -884,24 +717,10 @@ julia&gt; rational = 10//3</code></pre>
 <section id="exponentiation" class="level3">
 <h3 class="anchored" data-anchor-id="exponentiation">Exponentiation</h3>
 <p>You can perform exponentiation using the <code>^</code> operator.</p>
-<div id="40ab5c0b" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>a<span class="op">^</span><span class="fl">2</span>          <span class="co"># 10 squared</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div id="0a55de02" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>a<span class="op">^</span><span class="fl">2</span>          <span class="co"># 10 squared</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="97">
 <pre><code>100</code></pre>
-</div>
-</div>
-</section>
-<section id="using-arithmetic-in-control-flow" class="level3">
-<h3 class="anchored" data-anchor-id="using-arithmetic-in-control-flow">Using Arithmetic in Control Flow</h3>
-<p>You can combine arithmetic operations with control flow statements. For example, you can use the modulo operation to check if a number is even or odd:</p>
-<div id="6736dc57" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a <span class="op">%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>a<span class="st"> is even"</span>)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>a<span class="st"> is odd"</span>)</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>10 is even</code></pre>
 </div>
 </div>
 </section>
@@ -958,111 +777,76 @@ julia&gt; rational = 10//3</code></pre>
 <p>These arithmetic operations can be combined and nested to perform complex calculations as needed.</p>
 </section>
 </section>
-<section id="functions" class="level2">
-<h2 class="anchored" data-anchor-id="functions">Functions</h2>
-<p>Julia offers flexible ways to define <a href="https://docs.julialang.org/en/v1/manual/functions/">functions</a>, with options for positional arguments, keyword arguments, optional arguments with default values, and variable-length arguments. Let’s explore each of these in detail.</p>
-<section id="defining-functions" class="level3">
-<h3 class="anchored" data-anchor-id="defining-functions">Defining Functions</h3>
-<p>Functions in Julia can be defined using either the <code>function</code> keyword or the assignment syntax.</p>
-<div id="5c7caa24" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the `function` keyword</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(a, b)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Using assignment syntax</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply</span>(a, b) <span class="op">=</span> a <span class="op">*</span> b</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(<span class="fl">2</span>, <span class="fl">3</span>)</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply</span>(<span class="fl">2</span>, <span class="fl">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="logical-operators" class="level2">
+<h2 class="anchored" data-anchor-id="logical-operators">Logical Operators</h2>
+<p>Julia includes standard logical operators, that combine or negate conditions:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Purpose</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&amp;&amp;</code></td>
+<td>Logical AND</td>
+<td><code>true &amp;&amp; false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr class="even">
+<td><code>||</code></td>
+<td>Logical OR</td>
+<td><code>true || false</code></td>
+<td><code>true</code></td>
+</tr>
+<tr class="odd">
+<td><code>!</code></td>
+<td>Logical NOT</td>
+<td><code>!true</code></td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<div id="367440ca" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">&amp;&amp;</span> b</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>a <span class="op">||</span> b</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>!a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; add(2, 3) = 5
-julia&gt; multiply(2, 3) = 6</code></pre>
+<pre><code>julia&gt; a = true
+julia&gt; b = false
+julia&gt; a &amp;&amp; b = false
+julia&gt; a || b = true
+julia&gt; !a = false</code></pre>
 </div>
 </div>
 </section>
-<section id="positional-and-keyword-arguments" class="level3">
-<h3 class="anchored" data-anchor-id="positional-and-keyword-arguments">Positional and Keyword Arguments</h3>
-<p>In Julia, functions can take both positional arguments and keyword arguments.</p>
-<ul>
-<li><p><strong>Positional Arguments</strong>: These are listed first in the parameter list and must be provided in the correct order when the function is called. Positional arguments can have default values, but it’s not required.</p></li>
-<li><p><strong>Keyword Arguments</strong>: Keyword arguments are specified after a semicolon (<code>;</code>) in the parameter list. These arguments must be provided by name when calling the function. Like positional arguments, keyword arguments can have default values, but they don’t have to.</p></li>
-</ul>
-<div id="7f515fc6" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">greet</span>(name; punctuation <span class="op">=</span> <span class="st">"!"</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Hello, "</span> <span class="op">*</span> name <span class="op">*</span> punctuation</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">greet</span>(<span class="st">"Alice"</span>))</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">greet</span>(<span class="st">"Alice"</span>, punctuation <span class="op">=</span> <span class="st">"?"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="control-flows" class="level2">
+<h2 class="anchored" data-anchor-id="control-flows">Control Flows</h2>
+<p><a href="https://docs.julialang.org/en/v1/manual/control-flow/">Control flow in Julia</a> is managed through conditional statements and loops. Logical operators allow for conditions to be combined or negated.</p>
+<section id="conditional-statements" class="level3">
+<h3 class="anchored" data-anchor-id="conditional-statements">Conditional Statements</h3>
+<p>Julia supports <code>if</code>, <code>elseif</code>, and <code>else</code> for conditional checks:</p>
+<div id="7a59ac5f" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">10</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&gt;</span> <span class="fl">5</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"x is greater than 5"</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elseif</span> x <span class="op">==</span> <span class="fl">5</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"x is equal to 5"</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"x is less than 5"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Hello, Alice!
-Hello, Alice?</code></pre>
+<pre><code>x is greater than 5</code></pre>
 </div>
 </div>
-<p>In this example, <code>punctuation</code> is a keyword argument with a default value of <code>"!"</code>. You could also define a keyword argument without a default value if needed.</p>
-</section>
-<section id="variable-number-of-arguments" class="level3">
-<h3 class="anchored" data-anchor-id="variable-number-of-arguments">Variable Number of Arguments</h3>
-<p>Julia functions can accept an arbitrary number of arguments using the splatting operator <code>...</code>. These arguments are gathered into a tuple.</p>
-<div id="0900ecbe" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum_all</span>(args<span class="op">...</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="fl">0</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> args</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        total <span class="op">+=</span> x</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> total</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_all</span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; sum_all(1, 2, 3, 4) = 10</code></pre>
-</div>
-</div>
-</section>
-<section id="default-values-for-optional-arguments" class="level3">
-<h3 class="anchored" data-anchor-id="default-values-for-optional-arguments">Default Values for Optional Arguments</h3>
-<p>In Julia, you can assign default values to both positional and keyword arguments. When the function is called without specifying a value for an argument with a default, the default value is used.</p>
-<div id="824810ce" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">power</span>(base, exponent<span class="op">=</span><span class="fl">2</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> base <span class="op">^</span> exponent</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="fl">3</span>)      <span class="co"># Outputs: 9 (since exponent defaults to 2)</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="fl">3</span>, <span class="fl">3</span>)   <span class="co"># Outputs: 27</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; power(3) = 9
-julia&gt; power(3, 3) = 27</code></pre>
-</div>
-</div>
-</section>
-<section id="multiple-optional-positional-arguments" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-optional-positional-arguments">Multiple Optional Positional Arguments</h3>
-<p>When a function has multiple optional positional arguments, Julia will use the default values for any arguments not provided, allowing flexible combinations.</p>
-<div id="b16db161" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calculate</span>(a<span class="op">=</span><span class="fl">1</span>, b<span class="op">=</span><span class="fl">2</span>, c<span class="op">=</span><span class="fl">3</span>)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b <span class="op">*</span> c</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate</span>()        <span class="co"># Outputs: 7  (1 + 2 * 3)</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate</span>(<span class="fl">5</span>)       <span class="co"># Outputs: 11 (5 + 2 * 3)</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate</span>(<span class="fl">5</span>, <span class="fl">4</span>)    <span class="co"># Outputs: 17 (5 + 4 * 3)</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate</span>(<span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">1</span>) <span class="co"># Outputs: 9  (5 + 4 * 1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; calculate() = 7
-julia&gt; calculate(5) = 11
-julia&gt; calculate(5, 4) = 17
-julia&gt; calculate(5, 4, 1) = 9</code></pre>
-</div>
-</div>
-<p>Here’s how the argument combinations work:</p>
-<ol type="1">
-<li><code>calculate()</code> uses all default values: <code>a=1</code>, <code>b=2</code>, <code>c=3</code>.</li>
-<li><code>calculate(5)</code> overrides <code>a</code>, leaving <code>b</code> and <code>c</code> as defaults.</li>
-<li><code>calculate(5, 4)</code> overrides <code>a</code> and <code>b</code>, leaving <code>c</code> as the default.</li>
-<li><code>calculate(5, 4, 1)</code> overrides all arguments.</li>
-</ol>
-<p>This flexibility makes it easy to call functions with varying levels of detail without explicitly specifying each parameter.</p>
+<p>In Julia, blocks for <code>if</code>, <code>elseif</code>, and <code>else</code> are closed with <code>end</code>. Indentation is not required by syntax but is recommended for readability.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1073,429 +857,408 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If a function has many optional arguments, consider using keyword arguments to improve readability and avoid confusion about the order of arguments.</p>
+<p>You can follow the <a href="https://github.com/JuliaDiff/BlueStyle">Blue Style</a> conventions for Julia code. If you want to format your code you can use the package <a href="https://domluna.github.io/JuliaFormatter.jl">JuliaFormatter.jl</a>.</p>
 </div>
 </div>
 </section>
-<section id="mutation-and-the-bang-convention" class="level3">
-<h3 class="anchored" data-anchor-id="mutation-and-the-bang-convention">Mutation and the Bang <code>!</code> Convention</h3>
-<p>In Julia, functions that modify or mutate their arguments typically end with a <code>!</code>, following the <a href="https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention">“bang” convention</a>. This is not enforced by the language but is a widely followed convention in Julia to indicate mutation.</p>
-<div id="403f0b53" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add_one!</span>(array)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(array)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>        array[i] <span class="op">+=</span> <span class="fl">1</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>]</span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">add_one!</span>(arr)</span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>arr  <span class="co"># Outputs: [2, 3, 4]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="using-arithmetic-in-control-flow" class="level3">
+<h3 class="anchored" data-anchor-id="using-arithmetic-in-control-flow">Using Arithmetic in Control Flow</h3>
+<p>You can combine arithmetic operations with control flow statements. For example, you can use the modulo operation to check if a number is even or odd:</p>
+<div id="5303cdc2" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">10</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a <span class="op">%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>a<span class="st"> is even"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"</span><span class="sc">$</span>a<span class="st"> is odd"</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; arr = [1, 2, 3]
-julia&gt; add_one!(arr) = nothing
-julia&gt; arr = [2, 3, 4]</code></pre>
+<pre><code>10 is even</code></pre>
 </div>
 </div>
-<p>In this example, <code>add_one!</code> modifies the elements of the array <code>arr</code>. By convention, the <code>!</code> at the end of the function name indicates that the function mutates its input.</p>
 </section>
-<section id="broadcasting" class="level3">
-<h3 class="anchored" data-anchor-id="broadcasting">Broadcasting</h3>
-<p>Julia supports <strong>broadcasting</strong>, a powerful feature that applies a function element-wise to arrays or other collections. Broadcasting is denoted by a <code>.</code> placed before the function call or operator.</p>
-<div id="da26590c" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a simple function</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">square</span>(x)</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">^</span><span class="fl">2</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the function to a vector using broadcasting</span></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>vec <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>]</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>squared_vec <span class="op">=</span> <span class="fu">square</span>.(vec)</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Original vector: "</span>, vec)</span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Squared vector: "</span>, squared_vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="ternary-operator" class="level3">
+<h3 class="anchored" data-anchor-id="ternary-operator">Ternary Operator</h3>
+<p>For simple conditional assignments, Julia has a ternary operator <code>? :</code>:</p>
+<div id="b463a4a7" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (x <span class="op">&gt;</span> <span class="fl">5</span>) ? <span class="st">"Greater"</span> <span class="op">:</span> <span class="st">"Not greater"</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(y)  <span class="co"># Outputs "Greater" if x &gt; 5, otherwise "Not greater"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Original vector: [1, 2, 3, 4]
-Squared vector: [1, 4, 9, 16]</code></pre>
-</div>
-</div>
-<p>In this example:</p>
-<ul>
-<li>The function <code>square(x)</code> is applied to each element of <code>vec</code> using the <code>.</code> operator.</li>
-<li>Broadcasting works seamlessly with both built-in and user-defined functions, making it easy to perform element-wise operations on arrays of any shape.</li>
-</ul>
-</section>
-<section id="return-values" class="level3">
-<h3 class="anchored" data-anchor-id="return-values">Return Values</h3>
-<p>In Julia, functions automatically return the last evaluated expression. However, you can use the <code>return</code> keyword to explicitly specify the output if needed.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(a, b)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    a <span class="op">*</span> b  <span class="co"># Returns the result of a * b</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="scoping-and-closure" class="level2">
-<h2 class="anchored" data-anchor-id="scoping-and-closure">Scoping and Closure</h2>
-<p>In Julia, <a href="https://docs.julialang.org/en/v1/manual/variables-and-scoping/">scoping rules</a> determine the visibility and lifetime of variables. Understanding scope and closures is essential for writing efficient and error-free code.</p>
-<section id="variable-scope" class="level3">
-<h3 class="anchored" data-anchor-id="variable-scope">Variable Scope</h3>
-<p>Scope in Julia refers to the region of code where a variable is accessible. There are two primary scopes: global and local.</p>
-<ul>
-<li><strong>Global Scope</strong>: Variables defined at the top level of a module or script are in the global scope and can be accessed from anywhere in that file. However, modifying global variables from within functions is generally discouraged.</li>
-</ul>
-<div id="88e0cbba" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>global_var <span class="op">=</span> <span class="fl">10</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">access_global</span>()</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> global_var</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="fu">access_global</span>()  <span class="co"># Outputs: 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; access_global() = 10</code></pre>
-</div>
-</div>
-<ul>
-<li><strong>Local Scope</strong>: Variables defined within a function or a block (e.g., loops or conditionals) have local scope and cannot be accessed outside of that block.</li>
-</ul>
-<div id="efa5118b" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">local_scope_example</span>()</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    local_var <span class="op">=</span> <span class="fl">5</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> local_var</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">local_scope_example</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; local_scope_example() = 5</code></pre>
-</div>
-</div>
-<p>If you try to access <code>local_var</code> outside the function, you will get an error because it is not defined in the global scope.</p>
-<div id="dd71b2c2" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>local_var  <span class="co"># This would cause an error, as local_var is not accessible here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>LoadError: UndefVarError: `local_var` not defined in `Main`
-Suggestion: check for spelling errors or missing imports.
-UndefVarError: `local_var` not defined in `Main`
-Suggestion: check for spelling errors or missing imports.</code></pre>
+<pre><code>Greater</code></pre>
 </div>
 </div>
 </section>
-<section id="scope-of-variables-in-for-loops" class="level3">
-<h3 class="anchored" data-anchor-id="scope-of-variables-in-for-loops">Scope of Variables in <code>for</code> Loops</h3>
-<p>In Julia, a <code>for</code> loop <em>does</em> create a new local scope for its loop variable when inside a function or another local scope. This means that a variable used as the loop variable will not overwrite an existing global variable with the same name in that context.</p>
-<p>Here’s an example:</p>
-<div id="0cdc12ab" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="fl">10</span>  <span class="co"># Define a global variable `i`</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)  <span class="co"># Prints 1, 2, and 3</span></span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Outside loop: i = "</span>, i)  <span class="co"># Outputs: 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="loops" class="level3">
+<h3 class="anchored" data-anchor-id="loops">Loops</h3>
+<p>Julia provides <code>for</code> and <code>while</code> loops for iterative tasks.</p>
+<p><strong>For Loop</strong>: The <code>for</code> loop iterates over a range or collection:</p>
+<div id="aabca720" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1
 2
 3
-Outside loop: i = 10</code></pre>
+4
+5</code></pre>
 </div>
 </div>
-<p>In this case, the initial value of <code>i</code> (10) is not affected by the loop because the <code>for</code> loop has its own local scope for <code>i</code>. After the loop completes, the global variable <code>i</code> retains its original value (10), demonstrating that the <code>for</code> loop did not alter it.</p>
-<p>However, if this code were inside a function, <code>i</code> would be entirely scoped within that function’s local environment, meaning any loop variables would only affect other variables within the function itself.</p>
-</section>
-<section id="nested-scopes" class="level3">
-<h3 class="anchored" data-anchor-id="nested-scopes">Nested Scopes</h3>
-<p>Julia allows for nested functions, which can access variables in their enclosing scopes. This is known as lexical scoping.</p>
-<div id="43663fad" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">outer_function</span>(x)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">inner_function</span>(z)</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inner_function</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>closure <span class="op">=</span> <span class="fu">outer_function</span>(<span class="fl">3</span>)</span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="fu">closure</span>(<span class="fl">4</span>)  <span class="co"># Outputs: 9 (3 + 2 + 4)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; closure(4) = 9</code></pre>
-</div>
-</div>
-<p>In this example, <code>inner_function</code> forms a closure over the variables <code>x</code> and <code>y</code>, retaining access to them even after <code>outer_function</code> has finished executing.</p>
-</section>
-<section id="closures" class="level3">
-<h3 class="anchored" data-anchor-id="closures">Closures</h3>
-<p>A closure is a function that captures variables from its surrounding lexical scope, allowing the function to use these variables even after the scope where they were defined has ended. Closures are especially useful for creating customized functions or “function factories.”</p>
-<section id="example-using-a-global-variable-vs.-capturing-a-variable-in-a-closure" class="level4">
-<h4 class="anchored" data-anchor-id="example-using-a-global-variable-vs.-capturing-a-variable-in-a-closure">Example: Using a Global Variable vs.&nbsp;Capturing a Variable in a Closure</h4>
-<p>To illustrate the difference between referencing a global variable and capturing a variable in a closure, let’s first create a function that uses a global variable:</p>
-<div id="a7ca2e33" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply_by_global</span>(x)</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> factor</span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply_by_global</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 10</span></span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Update the global variable `factor`</span></span>
-<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">3</span></span>
-<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply_by_global</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 15 (factor is now 3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; factor = 2
-julia&gt; function multiply_by_global(x)
-    return x * factor
-end
-julia&gt; multiply_by_global(5) = 10
-julia&gt; factor = 3
-julia&gt; multiply_by_global(5) = 15</code></pre>
-</div>
-</div>
-<p>In this example, <code>multiply_by_global</code> uses the global variable <code>factor</code>, so whenever <code>factor</code> is updated, the result of calling <code>multiply_by_global</code> changes.</p>
-</section>
-<section id="example-capturing-a-variable-in-a-closure" class="level4">
-<h4 class="anchored" data-anchor-id="example-capturing-a-variable-in-a-closure">Example: Capturing a Variable in a Closure</h4>
-<p>Now, let’s use a closure to capture the <code>factor</code> variable inside a function. Here, the captured value of <code>factor</code> remains fixed at the time the closure was created, regardless of changes to the variable afterward.</p>
-<div id="f1a78598" class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_multiplier</span>(factor)</span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x) <span class="op">-&gt;</span> x <span class="op">*</span> factor  <span class="co"># Returns a closure that captures `factor`</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>double <span class="op">=</span> <span class="fu">make_multiplier</span>(<span class="fl">2</span>)   <span class="co"># `factor` is captured as 2 in this closure</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>triple <span class="op">=</span> <span class="fu">make_multiplier</span>(<span class="fl">3</span>)   <span class="co"># `factor` is captured as 3 in this closure</span></span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 10</span></span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a><span class="fu">triple</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 15</span></span>
-<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Even if we change `factor` globally, it doesn't affect the closure</span></span>
-<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">4</span></span>
-<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(<span class="fl">5</span>)  <span class="co"># Still outputs: 10</span></span>
-<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a><span class="fu">triple</span>(<span class="fl">5</span>)  <span class="co"># Still outputs: 15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>julia&gt; function make_multiplier(factor)
-    return (x-&gt;begin
-                x * factor
-            end)
-end
-julia&gt; double = make_multiplier(2)
-julia&gt; triple = make_multiplier(3)
-julia&gt; double(5) = 10
-julia&gt; triple(5) = 15
-julia&gt; factor = 4
-julia&gt; double(5) = 10
-julia&gt; triple(5) = 15</code></pre>
-</div>
-</div>
-<p>In this example, <code>make_multiplier</code> returns a function that captures the <code>factor</code> variable when the closure is created. This means that <code>double</code> will always multiply by <code>2</code>, and <code>triple</code> will always multiply by <code>3</code>, regardless of any subsequent changes to <code>factor</code>.</p>
-</section>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
-<p>Using closures in Julia allows you to “lock in” the values of variables from an outer scope at the time of the closure’s creation. This differs from referencing global variables directly, where any changes to the variable are reflected immediately. Closures are particularly useful for creating function factories or callbacks that need to retain specific values independently of changes in the global scope.</p>
-<p>Understanding scope is crucial for performance in Julia. Defining variables within a local scope, such as inside functions, can lead to more efficient code execution. Global variables can lead to performance penalties due to type instability.</p>
-<p>In summary, scoping rules in Julia allow for clear management of variable accessibility and lifespan, while closures enable powerful programming patterns by capturing the context in which they are created. Understanding these concepts is key to writing effective Julia code.</p>
-</section>
-</section>
-<section id="exercices" class="level2">
-<h2 class="anchored" data-anchor-id="exercices">Exercices</h2>
-<section id="exercise-1-temperature-converter" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-1-temperature-converter">Exercise 1: Temperature Converter</h3>
-<p>Write a function <code>convert_temperature</code> that takes a temperature value and a keyword argument <code>unit</code> that can either be <code>"C"</code> for Celsius or <code>"F"</code> for Fahrenheit. The function should convert the temperature to the other unit and return the converted value. Use a conditional statement to determine the conversion formula:</p>
-<ul>
-<li><p>If the unit is <code>"C"</code>, convert to Fahrenheit using the formula: <span class="math display">
-  F = C \times \frac{9}{5} + 32
-</span></p></li>
-<li><p>If the unit is <code>"F"</code>, convert to Celsius using the formula: <span class="math display">
-  C = (F - 32) \times \frac{5}{9}
-</span></p></li>
-</ul>
-<p><strong>Example Output:</strong></p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">100</span>, unit<span class="op">=</span><span class="st">"C"</span>))  <span class="co"># Outputs: 212.0</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">32</span>, unit<span class="op">=</span><span class="st">"F"</span>))    <span class="co"># Outputs: 0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<p>This loop prints numbers from 1 to 5. The range <code>1:5</code> uses Julia’s <code>:</code> operator to create a sequence.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-To go further for Exercise 1: Temperature Converter
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The for construct can loop on any iterable object. Visit the <a href="https://docs.julialang.org/en/v1/manual/control-flow/#man-loops">documentation</a> for details.</p>
+</div>
+</div>
+<p><strong>While Loop</strong>: The <code>while</code> loop executes as long as a condition is true:</p>
+<div id="d5772088" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> count <span class="op">&lt;=</span> <span class="fl">5</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(count)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+3
+4
+5</code></pre>
+</div>
+</div>
+<p>This loop will print numbers from 1 to 5 by incrementing <code>count</code> each time.</p>
+</section>
+<section id="breaking-and-continuing" class="level3">
+<h3 class="anchored" data-anchor-id="breaking-and-continuing">Breaking and Continuing</h3>
+<p>Julia also has <code>break</code> and <code>continue</code> for loop control.</p>
+<ul>
+<li><code>break</code> exits the loop completely.</li>
+<li><code>continue</code> skips the current iteration and moves to the next one.</li>
+</ul>
+<div id="c6a9e37e" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="fl">3</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span>  <span class="co"># Skips the number 3</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+4
+5</code></pre>
+</div>
+</div>
+<div id="6f22d313" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="fl">4</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span>  <span class="co"># Exits the loop when i is 4</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+3</code></pre>
+</div>
+</div>
+<p>These control flows and logical operators allow for flexibility in executing conditional logic and repeated operations in Julia.</p>
+</section>
+</section>
+<section id="linear-algebra" class="level2">
+<h2 class="anchored" data-anchor-id="linear-algebra">Linear Algebra</h2>
+<p>** TO DO **</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>** TO DO **</p>
+</section>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<section id="least-squares-regression-line" class="level3">
+<h3 class="anchored" data-anchor-id="least-squares-regression-line">Least Squares Regression Line</h3>
+<p>We propose a first exercise about <a href="https://en.wikipedia.org/wiki/Simple_linear_regression">simple linear regression</a>. The data are excerpted from this <a href="https://www.ncl.ac.uk/webtemplate/ask-assets/external/maths-resources/statistics/regression-and-correlation/simple-linear-regression.html">example</a> and saved into <a href="data.csv">data.csv</a>. We propose an <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">ordinary least squares</a> formulation which is a type of <a href="https://en.wikipedia.org/wiki/Linear_least_squares">linear least squares</a> method for choosing the unknown parameters in a linear regression model by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being observed) in the input dataset and the output of the (linear) function of the independent variable.</p>
+<p><img max-height="300px" style="float: right;" src="images/Linear_least_squares_example2.svg"></p>
+<p>Given a set of&nbsp;<span class="math inline">m</span>&nbsp;data points&nbsp;<span class="math inline">y_{1}</span>, <span class="math inline">y_{2}</span>, <span class="math inline">\dots</span>, <span class="math inline">y_{m}</span>,&nbsp;consisting of experimentally measured values taken at&nbsp;<span class="math inline">m</span>&nbsp;values&nbsp;<span class="math inline">x_{1}</span>, <span class="math inline">x_{2}</span>, <span class="math inline">\dots</span>, <span class="math inline">x_{m}</span>&nbsp;of an independent variable (<span class="math inline">x_i</span>&nbsp;may be scalar or vector quantities), and given a model function&nbsp;<span class="math inline">y=f(x,\beta),</span>&nbsp;with&nbsp;<span class="math inline">\beta =(\beta_{1},\beta_{2},\dots ,\beta_{n})</span>,&nbsp;it is desired to find the parameters&nbsp;<span class="math inline">\beta_j</span> such that the model function “best” fits the data. In linear least squares, linearity is meant to be with respect to parameters&nbsp;<span class="math inline">\beta_j</span>, so <span class="math display">
+  f(x, \beta) = \sum_{j=1}^n \beta_j\, \varphi_j(x).
+</span> In general, the functions <span class="math inline">\varphi_j</span> may be nonlinear. However, we consider linear regression, that is <span class="math display">
+  f(x, \beta) = \beta_1 + \beta_2 x.
+</span> Ideally, the model function fits the data exactly, so <span class="math display">
+  y_i = f(x_i, \beta)
+</span> for all <span class="math inline">i=1, 2, \dots, m</span>. This is usually not possible in practice, as there are more data points than there are parameters to be determined. The approach chosen then is to find the minimal possible value of the sum of squares of the residuals <span class="math display">
+  r_i(\beta) = y_i - f(x_i, \beta), \quad i=1, 2, \dots, m
+</span> so to minimize the function <span class="math display">
+  S(\beta) = \sum_{i=1}^m r_i^2(\beta).
+</span> In the linear least squares case, the residuals are of the form <span class="math display">
+  r(\beta) = y - X\, \beta
+</span> with <span class="math inline">y = (y_i)_{1\le i\le m} \in \mathbb{R}^m</span> and <span class="math inline">X = (X_{ij})_{1\le i\le m, 1\le j\le n} \in \mathrm{M}_{mn}(\mathbb{R})</span>, where <span class="math inline">X_{ij} = \varphi_j(x_i)</span>. Since we consider linear regression, the <span class="math inline">i</span>-th row of the matrix <span class="math inline">X</span> is given by <span class="math display">
+  X_{i[:]} = [1 \quad x_i].
+</span> The objective function may be written <span class="math display">
+  S(\beta) = {\Vert y - X\, \beta \Vert}^2
+</span> where the norm is the usual <span class="math inline">2</span>-norm. The solution to the linear least squares problem <span class="math display">
+  \underset{\beta \in \mathbb{R}^n}{\mathrm{minimize}}\, {\Vert y - X\, \beta \Vert}^2
+</span> is computed by solving the <em>normal equation</em> <span class="math display">
+  X^\top X\, \beta = X^\top y,
+</span> where <span class="math inline">X^\top</span> denotes the transpose of <span class="math inline">X</span>.</p>
+</section>
+<section id="questions" class="level3">
+<h3 class="anchored" data-anchor-id="questions">Questions</h3>
+<p>To answer the questions you need to import the following packages.</p>
+<div id="eeefa7ca" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CSV</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You also need to download the csv file. Click on the following image.</p>
+<p><a href="data/introduction/data.csv" download=""> <img src="../assets/images/logo-csv-download.png" width="50"> </a></p>
+<ol type="1">
+<li>Using the packages <code>DataFrames.jl</code> and <code>CSV.jl</code>, load the dataset from <a href="data/introduction/data.csv">data/introduction/data.csv</a> and save the result into a variable named <code>dataset</code>.</li>
+</ol>
+<div id="1e7d678c" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>Show the answer</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"data/introduction/data.csv"</span> <span class="co"># update depending on the location of your file</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> <span class="fu">DataFrame</span>(CSV.<span class="fu">File</span>(path))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="107">
+<div><div style="float: left;"><span>5×2 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
+<table class="data-frame caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Row</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Time</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Mass</th>
+</tr>
+<tr class="subheader headerLastRow even">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Int64">Int64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Int64">Int64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">120</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">180</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">4</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">210</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">5</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">240</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not hesitate to visit the documentation of <code>CSV.jl</code> and <code>DataFrames.jl</code>.</p>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Using the package <code>Plot.jl</code>, plot the data.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>If the <code>unit</code> provided is not <code>"C"</code> or <code>"F"</code>, you can raise an error using the <code>throw</code> statement along with <code>ArgumentError</code>. This way, you can inform the user that the input is invalid.</p>
+<p>Use <code>names(dataset)</code> to get the list of data names. If <code>Time</code> is a name you can access to the associated data by <code>dataset.Time</code>.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div id="1ee50c22" class="cell" data-execution_count="25">
+<details class="code-fold">
+<summary>Show the answer</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plt <span class="op">=</span> <span class="fu">plot</span>(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  dataset.<span class="dt">Time</span>, </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  dataset.Mass,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  seriestype<span class="op">=:</span>scatter, </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  legend<span class="op">=</span><span class="cn">false</span>, </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  xlabel<span class="op">=</span><span class="st">"Time"</span>, </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  ylabel<span class="op">=</span><span class="st">"Mass"</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="108">
+<!--?xml version="1.0" encoding="utf-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="672" height="480" viewbox="0 0 2688 1920">
+<defs>
+  <clippath id="clip240">
+    <rect x="0" y="0" width="2688" height="1920"></rect>
+  </clippath>
+</defs>
+<path clip-path="url(#clip240)" d="M0 1920 L2688 1920 L2688 0 L0 0  Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clippath id="clip241">
+    <rect x="537" y="0" width="1883" height="1883"></rect>
+  </clippath>
+</defs>
+<path clip-path="url(#clip240)" d="M240.4 1734.12 L2640.76 1734.12 L2640.76 47.2441 L240.4 47.2441  Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clippath id="clip242">
+    <rect x="240" y="47" width="2401" height="1688"></rect>
+  </clippath>
+</defs>
+<polyline clip-path="url(#clip242)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="459.3,1734.12 459.3,47.2441 "></polyline>
+<polyline clip-path="url(#clip242)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="912.198,1734.12 912.198,47.2441 "></polyline>
+<polyline clip-path="url(#clip242)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="1365.09,1734.12 1365.09,47.2441 "></polyline>
+<polyline clip-path="url(#clip242)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="1817.99,1734.12 1817.99,47.2441 "></polyline>
+<polyline clip-path="url(#clip242)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="2270.89,1734.12 2270.89,47.2441 "></polyline>
+<polyline clip-path="url(#clip242)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="240.4,1606.81 2640.76,1606.81 "></polyline>
+<polyline clip-path="url(#clip242)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="240.4,1208.96 2640.76,1208.96 "></polyline>
+<polyline clip-path="url(#clip242)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="240.4,811.111 2640.76,811.111 "></polyline>
+<polyline clip-path="url(#clip242)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="240.4,413.264 2640.76,413.264 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,1734.12 2640.76,1734.12 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="459.3,1734.12 459.3,1715.22 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="912.198,1734.12 912.198,1715.22 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="1365.09,1734.12 1365.09,1715.22 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="1817.99,1734.12 1817.99,1715.22 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="2270.89,1734.12 2270.89,1715.22 "></polyline>
+<path clip-path="url(#clip240)" d="M459.705 1779.68 Q456.557 1779.68 454.705 1781.83 Q452.877 1783.98 452.877 1787.73 Q452.877 1791.46 454.705 1793.64 Q456.557 1795.79 459.705 1795.79 Q462.853 1795.79 464.682 1793.64 Q466.534 1791.46 466.534 1787.73 Q466.534 1783.98 464.682 1781.83 Q462.853 1779.68 459.705 1779.68 M468.988 1765.02 L468.988 1769.28 Q467.228 1768.45 465.423 1768.01 Q463.64 1767.57 461.881 1767.57 Q457.252 1767.57 454.798 1770.7 Q452.367 1773.82 452.02 1780.14 Q453.386 1778.13 455.446 1777.06 Q457.506 1775.97 459.983 1775.97 Q465.191 1775.97 468.201 1779.15 Q471.233 1782.29 471.233 1787.73 Q471.233 1793.06 468.085 1796.27 Q464.937 1799.49 459.705 1799.49 Q453.71 1799.49 450.539 1794.91 Q447.367 1790.3 447.367 1781.58 Q447.367 1773.38 451.256 1768.52 Q455.145 1763.64 461.696 1763.64 Q463.455 1763.64 465.238 1763.98 Q467.043 1764.33 468.988 1765.02 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M902.499 1798.1 L902.499 1793.84 Q904.258 1794.68 906.063 1795.12 Q907.869 1795.56 909.605 1795.56 Q914.235 1795.56 916.665 1792.46 Q919.119 1789.33 919.466 1782.99 Q918.123 1784.98 916.063 1786.04 Q914.003 1787.11 911.503 1787.11 Q906.318 1787.11 903.286 1783.98 Q900.276 1780.83 900.276 1775.4 Q900.276 1770.07 903.424 1766.85 Q906.573 1763.64 911.804 1763.64 Q917.799 1763.64 920.947 1768.24 Q924.119 1772.83 924.119 1781.58 Q924.119 1789.75 920.23 1794.63 Q916.364 1799.49 909.813 1799.49 Q908.054 1799.49 906.248 1799.15 Q904.443 1798.8 902.499 1798.1 M911.804 1783.45 Q914.952 1783.45 916.781 1781.3 Q918.633 1779.15 918.633 1775.4 Q918.633 1771.67 916.781 1769.52 Q914.952 1767.34 911.804 1767.34 Q908.656 1767.34 906.804 1769.52 Q904.975 1771.67 904.975 1775.4 Q904.975 1779.15 906.804 1781.3 Q908.656 1783.45 911.804 1783.45 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M1340.58 1794.89 L1348.22 1794.89 L1348.22 1768.52 L1339.91 1770.19 L1339.91 1765.93 L1348.17 1764.26 L1352.85 1764.26 L1352.85 1794.89 L1360.49 1794.89 L1360.49 1798.82 L1340.58 1798.82 L1340.58 1794.89 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M1373.96 1794.89 L1390.28 1794.89 L1390.28 1798.82 L1368.34 1798.82 L1368.34 1794.89 Q1371 1792.13 1375.58 1787.5 Q1380.19 1782.85 1381.37 1781.51 Q1383.61 1778.98 1384.49 1777.25 Q1385.4 1775.49 1385.4 1773.8 Q1385.4 1771.04 1383.45 1769.31 Q1381.53 1767.57 1378.43 1767.57 Q1376.23 1767.57 1373.78 1768.34 Q1371.34 1769.1 1368.57 1770.65 L1368.57 1765.93 Q1371.39 1764.79 1373.84 1764.21 Q1376.3 1763.64 1378.34 1763.64 Q1383.71 1763.64 1386.9 1766.32 Q1390.09 1769.01 1390.09 1773.5 Q1390.09 1775.63 1389.28 1777.55 Q1388.5 1779.45 1386.39 1782.04 Q1385.81 1782.71 1382.71 1785.93 Q1379.61 1789.12 1373.96 1794.89 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M1793.18 1794.89 L1800.82 1794.89 L1800.82 1768.52 L1792.51 1770.19 L1792.51 1765.93 L1800.77 1764.26 L1805.45 1764.26 L1805.45 1794.89 L1813.08 1794.89 L1813.08 1798.82 L1793.18 1798.82 L1793.18 1794.89 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M1822.58 1764.26 L1840.93 1764.26 L1840.93 1768.2 L1826.86 1768.2 L1826.86 1776.67 Q1827.88 1776.32 1828.9 1776.16 Q1829.91 1775.97 1830.93 1775.97 Q1836.72 1775.97 1840.1 1779.15 Q1843.48 1782.32 1843.48 1787.73 Q1843.48 1793.31 1840.01 1796.41 Q1836.53 1799.49 1830.21 1799.49 Q1828.04 1799.49 1825.77 1799.12 Q1823.52 1798.75 1821.12 1798.01 L1821.12 1793.31 Q1823.2 1794.45 1825.42 1795 Q1827.65 1795.56 1830.12 1795.56 Q1834.13 1795.56 1836.46 1793.45 Q1838.8 1791.34 1838.8 1787.73 Q1838.8 1784.12 1836.46 1782.02 Q1834.13 1779.91 1830.12 1779.91 Q1828.25 1779.91 1826.37 1780.33 Q1824.52 1780.74 1822.58 1781.62 L1822.58 1764.26 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M2245.62 1794.89 L2253.26 1794.89 L2253.26 1768.52 L2244.95 1770.19 L2244.95 1765.93 L2253.22 1764.26 L2257.89 1764.26 L2257.89 1794.89 L2265.53 1794.89 L2265.53 1798.82 L2245.62 1798.82 L2245.62 1794.89 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M2284.98 1782.41 Q2281.64 1782.41 2279.72 1784.19 Q2277.82 1785.97 2277.82 1789.1 Q2277.82 1792.22 2279.72 1794.01 Q2281.64 1795.79 2284.98 1795.79 Q2288.31 1795.79 2290.23 1794.01 Q2292.15 1792.2 2292.15 1789.1 Q2292.15 1785.97 2290.23 1784.19 Q2288.33 1782.41 2284.98 1782.41 M2280.3 1780.42 Q2277.29 1779.68 2275.6 1777.62 Q2273.93 1775.56 2273.93 1772.59 Q2273.93 1768.45 2276.87 1766.04 Q2279.84 1763.64 2284.98 1763.64 Q2290.14 1763.64 2293.08 1766.04 Q2296.02 1768.45 2296.02 1772.59 Q2296.02 1775.56 2294.33 1777.62 Q2292.66 1779.68 2289.67 1780.42 Q2293.05 1781.21 2294.93 1783.5 Q2296.83 1785.79 2296.83 1789.1 Q2296.83 1794.12 2293.75 1796.81 Q2290.69 1799.49 2284.98 1799.49 Q2279.26 1799.49 2276.18 1796.81 Q2273.12 1794.12 2273.12 1789.1 Q2273.12 1785.79 2275.02 1783.5 Q2276.92 1781.21 2280.3 1780.42 M2278.59 1773.03 Q2278.59 1775.72 2280.25 1777.22 Q2281.94 1778.73 2284.98 1778.73 Q2287.98 1778.73 2289.67 1777.22 Q2291.39 1775.72 2291.39 1773.03 Q2291.39 1770.35 2289.67 1768.84 Q2287.98 1767.34 2284.98 1767.34 Q2281.94 1767.34 2280.25 1768.84 Q2278.59 1770.35 2278.59 1773.03 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M1362.45 1835.78 L1402.65 1835.78 L1402.65 1841.19 L1385.79 1841.19 L1385.79 1883.3 L1379.32 1883.3 L1379.32 1841.19 L1362.45 1841.19 L1362.45 1835.78 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M1406.6 1847.65 L1412.46 1847.65 L1412.46 1883.3 L1406.6 1883.3 L1406.6 1847.65 M1406.6 1833.78 L1412.46 1833.78 L1412.46 1841.19 L1406.6 1841.19 L1406.6 1833.78 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M1452.47 1854.5 Q1454.66 1850.55 1457.72 1848.67 Q1460.77 1846.79 1464.91 1846.79 Q1470.48 1846.79 1473.5 1850.71 Q1476.53 1854.59 1476.53 1861.78 L1476.53 1883.3 L1470.64 1883.3 L1470.64 1861.98 Q1470.64 1856.85 1468.83 1854.37 Q1467.01 1851.89 1463.29 1851.89 Q1458.74 1851.89 1456.09 1854.91 Q1453.45 1857.93 1453.45 1863.15 L1453.45 1883.3 L1447.56 1883.3 L1447.56 1861.98 Q1447.56 1856.82 1445.75 1854.37 Q1443.94 1851.89 1440.15 1851.89 Q1435.66 1851.89 1433.02 1854.94 Q1430.38 1857.97 1430.38 1863.15 L1430.38 1883.3 L1424.49 1883.3 L1424.49 1847.65 L1430.38 1847.65 L1430.38 1853.19 Q1432.38 1849.91 1435.18 1848.35 Q1437.98 1846.79 1441.84 1846.79 Q1445.72 1846.79 1448.42 1848.77 Q1451.16 1850.74 1452.47 1854.5 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M1518.7 1864.01 L1518.7 1866.88 L1491.77 1866.88 Q1492.16 1872.92 1495.4 1876.11 Q1498.68 1879.26 1504.51 1879.26 Q1507.88 1879.26 1511.03 1878.43 Q1514.21 1877.6 1517.33 1875.95 L1517.33 1881.49 Q1514.18 1882.82 1510.87 1883.52 Q1507.56 1884.22 1504.16 1884.22 Q1495.63 1884.22 1490.63 1879.26 Q1485.66 1874.29 1485.66 1865.83 Q1485.66 1857.07 1490.37 1851.95 Q1495.12 1846.79 1503.14 1846.79 Q1510.33 1846.79 1514.5 1851.44 Q1518.7 1856.06 1518.7 1864.01 M1512.84 1862.29 Q1512.78 1857.49 1510.14 1854.62 Q1507.53 1851.76 1503.2 1851.76 Q1498.3 1851.76 1495.34 1854.53 Q1492.41 1857.3 1491.96 1862.33 L1512.84 1862.29 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,1734.12 240.4,47.2441 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,1606.81 259.297,1606.81 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,1208.96 259.297,1208.96 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,811.111 259.297,811.111 "></polyline>
+<polyline clip-path="url(#clip240)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,413.264 259.297,413.264 "></polyline>
+<path clip-path="url(#clip240)" d="M148.02 1589.53 L166.376 1589.53 L166.376 1593.46 L152.302 1593.46 L152.302 1601.93 Q153.321 1601.59 154.339 1601.42 Q155.358 1601.24 156.376 1601.24 Q162.163 1601.24 165.543 1604.41 Q168.922 1607.58 168.922 1613 Q168.922 1618.58 165.45 1621.68 Q161.978 1624.76 155.659 1624.76 Q153.483 1624.76 151.214 1624.39 Q148.969 1624.02 146.562 1623.28 L146.562 1618.58 Q148.645 1619.71 150.867 1620.27 Q153.089 1620.82 155.566 1620.82 Q159.571 1620.82 161.909 1618.72 Q164.247 1616.61 164.247 1613 Q164.247 1609.39 161.909 1607.28 Q159.571 1605.17 155.566 1605.17 Q153.691 1605.17 151.816 1605.59 Q149.964 1606.01 148.02 1606.89 L148.02 1589.53 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M188.135 1592.6 Q184.524 1592.6 182.696 1596.17 Q180.89 1599.71 180.89 1606.84 Q180.89 1613.95 182.696 1617.51 Q184.524 1621.05 188.135 1621.05 Q191.77 1621.05 193.575 1617.51 Q195.404 1613.95 195.404 1606.84 Q195.404 1599.71 193.575 1596.17 Q191.77 1592.6 188.135 1592.6 M188.135 1588.9 Q193.946 1588.9 197.001 1593.51 Q200.08 1598.09 200.08 1606.84 Q200.08 1615.57 197.001 1620.17 Q193.946 1624.76 188.135 1624.76 Q182.325 1624.76 179.247 1620.17 Q176.191 1615.57 176.191 1606.84 Q176.191 1598.09 179.247 1593.51 Q182.325 1588.9 188.135 1588.9 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M118.622 1222.3 L126.261 1222.3 L126.261 1195.94 L117.951 1197.6 L117.951 1193.35 L126.214 1191.68 L130.89 1191.68 L130.89 1222.3 L138.529 1222.3 L138.529 1226.24 L118.622 1226.24 L118.622 1222.3 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M157.973 1194.76 Q154.362 1194.76 152.534 1198.32 Q150.728 1201.86 150.728 1208.99 Q150.728 1216.1 152.534 1219.66 Q154.362 1223.21 157.973 1223.21 Q161.608 1223.21 163.413 1219.66 Q165.242 1216.1 165.242 1208.99 Q165.242 1201.86 163.413 1198.32 Q161.608 1194.76 157.973 1194.76 M157.973 1191.05 Q163.784 1191.05 166.839 1195.66 Q169.918 1200.24 169.918 1208.99 Q169.918 1217.72 166.839 1222.33 Q163.784 1226.91 157.973 1226.91 Q152.163 1226.91 149.085 1222.33 Q146.029 1217.72 146.029 1208.99 Q146.029 1200.24 149.085 1195.66 Q152.163 1191.05 157.973 1191.05 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M188.135 1194.76 Q184.524 1194.76 182.696 1198.32 Q180.89 1201.86 180.89 1208.99 Q180.89 1216.1 182.696 1219.66 Q184.524 1223.21 188.135 1223.21 Q191.77 1223.21 193.575 1219.66 Q195.404 1216.1 195.404 1208.99 Q195.404 1201.86 193.575 1198.32 Q191.77 1194.76 188.135 1194.76 M188.135 1191.05 Q193.946 1191.05 197.001 1195.66 Q200.08 1200.24 200.08 1208.99 Q200.08 1217.72 197.001 1222.33 Q193.946 1226.91 188.135 1226.91 Q182.325 1226.91 179.247 1222.33 Q176.191 1217.72 176.191 1208.99 Q176.191 1200.24 179.247 1195.66 Q182.325 1191.05 188.135 1191.05 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M118.622 824.456 L126.261 824.456 L126.261 798.09 L117.951 799.757 L117.951 795.498 L126.214 793.831 L130.89 793.831 L130.89 824.456 L138.529 824.456 L138.529 828.391 L118.622 828.391 L118.622 824.456 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M148.02 793.831 L166.376 793.831 L166.376 797.766 L152.302 797.766 L152.302 806.238 Q153.321 805.891 154.339 805.729 Q155.358 805.544 156.376 805.544 Q162.163 805.544 165.543 808.715 Q168.922 811.887 168.922 817.303 Q168.922 822.882 165.45 825.984 Q161.978 829.062 155.659 829.062 Q153.483 829.062 151.214 828.692 Q148.969 828.322 146.562 827.581 L146.562 822.882 Q148.645 824.016 150.867 824.572 Q153.089 825.127 155.566 825.127 Q159.571 825.127 161.909 823.021 Q164.247 820.914 164.247 817.303 Q164.247 813.692 161.909 811.586 Q159.571 809.479 155.566 809.479 Q153.691 809.479 151.816 809.896 Q149.964 810.312 148.02 811.192 L148.02 793.831 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M188.135 796.91 Q184.524 796.91 182.696 800.475 Q180.89 804.016 180.89 811.146 Q180.89 818.252 182.696 821.817 Q184.524 825.359 188.135 825.359 Q191.77 825.359 193.575 821.817 Q195.404 818.252 195.404 811.146 Q195.404 804.016 193.575 800.475 Q191.77 796.91 188.135 796.91 M188.135 793.206 Q193.946 793.206 197.001 797.813 Q200.08 802.396 200.08 811.146 Q200.08 819.873 197.001 824.479 Q193.946 829.062 188.135 829.062 Q182.325 829.062 179.247 824.479 Q176.191 819.873 176.191 811.146 Q176.191 802.396 179.247 797.813 Q182.325 793.206 188.135 793.206 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M121.839 426.609 L138.159 426.609 L138.159 430.544 L116.214 430.544 L116.214 426.609 Q118.876 423.854 123.46 419.224 Q128.066 414.572 129.247 413.229 Q131.492 410.706 132.372 408.97 Q133.275 407.21 133.275 405.521 Q133.275 402.766 131.33 401.03 Q129.409 399.294 126.307 399.294 Q124.108 399.294 121.654 400.058 Q119.224 400.822 116.446 402.373 L116.446 397.65 Q119.27 396.516 121.724 395.937 Q124.177 395.359 126.214 395.359 Q131.585 395.359 134.779 398.044 Q137.974 400.729 137.974 405.22 Q137.974 407.349 137.163 409.271 Q136.376 411.169 134.27 413.761 Q133.691 414.433 130.589 417.65 Q127.488 420.845 121.839 426.609 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M157.973 399.062 Q154.362 399.062 152.534 402.627 Q150.728 406.169 150.728 413.298 Q150.728 420.405 152.534 423.97 Q154.362 427.511 157.973 427.511 Q161.608 427.511 163.413 423.97 Q165.242 420.405 165.242 413.298 Q165.242 406.169 163.413 402.627 Q161.608 399.062 157.973 399.062 M157.973 395.359 Q163.784 395.359 166.839 399.965 Q169.918 404.548 169.918 413.298 Q169.918 422.025 166.839 426.632 Q163.784 431.215 157.973 431.215 Q152.163 431.215 149.085 426.632 Q146.029 422.025 146.029 413.298 Q146.029 404.548 149.085 399.965 Q152.163 395.359 157.973 395.359 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M188.135 399.062 Q184.524 399.062 182.696 402.627 Q180.89 406.169 180.89 413.298 Q180.89 420.405 182.696 423.97 Q184.524 427.511 188.135 427.511 Q191.77 427.511 193.575 423.97 Q195.404 420.405 195.404 413.298 Q195.404 406.169 193.575 402.627 Q191.77 399.062 188.135 399.062 M188.135 395.359 Q193.946 395.359 197.001 399.965 Q200.08 404.548 200.08 413.298 Q200.08 422.025 197.001 426.632 Q193.946 431.215 188.135 431.215 Q182.325 431.215 179.247 426.632 Q176.191 422.025 176.191 413.298 Q176.191 404.548 179.247 399.965 Q182.325 395.359 188.135 395.359 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M14.1184 967.944 L14.1184 958.364 L46.4562 946.237 L14.1184 934.047 L14.1184 924.467 L61.6384 924.467 L61.6384 930.737 L19.9112 930.737 L52.5037 942.991 L52.5037 949.452 L19.9112 961.706 L61.6384 961.706 L61.6384 967.944 L14.1184 967.944 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M43.719 895.757 Q43.719 902.855 45.3422 905.592 Q46.9655 908.329 50.8804 908.329 Q53.9996 908.329 55.8457 906.292 Q57.6599 904.224 57.6599 900.691 Q57.6599 895.821 54.2224 892.893 Q50.7531 889.933 45.0239 889.933 L43.719 889.933 L43.719 895.757 M41.3 884.076 L61.6384 884.076 L61.6384 889.933 L56.2276 889.933 Q59.4741 891.938 61.0337 894.93 Q62.5615 897.922 62.5615 902.25 Q62.5615 907.725 59.5059 910.971 Q56.4186 914.186 51.2623 914.186 Q45.2467 914.186 42.1912 910.176 Q39.1357 906.133 39.1357 898.144 L39.1357 889.933 L38.5628 889.933 Q34.5205 889.933 32.3244 892.606 Q30.0964 895.248 30.0964 900.054 Q30.0964 903.11 30.8284 906.006 Q31.5605 908.902 33.0246 911.576 L27.6137 911.576 Q26.3724 908.361 25.7677 905.338 Q25.1311 902.314 25.1311 899.449 Q25.1311 891.715 29.1415 887.896 Q33.1519 884.076 41.3 884.076 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M27.0408 849.288 L32.579 849.288 Q31.3059 851.77 30.6693 854.444 Q30.0327 857.117 30.0327 859.982 Q30.0327 864.342 31.3695 866.539 Q32.7063 868.703 35.3799 868.703 Q37.4169 868.703 38.5946 867.143 Q39.7404 865.584 40.7908 860.873 L41.2364 858.868 Q42.5732 852.63 45.0239 850.02 Q47.4429 847.378 51.8034 847.378 Q56.7687 847.378 59.6651 851.325 Q62.5615 855.239 62.5615 862.114 Q62.5615 864.979 61.9886 868.098 Q61.4475 871.186 60.3335 874.623 L54.2861 874.623 Q55.973 871.377 56.8323 868.226 Q57.6599 865.074 57.6599 861.987 Q57.6599 857.849 56.2594 855.621 Q54.8271 853.393 52.249 853.393 Q49.8619 853.393 48.5887 855.017 Q47.3156 856.608 46.1379 862.051 L45.6605 864.088 Q44.5147 869.53 42.1594 871.949 Q39.7722 874.368 35.6345 874.368 Q30.6056 874.368 27.8684 870.804 Q25.1311 867.239 25.1311 860.682 Q25.1311 857.436 25.6085 854.571 Q26.086 851.707 27.0408 849.288 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip240)" d="M27.0408 815.326 L32.579 815.326 Q31.3059 817.809 30.6693 820.483 Q30.0327 823.156 30.0327 826.021 Q30.0327 830.381 31.3695 832.578 Q32.7063 834.742 35.3799 834.742 Q37.4169 834.742 38.5946 833.182 Q39.7404 831.623 40.7908 826.912 L41.2364 824.907 Q42.5732 818.668 45.0239 816.059 Q47.4429 813.417 51.8034 813.417 Q56.7687 813.417 59.6651 817.364 Q62.5615 821.278 62.5615 828.153 Q62.5615 831.018 61.9886 834.137 Q61.4475 837.225 60.3335 840.662 L54.2861 840.662 Q55.973 837.415 56.8323 834.264 Q57.6599 831.113 57.6599 828.026 Q57.6599 823.888 56.2594 821.66 Q54.8271 819.432 52.249 819.432 Q49.8619 819.432 48.5887 821.056 Q47.3156 822.647 46.1379 828.09 L45.6605 830.127 Q44.5147 835.569 42.1594 837.988 Q39.7722 840.407 35.6345 840.407 Q30.6056 840.407 27.8684 836.843 Q25.1311 833.278 25.1311 826.721 Q25.1311 823.475 25.6085 820.61 Q26.086 817.745 27.0408 815.326 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><circle clip-path="url(#clip242)" cx="308.334" cy="1686.38" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip242)" cx="610.266" cy="1049.82" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip242)" cx="1365.09" cy="572.403" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip242)" cx="1968.96" cy="333.694" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip242)" cx="2572.82" cy="94.9858" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+</svg>
+</div>
+</div>
+<ol type="1">
+<li>Create the matrix <span class="math inline">X</span>, the vector <span class="math inline">\beta</span> and solve the normal equation with the operator <a href="https://tinyurl.com/juliadoc-base-backslash"><code>Base.\</code></a>.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Correction of Exercise 1: Temperature Converter
+Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="cc4c3f49" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">convert_temperature</span>(value; unit)</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unit <span class="op">==</span> <span class="st">"C"</span></span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value <span class="op">*</span> <span class="fl">9</span><span class="op">/</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">32</span>  <span class="co"># Convert Celsius to Fahrenheit</span></span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elseif</span> unit <span class="op">==</span> <span class="st">"F"</span></span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (value <span class="op">-</span> <span class="fl">32</span>) <span class="op">*</span> <span class="fl">5</span><span class="op">/</span><span class="fl">9</span>  <span class="co"># Convert Fahrenheit to Celsius</span></span>
-<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">throw</span>(<span class="fu">ArgumentError</span>(<span class="st">"Unit must be 'C' or 'F'"</span>))</span>
-<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">100</span>, unit<span class="op">=</span><span class="st">"C"</span>))  <span class="co"># Outputs: 212.0</span></span>
-<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">32</span>, unit<span class="op">=</span><span class="st">"F"</span>))    <span class="co"># Outputs: 0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>212.0
-0.0</code></pre>
+<p>Use <code>ones(m)</code> to generate a vector of 1 of length <span class="math inline">m</span>.</p>
 </div>
 </div>
 </div>
+<div id="9d4ef274" class="cell" data-execution_count="26">
+<details class="code-fold">
+<summary>Show the answer</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="fu">length</span>(dataset.<span class="dt">Time</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> [<span class="fu">ones</span>(m) dataset.<span class="dt">Time</span>]</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dataset.Mass</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>β <span class="op">=</span> X<span class="op">\</span>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="109">
+<pre><code>2-element Vector{Float64}:
+ 11.506493506493515
+ 12.207792207792208</code></pre>
 </div>
 </div>
-</section>
-<section id="exercise-2-factorial-function-with-closure" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-2-factorial-function-with-closure">Exercise 2: Factorial Function with Closure</h3>
-<p>Create a function <code>make_factorial</code> that returns a closure. This closure should compute the factorial of a number. The closure should capture a variable that keeps track of the number of times it has been called. When the closure is called, it should return the factorial of the number and the call count.</p>
-<p><strong>Example Output:</strong></p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>factorial_closure <span class="op">=</span> <span class="fu">make_factorial</span>()</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">5</span>)</span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 120</span></span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">3</span>)</span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 6</span></span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Function called "</span>, count, <span class="st">" times"</span>)  <span class="co"># Outputs: 2 times</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint Exercise 2: Factorial Function with Closure
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>When returning the results from the closure, you can return a pair of values by creating a tuple. In Julia, tuples are created using parentheses, like this: <code>(value1, value2)</code>.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Correction of Exercise 2: Factorial Function with Closure
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="ae69a558" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_factorial</span>()</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="fl">0</span> <span class="co"># Variable to keep track of calls</span></span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">factorial</span>(n<span class="op">::</span><span class="dt">Int</span>)</span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="op">∈</span> <span class="fl">2</span><span class="op">:</span>n</span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>            y <span class="op">*=</span> i </span>
-<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
-<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>        counter <span class="op">+=</span> <span class="fl">1</span></span>
-<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> y, counter</span>
-<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
-<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> factorial </span>
-<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>factorial_closure <span class="op">=</span> <span class="fu">make_factorial</span>()</span>
-<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">5</span>)</span>
-<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 120</span></span>
-<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">3</span>)</span>
-<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 6</span></span>
-<span id="cb74-19"><a href="#cb74-19" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Function called "</span>, count, <span class="st">" times"</span>)  <span class="co"># Outputs: 2 times</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>120
-6
-Function called 2 times</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-3-filter-even-numbers" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-3-filter-even-numbers">Exercise 3: Filter Even Numbers</h3>
-<p>Write a function <code>filter_even</code> that takes an array of integers as input and returns a new array containing only the even numbers from the input array. Use a loop and a conditional statement to check each number.</p>
-<p>Additionally, implement a helper function <code>is_even</code> that checks if a number is even. Use the <code>filter_even</code> function to filter an array of numbers, and print the result.</p>
-<p><strong>Example Output:</strong></p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span>]</span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>even_numbers <span class="op">=</span> <span class="fu">filter_even</span>(numbers)</span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(even_numbers)  <span class="co"># Outputs: [2, 4, 6, 8, 10]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint for Exercise 3: Filter Even Numbers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>To add elements to an array in Julia, use the <code>push!</code> function. This function takes two arguments: the array you want to modify and the element to add to that array.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Correction of Exercise 3: Filter Even Numbers
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="bbd35f82" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">is_even</span>(x)</span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span></span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">filter_even</span>(numbers)</span>
-<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>    even_numbers <span class="op">=</span> []</span>
-<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> number <span class="kw">in</span> numbers</span>
-<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">is_even</span>(number)</span>
-<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(even_numbers, number)</span>
-<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
-<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> even_numbers</span>
-<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span>]</span>
-<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a>even_numbers <span class="op">=</span> <span class="fu">filter_even</span>(numbers)</span>
-<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(even_numbers)  <span class="co"># Outputs: [2, 4, 6, 8, 10]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Any[2, 4, 6, 8, 10]</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-instructions" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-instructions">Exercise Instructions</h3>
-<ol type="1">
-<li>For each exercise, implement the required functions in a new Julia script or interactive session.</li>
-<li>Test your functions with different inputs to ensure they work as expected.</li>
-<li>Comment on your code to explain the logic behind each part, especially where you utilize control flow and scope.</li>
+<ol start="4" type="1">
+<li>Plot the linear model on the same plot as the data. Use the <code>plot!</code> function. See the <a href="https://docs.juliaplots.org/stable/basics/#Basic-Concepts">basic concepts for plotting</a>.</li>
 </ol>
+<div id="6f8ea26a" class="cell" data-execution_count="27">
+<details class="code-fold">
+<summary>Show the answer</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="fl">5</span>, <span class="fl">20</span>]</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> β[<span class="fl">1</span>] <span class="op">.+</span> β[<span class="fl">2</span>]<span class="op">*</span>x</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(plt, x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="110">
+<!--?xml version="1.0" encoding="utf-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="672" height="480" viewbox="0 0 2688 1920">
+<defs>
+  <clippath id="clip330">
+    <rect x="0" y="0" width="2688" height="1920"></rect>
+  </clippath>
+</defs>
+<path clip-path="url(#clip330)" d="M0 1920 L2688 1920 L2688 0 L0 0  Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clippath id="clip331">
+    <rect x="537" y="0" width="1883" height="1883"></rect>
+  </clippath>
+</defs>
+<path clip-path="url(#clip330)" d="M240.4 1734.12 L2640.76 1734.12 L2640.76 47.2441 L240.4 47.2441  Z" fill="#ffffff" fill-rule="evenodd" fill-opacity="1"></path>
+<defs>
+  <clippath id="clip332">
+    <rect x="240" y="47" width="2401" height="1688"></rect>
+  </clippath>
+</defs>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="459.3,1734.12 459.3,47.2441 "></polyline>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="912.198,1734.12 912.198,47.2441 "></polyline>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="1365.09,1734.12 1365.09,47.2441 "></polyline>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="1817.99,1734.12 1817.99,47.2441 "></polyline>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="2270.89,1734.12 2270.89,47.2441 "></polyline>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="240.4,1612.58 2640.76,1612.58 "></polyline>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="240.4,1243.63 2640.76,1243.63 "></polyline>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="240.4,874.677 2640.76,874.677 "></polyline>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="240.4,505.723 2640.76,505.723 "></polyline>
+<polyline clip-path="url(#clip332)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="240.4,136.769 2640.76,136.769 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,1734.12 2640.76,1734.12 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="459.3,1734.12 459.3,1715.22 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="912.198,1734.12 912.198,1715.22 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="1365.09,1734.12 1365.09,1715.22 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="1817.99,1734.12 1817.99,1715.22 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="2270.89,1734.12 2270.89,1715.22 "></polyline>
+<path clip-path="url(#clip330)" d="M459.705 1779.68 Q456.557 1779.68 454.705 1781.83 Q452.877 1783.98 452.877 1787.73 Q452.877 1791.46 454.705 1793.64 Q456.557 1795.79 459.705 1795.79 Q462.853 1795.79 464.682 1793.64 Q466.534 1791.46 466.534 1787.73 Q466.534 1783.98 464.682 1781.83 Q462.853 1779.68 459.705 1779.68 M468.988 1765.02 L468.988 1769.28 Q467.228 1768.45 465.423 1768.01 Q463.64 1767.57 461.881 1767.57 Q457.252 1767.57 454.798 1770.7 Q452.367 1773.82 452.02 1780.14 Q453.386 1778.13 455.446 1777.06 Q457.506 1775.97 459.983 1775.97 Q465.191 1775.97 468.201 1779.15 Q471.233 1782.29 471.233 1787.73 Q471.233 1793.06 468.085 1796.27 Q464.937 1799.49 459.705 1799.49 Q453.71 1799.49 450.539 1794.91 Q447.367 1790.3 447.367 1781.58 Q447.367 1773.38 451.256 1768.52 Q455.145 1763.64 461.696 1763.64 Q463.455 1763.64 465.238 1763.98 Q467.043 1764.33 468.988 1765.02 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M902.499 1798.1 L902.499 1793.84 Q904.258 1794.68 906.063 1795.12 Q907.869 1795.56 909.605 1795.56 Q914.235 1795.56 916.665 1792.46 Q919.119 1789.33 919.466 1782.99 Q918.123 1784.98 916.063 1786.04 Q914.003 1787.11 911.503 1787.11 Q906.318 1787.11 903.286 1783.98 Q900.276 1780.83 900.276 1775.4 Q900.276 1770.07 903.424 1766.85 Q906.573 1763.64 911.804 1763.64 Q917.799 1763.64 920.947 1768.24 Q924.119 1772.83 924.119 1781.58 Q924.119 1789.75 920.23 1794.63 Q916.364 1799.49 909.813 1799.49 Q908.054 1799.49 906.248 1799.15 Q904.443 1798.8 902.499 1798.1 M911.804 1783.45 Q914.952 1783.45 916.781 1781.3 Q918.633 1779.15 918.633 1775.4 Q918.633 1771.67 916.781 1769.52 Q914.952 1767.34 911.804 1767.34 Q908.656 1767.34 906.804 1769.52 Q904.975 1771.67 904.975 1775.4 Q904.975 1779.15 906.804 1781.3 Q908.656 1783.45 911.804 1783.45 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M1340.58 1794.89 L1348.22 1794.89 L1348.22 1768.52 L1339.91 1770.19 L1339.91 1765.93 L1348.17 1764.26 L1352.85 1764.26 L1352.85 1794.89 L1360.49 1794.89 L1360.49 1798.82 L1340.58 1798.82 L1340.58 1794.89 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M1373.96 1794.89 L1390.28 1794.89 L1390.28 1798.82 L1368.34 1798.82 L1368.34 1794.89 Q1371 1792.13 1375.58 1787.5 Q1380.19 1782.85 1381.37 1781.51 Q1383.61 1778.98 1384.49 1777.25 Q1385.4 1775.49 1385.4 1773.8 Q1385.4 1771.04 1383.45 1769.31 Q1381.53 1767.57 1378.43 1767.57 Q1376.23 1767.57 1373.78 1768.34 Q1371.34 1769.1 1368.57 1770.65 L1368.57 1765.93 Q1371.39 1764.79 1373.84 1764.21 Q1376.3 1763.64 1378.34 1763.64 Q1383.71 1763.64 1386.9 1766.32 Q1390.09 1769.01 1390.09 1773.5 Q1390.09 1775.63 1389.28 1777.55 Q1388.5 1779.45 1386.39 1782.04 Q1385.81 1782.71 1382.71 1785.93 Q1379.61 1789.12 1373.96 1794.89 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M1793.18 1794.89 L1800.82 1794.89 L1800.82 1768.52 L1792.51 1770.19 L1792.51 1765.93 L1800.77 1764.26 L1805.45 1764.26 L1805.45 1794.89 L1813.08 1794.89 L1813.08 1798.82 L1793.18 1798.82 L1793.18 1794.89 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M1822.58 1764.26 L1840.93 1764.26 L1840.93 1768.2 L1826.86 1768.2 L1826.86 1776.67 Q1827.88 1776.32 1828.9 1776.16 Q1829.91 1775.97 1830.93 1775.97 Q1836.72 1775.97 1840.1 1779.15 Q1843.48 1782.32 1843.48 1787.73 Q1843.48 1793.31 1840.01 1796.41 Q1836.53 1799.49 1830.21 1799.49 Q1828.04 1799.49 1825.77 1799.12 Q1823.52 1798.75 1821.12 1798.01 L1821.12 1793.31 Q1823.2 1794.45 1825.42 1795 Q1827.65 1795.56 1830.12 1795.56 Q1834.13 1795.56 1836.46 1793.45 Q1838.8 1791.34 1838.8 1787.73 Q1838.8 1784.12 1836.46 1782.02 Q1834.13 1779.91 1830.12 1779.91 Q1828.25 1779.91 1826.37 1780.33 Q1824.52 1780.74 1822.58 1781.62 L1822.58 1764.26 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M2245.62 1794.89 L2253.26 1794.89 L2253.26 1768.52 L2244.95 1770.19 L2244.95 1765.93 L2253.22 1764.26 L2257.89 1764.26 L2257.89 1794.89 L2265.53 1794.89 L2265.53 1798.82 L2245.62 1798.82 L2245.62 1794.89 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M2284.98 1782.41 Q2281.64 1782.41 2279.72 1784.19 Q2277.82 1785.97 2277.82 1789.1 Q2277.82 1792.22 2279.72 1794.01 Q2281.64 1795.79 2284.98 1795.79 Q2288.31 1795.79 2290.23 1794.01 Q2292.15 1792.2 2292.15 1789.1 Q2292.15 1785.97 2290.23 1784.19 Q2288.33 1782.41 2284.98 1782.41 M2280.3 1780.42 Q2277.29 1779.68 2275.6 1777.62 Q2273.93 1775.56 2273.93 1772.59 Q2273.93 1768.45 2276.87 1766.04 Q2279.84 1763.64 2284.98 1763.64 Q2290.14 1763.64 2293.08 1766.04 Q2296.02 1768.45 2296.02 1772.59 Q2296.02 1775.56 2294.33 1777.62 Q2292.66 1779.68 2289.67 1780.42 Q2293.05 1781.21 2294.93 1783.5 Q2296.83 1785.79 2296.83 1789.1 Q2296.83 1794.12 2293.75 1796.81 Q2290.69 1799.49 2284.98 1799.49 Q2279.26 1799.49 2276.18 1796.81 Q2273.12 1794.12 2273.12 1789.1 Q2273.12 1785.79 2275.02 1783.5 Q2276.92 1781.21 2280.3 1780.42 M2278.59 1773.03 Q2278.59 1775.72 2280.25 1777.22 Q2281.94 1778.73 2284.98 1778.73 Q2287.98 1778.73 2289.67 1777.22 Q2291.39 1775.72 2291.39 1773.03 Q2291.39 1770.35 2289.67 1768.84 Q2287.98 1767.34 2284.98 1767.34 Q2281.94 1767.34 2280.25 1768.84 Q2278.59 1770.35 2278.59 1773.03 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M1362.45 1835.78 L1402.65 1835.78 L1402.65 1841.19 L1385.79 1841.19 L1385.79 1883.3 L1379.32 1883.3 L1379.32 1841.19 L1362.45 1841.19 L1362.45 1835.78 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M1406.6 1847.65 L1412.46 1847.65 L1412.46 1883.3 L1406.6 1883.3 L1406.6 1847.65 M1406.6 1833.78 L1412.46 1833.78 L1412.46 1841.19 L1406.6 1841.19 L1406.6 1833.78 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M1452.47 1854.5 Q1454.66 1850.55 1457.72 1848.67 Q1460.77 1846.79 1464.91 1846.79 Q1470.48 1846.79 1473.5 1850.71 Q1476.53 1854.59 1476.53 1861.78 L1476.53 1883.3 L1470.64 1883.3 L1470.64 1861.98 Q1470.64 1856.85 1468.83 1854.37 Q1467.01 1851.89 1463.29 1851.89 Q1458.74 1851.89 1456.09 1854.91 Q1453.45 1857.93 1453.45 1863.15 L1453.45 1883.3 L1447.56 1883.3 L1447.56 1861.98 Q1447.56 1856.82 1445.75 1854.37 Q1443.94 1851.89 1440.15 1851.89 Q1435.66 1851.89 1433.02 1854.94 Q1430.38 1857.97 1430.38 1863.15 L1430.38 1883.3 L1424.49 1883.3 L1424.49 1847.65 L1430.38 1847.65 L1430.38 1853.19 Q1432.38 1849.91 1435.18 1848.35 Q1437.98 1846.79 1441.84 1846.79 Q1445.72 1846.79 1448.42 1848.77 Q1451.16 1850.74 1452.47 1854.5 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M1518.7 1864.01 L1518.7 1866.88 L1491.77 1866.88 Q1492.16 1872.92 1495.4 1876.11 Q1498.68 1879.26 1504.51 1879.26 Q1507.88 1879.26 1511.03 1878.43 Q1514.21 1877.6 1517.33 1875.95 L1517.33 1881.49 Q1514.18 1882.82 1510.87 1883.52 Q1507.56 1884.22 1504.16 1884.22 Q1495.63 1884.22 1490.63 1879.26 Q1485.66 1874.29 1485.66 1865.83 Q1485.66 1857.07 1490.37 1851.95 Q1495.12 1846.79 1503.14 1846.79 Q1510.33 1846.79 1514.5 1851.44 Q1518.7 1856.06 1518.7 1864.01 M1512.84 1862.29 Q1512.78 1857.49 1510.14 1854.62 Q1507.53 1851.76 1503.2 1851.76 Q1498.3 1851.76 1495.34 1854.53 Q1492.41 1857.3 1491.96 1862.33 L1512.84 1862.29 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,1734.12 240.4,47.2441 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,1612.58 259.297,1612.58 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,1243.63 259.297,1243.63 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,874.677 259.297,874.677 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,505.723 259.297,505.723 "></polyline>
+<polyline clip-path="url(#clip330)" style="stroke:#000000; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="240.4,136.769 259.297,136.769 "></polyline>
+<path clip-path="url(#clip330)" d="M148.02 1595.3 L166.376 1595.3 L166.376 1599.24 L152.302 1599.24 L152.302 1607.71 Q153.321 1607.36 154.339 1607.2 Q155.358 1607.02 156.376 1607.02 Q162.163 1607.02 165.543 1610.19 Q168.922 1613.36 168.922 1618.78 Q168.922 1624.36 165.45 1627.46 Q161.978 1630.54 155.659 1630.54 Q153.483 1630.54 151.214 1630.17 Q148.969 1629.8 146.562 1629.05 L146.562 1624.36 Q148.645 1625.49 150.867 1626.05 Q153.089 1626.6 155.566 1626.6 Q159.571 1626.6 161.909 1624.49 Q164.247 1622.39 164.247 1618.78 Q164.247 1615.17 161.909 1613.06 Q159.571 1610.95 155.566 1610.95 Q153.691 1610.95 151.816 1611.37 Q149.964 1611.79 148.02 1612.67 L148.02 1595.3 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M188.135 1598.38 Q184.524 1598.38 182.696 1601.95 Q180.89 1605.49 180.89 1612.62 Q180.89 1619.73 182.696 1623.29 Q184.524 1626.83 188.135 1626.83 Q191.77 1626.83 193.575 1623.29 Q195.404 1619.73 195.404 1612.62 Q195.404 1605.49 193.575 1601.95 Q191.77 1598.38 188.135 1598.38 M188.135 1594.68 Q193.946 1594.68 197.001 1599.29 Q200.08 1603.87 200.08 1612.62 Q200.08 1621.35 197.001 1625.95 Q193.946 1630.54 188.135 1630.54 Q182.325 1630.54 179.247 1625.95 Q176.191 1621.35 176.191 1612.62 Q176.191 1603.87 179.247 1599.29 Q182.325 1594.68 188.135 1594.68 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M118.622 1256.98 L126.261 1256.98 L126.261 1230.61 L117.951 1232.28 L117.951 1228.02 L126.214 1226.35 L130.89 1226.35 L130.89 1256.98 L138.529 1256.98 L138.529 1260.91 L118.622 1260.91 L118.622 1256.98 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M157.973 1229.43 Q154.362 1229.43 152.534 1232.99 Q150.728 1236.54 150.728 1243.67 Q150.728 1250.77 152.534 1254.34 Q154.362 1257.88 157.973 1257.88 Q161.608 1257.88 163.413 1254.34 Q165.242 1250.77 165.242 1243.67 Q165.242 1236.54 163.413 1232.99 Q161.608 1229.43 157.973 1229.43 M157.973 1225.73 Q163.784 1225.73 166.839 1230.33 Q169.918 1234.92 169.918 1243.67 Q169.918 1252.39 166.839 1257 Q163.784 1261.58 157.973 1261.58 Q152.163 1261.58 149.085 1257 Q146.029 1252.39 146.029 1243.67 Q146.029 1234.92 149.085 1230.33 Q152.163 1225.73 157.973 1225.73 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M188.135 1229.43 Q184.524 1229.43 182.696 1232.99 Q180.89 1236.54 180.89 1243.67 Q180.89 1250.77 182.696 1254.34 Q184.524 1257.88 188.135 1257.88 Q191.77 1257.88 193.575 1254.34 Q195.404 1250.77 195.404 1243.67 Q195.404 1236.54 193.575 1232.99 Q191.77 1229.43 188.135 1229.43 M188.135 1225.73 Q193.946 1225.73 197.001 1230.33 Q200.08 1234.92 200.08 1243.67 Q200.08 1252.39 197.001 1257 Q193.946 1261.58 188.135 1261.58 Q182.325 1261.58 179.247 1257 Q176.191 1252.39 176.191 1243.67 Q176.191 1234.92 179.247 1230.33 Q182.325 1225.73 188.135 1225.73 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M118.622 888.021 L126.261 888.021 L126.261 861.656 L117.951 863.322 L117.951 859.063 L126.214 857.397 L130.89 857.397 L130.89 888.021 L138.529 888.021 L138.529 891.957 L118.622 891.957 L118.622 888.021 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M148.02 857.397 L166.376 857.397 L166.376 861.332 L152.302 861.332 L152.302 869.804 Q153.321 869.457 154.339 869.295 Q155.358 869.109 156.376 869.109 Q162.163 869.109 165.543 872.281 Q168.922 875.452 168.922 880.869 Q168.922 886.447 165.45 889.549 Q161.978 892.628 155.659 892.628 Q153.483 892.628 151.214 892.257 Q148.969 891.887 146.562 891.146 L146.562 886.447 Q148.645 887.582 150.867 888.137 Q153.089 888.693 155.566 888.693 Q159.571 888.693 161.909 886.586 Q164.247 884.48 164.247 880.869 Q164.247 877.258 161.909 875.151 Q159.571 873.045 155.566 873.045 Q153.691 873.045 151.816 873.461 Q149.964 873.878 148.02 874.758 L148.02 857.397 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M188.135 860.475 Q184.524 860.475 182.696 864.04 Q180.89 867.582 180.89 874.711 Q180.89 881.818 182.696 885.383 Q184.524 888.924 188.135 888.924 Q191.77 888.924 193.575 885.383 Q195.404 881.818 195.404 874.711 Q195.404 867.582 193.575 864.04 Q191.77 860.475 188.135 860.475 M188.135 856.772 Q193.946 856.772 197.001 861.378 Q200.08 865.961 200.08 874.711 Q200.08 883.438 197.001 888.045 Q193.946 892.628 188.135 892.628 Q182.325 892.628 179.247 888.045 Q176.191 883.438 176.191 874.711 Q176.191 865.961 179.247 861.378 Q182.325 856.772 188.135 856.772 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M121.839 519.067 L138.159 519.067 L138.159 523.003 L116.214 523.003 L116.214 519.067 Q118.876 516.313 123.46 511.683 Q128.066 507.03 129.247 505.688 Q131.492 503.165 132.372 501.429 Q133.275 499.669 133.275 497.98 Q133.275 495.225 131.33 493.489 Q129.409 491.753 126.307 491.753 Q124.108 491.753 121.654 492.517 Q119.224 493.281 116.446 494.831 L116.446 490.109 Q119.27 488.975 121.724 488.396 Q124.177 487.818 126.214 487.818 Q131.585 487.818 134.779 490.503 Q137.974 493.188 137.974 497.679 Q137.974 499.808 137.163 501.73 Q136.376 503.628 134.27 506.22 Q133.691 506.892 130.589 510.109 Q127.488 513.304 121.839 519.067 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M157.973 491.521 Q154.362 491.521 152.534 495.086 Q150.728 498.628 150.728 505.757 Q150.728 512.864 152.534 516.429 Q154.362 519.97 157.973 519.97 Q161.608 519.97 163.413 516.429 Q165.242 512.864 165.242 505.757 Q165.242 498.628 163.413 495.086 Q161.608 491.521 157.973 491.521 M157.973 487.818 Q163.784 487.818 166.839 492.424 Q169.918 497.007 169.918 505.757 Q169.918 514.484 166.839 519.091 Q163.784 523.674 157.973 523.674 Q152.163 523.674 149.085 519.091 Q146.029 514.484 146.029 505.757 Q146.029 497.007 149.085 492.424 Q152.163 487.818 157.973 487.818 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M188.135 491.521 Q184.524 491.521 182.696 495.086 Q180.89 498.628 180.89 505.757 Q180.89 512.864 182.696 516.429 Q184.524 519.97 188.135 519.97 Q191.77 519.97 193.575 516.429 Q195.404 512.864 195.404 505.757 Q195.404 498.628 193.575 495.086 Q191.77 491.521 188.135 491.521 M188.135 487.818 Q193.946 487.818 197.001 492.424 Q200.08 497.007 200.08 505.757 Q200.08 514.484 197.001 519.091 Q193.946 523.674 188.135 523.674 Q182.325 523.674 179.247 519.091 Q176.191 514.484 176.191 505.757 Q176.191 497.007 179.247 492.424 Q182.325 487.818 188.135 487.818 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M121.839 150.113 L138.159 150.113 L138.159 154.049 L116.214 154.049 L116.214 150.113 Q118.876 147.359 123.46 142.729 Q128.066 138.076 129.247 136.734 Q131.492 134.211 132.372 132.475 Q133.275 130.715 133.275 129.026 Q133.275 126.271 131.33 124.535 Q129.409 122.799 126.307 122.799 Q124.108 122.799 121.654 123.563 Q119.224 124.327 116.446 125.877 L116.446 121.155 Q119.27 120.021 121.724 119.442 Q124.177 118.864 126.214 118.864 Q131.585 118.864 134.779 121.549 Q137.974 124.234 137.974 128.725 Q137.974 130.854 137.163 132.776 Q136.376 134.674 134.27 137.266 Q133.691 137.938 130.589 141.155 Q127.488 144.35 121.839 150.113 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M148.02 119.489 L166.376 119.489 L166.376 123.424 L152.302 123.424 L152.302 131.896 Q153.321 131.549 154.339 131.387 Q155.358 131.202 156.376 131.202 Q162.163 131.202 165.543 134.373 Q168.922 137.544 168.922 142.961 Q168.922 148.539 165.45 151.641 Q161.978 154.72 155.659 154.72 Q153.483 154.72 151.214 154.35 Q148.969 153.979 146.562 153.238 L146.562 148.539 Q148.645 149.674 150.867 150.229 Q153.089 150.785 155.566 150.785 Q159.571 150.785 161.909 148.678 Q164.247 146.572 164.247 142.961 Q164.247 139.35 161.909 137.243 Q159.571 135.137 155.566 135.137 Q153.691 135.137 151.816 135.553 Q149.964 135.97 148.02 136.85 L148.02 119.489 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M188.135 122.567 Q184.524 122.567 182.696 126.132 Q180.89 129.674 180.89 136.803 Q180.89 143.91 182.696 147.475 Q184.524 151.016 188.135 151.016 Q191.77 151.016 193.575 147.475 Q195.404 143.91 195.404 136.803 Q195.404 129.674 193.575 126.132 Q191.77 122.567 188.135 122.567 M188.135 118.864 Q193.946 118.864 197.001 123.47 Q200.08 128.053 200.08 136.803 Q200.08 145.53 197.001 150.137 Q193.946 154.72 188.135 154.72 Q182.325 154.72 179.247 150.137 Q176.191 145.53 176.191 136.803 Q176.191 128.053 179.247 123.47 Q182.325 118.864 188.135 118.864 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M14.1184 967.944 L14.1184 958.364 L46.4562 946.237 L14.1184 934.047 L14.1184 924.467 L61.6384 924.467 L61.6384 930.737 L19.9112 930.737 L52.5037 942.991 L52.5037 949.452 L19.9112 961.706 L61.6384 961.706 L61.6384 967.944 L14.1184 967.944 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M43.719 895.757 Q43.719 902.855 45.3422 905.592 Q46.9655 908.329 50.8804 908.329 Q53.9996 908.329 55.8457 906.292 Q57.6599 904.224 57.6599 900.691 Q57.6599 895.821 54.2224 892.893 Q50.7531 889.933 45.0239 889.933 L43.719 889.933 L43.719 895.757 M41.3 884.076 L61.6384 884.076 L61.6384 889.933 L56.2276 889.933 Q59.4741 891.938 61.0337 894.93 Q62.5615 897.922 62.5615 902.25 Q62.5615 907.725 59.5059 910.971 Q56.4186 914.186 51.2623 914.186 Q45.2467 914.186 42.1912 910.176 Q39.1357 906.133 39.1357 898.144 L39.1357 889.933 L38.5628 889.933 Q34.5205 889.933 32.3244 892.606 Q30.0964 895.248 30.0964 900.054 Q30.0964 903.11 30.8284 906.006 Q31.5605 908.902 33.0246 911.576 L27.6137 911.576 Q26.3724 908.361 25.7677 905.338 Q25.1311 902.314 25.1311 899.449 Q25.1311 891.715 29.1415 887.896 Q33.1519 884.076 41.3 884.076 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M27.0408 849.288 L32.579 849.288 Q31.3059 851.77 30.6693 854.444 Q30.0327 857.117 30.0327 859.982 Q30.0327 864.342 31.3695 866.539 Q32.7063 868.703 35.3799 868.703 Q37.4169 868.703 38.5946 867.143 Q39.7404 865.584 40.7908 860.873 L41.2364 858.868 Q42.5732 852.63 45.0239 850.02 Q47.4429 847.378 51.8034 847.378 Q56.7687 847.378 59.6651 851.325 Q62.5615 855.239 62.5615 862.114 Q62.5615 864.979 61.9886 868.098 Q61.4475 871.186 60.3335 874.623 L54.2861 874.623 Q55.973 871.377 56.8323 868.226 Q57.6599 865.074 57.6599 861.987 Q57.6599 857.849 56.2594 855.621 Q54.8271 853.393 52.249 853.393 Q49.8619 853.393 48.5887 855.017 Q47.3156 856.608 46.1379 862.051 L45.6605 864.088 Q44.5147 869.53 42.1594 871.949 Q39.7722 874.368 35.6345 874.368 Q30.6056 874.368 27.8684 870.804 Q25.1311 867.239 25.1311 860.682 Q25.1311 857.436 25.6085 854.571 Q26.086 851.707 27.0408 849.288 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><path clip-path="url(#clip330)" d="M27.0408 815.326 L32.579 815.326 Q31.3059 817.809 30.6693 820.483 Q30.0327 823.156 30.0327 826.021 Q30.0327 830.381 31.3695 832.578 Q32.7063 834.742 35.3799 834.742 Q37.4169 834.742 38.5946 833.182 Q39.7404 831.623 40.7908 826.912 L41.2364 824.907 Q42.5732 818.668 45.0239 816.059 Q47.4429 813.417 51.8034 813.417 Q56.7687 813.417 59.6651 817.364 Q62.5615 821.278 62.5615 828.153 Q62.5615 831.018 61.9886 834.137 Q61.4475 837.225 60.3335 840.662 L54.2861 840.662 Q55.973 837.415 56.8323 834.264 Q57.6599 831.113 57.6599 828.026 Q57.6599 823.888 56.2594 821.66 Q54.8271 819.432 52.249 819.432 Q49.8619 819.432 48.5887 821.056 Q47.3156 822.647 46.1379 828.09 L45.6605 830.127 Q44.5147 835.569 42.1594 837.988 Q39.7722 840.407 35.6345 840.407 Q30.6056 840.407 27.8684 836.843 Q25.1311 833.278 25.1311 826.721 Q25.1311 823.475 25.6085 820.61 Q26.086 817.745 27.0408 815.326 Z" fill="#000000" fill-rule="nonzero" fill-opacity="1"></path><circle clip-path="url(#clip332)" cx="308.334" cy="1686.38" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip332)" cx="610.266" cy="1096.05" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip332)" cx="1365.09" cy="653.304" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip332)" cx="1968.96" cy="431.932" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<circle clip-path="url(#clip332)" cx="2572.82" cy="210.559" r="14.4" fill="#009af9" fill-rule="evenodd" fill-opacity="1" stroke="#000000" stroke-opacity="1" stroke-width="3.84"></circle>
+<polyline clip-path="url(#clip332)" style="stroke:#e26f46; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="308.334,1446.22 2572.82,94.9858 "></polyline>
+</svg>
+</div>
+</div>
 
 
 </section>
@@ -1903,13 +1666,13 @@ Correction of Exercise 3: Filter Even Numbers
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../src/why_julia.html" class="pagination-link" aria-label="Why Julia?">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Why Julia?</span>
+      <a href="../src/foretaste_of_julia_code.html" class="pagination-link" aria-label="Foretaste of Julia Code">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Foretaste of Julia Code</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../src/basic-types.html" class="pagination-link" aria-label="Basic Types and Data Structures">
-        <span class="nav-page-text">Basic Types and Data Structures</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../src/structure.html" class="pagination-link" aria-label="Structure your code">
+        <span class="nav-page-text">Structure your code</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
