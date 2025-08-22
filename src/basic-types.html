@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.6.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,9 +21,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -65,17 +64,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../src/advanced-types.html" rel="next">
+<link href="../src/syntax.html" rel="prev">
 <link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-01c78b5cd655e4cd89133cf59d535862.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-da65672e49ee5cd90e2fa6acd8b26451.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b8a408f8191a58825ae9d88cc0bba2d4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/quarto-auto-dark-mode-1.0.0/auto-dark-mode.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -207,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -240,10 +240,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/getting_started.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/basic-types.html">Basic Types and Data Structures</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Julia language</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/foretaste_of_julia_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foretaste of Julia Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/why_julia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Julia?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/syntax.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syntax Essentials and Scoping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/basic-types.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Basic Types and Data Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/advanced-types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Type System and Error Handling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/root_finding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Root-Finding Methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/machine_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Machine Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -291,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/getting_started.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/basic-types.html">Basic Types and Data Structures</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Basic Types and Data Structures in Julia</h1>
 </div>
@@ -325,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="dynamic-typing" class="level3">
 <h3 class="anchored" data-anchor-id="dynamic-typing">Dynamic Typing</h3>
 <p>In Julia, variables do not require explicit type declarations. The type of a variable is inferred based on the value assigned to it.</p>
-<div id="54dce76a" class="cell" data-execution_count="2">
+<div id="f708fc73" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">10</span>          <span class="co"># x is inferred to be of type Int64</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fl">3.14</span>        <span class="co"># y is inferred to be of type Float64</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="st">"Hello"</span>     <span class="co"># z is inferred to be of type String</span></span>
@@ -344,7 +431,7 @@ julia&gt; (typeof(x), typeof(y), typeof(z)) = (Int64, Float64, String)</code></p
 <h3 class="anchored" data-anchor-id="strong-typing">Strong Typing</h3>
 <p>While Julia uses dynamic typing, it is strongly typed. This means that Julia will enforce type constraints on operations, and will raise errors when an operation is attempted with incompatible types.</p>
 <p>You can add an integer and a float,</p>
-<div id="3762a7c2" class="cell" data-execution_count="3">
+<div id="e36d0b42" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="fl">5</span>           <span class="co"># Integer</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">2.0</span>         <span class="co"># Float</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">+</span> x           <span class="co"># we can add an Int64 and a Float64</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -355,7 +442,7 @@ julia&gt; n + x = 7.0</code></pre>
 </div>
 </div>
 <p>but you cannot add an integer and a string:</p>
-<div id="8cfa6fac" class="cell" data-execution_count="4">
+<div id="ddb09126" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"Hello"</span>     <span class="co"># String</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">+</span> s           <span class="co"># Error: does not make sense to add an Int64 and a String</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -372,8 +459,8 @@ Closest candidates are:
 <span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">Base</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">operators.jl:596</span>
   +(::Real, <span class="ansi-bright-red-fg">::Complex{Bool}</span>)
 <span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">Base</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">complex.jl:322</span>
-  +(::Integer, <span class="ansi-bright-red-fg">::AbstractChar</span>)
-<span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">Base</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">char.jl:247</span>
+  +(::Real, <span class="ansi-bright-red-fg">::Complex</span>)
+<span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">Base</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">complex.jl:334</span>
   ...
 
 
@@ -381,14 +468,14 @@ Stacktrace:
  [1] <span class="ansi-bold">macro expansion</span>
 <span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">show.jl:1232</span><span class="ansi-bright-black-fg"> [inlined]</span>
  [2] <span class="ansi-bold">macro expansion</span>
-<span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">~/Gitlab/course-tse-julia/assets/julia/</span><span style="text-decoration:underline" class="ansi-bright-black-fg">myshow.jl:82</span><span class="ansi-bright-black-fg"> [inlined]</span>
+<span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">~/Courses/julia/course-tse-julia/assets/julia/</span><span style="text-decoration:underline" class="ansi-bright-black-fg">myshow.jl:82</span><span class="ansi-bright-black-fg"> [inlined]</span>
  [3] top-level scope
-<span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[28]:3</span></pre>
+<span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[5]:3</span></pre>
 </div>
 </div>
 </div>
 <p>We see from the error message that we can add an Integer and a Char: <code>+(::Integer, ::AbstractChar)</code> is a valid operation. This is because a Char can be treated as an integer in Julia.</p>
-<div id="101d3e21" class="cell" data-execution_count="5">
+<div id="5d6cd98f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="ch">'a'</span>      <span class="co"># Char</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>c <span class="op">+</span> <span class="fl">128448</span>   <span class="co"># This will work because Char can be treated as an integer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -427,7 +514,7 @@ julia&gt; c + 128448 = '😡'</code></pre>
 </section>
 <section id="example-usage-of-basic-types" class="level3">
 <h3 class="anchored" data-anchor-id="example-usage-of-basic-types">Example Usage of Basic Types</h3>
-<div id="d3989f31" class="cell" data-execution_count="6">
+<div id="8c9f8e83" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Integer type (default is Int64)</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">42</span>         <span class="co"># a is of type Int64</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -458,9 +545,9 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Creating an Array</strong>:</li>
 </ul>
-<div id="821c58e8" class="cell" data-execution_count="7">
+<div id="1555fdd5" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>]  <span class="co"># A simple 1D array (vector)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>4-element Vector{Int64}:
  1
  2
@@ -468,9 +555,9 @@ julia&gt; c + 128448 = '😡'</code></pre>
  4</code></pre>
 </div>
 </div>
-<div id="c008912d" class="cell" data-execution_count="8">
+<div id="674e203d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">=</span> [<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span>; <span class="fl">4</span> <span class="fl">5</span> <span class="fl">6</span>]  <span class="co"># A 2D array (matrix)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>2×3 Matrix{Int64}:
  1  2  3
  4  5  6</code></pre>
@@ -479,15 +566,15 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Accessing Array Elements</strong>:</li>
 </ul>
-<div id="043b98dd" class="cell" data-execution_count="9">
+<div id="46360904" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>arr[<span class="fl">1</span>]   <span class="co"># Access the first element of the array</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>1</code></pre>
 </div>
 </div>
-<div id="9d3bab2c" class="cell" data-execution_count="10">
+<div id="2afcc1f8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="fl">2</span>, <span class="fl">3</span>]  <span class="co"># Access the element in the second row, third column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>6</code></pre>
 </div>
 </div>
@@ -497,9 +584,9 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Slicing a vector</strong>:</li>
 </ul>
-<div id="7dceb1ff" class="cell" data-execution_count="11">
+<div id="e2fc452c" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>arr[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>]  <span class="co"># Extracts elements from index 2 to 4: [2, 3, 4]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="35">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>3-element Vector{Int64}:
  2
  3
@@ -509,18 +596,18 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Slicing a matrix</strong>:</li>
 </ul>
-<div id="059b1b1e" class="cell" data-execution_count="12">
+<div id="7f02a2d4" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="fl">1</span>, <span class="op">:</span>]   <span class="co"># Extracts the first row: [1, 2, 3]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="36">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>3-element Vector{Int64}:
  1
  2
  3</code></pre>
 </div>
 </div>
-<div id="96210165" class="cell" data-execution_count="13">
+<div id="b4ac169e" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>matrix[<span class="op">:</span>, <span class="fl">2</span>]   <span class="co"># Extracts the second column: [2, 5]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="37">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>2-element Vector{Int64}:
  2
  5</code></pre>
@@ -533,18 +620,18 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Modify an individual element</strong>:</li>
 </ul>
-<div id="f059ec15" class="cell" data-execution_count="14">
+<div id="bf31ecb3" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>arr[<span class="fl">2</span>] <span class="op">=</span> <span class="fl">99</span>  <span class="co"># Change the second element to 99</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="38">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>99</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>Element-wise operation with <code>.=</code></strong>:</li>
 </ul>
-<div id="8682c2a1" class="cell" data-execution_count="15">
+<div id="718afb0c" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">.+=</span> <span class="fl">10</span>  <span class="co"># Adds 10 to each element of the array, resulting in [11, 12, 13, 14]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>4-element Vector{Int64}:
   11
  109
@@ -552,9 +639,9 @@ julia&gt; c + 128448 = '😡'</code></pre>
   14</code></pre>
 </div>
 </div>
-<div id="3b7e4139" class="cell" data-execution_count="16">
+<div id="d4e012da" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>matrix <span class="op">.*=</span> <span class="fl">2</span>  <span class="co"># Multiplies each element of the matrix by 2, resulting in [2 4 6; 8 10 12]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>2×3 Matrix{Int64}:
  2   4   6
  8  10  12</code></pre>
@@ -563,9 +650,9 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Push an element into an array</strong> (mutates the array by adding a new element):</li>
 </ul>
-<div id="daae9d8f" class="cell" data-execution_count="17">
+<div id="5f16dc73" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">push!</span>(arr, <span class="fl">40</span>)  <span class="co"># Adds 40 to the end of the array</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="41">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>5-element Vector{Int64}:
   11
  109
@@ -577,9 +664,9 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Pop an element from an array</strong> (removes the last element):</li>
 </ul>
-<div id="5847f135" class="cell" data-execution_count="18">
+<div id="5cbb8137" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pop!</span>(arr)  <span class="co"># Removes the last element, which is 40 in this case</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="42">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>40</code></pre>
 </div>
 </div>
@@ -590,7 +677,7 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Incorrect way</strong> (does not mutate the original vector):</li>
 </ul>
-<div id="d3aa910e" class="cell" data-execution_count="19">
+<div id="82f1e0f7" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">incorrect_mutate</span>(v)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>]  <span class="co"># This creates a new array and does not affect the input</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -605,7 +692,7 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Correct way</strong> using <code>v[:] = ...</code>:</li>
 </ul>
-<div id="cf252a3e" class="cell" data-execution_count="20">
+<div id="f21dab06" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">correct_mutate</span>(v)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    v[<span class="op">:</span>] <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>]  <span class="co"># Mutates the input vector</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -620,7 +707,7 @@ julia&gt; c + 128448 = '😡'</code></pre>
 <ul>
 <li><strong>Using broadcasting (<code>v .= ...</code>)</strong>:</li>
 </ul>
-<div id="73223fe3" class="cell" data-execution_count="21">
+<div id="986d8e38" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">flexible_mutate</span>(v)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    v <span class="op">.=</span> [<span class="fl">1</span>, <span class="fl">2</span>]  <span class="co"># More flexible, works for both vectors and matrices</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -650,7 +737,7 @@ Warning
 <div class="callout-body-container callout-body">
 <p>To mutate an array within a function, it should be given <em>by reference</em>. In pratice, the memory address of the array is passed to the function. Any modifications to the data will thus affect the original array.</p>
 <p>Let us focus on the special case where we want to mutate a slice of the array. We can try the following lines of code.</p>
-<div id="0fe915f8" class="cell" data-execution_count="22">
+<div id="d8e2d899" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">mutate_slice</span>(v)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@assert</span>(<span class="fu">length</span>(v) <span class="op">&gt;=</span> <span class="fl">2</span>)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    v[<span class="fl">1</span>] <span class="op">=</span> <span class="op">-</span><span class="fl">5</span></span>
@@ -662,7 +749,7 @@ Warning
 <span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate_slice</span>(v[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>])</span>
 <span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
+<div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>4-element Vector{Int64}:
  1
  2
@@ -672,11 +759,11 @@ Warning
 </div>
 <p>The first two elements of the array <code>v</code> have not been modified. This is because slices are passed <em>by copy</em> in Julia. This means that a duplicate of the slice is created. The function will act on the copy rather than the original data.</p>
 <p>In order to overcome this issue, let us have a look at the <code>view</code> function in Julia. It creates a <strong>view</strong> of an array, meaning it gives you a reference to a subset of the array rather than a copy. So when you modify the view, you’re modifying the original array. This is an example of by reference behavior.</p>
-<div id="4ffd6e1c" class="cell" data-execution_count="23">
+<div id="70ce8ac6" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate_slice</span>(<span class="fu">view</span>(v, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>))</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="47">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>4-element Vector{Int64}:
  -5
  -6
@@ -694,9 +781,9 @@ Warning
 <ul>
 <li><strong>Create an array of zeros</strong>:</li>
 </ul>
-<div id="57575b01" class="cell" data-execution_count="24">
+<div id="00333374" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zeros</span>(<span class="fl">3</span>)  <span class="co"># Creates an array of zeros with 3 elements: [0.0, 0.0, 0.0]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="48">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>3-element Vector{Float64}:
  0.0
  0.0
@@ -706,9 +793,9 @@ Warning
 <ul>
 <li><strong>Create an array of ones</strong>:</li>
 </ul>
-<div id="2ac5ff3e" class="cell" data-execution_count="25">
+<div id="447d311b" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ones</span>(<span class="fl">2</span>, <span class="fl">3</span>)  <span class="co"># Creates a 2x3 matrix filled with ones: [1.0 1.0 1.0; 1.0 1.0 1.0]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="49">
+<div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>2×3 Matrix{Float64}:
  1.0  1.0  1.0
  1.0  1.0  1.0</code></pre>
@@ -722,9 +809,9 @@ Warning
 <ul>
 <li><strong>Creating a Dictionary</strong>:</li>
 </ul>
-<div id="3baf7667" class="cell" data-execution_count="26">
+<div id="c0219f00" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"name"</span> <span class="op">=&gt;</span> <span class="st">"Alice"</span>, <span class="st">"age"</span> <span class="op">=&gt;</span> <span class="fl">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="50">
+<div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>Dict{String, Any} with 2 entries:
   "name" =&gt; "Alice"
   "age"  =&gt; 25</code></pre>
@@ -735,9 +822,9 @@ Warning
 <li><strong>Accessing Values</strong>:</li>
 </ul>
 <p>You can access values in a dictionary using their corresponding keys:</p>
-<div id="63e3f49d" class="cell" data-execution_count="27">
+<div id="4db33592" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">"name"</span>]  <span class="co"># Outputs: "Alice"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="51">
+<div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>"Alice"</code></pre>
 </div>
 </div>
@@ -745,7 +832,7 @@ Warning
 <li><strong>Adding and Updating Values</strong>:</li>
 </ul>
 <p>To add a new key-value pair or update an existing one, you can use the following syntax:</p>
-<div id="190b6df4" class="cell" data-execution_count="28">
+<div id="d1605688" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>d[<span class="st">"location"</span>] <span class="op">=</span> <span class="st">"Paris"</span>  <span class="co"># Adds a new key-value pair</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>d[<span class="st">"age"</span>] <span class="op">=</span> <span class="fl">26</span>            <span class="co"># Updates the value associated with the key "age"</span></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -760,9 +847,9 @@ Warning
 <li><strong>Removing Key-Value Pairs</strong>:</li>
 </ul>
 <p>To remove a key-value pair, use the <code>delete!</code> function:</p>
-<div id="e5ce7f22" class="cell" data-execution_count="29">
+<div id="70095213" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">delete!</span>(d, <span class="st">"location"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="53">
+<div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>Dict{String, Any} with 2 entries:
   "name" =&gt; "Alice"
   "age"  =&gt; 26</code></pre>
@@ -772,7 +859,7 @@ Warning
 <li><strong>Iteration over Key-Value Pairs</strong>:</li>
 </ul>
 <p>You can iterate through the keys, values, or pairs in a dictionary using <code>keys</code>, <code>values</code>, and <code>pairs</code> respectively:</p>
-<div id="3ee3dec3" class="cell" data-execution_count="30">
+<div id="90347374" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k, v) <span class="kw">in</span> <span class="fu">pairs</span>(d)</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Key: </span><span class="sc">$</span>k<span class="st">, Value: </span><span class="sc">$</span>v<span class="st">"</span>)</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -790,32 +877,32 @@ Key: age, Value: 26</code></pre>
 <ul>
 <li><strong>Tuple</strong> is an ordered collection of elements, which can hold elements of different types.</li>
 </ul>
-<div id="0e2796f0" class="cell" data-execution_count="31">
+<div id="da5e8327" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="fl">1</span>, <span class="st">"Julia"</span>, <span class="cn">true</span>)  <span class="co"># A tuple with three elements</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="55">
+<div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>(1, "Julia", true)</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>NamedTuple</strong> is a special kind of tuple where elements are associated with names (keys).</li>
 </ul>
-<div id="e4915fe3" class="cell" data-execution_count="32">
+<div id="4d362ec6" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>nt <span class="op">=</span> (name <span class="op">=</span> <span class="st">"Alice"</span>, age <span class="op">=</span> <span class="fl">25</span>)  <span class="co"># A NamedTuple with named fields</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="56">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>(name = "Alice", age = 25)</code></pre>
 </div>
 </div>
 <p>You can access the elements by their name:</p>
-<div id="2576c49a" class="cell" data-execution_count="33">
+<div id="aa671cc9" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>nt.name  <span class="co"># Access the field 'name' of the NamedTuple, returns "Alice"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="57">
+<div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>"Alice"</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>Mutation of a Tuple</strong>: Tuples are immutable, so attempting to change their elements will result in an error.</li>
 </ul>
-<div id="34074122" class="cell" data-execution_count="34">
+<div id="6db50caa" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>t[<span class="fl">1</span>] <span class="op">=</span> <span class="fl">99</span>  <span class="co"># Trying to modify a tuple element will result in an error</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
@@ -824,7 +911,7 @@ The function `setindex!` exists, but no method is defined for this combination o
 
 Stacktrace:
  [1] top-level scope
-<span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[58]:1</span></pre>
+<span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[35]:1</span></pre>
 </div>
 </div>
 </div>
@@ -837,7 +924,7 @@ Stacktrace:
 <li><strong>Positional and Keyword Arguments</strong>:</li>
 </ul>
 <p>When defining functions with a variable number of arguments, Julia uses <em>tuples</em> to capture positional arguments and <em>named tuples</em> for keyword arguments:</p>
-<div id="44724e75" class="cell" data-execution_count="35">
+<div id="1531130f" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">example_function</span>(args<span class="op">...</span>; kwargs<span class="op">...</span>)</span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Positional arguments type: "</span>, <span class="fu">typeof</span>(args))</span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Keyword arguments type: "</span>, <span class="fu">typeof</span>(kwargs))</span>
@@ -851,15 +938,15 @@ Keyword arguments type: Base.Pairs{Symbol, Any, Tuple{Symbol, Symbol}, @NamedTup
 </div>
 </div>
 <p>In this example, <code>args</code> is of type <code>Tuple</code>, containing all positional arguments, while <code>kwargs</code> is based on a <code>NamedTuple</code>, containing all keyword arguments. The arguments are captured using the <code>args...</code> and <code>kwargs...</code> syntax. The <code>kwargs</code> argument is actually a ‘Base.Pairs’:</p>
-<div id="ac622660" class="cell" data-execution_count="36">
+<div id="f90026bc" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>kw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="60">
+<div class="cell-output cell-output-display" data-execution_count="37">
 <pre><code>pairs(::NamedTuple) with 2 entries:
   :name =&gt; "Alice"
   :age  =&gt; 30</code></pre>
 </div>
 </div>
-<div id="7f893558" class="cell" data-execution_count="37">
+<div id="e01fcbc8" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(kw)</span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>kw isa <span class="bu">Base</span>.<span class="dt">Pairs</span></span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>kw isa <span class="dt">AbstractDict</span></span>
@@ -880,14 +967,14 @@ julia&gt; kw[:age] = 30</code></pre>
 </div>
 </div>
 <p>Actually, the values are a <code>NamedTuple</code>:</p>
-<div id="f269a900" class="cell" data-execution_count="38">
+<div id="2e9a6984" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">values</span>(kw))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="62">
+<div class="cell-output cell-output-display" data-execution_count="39">
 <pre><code>@NamedTuple{name::String, age::Int64}</code></pre>
 </div>
 </div>
 <p>Contrary to a <code>Dict</code>, you cannot add entries to a <code>Base.Pairs</code>:</p>
-<div id="131e47c0" class="cell" data-execution_count="39">
+<div id="0edf41d2" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>kw[<span class="op">:</span>height] <span class="op">=</span> <span class="fl">5.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
@@ -898,7 +985,7 @@ Stacktrace:
  [1] <span class="ansi-bold">setindex!</span><span class="ansi-bold">(</span><span class="ansi-bright-black-fg">v</span>::@Kwargs<span class="ansi-bright-black-fg">{name::String, age::Int64}</span>, <span class="ansi-bright-black-fg">value</span>::Float64, <span class="ansi-bright-black-fg">key</span>::Symbol<span class="ansi-bold">)</span>
 <span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">Base.Iterators</span> <span class="ansi-bright-black-fg">./</span><span style="text-decoration:underline" class="ansi-bright-black-fg">iterators.jl:325</span>
  [2] top-level scope
-<span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[63]:1</span></pre>
+<span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[40]:1</span></pre>
 </div>
 </div>
 </div>
@@ -906,7 +993,7 @@ Stacktrace:
 <li><strong>Returning Tuples</strong>:</li>
 </ul>
 <p>In Julia, when a function returns multiple values separated by commas, they are automatically returned as a tuple:</p>
-<div id="d1b4f040" class="cell" data-execution_count="40">
+<div id="d356e6cf" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">return_multiple_values</span>()</span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">1</span>, <span class="st">"Julia"</span>, <span class="cn">true</span></span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -929,7 +1016,7 @@ Stacktrace:
 <ul>
 <li><strong>Creating a custom <code>struct</code></strong>:</li>
 </ul>
-<div id="cdbca2f5" class="cell" data-execution_count="41">
+<div id="62d81d27" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a simple struct for a point in 2D space</span></span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Point</span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
@@ -940,19 +1027,19 @@ Stacktrace:
 <ul>
 <li><strong>Creating an instance of a struct</strong>:</li>
 </ul>
-<div id="f899a690" class="cell" data-execution_count="42">
+<div id="db912dd9" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fu">Point</span>(<span class="fl">3.0</span>, <span class="fl">4.0</span>)  <span class="co"># Creates a Point with x = 3.0 and y = 4.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="66">
+<div class="cell-output cell-output-display" data-execution_count="43">
 <pre><code>Point(3.0, 4.0)</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>Accessing fields of a struct</strong>:</li>
 </ul>
-<div id="57f5bac6" class="cell" data-execution_count="43">
+<div id="a0e3f9c2" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>p.x  <span class="co"># Access the 'x' field of the Point instance</span></span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>p.y  <span class="co"># Access the 'y' field of the Point instance</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="67">
+<div class="cell-output cell-output-display" data-execution_count="44">
 <pre><code>4.0</code></pre>
 </div>
 </div>
@@ -960,9 +1047,9 @@ Stacktrace:
 <ul>
 <li><strong>Get the names of the fields</strong>:</li>
 </ul>
-<div id="317c23c2" class="cell" data-execution_count="44">
+<div id="c2774df9" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fieldnames</span>(Point)  <span class="co"># Returns the names of the fields in the Point struct</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="68">
+<div class="cell-output cell-output-display" data-execution_count="45">
 <pre><code>(:x, :y)</code></pre>
 </div>
 </div>
@@ -973,14 +1060,14 @@ Stacktrace:
 <ul>
 <li><strong>Creating a mutable struct</strong>:</li>
 </ul>
-<div id="8701b4a8" class="cell" data-execution_count="45">
+<div id="fb93c553" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> MutablePoint</span>
 <span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
 <span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">::</span><span class="dt">Float64</span></span>
 <span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now you can modify the fields of <code>MutablePoint</code> instances after they are created.</p>
-<div id="9bd3a392" class="cell" data-execution_count="46">
+<div id="414e80ef" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>mp <span class="op">=</span> <span class="fu">MutablePoint</span>(<span class="fl">1.0</span>, <span class="fl">2.0</span>)</span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>mp.x <span class="op">=</span> <span class="fl">3.0</span>  <span class="co"># Modify the 'x' field</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -988,7 +1075,7 @@ Stacktrace:
 <section id="example-struct-for-a-circle" class="level3">
 <h3 class="anchored" data-anchor-id="example-struct-for-a-circle">Example: <code>struct</code> for a Circle</h3>
 <p>We can create a more complex type, such as a <code>Circle</code>, which has a center represented by a <code>Point</code> and a radius:</p>
-<div id="2929319e" class="cell" data-execution_count="47">
+<div id="1fad4bf3" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Circle</span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    center<span class="op">::</span><span class="dt">Point</span></span>
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    radius<span class="op">::</span><span class="dt">Float64</span></span>
@@ -997,16 +1084,16 @@ Stacktrace:
 <ul>
 <li><strong>Creating an instance of <code>Circle</code></strong>:</li>
 </ul>
-<div id="02018035" class="cell" data-execution_count="48">
+<div id="df654464" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb86"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="fu">Circle</span>(<span class="fu">Point</span>(<span class="fl">0.0</span>, <span class="fl">0.0</span>), <span class="fl">5.0</span>)  <span class="co"># Create a circle with center (0, 0) and radius 5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="72">
+<div class="cell-output cell-output-display" data-execution_count="49">
 <pre><code>Circle(Point(0.0, 0.0), 5.0)</code></pre>
 </div>
 </div>
 <ul>
 <li><strong>Accessing fields of a nested struct</strong>:</li>
 </ul>
-<div id="57358cfa" class="cell" data-execution_count="49">
+<div id="62d6c4b5" class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>c.center.x  <span class="co"># Access the x field of the center of the circle</span></span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>c.center.y  <span class="co"># Access the y field of the center of the circle</span></span>
 <span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>c.radius    <span class="co"># Access the radius of the circle</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1020,7 +1107,7 @@ Stacktrace:
 <li>location: a position on a 2-D grid (<code>pt::Point</code>).</li>
 </ul>
 <p>In order to create a <code>Duck</code>, it is necessary to define the object (as seen previously with <code>Point</code>).</p>
-<div id="79c742bd" class="cell" data-execution_count="50">
+<div id="dbf617d7" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Duck</span>
 <span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">::</span><span class="dt">String</span></span>
 <span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    nb<span class="op">::</span><span class="dt">Int64</span></span>
@@ -1028,25 +1115,25 @@ Stacktrace:
 <span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In order to create a <code>Duck</code> with the name “Donald”, we simply use the <em>default</em> constructor generated by the Julia language.</p>
-<div id="5b26c708" class="cell" data-execution_count="51">
+<div id="e241db34" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>donald <span class="op">=</span> <span class="fu">Duck</span>(<span class="st">"Donald"</span>, <span class="fl">10000</span>, <span class="fu">Point</span>(<span class="fl">0</span>.,<span class="fl">0</span>.))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="75">
+<div class="cell-output cell-output-display" data-execution_count="52">
 <pre><code>Duck("Donald", 10000, Point(0.0, 0.0))</code></pre>
 </div>
 </div>
 <p>As any function in Julia, a constructor function can be associated with several constructor methods. The object <code>Duck</code> has been defined. Still, it is possible to add so called <em>outer</em> constructor methods. For example, we can provide a method that takes two <code>Float64</code> instead of an instance of the <code>Point</code> object.</p>
-<div id="27cd266b" class="cell" data-execution_count="52">
+<div id="46d5a2a6" class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Duck</span>(name<span class="op">::</span><span class="dt">String</span>, nb<span class="op">::</span><span class="dt">Int64</span>, x<span class="op">::</span><span class="dt">Float64</span>, y<span class="op">::</span><span class="dt">Float64</span>) <span class="op">=</span> <span class="fu">Duck</span>(name, nb, <span class="fu">Point</span>(x,y));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can now create another <code>Duck</code> without using the <code>Point</code> object.</p>
-<div id="345c2aff" class="cell" data-execution_count="53">
+<div id="62f7b093" class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>scrooge <span class="op">=</span> <span class="fu">Duck</span>(<span class="st">"Scrooge"</span>, <span class="fl">5000</span>, <span class="fl">0</span>., <span class="fl">1</span>.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="77">
+<div class="cell-output cell-output-display" data-execution_count="54">
 <pre><code>Duck("Scrooge", 5000, Point(0.0, 1.0))</code></pre>
 </div>
 </div>
 <p>Oh! But Scrooge is a cheapskate. Let us look into <em>inner</em> constructor methods in order to avoid any <code>Duck</code> from being called “Scrooge”. An <em>inner</em> constructor can only be defined within the definition of the object. Let us rewrite the <code>Duck</code> object in order to replace the <em>default</em> constructor method by our own constructor method.</p>
-<div id="a991ffb6" class="cell" data-execution_count="54">
+<div id="4bd78073" class="cell" data-execution_count="54">
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Duck</span>
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">::</span><span class="dt">String</span></span>
 <span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>    nb<span class="op">::</span><span class="dt">Int64</span></span>
@@ -1061,7 +1148,7 @@ Stacktrace:
 <span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let us try to create a <code>Duck</code> called “Scrooge” now.</p>
-<div id="cab78555" class="cell" data-execution_count="55">
+<div id="ddb62db8" class="cell" data-execution_count="55">
 <div class="sourceCode cell-code" id="cb96"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>scrooge <span class="op">=</span> <span class="fu">Duck</span>(<span class="st">"Scrooge"</span>, <span class="fl">5000</span>, <span class="fl">0</span>., <span class="fl">1</span>.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
@@ -1071,11 +1158,11 @@ Stacktrace:
  [1] <span class="ansi-bold">error</span><span class="ansi-bold">(</span><span class="ansi-bright-black-fg">s</span>::String<span class="ansi-bold">)</span>
 <span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">Base</span> <span class="ansi-bright-black-fg">./</span><span style="text-decoration:underline" class="ansi-bright-black-fg">error.jl:35</span>
  [2] <span class="ansi-bold">Duck</span>
-<span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">./</span><span style="text-decoration:underline" class="ansi-bright-black-fg">In[78]:8</span><span class="ansi-bright-black-fg"> [inlined]</span>
+<span class="ansi-bright-black-fg">   @</span> <span class="ansi-bright-black-fg">./</span><span style="text-decoration:underline" class="ansi-bright-black-fg">In[55]:8</span><span class="ansi-bright-black-fg"> [inlined]</span>
  [3] <span class="ansi-bold">Duck</span><span class="ansi-bold">(</span><span class="ansi-bright-black-fg">name</span>::String, <span class="ansi-bright-black-fg">nb</span>::Int64, <span class="ansi-bright-black-fg">x</span>::Float64, <span class="ansi-bright-black-fg">y</span>::Float64<span class="ansi-bold">)</span>
-<span class="ansi-bright-black-fg">   @</span> <span class="ansi-cyan-fg">Main</span> <span class="ansi-bright-black-fg">./</span><span style="text-decoration:underline" class="ansi-bright-black-fg">In[76]:1</span>
+<span class="ansi-bright-black-fg">   @</span> <span class="ansi-cyan-fg">Main</span> <span class="ansi-bright-black-fg">./</span><span style="text-decoration:underline" class="ansi-bright-black-fg">In[53]:1</span>
  [4] top-level scope
-<span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[79]:1</span></pre>
+<span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[56]:1</span></pre>
 </div>
 </div>
 </div>
@@ -1085,7 +1172,7 @@ Stacktrace:
 <h3 class="anchored" data-anchor-id="function-like-object-callable-struct">Function-like Object (Callable <code>struct</code>)</h3>
 <p>In Julia, you can make a <code>struct</code> “callable” by defining the <code>call</code> method for it. This allows instances of the <code>struct</code> to be used like functions. This feature is useful for encapsulating parameters or states in a type while still allowing it to behave like a function.</p>
 <p>Here’s an example that demonstrates a callable struct for a <strong>linear transformation</strong>:</p>
-<div id="e38b1e0d" class="cell" data-execution_count="56">
+<div id="462ac966" class="cell" data-execution_count="56">
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a callable struct for a linear transformation</span></span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> LinearTransform</span>
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>    a<span class="op">::</span><span class="dt">Float64  </span><span class="co"># Slope</span></span>
@@ -1105,7 +1192,7 @@ Stacktrace:
 </ul></li>
 <li><strong>Usage</strong>:</li>
 </ul>
-<div id="35b02e86" class="cell" data-execution_count="57">
+<div id="2d49cbd4" class="cell" data-execution_count="57">
 <div class="sourceCode cell-code" id="cb98"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an instance of LinearTransform</span></span>
 <span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>lt <span class="op">=</span> <span class="fu">LinearTransform</span>(<span class="fl">2.0</span>, <span class="fl">3.0</span>)  <span class="co"># y = 2x + 3</span></span>
 <span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1123,7 +1210,7 @@ julia&gt; y2 = 1.0</code></pre>
 <section id="extending-the-concept-composable-linear-transforms" class="level3">
 <h3 class="anchored" data-anchor-id="extending-the-concept-composable-linear-transforms">Extending the Concept: Composable Linear Transforms</h3>
 <p>You can take this idea further by allowing composition of transformations. For example:</p>
-<div id="4a056ae8" class="cell" data-execution_count="58">
+<div id="fa38b776" class="cell" data-execution_count="58">
 <div class="sourceCode cell-code" id="cb100"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a method to compose two LinearTransform objects</span></span>
 <span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> (lt1<span class="op">::</span><span class="dt">LinearTransform</span>)(lt2<span class="op">::</span><span class="dt">LinearTransform</span>)</span>
 <span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">LinearTransform</span>(lt1.a <span class="op">*</span> lt2.a, lt1.a <span class="op">*</span> lt2.b <span class="op">+</span> lt1.b)</span>
@@ -1153,9 +1240,9 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p>The previous composition is equivalent in pure Julia to:</p>
-<div id="620c4210" class="cell" data-execution_count="59">
+<div id="5dccca42" class="cell" data-execution_count="59">
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (lt1 <span class="op">∘</span> lt2)(<span class="fl">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="83">
+<div class="cell-output cell-output-display" data-execution_count="60">
 <pre><code>9.0</code></pre>
 </div>
 </div>
@@ -1218,7 +1305,7 @@ Correction of Exercise 1:
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="33e68fad" class="cell" data-execution_count="60">
+<div id="a2f979ca" class="cell" data-execution_count="60">
 <div class="sourceCode cell-code" id="cb104"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the Point struct</span></span>
 <span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Point</span>
 <span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
@@ -1306,7 +1393,7 @@ Correction of Exercise 2:
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="5c662ee6" class="cell" data-execution_count="61">
+<div id="538c69d7" class="cell" data-execution_count="61">
 <div class="sourceCode cell-code" id="cb106"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create two complex numbers</span></span>
 <span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>z1 <span class="op">=</span> <span class="fu">Complex</span><span class="dt">{Float64}</span>(<span class="fl">3.0</span>, <span class="fl">4.0</span>)  <span class="co"># z1 = 3.0 + 4.0im</span></span>
 <span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>z2 <span class="op">=</span> <span class="fu">Complex</span><span class="dt">{Float64}</span>(<span class="fl">1.0</span>, <span class="fl">2.0</span>)  <span class="co"># z2 = 1.0 + 2.0im</span></span>
@@ -1383,23 +1470,23 @@ Correction of Exercise 3:
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="f72c7b65" class="cell" data-execution_count="62">
+<div id="f73bb566" class="cell" data-execution_count="62">
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tuple with three elements: a string, an integer, and a float</span></span>
 <span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="st">"John"</span>, <span class="fl">25</span>, <span class="fl">5.9</span>)</span>
 <span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Attempt to mutate the first element of the tuple with error handling</span></span>
-<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span></span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>try</span>
 <span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>    t[<span class="fl">1</span>] <span class="op">=</span> <span class="st">"Alice"</span>  <span class="co"># This will raise an error because tuples are immutable</span></span>
-<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a><span class="cf">catch</span> <span class="cn">e</span></span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>catch <span class="cn">e</span></span>
 <span id="cb108-8"><a href="#cb108-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Error: "</span>, <span class="cn">e</span>)</span>
-<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
 <span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb108-11"><a href="#cb108-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a NamedTuple with fields: name, age, and height</span></span>
 <span id="cb108-12"><a href="#cb108-12" aria-hidden="true" tabindex="-1"></a>nt <span class="op">=</span> (name <span class="op">=</span> <span class="st">"John"</span>, age <span class="op">=</span> <span class="fl">25</span>, height <span class="op">=</span> <span class="fl">5.9</span>)</span>
 <span id="cb108-13"><a href="#cb108-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb108-14"><a href="#cb108-14" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"NamedTuple: "</span>, nt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Error: MethodError(setindex!, (("John", 25, 5.9), "Alice", 1), 0x000000000000691a)
+<pre><code>Error: MethodError(setindex!, (("John", 25, 5.9), "Alice", 1), 0x00000000000068f5)
 NamedTuple: (name = "John", age = 25, height = 5.9)</code></pre>
 </div>
 </div>
@@ -1413,242 +1500,236 @@ NamedTuple: (name = "John", age = 25, height = 5.9)</code></pre>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
       }
-      return false;
-    }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
-    }
-    const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
-        }
-        return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ocourses\.github\.io\/course-tse-julia\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ocourses\.github\.io\/course-tse-julia\/");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1656,161 +1737,197 @@ NamedTuple: (name = "John", age = 25, height = 5.9)</code></pre>
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../src/syntax.html" class="pagination-link" aria-label="Syntax Essentials and Scoping">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Syntax Essentials and Scoping</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../src/advanced-types.html" class="pagination-link" aria-label="Type System and Error Handling">
+        <span class="nav-page-text">Type System and Error Handling</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
