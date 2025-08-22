@@ -45,7 +45,6 @@ Traditionally, programming required both a high-level, slower language for proto
 | **Cons**                     | Slow in production                   | Complex, lengthy code          |
 | **Julia’s Solution**         | Combines ease of high-level with speed of low-level, eliminating the need for separate languages for research and production. |
 
-
 ## Comparisons
 
 If you want to know for instance the date of the first public release, the price and the names of the
