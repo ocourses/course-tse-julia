@@ -18,14 +18,14 @@ The exercise in this chapter will guide you through the following steps:
 
 ## MNIST dataset
 
-The MNIST dataset can be retrieved from the *MLDatasets.jl* package. Let us load the training dataset.
+The MNIST dataset can be retrieved from the *MLDatasets.jl* package. Start by loading the training dataset.
 
 ```julia
 using MLDatasets
 d_train = MNIST(split=:train)
 ```
 
-Before going further, we checkout what the data we work on looks like. 
+What does this dataset actually look like? You can check this by typing the following commands. 
 
 ```julia
 using Images
@@ -33,7 +33,7 @@ using ImageInTerminal
 colorview(Gray,d_train.features[:,:,1])
 ```
 
-It turns out unclear at moments which digit is handwrittent on the image. To clarify this, we can look at the label associated to the image.
+It turns out unclear at moments which digit is handwritten on the image. To clarify this, have a look at the label associated to the image.
 
 ```julia
 d_train.targets[1]
@@ -53,7 +53,7 @@ The 28-by-28 gray-scale images are flattened into a 784 element vector. No activ
 
 ### Preprocess the dataset
 
-The neural network we will be using in this exercise requires a 1D-vector of length 784 input. Let us flatten the matrices representing the images of our dataset using *Flux.jl*.
+The neural network we will be using in this exercise requires a 1D-vector of length 784 input. Start by flattening the matrices representing the images of our dataset using *Flux.jl*.
 
 ```julia
 using Flux
@@ -61,7 +61,7 @@ v_train = Flux.flatten(d_train.features)
 nothing #| hide
 ```
 
-Now we make use of *OneHotArrays.jl* to transform the target array to vectors of 10 elements with 1 at the index of the target digit.
+You should now use *OneHotArrays.jl* to transform the target array to vectors of 10 elements, with `1` at the index of the target digit.
 
 ```julia
 using OneHotArrays
@@ -70,7 +70,7 @@ Y = onehotbatch(d_train.targets,0:9)
 
 ### Set-up the neural network
 
-Here we simply translate the neural network schematic to Julia language code.
+The lines of code bellow are simply a translation of the neural network schematic in Julia.
 
 ```julia
 m = Chain(
@@ -87,7 +87,10 @@ What happens if we apply this neural network to one of the images?
 m(v_train[:,1])
 ```
 
+::: {.callout-caution collapse="true" icon=false}
+## Answer
 The network is not able to determine which digit is associated to this image. The weights and biases of the connections between the neurons have not get been adjusted since the neurol network we created as not yet been *trained*. 
+:::
 
 ## Training
 
@@ -142,9 +145,12 @@ cls = argmax(tst)-1
 tgt = d_train.targets[1]
 println("Image classified as ", cls, " with target ", tgt, ".")
 ```
+::: {.callout-caution collapse="true" icon=false}
+## Answer
+We can not conclude with only one item out of the whole set. In the next section, we will analyse the performance of the neural network on unseen data. Which will allow us to conclude.
+:::
 
-Great! Let us now have a look under the hood of `Flux.train!`. What is happening in the training loop?
-
+Let us now have a look under the hood of `Flux.train!`. What is happening in the training loop?
 - Take a subset of input data with associated targets: a batch;
 - Determine whether the model `m` predicts well the targets: use the loss function;
 - Find out which direction each model parameter should move to: compute the gradient of the loss with respect to each parameter;
