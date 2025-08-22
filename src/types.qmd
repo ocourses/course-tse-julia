@@ -122,8 +122,8 @@ For example, Julia’s `Real` and `AbstractFloat` types are abstract, while `Int
 
 ```{julia}
 @myshow begin #| hide
-n::Int64 = 42   # Int64 is a concrete type
-typeof(n)       # Output: Int64 (concrete type)
+i::Int64 = 42   # Int64 is a concrete type
+typeof(i)       # Output: Int64 (concrete type)
 r::Real = 3.14  # Real is an abstract type
 typeof(r)       # Output: Float64 (concrete type)
 end #| hide
@@ -200,15 +200,16 @@ end #| hide
 
 ### Creating Custom Abstract Types
 
-Julia allows you to create your own abstract types. For example, you can define a custom abstract type `Shape`, and create concrete subtypes like `Circle` and `Rectangle`.
+Julia allows you to create your own abstract types. For example, you can define a custom abstract type `Shape`, and create concrete subtypes like `Triangle` and `Rectangle`.
 
 ```{julia}
 # Define abstract type
 abstract type Shape end
 
 # Define concrete subtypes
-struct Circle <: Shape
-    radius::Float64
+struct Triangle <: Shape
+    base::Float64
+    height::Float64
 end
 
 struct Rectangle <: Shape
@@ -217,12 +218,12 @@ struct Rectangle <: Shape
 end
 
 # Create instances
-circle = Circle(5.0)
+triangle = Triangle(2.0, 3.0)
 rectangle = Rectangle(3.0, 4.0)
 
 # Check if they are subtypes of Shape
 @myshow begin #| hide
-circle isa Shape
+triangle isa Shape
 rectangle isa Shape
 end #| hide
 ```
@@ -524,7 +525,7 @@ In many cases, Julia will automatically convert types when it is unambiguous. Fo
 
 ```{julia}
 @myshow begin #| hide
-y::Float64 = 10  # The integer 10 is converted to 10.0 (Float64)
+t::Float64 = 10  # The integer 10 is converted to 10.0 (Float64)
 end #| hide
 ```
 
@@ -1216,5 +1217,120 @@ choices = ["It reduces the need to define separate functions for different data 
 answer = 2
 radioq(choices, answer)
 ```
-
 ::: 
+
+## Exercises
+
+### Exercise 1: Creating a Shape System
+
+Create a system to represent different geometric shapes (like a **Square**, **Circle**, and **Point**) using the following requirements:
+
+1. **Define a `Point` struct** with `x` and `y` coordinates of type `Float64`.
+2. **Define a `Square` struct** with the field `width` of type `Float64`. Use the `Point` struct to represent the bottom-left corner of the square.
+3. **Define a `Circle` struct** with a `Point` for the center and a `radius` of type `Float64`.
+4. Write a **function `area(shape)`** that computes the area of the given shape:
+   - The area of a square is `width * width`.
+   - The area of a circle is `π * radius^2`.
+
+::: {.callout-tip collapse="true" icon=false}
+## Hint for Exercise 1:
+- Use **struct** to define `Point`, `Square`, and `Circle`.
+- Use **dot notation** to access the fields of the structs.
+- Use **conditional logic** (e.g., `typeof()`) to handle different shapes in the `area` function.
+- For the circle, use `π = 3.141592653589793`.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+## Correction of Exercise 1:
+
+```{julia}
+# Define the Point struct
+struct Point
+    x::Float64
+    y::Float64
+end
+
+# Define the Square struct
+struct Square
+    bottom_left::Point
+    width::Float64
+end
+
+# Define the Circle struct
+struct Circle
+    center::Point
+    radius::Float64
+end
+
+# Function to calculate the area
+function area(shape)
+    if typeof(shape) == Square
+        return shape.width * shape.width
+    elseif typeof(shape) == Circle
+        return π * shape.radius^2
+    else
+        throw(ArgumentError("Unsupported shape"))
+    end
+end
+
+# Example usage
+p1 = Point(0.0, 0.0)
+r1 = Square(p1, 3.0)
+c1 = Circle(p1, 5.0)
+
+println("Area of square: ", area(r1))  # Should print 12.0
+println("Area of circle: ", area(c1))     # Should print 78.53981633974483
+``` 
+:::
+
+### Exercise 2: Working with Complex Numbers and Arrays
+
+1. Create two **complex numbers** `z1` and `z2` of type `Complex{Float64}`.
+2. Write a function `add_complex(z1, z2)` that adds two complex numbers and returns the result.
+3. Create an **array** of complex numbers and use the `map` function to add 2.0 to the real part of each complex number.
+4. Create a function `max_real_part` that returns the complex number with the largest real part from an array of complex numbers.
+
+::: {.callout-tip collapse="true" icon=false}
+## Hint for Exercise 2:
+- Use the `Complex{T}` type to create complex numbers. 
+- You can access the real and imaginary parts of a complex number with `real(z)` and `imag(z)`.
+- Use the `map` function to apply a transformation to each element of an array.
+- Compare the real parts of the complex numbers using `real(z)` to find the maximum.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+## Correction of Exercise 2:
+
+```{julia}
+# Create two complex numbers
+z1 = Complex{Float64}(3.0, 4.0)  # z1 = 3.0 + 4.0im
+z2 = Complex{Float64}(1.0, 2.0)  # z2 = 1.0 + 2.0im
+
+# Function to add two complex numbers
+function add_complex(z1, z2)
+    return z1 + z2
+end
+
+# Add 2.0 to the real part of each complex number in an array
+arr = [Complex{Float64}(3.0, 4.0), Complex{Float64}(1.0, 2.0), Complex{Float64}(5.0, 6.0)]
+new_arr = map(z -> Complex(real(z) + 2.0, imag(z)), arr)
+
+println("New array with modified real parts: ", new_arr)
+
+# Function to find the complex number with the largest real part
+function max_real_part(arr)
+    max_z = arr[1]
+    for z in arr
+        if real(z) > real(max_z)
+            max_z = z
+        end
+    end
+    return max_z
+end
+
+# Find the complex number with the largest real part
+max_z = max_real_part(arr)
+println("Complex number with the largest real part: ", max_z)
+```
+:::
+

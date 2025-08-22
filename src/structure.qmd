@@ -663,7 +663,40 @@ println(convert_temperature(32, unit="F"))    # Outputs: 0.0
 ```
 :::
 
-### Exercise 2: Factorial Function with Closure
+### Exercise 2: Manipulating Tuples
+
+1. Create a **tuple** `t` with three elements: a string, an integer, and a float.
+2. Try to mutate the first element of the tuple and handle any errors using a `try-catch` block.
+3. Create a **NamedTuple** `nt` with fields `name`, `age`, and `height`, and initialize it with your details.
+
+::: {.callout-tip collapse="true" icon=false}
+## Hint for Exercise 2:
+- Remember that tuples are immutable, so you can't modify their elements.
+- Use a `try-catch` block to catch errors if an operation fails.
+:::
+
+::: {.callout-caution collapse="true" icon=false}
+## Correction of Exercise 2:
+
+```{julia}
+# Create a tuple with three elements: a string, an integer, and a float
+t = ("John", 25, 5.9)
+
+# Attempt to mutate the first element of the tuple with error handling
+try
+    t[1] = "Alice"  # This will raise an error because tuples are immutable
+catch e
+    println("Error: ", e)
+end
+
+# Create a NamedTuple with fields: name, age, and height
+nt = (name = "John", age = 25, height = 5.9)
+
+println("NamedTuple: ", nt)
+```
+:::
+
+### Exercise 3: Factorial Function with Closure
 Create a function `make_factorial` that returns a closure. This closure should compute the factorial of a number. The closure should capture a variable that keeps track of the number of times it has been called. When the closure is called, it should return the factorial of the number and the call count.
 
 **Example Output:**
@@ -677,12 +710,12 @@ println("Function called ", count, " times")  # Outputs: 2 times
 ```
 
 ::: {.callout-tip collapse="true" icon=false}
-## Hint Exercise 2: Factorial Function with Closure
+## Hint Exercise 3: Factorial Function with Closure
 When returning the results from the closure, you can return a pair of values by creating a tuple. In Julia, tuples are created using parentheses, like this: `(value1, value2)`.
 :::
 
 ::: {.callout-caution collapse="true" icon=false}
-## Correction of Exercise 2: Factorial Function with Closure
+## Correction of Exercise 3: Factorial Function with Closure
 
 ```{julia}
 function make_factorial()
@@ -707,7 +740,7 @@ println("Function called ", count, " times")  # Outputs: 2 times
 ```
 :::
 
-### Exercise 3: Filter Even Numbers
+### Exercise 4: Filter Even Numbers
 Write a function `filter_even` that takes an array of integers as input and returns a new array containing only the even numbers from the input array. Use a loop and a conditional statement to check each number.
 
 Additionally, implement a helper function `is_even` that checks if a number is even. Use the `filter_even` function to filter an array of numbers, and print the result.
@@ -720,12 +753,12 @@ println(even_numbers)  # Outputs: [2, 4, 6, 8, 10]
 ```
 
 ::: {.callout-tip collapse="true" icon=false}
-## Hint for Exercise 3: Filter Even Numbers
+## Hint for Exercise 4: Filter Even Numbers
 To add elements to an array in Julia, use the `push!` function. This function takes two arguments: the array you want to modify and the element to add to that array.
 :::
 
 ::: {.callout-caution collapse="true" icon=false}
-## Correction of Exercise 3: Filter Even Numbers
+## Correction of Exercise 4: Filter Even Numbers
 ```{julia}
 function is_even(x)
     return x % 2 == 0
