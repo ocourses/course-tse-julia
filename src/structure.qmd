@@ -34,6 +34,12 @@ multiply(2, 3)
 end #| hide
 ```
 
+::: {.callout-warning}
+The function `add` has been defined without any specification on the kind of data which is accepted. We expect, however, the `+` operator not to make sense for any combination of data. `5+2` looks reasonable while `2+"hello"` seems confusing. If, for example, you wish to use `add` only for integers (let say of the `Int64` kind), you would annotate the function in the following way: `function add(a::Int64, b::Int64)`.
+
+If you wish `add` to take integers or real numbers, you should use the kind of data referred as `Union` to annote the arguments. It is created by specifying a list of data kinds within `Union{}`, here `Union{Int64, Float64}`. 
+:::
+
 ### Positional and Keyword Arguments
 
 In Julia, functions can take both positional arguments and keyword arguments.
@@ -52,6 +58,13 @@ println(greet("Alice", punctuation = "?"))
 ```
 
 In this example, `punctuation` is a keyword argument with a default value of `"!"`. You could also define a keyword argument without a default value if needed.
+
+
+::: {.callout-note}
+In Julia, when you define a function with multiple positional arguments, those arguments are actually packed into a tuple when you call the function. This kind of data is reffered to as `Tuple`. 
+
+Keyword arguments are different from positional arguments because they are explicitly named when the function is called. Keyword arguments are passed as a kind of data reffered to as `NamedTuple`. It is a special kind of tuple where each element is paired with a name (as the key) and a corresponding value.
+:::
 
 ### Variable Number of Arguments
 Julia functions can accept an arbitrary number of arguments using the splatting operator `...`. These arguments are gathered into a tuple.
@@ -164,6 +177,8 @@ function multiply(a, b)
     a * b  # Returns the result of a * b
 end
 ```
+
+In the special case where a function does not return any data, the default return value in Julia is a kind of data called `Nothing`. It’s similar to `void` in languages like C or Java.
 
 ## Errors and Exception Handling
 
@@ -575,7 +590,33 @@ In summary, scoping rules in Julia allow for clear management of variable access
 
 ## Modules
 
-**TO DO**
+Modules can be seen as "boxes" in which you organise related functions. Such a "box" can be reused in other program. To have access to the function from "box" `B`, you should add `using B` at the beginning of your program. To call some function `f` stored in `B`, you type `B.f`. Thus modules avoid conflicts on function names by providing a seperate namespace. This means that a function `f` from the main program will indeed be seen as a different function than `B.f`. 
+
+Find bellow an example of the definition of a simple module.
+
+```{julia}
+module MyModule
+
+# Defining a function inside the module
+function greet(name)
+    println("Hello, $name !")
+end
+
+# Defining a constant inside the module
+const Pi = 3.14159
+
+end  # End of the module
+```
+
+Let us now use the function and variable in another program.
+
+```{julia}
+using .MyModule  # Importing the module
+
+MyModule.greet("Alice")  # Calling the function from MyModule
+println(MyModule.Pi)     # Accessing the constant from MyModule
+```
+
 
 ## Exercices
 
