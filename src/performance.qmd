@@ -9,6 +9,8 @@ jupyter: julia-1.11
 include("activate.jl")
 ```
 
+This page provides in introduction to **performance** enhancement in Julia. First, we’ll take a look at the fundamentals of computer hardware, understanding how processors and memory impact the speed of your code. Once we grasp these hardware concepts, we’ll explore how type-stability in Julia can significantly enhance performance by enabling the compiler to generate more efficient machine code.
+
 ## Simplified hardware
 
 *(Ref. Jakob Nissen, [Hardware for scientists](https://viralinstruction.com/posts/hardware/))*
@@ -76,7 +78,7 @@ end
 Each inner loop iteration skips over columns, which are non-contiguous in memory. This induces so called cache misses. 
 :::
 
-## Typing and performance
+## Type-stability
 
 *(Ref. Chris Rackauckas, [Parallel Computing and Scientific Machine Learning (SciML): Methods and Applications](https://book.sciml.ai/notes/02-Optimizing_Serial_Code/))*
 
