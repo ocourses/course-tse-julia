@@ -103,95 +103,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script>
-
-    // fonction pour cacher les menus de navigation
-    function hideNavbar() {
-        // Sélection des éléments par leur ID
-        const sidebar = document.getElementById('quarto-sidebar');
-        const marginSidebar = document.getElementById('quarto-margin-sidebar');
-        const documentContent = document.getElementById('quarto-document-content');
-
-        // Cacher les éléments
-        sidebar.style.visibility = 'hidden';
-        marginSidebar.style.visibility = 'hidden';
-        documentContent.className = 'content column-page';
-    }
-
-    // fonction pour rendre visibles les menus de navigation
-    function showNavbar() {
-        // Sélection des éléments par leur ID
-        const sidebar = document.getElementById('quarto-sidebar');
-        const marginSidebar = document.getElementById('quarto-margin-sidebar');
-        const documentContent = document.getElementById('quarto-document-content');
-
-        // Rendre visibles les éléments
-        sidebar.style.visibility = 'visible';
-        marginSidebar.style.visibility = 'visible';
-        documentContent.className = 'content';
-    }
-
-    // fonction pour basculer la visibilité des menus de navigation
-    function toggleHideNavbar() {
-        // Sélection des éléments par leur ID
-        const sidebar = document.getElementById('quarto-sidebar');
-        const marginSidebar = document.getElementById('quarto-margin-sidebar');
-
-        // Si le menu de navigation est visible, le cacher
-        if (sidebar.style.visibility === 'visible') {
-            hideNavbar();
-        } else {
-            showNavbar();
-        }
-    }
-
-    // fonction pour ajouter des écouteurs d'événements pour basculer la visibilité des menus de navigation
-    function addEventListenerToToggleHideNavbar() {
-
-        // Ajout aux objets de la classe 'quarto-reader-toggle' d'un écouteur d'événements pour le clic
-        document.querySelectorAll('.quarto-reader-toggle').forEach(function(element) {
-            element.addEventListener('click', function() {
-                toggleHideNavbar();
-                return false;
-            });
-        });
-
-        // Ajout d'un écouteur d'événements pour la touche 'r'
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'l') {
-                window.quartoToggleReader();
-                toggleHideNavbar();
-                return false;
-            }
-        });
-    }
-
-    // fonction pour cacher les menus de navigation lors du chargement de la page si 
-    // la classe 'quarto-reader-toggle' est accompagnée de la classe 'reader'
-    // (c'est-à-dire si le mode de lecture est activé)
-    // sinon, on affiche les menus de navigation
-    function hideNavbarIfReader() {
-        if (document.querySelector('.quarto-reader-toggle.reader')) {
-            hideNavbar();
-        } else {
-            showNavbar();
-        }
-    }
-
-    // Ajout d'un écouteur d'événements pour le chargement de la page
-    if (
-        document.readyState === "complete" ||
-        document.readyState === "interactive"
-    ) {
-        // call on next available tick
-        setTimeout(addEventListenerToToggleHideNavbar, 1);
-        setTimeout(hideNavbarIfReader, 1);
-    } else {
-        document.addEventListener("DOMContentLoaded", addEventListenerToToggleHideNavbar);
-        document.addEventListener("DOMContentLoaded", hideNavbarIfReader);
-    }
-
-</script>
 <script src="https://unpkg.com/freezeframe/dist/freezeframe.min.js"></script>
 
 
@@ -410,14 +321,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <section id="mnist-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="mnist-dataset">MNIST dataset</h2>
-<p>The MNIST dataset can be retrieved from the <em>MLDatasets.jl</em> package. Let us load the training dataset.</p>
+<p>The MNIST dataset can be retrieved from the <em>MLDatasets.jl</em> package. Start by loading the training dataset.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">MLDatasets</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>d_train <span class="op">=</span> <span class="fu">MNIST</span>(split<span class="op">=:</span>train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Before going further, we checkout what the data we work on looks like.</p>
+<p>What does this dataset actually look like? You can check this by typing the following commands.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Images</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ImageInTerminal</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colorview</span>(Gray,d_train.features[<span class="op">:</span>,<span class="op">:</span>,<span class="fl">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>It turns out unclear at moments which digit is handwrittent on the image. To clarify this, we can look at the label associated to the image.</p>
+<p>It turns out unclear at moments which digit is handwritten on the image. To clarify this, have a look at the label associated to the image.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d_train.targets[<span class="fl">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="neural-network" class="level2">
@@ -429,17 +340,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The 28-by-28 gray-scale images are flattened into a 784 element vector. No activation function is applied at this stage — the input is just passed to the next layer. The input data is passed to a 32-neuron hidden layer which computes a weighted sum of the inputs, adds a bias, and passes the result through an activation function, here ReLU (Rectified Linear Unit) to introduce non-linearity. The output layer has 10 neurons to be consistent with the 10 possible targets (0 through 9). This being a classification task of the handwritten digit, we use a Softmax activation function to convert the outputs into probabilities that sum to 1.</p>
 <section id="preprocess-the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="preprocess-the-dataset">Preprocess the dataset</h3>
-<p>The neural network we will be using in this exercise requires a 1D-vector of length 784 input. Let us flatten the matrices representing the images of our dataset using <em>Flux.jl</em>.</p>
+<p>The neural network we will be using in this exercise requires a 1D-vector of length 784 input. Start by flattening the matrices representing the images of our dataset using <em>Flux.jl</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Flux</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>v_train <span class="op">=</span> Flux.<span class="fu">flatten</span>(d_train.features)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cn">nothing</span> <span class="co">#| hide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now we make use of <em>OneHotArrays.jl</em> to transform the target array to vectors of 10 elements with 1 at the index of the target digit.</p>
+<p>You should now use <em>OneHotArrays.jl</em> to transform the target array to vectors of 10 elements, with <code>1</code> at the index of the target digit.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OneHotArrays</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> <span class="fu">onehotbatch</span>(d_train.targets,<span class="fl">0</span><span class="op">:</span><span class="fl">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="set-up-the-neural-network" class="level3">
 <h3 class="anchored" data-anchor-id="set-up-the-neural-network">Set-up the neural network</h3>
-<p>Here we simply translate the neural network schematic to Julia language code.</p>
+<p>The lines of code bellow are simply a translation of the neural network schematic in Julia.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="fu">Chain</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">Dense</span>(<span class="fl">28</span><span class="op">*</span><span class="fl">28</span>,<span class="fl">32</span>,relu),</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">Dense</span>(<span class="fl">32</span>,<span class="fl">10</span>),</span>
@@ -448,7 +359,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cn">nothing</span> <span class="co">#| hide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>What happens if we apply this neural network to one of the images?</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">m</span>(v_train[<span class="op">:</span>,<span class="fl">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>The network is not able to determine which digit is associated to this image. The weights and biases of the connections between the neurons have not get been adjusted since the neurol network we created as not yet been <em>trained</em>.</p>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="training" class="level2">
@@ -488,15 +414,25 @@ Warning
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cls <span class="op">=</span> <span class="fu">argmax</span>(tst)<span class="op">-</span><span class="fl">1</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tgt <span class="op">=</span> d_train.targets[<span class="fl">1</span>]</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Image classified as "</span>, cls, <span class="st">" with target "</span>, tgt, <span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Great! Let us now have a look under the hood of <code>Flux.train!</code>. What is happening in the training loop?</p>
-<ul>
-<li>Take a subset of input data with associated targets: a batch;</li>
-<li>Determine whether the model <code>m</code> predicts well the targets: use the loss function;</li>
-<li>Find out which direction each model parameter should move to: compute the gradient of the loss with respect to each parameter;</li>
-<li>Adjust the parameters using the gradients and an optimizer.</li>
-</ul>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We can not conclude with only one item out of the whole set. In the next section, we will analyse the performance of the neural network on unseen data. Which will allow us to conclude.</p>
+</div>
+</div>
+</div>
+<p>Let us now have a look under the hood of <code>Flux.train!</code>. What is happening in the training loop? - Take a subset of input data with associated targets: a batch; - Determine whether the model <code>m</code> predicts well the targets: use the loss function; - Find out which direction each model parameter should move to: compute the gradient of the loss with respect to each parameter; - Adjust the parameters using the gradients and an optimizer.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -505,7 +441,7 @@ Write manually the training loop based on above stated steps using <em>Flux.jl</
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="sourceCode" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> Flux.<span class="fu">setup</span>(<span class="fu">Adam</span>(), m)</span>
@@ -539,7 +475,7 @@ Write manually the training loop based on above stated steps using <em>Flux.jl</
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="cn">nothing</span> <span class="co">#| hide</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The results seem pretty good at first glance.</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -548,7 +484,7 @@ Generate a violin plot of the predicted probability associated to the target dig
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>As you may have noticed, the <em>Plots.jl</em> documentation is build upon examples. Many recent documentations begin with examples before moving on to the general definition.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">StatsPlots</span></span>
