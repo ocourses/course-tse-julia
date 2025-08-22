@@ -215,7 +215,7 @@ Let us have a look at what happens when we mix types in the function call. We ru
 
 We can see the term *promote* in the output. Thus, the compiler found a type that works as a common ground for the computation.
 
-### Type stability
+### Type unstability
 
 In the previous examples, identifying the type of the returned value was a relatively straightforward process. Let us examine the function `h`, which breaks type stability. We are interested in understanding the reasons behind this problem and techniques to prevent it in our own code, with the aim of achieving optimal performance.
 
