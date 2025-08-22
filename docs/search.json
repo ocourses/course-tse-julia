@@ -1,0 +1,130 @@
+[
+  {
+    "objectID": "src/machine_learning.html",
+    "href": "src/machine_learning.html",
+    "title": "Machine Learning",
+    "section": "",
+    "text": "(Ref. Huda Nasser, Julia Academy - Data Science)\nIn this chapter, we will explore the fundamentals of machine learning by working with the MNIST dataset — a classic benchmark in computer vision. The MNIST dataset consists of 70,000 handwritten digits (0 through 9), split into 60,000 training images and 10,000 testing images. Each image is a grayscale 28×28 pixel image, making it ideal for experimenting with classification models.\nThe Julia language offers powerful packages, including Flux.jl (for building neural networks), MLDatasets.jl (to access standard datasets) and OneHotArrays (for target batching). Throughout, the exercise we will use a set of tools (Images.jl, ImageInTerminal.jl, Plots.jl) in order to make visual cheks along the process.\nThe exercise in this chapter will guide you through the following steps:",
+    "crumbs": [
+      "Applications",
+      "Machine Learning"
+    ]
+  },
+  {
+    "objectID": "src/machine_learning.html#mnist-dataset",
+    "href": "src/machine_learning.html#mnist-dataset",
+    "title": "Machine Learning",
+    "section": "MNIST dataset",
+    "text": "MNIST dataset\nThe MNIST dataset can be retrieved from the MLDatasets.jl package. Let us load the training dataset.\nusing MLDatasets\nd_train = MNIST(split=:train)\nBefore going further, we checkout what the data we work on looks like.\nusing Images\nusing ImageInTerminal\ncolorview(Gray,d_train.features[:,:,1])\nIt turns out unclear at moments which digit is handwrittent on the image. To clarify this, we can look at the label associated to the image.\nd_train.targets[1]",
+    "crumbs": [
+      "Applications",
+      "Machine Learning"
+    ]
+  },
+  {
+    "objectID": "src/machine_learning.html#neural-network",
+    "href": "src/machine_learning.html#neural-network",
+    "title": "Machine Learning",
+    "section": "Neural network",
+    "text": "Neural network\nA neural network is a type of machine learning model inspired by the structure and function of the human brain. It is composed of layers of interconnected nodes called neurons, which work together to process data, recognize patterns, and make predictions.\nAt its core, a neural network learns to approximate complex functions by adjusting the weights and biases of these connections based on the data it sees.\nA standard neural network for the MNIST dataset to start of with has the following structure:\nInput (784) ⟶ Dense (32) ⟶ ReLU ⟶ Dense (10) ⟶ Softmax ⟶ Output (Digit 0–9)\nThe 28-by-28 gray-scale images are flattened into a 784 element vector. No activation function is applied at this stage — the input is just passed to the next layer. The input data is passed to a 32-neuron hidden layer which computes a weighted sum of the inputs, adds a bias, and passes the result through an activation function, here ReLU (Rectified Linear Unit) to introduce non-linearity. The output layer has 10 neurons to be consistent with the 10 possible targets (0 through 9). This being a classification task of the handwritten digit, we use a Softmax activation function to convert the outputs into probabilities that sum to 1.\n\nPreprocess the dataset\nThe neural network we will be using in this exercise requires a 1D-vector of length 784 input. Let us flatten the matrices representing the images of our dataset using Flux.jl.\nusing Flux\nv_train = Flux.flatten(d_train.features)\nnothing #| hide\nNow we make use of OneHotArrays.jl to transform the target array to vectors of 10 elements with 1 at the index of the target digit.\nusing OneHotArrays\nY = onehotbatch(d_train.targets,0:9)\n\n\nSet-up the neural network\nHere we simply translate the neural network schematic to Julia language code.\nm = Chain(\n          Dense(28*28,32,relu),\n          Dense(32,10),\n          softmax\n         )\nnothing #| hide\nWhat happens if we apply this neural network to one of the images?\nm(v_train[:,1])\nThe network is not able to determine which digit is associated to this image. The weights and biases of the connections between the neurons have not get been adjusted since the neurol network we created as not yet been trained.",
+    "crumbs": [
+      "Applications",
+      "Machine Learning"
+    ]
+  },
+  {
+    "objectID": "src/machine_learning.html#training",
+    "href": "src/machine_learning.html#training",
+    "title": "Machine Learning",
+    "section": "Training",
+    "text": "Training\nYou can start by having a look at the training function within Flux.jl in the following way.\n#| output: false \n? Flux.train!\n\n\n\n\n\n\nWarning\n\n\n\nTake care when changing package version to have a look at the major changes. For instance, from version 0.14 of Flux.jl on the syntax for Flux.train! changed. Indeed, it went from Flux.train!(loss, params(model), data, opt) to Flux.train!(loss, model, data, opt_state)  # using the new \"setup\" from Optimisers.jl.\n\n\nWhen a neural network makes predictions (like classifying an image as a “3” instead of a “7”), we need a way to measure the difference between the predicted output and the actual (true) target.\nThe loss function provides this measure. It returns a numerical value that represents the “error” — the higher the value, the worse the prediction. Since we have a classification problem in this exercise, a typical loss choice is the cross-entropy loss.\nloss(m,x, y) = Flux.Losses.crossentropy(m(x),y)\nnothing #| hide\nTo properly train the neural network we wish to minimize the loss function. To do so, we will be using a variant of gradient descent called ADAM.\noptimizer = Flux.setup(Adam(), m)\nnothing #| hide\nWhen training a neural network, we often need to go over the training data multiple times. Each full pass over the training data is called an epoch.\nusing IterTools: ncycle\ndataset = ncycle([(v_train, Y)], 200)\nnothing #| hide\nThe dataset storage constructed in the cell above tells us to train for 200 epochs. This means that the network will see the training data 200 times.\nLet’s train the neural network now!\nFlux.train!(loss, m, dataset, optimizer)\nSo, does it work better than previously on our first image?\ntst = m(v_train[:,1])\ncls = argmax(tst)-1\ntgt = d_train.targets[1]\nprintln(\"Image classified as \", cls, \" with target \", tgt, \".\")\nGreat! Let us now have a look under the hood of Flux.train!. What is happening in the training loop?\n\nTake a subset of input data with associated targets: a batch;\nDetermine whether the model m predicts well the targets: use the loss function;\nFind out which direction each model parameter should move to: compute the gradient of the loss with respect to each parameter;\nAdjust the parameters using the gradients and an optimizer.\n\n\n\n\n\n\n\nWrite manually the training loop based on above stated steps using Flux.jl utilities like gradient, Flux.trainable and Flux.Optimise.update!.\n\n\n\n\n\n#| eval: false\nopt = Flux.setup(Adam(), m)\nloss(x, y) = Flux.Losses.crossentropy(x, y)\n\n# Training loop\nfor epoch in 1:200\n    grads = Flux.gradient(m) do model\n      result = model(v_train)\n      loss(result, Y)\n    end\n    Flux.update!(opt, m, grads[1])\n    println(\"Epoch $epoch | Loss: \", loss(m(v_train), Y))\nend\nWhat happens when you replace the Adam() optimizer by a standard Descent()? Or the loss by a Mean Square Error (MSE)? Can you find the available loss functions in the Flux.jl package documentation?",
+    "crumbs": [
+      "Applications",
+      "Machine Learning"
+    ]
+  },
+  {
+    "objectID": "src/machine_learning.html#testing",
+    "href": "src/machine_learning.html#testing",
+    "title": "Machine Learning",
+    "section": "Testing",
+    "text": "Testing\nWe can now evaluate our trained neural network on unseen data, the so-called test dataset.\nd_test = MNIST(split=:test)\nfor i in 1:10\n   b = d_test.features[:,:,i]\n   v_b = reshape(b,784)\n   a = m(v_b)\n   r = argmax(a)-1\n   println(\"Image classified as \", r, \" with target \", d_test.targets[i], \".\")\nend\nnothing #| hide\nThe results seem pretty good at first glance.\n\n\n\n\n\n\nGenerate a violin plot of the predicted probability associated to the target digit for the images in the test dataset. Use the Plots.jl documentation to do so.\n\n\n\n\n\nAs you may have noticed, the Plots.jl documentation is build upon examples. Many recent documentations begin with examples before moving on to the general definition.\nusing StatsPlots\n\n# Array with probabilities associated to target digits for each image\nval = [m(reshape(d_test.features[:,:,i],784))[d_test.targets[i]+1] for i in 1:length(d_test.targets)]\n\ngroup = fill(\"MNIST-Test\", length(val))\n\nviolin(group, val, legend=false, title=\"Violin Plot\", ylabel=\"Target digit probability\")\nWhat do you think about the models performance based on the violin plot generated by the lines of code above?",
+    "crumbs": [
+      "Applications",
+      "Machine Learning"
+    ]
+  },
+  {
+    "objectID": "src/index.html",
+    "href": "src/index.html",
+    "title": "Julia Master 1 course",
+    "section": "",
+    "text": "This course is adressed to the students of the Master 1 “Econométrie, Statistiques” of Toulouse School of Economics. It is part of the topic Software for Data science. The Julia course is composed of 5 slots of 3 hours. In this course, we introduce the Julia ecosystem, we present the Julia programming language and some relevant packages.\n\n\n\n\n\nIntroduction\n\n\nWhy Julia?\nGetting started\nDeveloper set up\nForetaste of Julia Code\n\n\n\n\n\n\nJulia language\n\n\nCore Syntax and Operations\nStructure your code\nTypes\nType stability for performance\nAuto-evaluation\n\n\n\n\n\n\nApplications\n\n\nRoot-Finding Methods\nMachine Learning\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "src/why_julia.html",
+    "href": "src/why_julia.html",
+    "title": "Why Julia?",
+    "section": "",
+    "text": "Welcome to the world of Julia! This page will introduce you to the language, explaining why it’s gaining popularity, and highlighting some key features that make Julia a unique tool for scientific computing and general-purpose programming.",
+    "crumbs": [
+      "Introduction",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "src/why_julia.html#what-is-julia",
+    "href": "src/why_julia.html#what-is-julia",
+    "title": "Why Julia?",
+    "section": "What is Julia?",
+    "text": "What is Julia?\nJulia is a high-level, high-performance programming language primarily designed for technical computing. It combines the best features of other programming languages, including Python’s ease of use, C’s speed, and MATLAB’s support for numerical computation. Julia is open-source and has become a go-to language for scientific research, data analysis, and machine learning applications.",
+    "crumbs": [
+      "Introduction",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "src/why_julia.html#benefits-of-julia",
+    "href": "src/why_julia.html#benefits-of-julia",
+    "title": "Why Julia?",
+    "section": "Benefits of Julia",
+    "text": "Benefits of Julia\nJulia combines the speed of low-level languages like C++ and Fortran with the productivity of high-level languages like Python, MATLAB, and R. Here are some of its key benefits:\n\nEase of use: Julia offers a simple, intuitive syntax similar to Python and MATLAB, which makes it easy to learn and use, even for those with little programming experience.\nInteroperability: Julia integrates well with languages like Python, R, C++, and Java.\nHigh Performance: Julia is designed for performance from the ground up. It often performs on par with statically typed languages like C or Fortran, thanks to Just-In-Time (JIT) compilation using LLVM. Support for multi-threading and GPU compute is offered.\nHigh Productivity: Expressive and dynamic, Julia is up to 100x faster than traditional high-level languages.\nMultiple dispatch: Julia uses multiple dispatch as its core paradigm, which allows for highly flexible and efficient function definitions.\nDesigned for scientific computing: Julia excels in areas such as linear algebra, numerical analysis, and optimization, making it a great choice for data-heavy fields like economics, physics, and engineering.\nComposability: Packages are designed to work seamlessly together and with custom code.\nRich Ecosystem: More than 10,000 registered packages and a large community of contributors.\nUnified Language: Supports both prototyping and deployment, solving the two-language problem.",
+    "crumbs": [
+      "Introduction",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "src/why_julia.html#the-two-language-problem",
+    "href": "src/why_julia.html#the-two-language-problem",
+    "title": "Why Julia?",
+    "section": "The Two-Language Problem",
+    "text": "The Two-Language Problem\nTraditionally, programming required both a high-level, slower language for prototyping and a low-level, faster language for production, causing inefficiencies. Julia unifies these two needs into one language, allowing:\n\n\n\n\n\n\n\n\nAspect\nHigh-Level Language (e.g., Python)\nLow-Level Language (e.g., C++)\n\n\n\n\nPros\nEasy to write and read\nFast in production\n\n\nCons\nSlow in production\nComplex, lengthy code\n\n\nJulia’s Solution\nCombines ease of high-level with speed of low-level, eliminating the need for separate languages for research and production.",
+    "crumbs": [
+      "Introduction",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "src/why_julia.html#comparisons",
+    "href": "src/why_julia.html#comparisons",
+    "title": "Why Julia?",
+    "section": "Comparisons",
+    "text": "Comparisons\nIf you want to know for instance the date of the first public release, the price and the names of the creators of numerical-analysis softwares, please visite the Wikipedia page.\nJulia is made for scientific computing as shown by the table below which compares some languages in terms of differential equation solvers. For more details visit this page.\n\n  \n\nYou can find here cheatsheets. One interesting is the comparison with Python and R.\n\n  \n\nOne goal of Julia is to be efficient and high-level. This is illustrated by the following figure given by the Mandelbrot benchmark project.",
+    "crumbs": [
+      "Introduction",
+      "Why Julia?"
+    ]
+  },
+  {
+    "objectID": "src/why_julia.html#julia-ecosystem",
+    "href": "src/why_julia.html#julia-ecosystem",
+    "title": "Why Julia?",
+    "section": "Julia Ecosystem",
+    "text": "Julia Ecosystem\nThe Julia programming language has a rich ecosystem of tools, platforms, and communities that can help you develop, deploy, and scale your applications. This section will introduce some key components of the Julia ecosystem, including JuliaHub, JuliaSim, JuliaCon, and other important resources. The Julia ecosystem is growing rapidly, offering a wide range of tools for scientific computing, data science, and application development. Platforms like JuliaHub, simulation tools like JuliaSim, and community events like JuliaCon are all central to the ecosystem and provide invaluable resources to Julia users.\n\nJuliaHub\nJuliaHub is an online platform developed by Julia Computing that provides cloud-based access to Julia environments. It offers managed Julia instances, making it easier to share and deploy Julia-based projects without the need to worry about local setup. JuliaHub also supports collaboration on Julia projects and integrates with popular tools such as Jupyter notebooks.\nFeatures of JuliaHub include:\n\nCloud-based Julia environments: Run Julia code on the cloud without any installation.\nPackage management: Seamless integration with Julia’s package manager.\nCollaboration: Share Julia code and data with colleagues and collaborators.\nJupyter notebooks: Use Jupyter notebooks hosted on JuliaHub for interactive computing.\n\n\n\nJuliaSim\nJuliaSim is a collection of tools and libraries for modeling and simulation, built using Julia. It is designed for systems simulation in fields such as engineering, physics, and finance. JuliaSim offers several packages and tools to help you build and simulate complex models, as well as visualize and analyze the results.\nFeatures of JuliaSim include:\n\nDifferential equation solving: Tools like DifferentialEquations.jl are used to solve complex systems of differential equations.\nSimulations in science and engineering: Use JuliaSim to simulate and analyze physical, chemical, and biological systems.\nFast performance: The high-performance capabilities of Julia make JuliaSim ideal for computationally intensive simulations.\n\n\n\nJuliaCon\nJuliaCon is the annual conference for the Julia community, where developers, researchers, and users come together to share the latest developments, discuss best practices, and showcase their Julia projects. JuliaCon features keynote speakers, tutorials, workshops, and talks on a wide range of topics related to Julia programming.\nKey features of JuliaCon:\n\nWorkshops and tutorials: Learn Julia directly from experts through hands-on workshops.\nNetworking: Meet fellow Julia users, contributors, and researchers to collaborate on projects and research.\nTalks and presentations: Hear about cutting-edge developments in Julia from experts in various fields.\n\nAnd a JuliaCon was even held here in Toulouse!",
+    "crumbs": [
+      "Introduction",
+      "Why Julia?"
+    ]
+  }
+]

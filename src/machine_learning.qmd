@@ -1,7 +1,6 @@
 ---
 title: "Machine Learning"
 page-layout: article
-jupyter: julia-1.11
 ---
 
 *(Ref. Huda Nasser, [Julia Academy - Data Science](https://juliaacademy.com/p/julia-for-data-science/))*
