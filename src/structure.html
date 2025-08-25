@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Structure your code – Julia course</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../src/types.html" rel="next">
+<link href="../src/syntax.html" rel="prev">
+<link href="../assets/images/logo-julia.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-da65672e49ee5cd90e2fa6acd8b26451.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/quarto-auto-dark-mode-1.0.0/auto-dark-mode.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "?",
+    "H"
+  ],
+  "show-item-context": true,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://unpkg.com/freezeframe/dist/freezeframe.min.js"></script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/css/styles.css">
+<meta property="og:title" content="Structure your code – Julia course">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://ocourses.github.io/course-tse-julia/src/assets/images/logo-julia.png">
+<meta property="og:site_name" content="Julia course">
+<meta name="twitter:title" content="Structure your code – Julia course">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://ocourses.github.io/course-tse-julia/src/assets/images/logo-julia.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/images/logo-julia.svg" alt="Julia course." class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../src/index.html"> 
+<span class="menu-text">Content of the course</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ocourses/course-tse-julia" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/syntax.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/structure.html">Structure your code</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/why_julia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Julia?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/developer_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Developer set up</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/foretaste_of_julia_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foretaste of Julia Code</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Julia language</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/syntax.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Core Syntax and Operations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/structure.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Structure your code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/performance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Type stability for performance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/eval.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Auto-evaluation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/root_finding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Root-Finding Methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/machine_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Machine Learning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#functions" id="toc-functions" class="nav-link active" data-scroll-target="#functions">Functions</a>
+  <ul class="collapse">
+  <li><a href="#defining-functions" id="toc-defining-functions" class="nav-link" data-scroll-target="#defining-functions">Defining Functions</a></li>
+  <li><a href="#positional-and-keyword-arguments" id="toc-positional-and-keyword-arguments" class="nav-link" data-scroll-target="#positional-and-keyword-arguments">Positional and Keyword Arguments</a></li>
+  <li><a href="#variable-number-of-arguments" id="toc-variable-number-of-arguments" class="nav-link" data-scroll-target="#variable-number-of-arguments">Variable Number of Arguments</a></li>
+  <li><a href="#default-values-for-optional-arguments" id="toc-default-values-for-optional-arguments" class="nav-link" data-scroll-target="#default-values-for-optional-arguments">Default Values for Optional Arguments</a></li>
+  <li><a href="#multiple-optional-positional-arguments" id="toc-multiple-optional-positional-arguments" class="nav-link" data-scroll-target="#multiple-optional-positional-arguments">Multiple Optional Positional Arguments</a></li>
+  <li><a href="#mutation-and-the-bang-convention" id="toc-mutation-and-the-bang-convention" class="nav-link" data-scroll-target="#mutation-and-the-bang-convention">Mutation and the Bang <code>!</code> Convention</a></li>
+  <li><a href="#broadcasting" id="toc-broadcasting" class="nav-link" data-scroll-target="#broadcasting">Broadcasting</a></li>
+  <li><a href="#return-values" id="toc-return-values" class="nav-link" data-scroll-target="#return-values">Return Values</a></li>
+  </ul></li>
+  <li><a href="#errors-and-exception-handling" id="toc-errors-and-exception-handling" class="nav-link" data-scroll-target="#errors-and-exception-handling">Errors and Exception Handling</a>
+  <ul class="collapse">
+  <li><a href="#common-error-types-in-julia" id="toc-common-error-types-in-julia" class="nav-link" data-scroll-target="#common-error-types-in-julia">Common Error Types in Julia</a></li>
+  <li><a href="#raising-errors-with-throw" id="toc-raising-errors-with-throw" class="nav-link" data-scroll-target="#raising-errors-with-throw">Raising Errors with <code>throw</code></a></li>
+  <li><a href="#handling-errors-with-trycatch" id="toc-handling-errors-with-trycatch" class="nav-link" data-scroll-target="#handling-errors-with-trycatch">Handling Errors with <code>try</code>/<code>catch</code></a></li>
+  <li><a href="#using-finally-for-cleanup" id="toc-using-finally-for-cleanup" class="nav-link" data-scroll-target="#using-finally-for-cleanup">Using <code>finally</code> for Cleanup</a></li>
+  </ul></li>
+  <li><a href="#scoping-and-closure" id="toc-scoping-and-closure" class="nav-link" data-scroll-target="#scoping-and-closure">Scoping and Closure</a>
+  <ul class="collapse">
+  <li><a href="#variable-scope" id="toc-variable-scope" class="nav-link" data-scroll-target="#variable-scope">Variable Scope</a></li>
+  <li><a href="#scope-of-variables-in-for-loops" id="toc-scope-of-variables-in-for-loops" class="nav-link" data-scroll-target="#scope-of-variables-in-for-loops">Scope of Variables in <code>for</code> Loops</a></li>
+  <li><a href="#nested-scopes" id="toc-nested-scopes" class="nav-link" data-scroll-target="#nested-scopes">Nested Scopes</a></li>
+  <li><a href="#closures" id="toc-closures" class="nav-link" data-scroll-target="#closures">Closures</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul></li>
+  <li><a href="#modules" id="toc-modules" class="nav-link" data-scroll-target="#modules">Modules</a></li>
+  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices">Exercices</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-temperature-converter" id="toc-exercise-1-temperature-converter" class="nav-link" data-scroll-target="#exercise-1-temperature-converter">Exercise 1: Temperature Converter</a></li>
+  <li><a href="#exercise-2-manipulating-tuples" id="toc-exercise-2-manipulating-tuples" class="nav-link" data-scroll-target="#exercise-2-manipulating-tuples">Exercise 2: Manipulating Tuples</a></li>
+  <li><a href="#exercise-3-factorial-function-with-closure" id="toc-exercise-3-factorial-function-with-closure" class="nav-link" data-scroll-target="#exercise-3-factorial-function-with-closure">Exercise 3: Factorial Function with Closure</a></li>
+  <li><a href="#exercise-4-filter-even-numbers" id="toc-exercise-4-filter-even-numbers" class="nav-link" data-scroll-target="#exercise-4-filter-even-numbers">Exercise 4: Filter Even Numbers</a></li>
+  <li><a href="#exercise-instructions" id="toc-exercise-instructions" class="nav-link" data-scroll-target="#exercise-instructions">Exercise Instructions</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/src/structure.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/src/structure.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../src/syntax.html">Julia language</a></li><li class="breadcrumb-item"><a href="../src/structure.html">Structure your code</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Structure your code</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Now, you got familiar with the basic syntax of Julia — the foundation for writing simple scripts. However, as programs grow in size and complexity, writing code in a flat, linear way becomes difficult to manage, debug, and reuse. This is why in this page you will learn to move from basic syntax to <strong>structured code</strong>. Introducing <strong>functions</strong> allows you to break the code into reusable, logical blocks, making it easier to read, test, and maintain. Incorporating <strong>error handling</strong> ensures your program can manage unexpected situations gracefully instead of crashing, which is crucial for reliability. Finally, using <strong>modules</strong> helps organize code across multiple files, encourages reusability, and separates concerns—for example, keeping database code apart from user interface code. Together, these practices lead to cleaner, more robust, and scalable programs, which is the goal of any serious software development effort.</p>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<p>Julia offers flexible ways to define <a href="https://docs.julialang.org/en/v1/manual/functions/">functions</a>, with options for positional arguments, keyword arguments, optional arguments with default values, and variable-length arguments. Let’s explore each of these in detail.</p>
+<section id="defining-functions" class="level3">
+<h3 class="anchored" data-anchor-id="defining-functions">Defining Functions</h3>
+<p>Functions in Julia can be defined using either the <code>function</code> keyword or the assignment syntax.</p>
+<div id="d34b25d6" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the `function` keyword</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(a, b)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Using assignment syntax</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply</span>(a, b) <span class="op">=</span> a <span class="op">*</span> b</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(<span class="fl">2</span>, <span class="fl">3</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply</span>(<span class="fl">2</span>, <span class="fl">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; add(2, 3) = 5
+julia&gt; multiply(2, 3) = 6</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The function <code>add</code> has been defined without any specification on the kind of data which is accepted. We expect, however, the <code>+</code> operator not to make sense for any combination of data. <code>5+2</code> looks reasonable while <code>2+"hello"</code> seems confusing. If, for example, you wish to use <code>add</code> only for integers (let say of the <code>Int64</code> kind), you would annotate the function in the following way: <code>function add(a::Int64, b::Int64)</code>.</p>
+<p>If you wish <code>add</code> to take integers or real numbers, you should use the kind of data referred as <code>Union</code> to annote the arguments. It is created by specifying a list of data kinds within <code>Union{}</code>, here <code>Union{Int64, Float64}</code>.</p>
+</div>
+</div>
+</section>
+<section id="positional-and-keyword-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="positional-and-keyword-arguments">Positional and Keyword Arguments</h3>
+<p>In Julia, functions can take both positional arguments and keyword arguments.</p>
+<ul>
+<li><p><strong>Positional Arguments</strong>: These are listed first in the parameter list and must be provided in the correct order when the function is called. Positional arguments can have default values, but it’s not required.</p></li>
+<li><p><strong>Keyword Arguments</strong>: Keyword arguments are specified after a semicolon (<code>;</code>) in the parameter list. These arguments must be provided by name when calling the function. Like positional arguments, keyword arguments can have default values, but they don’t have to.</p></li>
+</ul>
+<div id="13ca01ab" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">greet</span>(name; punctuation <span class="op">=</span> <span class="st">"!"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Hello, "</span> <span class="op">*</span> name <span class="op">*</span> punctuation</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">greet</span>(<span class="st">"Alice"</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">greet</span>(<span class="st">"Alice"</span>, punctuation <span class="op">=</span> <span class="st">"?"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello, Alice!
+Hello, Alice?</code></pre>
+</div>
+</div>
+<p>In this example, <code>punctuation</code> is a keyword argument with a default value of <code>"!"</code>. You could also define a keyword argument without a default value if needed.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In Julia, when you define a function with multiple positional arguments, those arguments are actually packed into a tuple when you call the function. This kind of data is reffered to as <code>Tuple</code>.</p>
+<p>Keyword arguments are different from positional arguments because they are explicitly named when the function is called. Keyword arguments are passed as a kind of data reffered to as <code>NamedTuple</code>. It is a special kind of tuple where each element is paired with a name (as the key) and a corresponding value.</p>
+</div>
+</div>
+</section>
+<section id="variable-number-of-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="variable-number-of-arguments">Variable Number of Arguments</h3>
+<p>Julia functions can accept an arbitrary number of arguments using the splatting operator <code>...</code>. These arguments are gathered into a tuple.</p>
+<div id="dc973e9e" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum_all</span>(args<span class="op">...</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> args</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        total <span class="op">+=</span> x</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> total</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_all</span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; sum_all(1, 2, 3, 4) = 10</code></pre>
+</div>
+</div>
+</section>
+<section id="default-values-for-optional-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="default-values-for-optional-arguments">Default Values for Optional Arguments</h3>
+<p>In Julia, you can assign default values to both positional and keyword arguments. When the function is called without specifying a value for an argument with a default, the default value is used.</p>
+<div id="8a0a653e" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">power</span>(base, exponent<span class="op">=</span><span class="fl">2</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> base <span class="op">^</span> exponent</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="fl">3</span>)      <span class="co"># Outputs: 9 (since exponent defaults to 2)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">power</span>(<span class="fl">3</span>, <span class="fl">3</span>)   <span class="co"># Outputs: 27</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; power(3) = 9
+julia&gt; power(3, 3) = 27</code></pre>
+</div>
+</div>
+</section>
+<section id="multiple-optional-positional-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-optional-positional-arguments">Multiple Optional Positional Arguments</h3>
+<p>When a function has multiple optional positional arguments, Julia will use the default values for any arguments not provided, allowing flexible combinations.</p>
+<div id="3b412092" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calculate</span>(a<span class="op">=</span><span class="fl">1</span>, b<span class="op">=</span><span class="fl">2</span>, c<span class="op">=</span><span class="fl">3</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b <span class="op">*</span> c</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate</span>()        <span class="co"># Outputs: 7  (1 + 2 * 3)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate</span>(<span class="fl">5</span>)       <span class="co"># Outputs: 11 (5 + 2 * 3)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate</span>(<span class="fl">5</span>, <span class="fl">4</span>)    <span class="co"># Outputs: 17 (5 + 4 * 3)</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate</span>(<span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">1</span>) <span class="co"># Outputs: 9  (5 + 4 * 1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; calculate() = 7
+julia&gt; calculate(5) = 11
+julia&gt; calculate(5, 4) = 17
+julia&gt; calculate(5, 4, 1) = 9</code></pre>
+</div>
+</div>
+<p>Here’s how the argument combinations work:</p>
+<ol type="1">
+<li><code>calculate()</code> uses all default values: <code>a=1</code>, <code>b=2</code>, <code>c=3</code>.</li>
+<li><code>calculate(5)</code> overrides <code>a</code>, leaving <code>b</code> and <code>c</code> as defaults.</li>
+<li><code>calculate(5, 4)</code> overrides <code>a</code> and <code>b</code>, leaving <code>c</code> as the default.</li>
+<li><code>calculate(5, 4, 1)</code> overrides all arguments.</li>
+</ol>
+<p>This flexibility makes it easy to call functions with varying levels of detail without explicitly specifying each parameter.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If a function has many optional arguments, consider using keyword arguments to improve readability and avoid confusion about the order of arguments.</p>
+</div>
+</div>
+</section>
+<section id="mutation-and-the-bang-convention" class="level3">
+<h3 class="anchored" data-anchor-id="mutation-and-the-bang-convention">Mutation and the Bang <code>!</code> Convention</h3>
+<p>In Julia, functions that modify or mutate their arguments typically end with a <code>!</code>, following the <a href="https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention">“bang” convention</a>. This is not enforced by the language but is a widely followed convention in Julia to indicate mutation.</p>
+<div id="a13bd3c3" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add_one!</span>(array)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(array)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        array[i] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">add_one!</span>(arr)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>arr  <span class="co"># Outputs: [2, 3, 4]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; arr = [1, 2, 3]
+julia&gt; add_one!(arr) = nothing
+julia&gt; arr = [2, 3, 4]</code></pre>
+</div>
+</div>
+<p>In this example, <code>add_one!</code> modifies the elements of the array <code>arr</code>. By convention, the <code>!</code> at the end of the function name indicates that the function mutates its input.</p>
+</section>
+<section id="broadcasting" class="level3">
+<h3 class="anchored" data-anchor-id="broadcasting">Broadcasting</h3>
+<p>Julia supports <strong>broadcasting</strong>, a powerful feature that applies a function element-wise to arrays or other collections. Broadcasting is denoted by a <code>.</code> placed before the function call or operator.</p>
+<div id="6e15b675" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a simple function</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">square</span>(x)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">^</span><span class="fl">2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the function to a vector using broadcasting</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>vec <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>squared_vec <span class="op">=</span> <span class="fu">square</span>.(vec)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Original vector: "</span>, vec)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Squared vector: "</span>, squared_vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Original vector: [1, 2, 3, 4]
+Squared vector: [1, 4, 9, 16]</code></pre>
+</div>
+</div>
+<p>In this example:</p>
+<ul>
+<li>The function <code>square(x)</code> is applied to each element of <code>vec</code> using the <code>.</code> operator.</li>
+<li>Broadcasting works seamlessly with both built-in and user-defined functions, making it easy to perform element-wise operations on arrays of any shape.</li>
+</ul>
+</section>
+<section id="return-values" class="level3">
+<h3 class="anchored" data-anchor-id="return-values">Return Values</h3>
+<p>In Julia, functions automatically return the last evaluated expression. However, you can use the <code>return</code> keyword to explicitly specify the output if needed.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(a, b)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    a <span class="op">*</span> b  <span class="co"># Returns the result of a * b</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In the special case where a function does not return any data, the default return value in Julia is a kind of data called <code>Nothing</code>. It’s similar to <code>void</code> in languages like C or Java.</p>
+</section>
+</section>
+<section id="errors-and-exception-handling" class="level2">
+<h2 class="anchored" data-anchor-id="errors-and-exception-handling">Errors and Exception Handling</h2>
+<p>Julia provides a powerful framework for managing and <a href="https://docs.julialang.org/en/v1/manual/control-flow/#Exception-Handling">handling errors</a>, which helps in writing robust programs. Error handling in Julia involves various built-in error types and mechanisms, including <code>throw</code> for raising errors and <code>try</code>/<code>catch</code> blocks for handling exceptions.</p>
+<section id="common-error-types-in-julia" class="level3">
+<h3 class="anchored" data-anchor-id="common-error-types-in-julia">Common Error Types in Julia</h3>
+<p>Julia has several built-in error types that are commonly used:</p>
+<ul>
+<li><strong><code>ArgumentError</code></strong>: Raised when a function receives an argument that is inappropriate or out of expected range.</li>
+<li><strong><code>BoundsError</code></strong>: Occurs when trying to access an index that is out of bounds for an array or collection.</li>
+<li><strong><code>DivideError</code></strong>: Raised when division by zero is attempted.</li>
+<li><strong><code>DomainError</code></strong>: Raised when a mathematical function is called with an argument outside its domain. For instance, taking the square root of a negative number.</li>
+<li><strong><code>MethodError</code></strong>: Occurs when a method is called with incorrect arguments or types.</li>
+</ul>
+</section>
+<section id="raising-errors-with-throw" class="level3">
+<h3 class="anchored" data-anchor-id="raising-errors-with-throw">Raising Errors with <code>throw</code></h3>
+<p>In Julia, you can explicitly raise an error using the <code>throw</code> function. This is useful for defining custom error conditions in your code. To throw an error, call <code>throw</code> with an instance of an error type:</p>
+<div id="7f714ae3" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">divide</span>(a, b)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">throw</span>(<span class="fu">DivideError</span>())</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">/</span> b</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">divide</span>(<span class="fl">10</span>, <span class="fl">0</span>)  <span class="co"># Will raise a DivideError</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre>DivideError: integer division error
+
+Stacktrace:
+ [1] <span class="ansi-bold">divide</span><span class="ansi-bold">(</span><span class="ansi-bright-black-fg">a</span>::Int64, <span class="ansi-bright-black-fg">b</span>::Int64<span class="ansi-bold">)</span>
+<span class="ansi-bright-black-fg">   @</span> <span class="ansi-magenta-fg">Main</span> <span class="ansi-bright-black-fg">./</span><span style="text-decoration:underline" class="ansi-bright-black-fg">In[10]:3</span>
+ [2] top-level scope
+<span class="ansi-bright-black-fg">   @</span> <span style="text-decoration:underline" class="ansi-bright-black-fg">In[10]:8</span></pre>
+</div>
+</div>
+</div>
+<p>In this example, the function <code>divide</code> will throw a <code>DivideError</code> if the second argument <code>b</code> is zero, making the function safer and more robust.</p>
+</section>
+<section id="handling-errors-with-trycatch" class="level3">
+<h3 class="anchored" data-anchor-id="handling-errors-with-trycatch">Handling Errors with <code>try</code>/<code>catch</code></h3>
+<p>Julia provides <code>try</code>/<code>catch</code> blocks for managing exceptions gracefully. Code within a <code>try</code> block runs until an error is encountered. If an error is thrown, control passes to the <code>catch</code> block, where you can handle the error.</p>
+<p>Here’s an example of using <code>try</code>/<code>catch</code> with the <code>divide</code> function:</p>
+<div id="9a4994a3" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="fu">divide</span>(<span class="fl">10</span>, <span class="fl">0</span>))  <span class="co"># Will raise an error</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">catch</span> <span class="cn">e</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Error: "</span>, <span class="cn">e</span>)  <span class="co"># Handles the error</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error: DivideError()</code></pre>
+</div>
+</div>
+<p>In this example:</p>
+<ul>
+<li>If <code>divide(10, 0)</code> raises an error, the program catches it and prints a custom message instead of stopping execution.</li>
+<li>The variable <code>e</code> holds the error, which can be printed or used for further handling.</li>
+</ul>
+</section>
+<section id="using-finally-for-cleanup" class="level3">
+<h3 class="anchored" data-anchor-id="using-finally-for-cleanup">Using <code>finally</code> for Cleanup</h3>
+<p>In Julia, <code>finally</code> is a block used in conjunction with <code>try</code> and <code>catch</code> to ensure that certain cleanup actions are executed regardless of whether an error occurs or not. This is useful for tasks like closing files, releasing resources, or resetting variables that need to be done after the execution of a <code>try-catch</code> block.</p>
+<p>The code inside the <code>finally</code> block is always executed, even if an exception is thrown and caught. This makes it ideal for situations where you need to guarantee that some actions occur after the main code runs, like resource deallocation.</p>
+<section id="syntax" class="level4">
+<h4 class="anchored" data-anchor-id="syntax">Syntax:</h4>
+<div id="961b5b6d" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Code that might throw an error</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">catch</span> exception</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Code to handle the error</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">finally</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Cleanup code that will always run</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="example" class="level4">
+<h4 class="anchored" data-anchor-id="example">Example:</h4>
+<div id="b8d76c29" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">safe_file_read</span>(filename<span class="op">::</span><span class="dt">String</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    file <span class="op">=</span> <span class="cn">nothing</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        file <span class="op">=</span> <span class="fu">open</span>(filename, <span class="st">"r"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> <span class="fu">read</span>(file, <span class="dt">String</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> data</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">catch</span> <span class="cn">e</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span>(<span class="st">"An error occurred: "</span>, <span class="cn">e</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">finally</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> file <span class="op">!==</span> <span class="cn">nothing</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">close</span>(file)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>            <span class="fu">println</span>(<span class="st">"File closed."</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with a valid file</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">safe_file_read</span>(<span class="st">"example.txt"</span>))</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with an invalid file</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">safe_file_read</span>(<span class="st">"nonexistent.txt"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>An error occurred: SystemError("opening file \"example.txt\"", 2, nothing)
+nothing
+An error occurred: SystemError("opening file \"nonexistent.txt\"", 2, nothing)
+nothing</code></pre>
+</div>
+</div>
+</section>
+<section id="explanation" class="level4">
+<h4 class="anchored" data-anchor-id="explanation">Explanation:</h4>
+<ul>
+<li>The <code>finally</code> block ensures that the file is always closed after reading, even if an error occurs (e.g., file not found, read error).</li>
+<li>If the <code>open</code> operation is successful, the <code>finally</code> block will still execute and close the file, ensuring proper resource management.</li>
+<li>If an exception is thrown in the <code>try</code> block (like a non-existent file), it will be caught and handled by the <code>catch</code> block, but the <code>finally</code> block will still execute to close the file (if opened).</li>
+</ul>
+</section>
+<section id="use-cases-for-finally" class="level4">
+<h4 class="anchored" data-anchor-id="use-cases-for-finally">Use Cases for <code>finally</code>:</h4>
+<ul>
+<li>Closing files or network connections.</li>
+<li>Releasing resources (e.g., database connections, locks).</li>
+<li>Resetting the program state to a known clean state.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="scoping-and-closure" class="level2">
+<h2 class="anchored" data-anchor-id="scoping-and-closure">Scoping and Closure</h2>
+<p>In Julia, <a href="https://docs.julialang.org/en/v1/manual/variables-and-scoping/">scoping rules</a> determine the visibility and lifetime of variables. Understanding scope and closures is essential for writing efficient and error-free code.</p>
+<section id="variable-scope" class="level3">
+<h3 class="anchored" data-anchor-id="variable-scope">Variable Scope</h3>
+<p>Scope in Julia refers to the region of code where a variable is accessible. There are two primary scopes: global and local.</p>
+<ul>
+<li><strong>Global Scope</strong>: Variables defined at the top level of a module or script are in the global scope and can be accessed from anywhere in that file. However, modifying global variables from within functions is generally discouraged.</li>
+</ul>
+<div id="a35463f8" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>global_var <span class="op">=</span> <span class="fl">10</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">access_global</span>()</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> global_var</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">access_global</span>()  <span class="co"># Outputs: 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; access_global() = 10</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Local Scope</strong>: Variables defined within a function or a block (e.g., loops or conditionals) have local scope and cannot be accessed outside of that block.</li>
+</ul>
+<div id="670b5aec" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">local_scope_example</span>()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    local_var <span class="op">=</span> <span class="fl">5</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> local_var</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">local_scope_example</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; local_scope_example() = 5</code></pre>
+</div>
+</div>
+<p>If you try to access <code>local_var</code> outside the function, you will get an error because it is not defined in the global scope.</p>
+<div id="ff576be3" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>local_var  <span class="co"># This would cause an error, as local_var is not accessible here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>LoadError: UndefVarError: `local_var` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.
+UndefVarError: `local_var` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code></pre>
+</div>
+</div>
+</section>
+<section id="scope-of-variables-in-for-loops" class="level3">
+<h3 class="anchored" data-anchor-id="scope-of-variables-in-for-loops">Scope of Variables in <code>for</code> Loops</h3>
+<p>In Julia, a <code>for</code> loop <em>does</em> create a new local scope for its loop variable when inside a function or another local scope. This means that a variable used as the loop variable will not overwrite an existing global variable with the same name in that context.</p>
+<p>Here’s an example:</p>
+<div id="1af11f0a" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="fl">10</span>  <span class="co"># Define a global variable `i`</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)  <span class="co"># Prints 1, 2, and 3</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Outside loop: i = "</span>, i)  <span class="co"># Outputs: 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+3
+Outside loop: i = 10</code></pre>
+</div>
+</div>
+<p>In this case, the initial value of <code>i</code> (10) is not affected by the loop because the <code>for</code> loop has its own local scope for <code>i</code>. After the loop completes, the global variable <code>i</code> retains its original value (10), demonstrating that the <code>for</code> loop did not alter it.</p>
+<p>However, if this code were inside a function, <code>i</code> would be entirely scoped within that function’s local environment, meaning any loop variables would only affect other variables within the function itself.</p>
+</section>
+<section id="nested-scopes" class="level3">
+<h3 class="anchored" data-anchor-id="nested-scopes">Nested Scopes</h3>
+<p>Julia allows for nested functions, which can access variables in their enclosing scopes. This is known as lexical scoping.</p>
+<div id="f8e41753" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">outer_function</span>(x)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">inner_function</span>(z)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inner_function</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>closure <span class="op">=</span> <span class="fu">outer_function</span>(<span class="fl">3</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">closure</span>(<span class="fl">4</span>)  <span class="co"># Outputs: 9 (3 + 2 + 4)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; closure(4) = 9</code></pre>
+</div>
+</div>
+<p>In this example, <code>inner_function</code> forms a closure over the variables <code>x</code> and <code>y</code>, retaining access to them even after <code>outer_function</code> has finished executing.</p>
+</section>
+<section id="closures" class="level3">
+<h3 class="anchored" data-anchor-id="closures">Closures</h3>
+<p>A closure is a function that captures variables from its surrounding lexical scope, allowing the function to use these variables even after the scope where they were defined has ended. Closures are especially useful for creating customized functions or “function factories.”</p>
+<section id="example-using-a-global-variable-vs.-capturing-a-variable-in-a-closure" class="level4">
+<h4 class="anchored" data-anchor-id="example-using-a-global-variable-vs.-capturing-a-variable-in-a-closure">Example: Using a Global Variable vs.&nbsp;Capturing a Variable in a Closure</h4>
+<p>To illustrate the difference between referencing a global variable and capturing a variable in a closure, let’s first create a function that uses a global variable:</p>
+<div id="84b3b51a" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply_by_global</span>(x)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> factor</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply_by_global</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 10</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Update the global variable `factor`</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply_by_global</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 15 (factor is now 3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; factor = 2
+julia&gt; function multiply_by_global(x)
+    return x * factor
+end
+julia&gt; multiply_by_global(5) = 10
+julia&gt; factor = 3
+julia&gt; multiply_by_global(5) = 15</code></pre>
+</div>
+</div>
+<p>In this example, <code>multiply_by_global</code> uses the global variable <code>factor</code>, so whenever <code>factor</code> is updated, the result of calling <code>multiply_by_global</code> changes.</p>
+</section>
+<section id="example-capturing-a-variable-in-a-closure" class="level4">
+<h4 class="anchored" data-anchor-id="example-capturing-a-variable-in-a-closure">Example: Capturing a Variable in a Closure</h4>
+<p>Now, let’s use a closure to capture the <code>factor</code> variable inside a function. Here, the captured value of <code>factor</code> remains fixed at the time the closure was created, regardless of changes to the variable afterward.</p>
+<div id="87b93d7c" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_multiplier</span>(factor)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x) <span class="op">-&gt;</span> x <span class="op">*</span> factor  <span class="co"># Returns a closure that captures `factor`</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>double <span class="op">=</span> <span class="fu">make_multiplier</span>(<span class="fl">2</span>)   <span class="co"># `factor` is captured as 2 in this closure</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>triple <span class="op">=</span> <span class="fu">make_multiplier</span>(<span class="fl">3</span>)   <span class="co"># `factor` is captured as 3 in this closure</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 10</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">triple</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 15</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Even if we change `factor` globally, it doesn't affect the closure</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">4</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(<span class="fl">5</span>)  <span class="co"># Still outputs: 10</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">triple</span>(<span class="fl">5</span>)  <span class="co"># Still outputs: 15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>julia&gt; function make_multiplier(factor)
+    return (x-&gt;begin
+                x * factor
+            end)
+end
+julia&gt; double = make_multiplier(2)
+julia&gt; triple = make_multiplier(3)
+julia&gt; double(5) = 10
+julia&gt; triple(5) = 15
+julia&gt; factor = 4
+julia&gt; double(5) = 10
+julia&gt; triple(5) = 15</code></pre>
+</div>
+</div>
+<p>In this example, <code>make_multiplier</code> returns a function that captures the <code>factor</code> variable when the closure is created. This means that <code>double</code> will always multiply by <code>2</code>, and <code>triple</code> will always multiply by <code>3</code>, regardless of any subsequent changes to <code>factor</code>.</p>
+</section>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<p>Using closures in Julia allows you to “lock in” the values of variables from an outer scope at the time of the closure’s creation. This differs from referencing global variables directly, where any changes to the variable are reflected immediately. Closures are particularly useful for creating function factories or callbacks that need to retain specific values independently of changes in the global scope.</p>
+<p>Understanding scope is crucial for performance in Julia. Defining variables within a local scope, such as inside functions, can lead to more efficient code execution. Global variables can lead to performance penalties due to type instability.</p>
+<p>In summary, scoping rules in Julia allow for clear management of variable accessibility and lifespan, while closures enable powerful programming patterns by capturing the context in which they are created. Understanding these concepts is key to writing effective Julia code.</p>
+</section>
+</section>
+<section id="modules" class="level2">
+<h2 class="anchored" data-anchor-id="modules">Modules</h2>
+<p>Modules can be seen as “boxes” in which you organise related functions. Such a “box” can be reused in other program. To have access to the function from “box” <code>B</code>, you should add <code>using B</code> at the beginning of your program. To call some function <code>f</code> stored in <code>B</code>, you type <code>B.f</code>. Thus modules avoid conflicts on function names by providing a seperate namespace. This means that a function <code>f</code> from the main program will indeed be seen as a different function than <code>B.f</code>.</p>
+<p>Find bellow an example of the definition of a simple module.</p>
+<div id="72e0b107" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> MyModule</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a function inside the module</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">greet</span>(name)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Hello, </span><span class="sc">$</span>name<span class="st"> !"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a constant inside the module</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Pi <span class="op">=</span> <span class="fl">3.14159</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span>  <span class="co"># End of the module</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>Main.MyModule</code></pre>
+</div>
+</div>
+<p>Let us now use the function and variable in another program.</p>
+<div id="6e48bc65" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">.MyModule</span>  <span class="co"># Importing the module</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>MyModule.<span class="fu">greet</span>(<span class="st">"Alice"</span>)  <span class="co"># Calling the function from MyModule</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(MyModule.Pi)     <span class="co"># Accessing the constant from MyModule</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello, Alice !
+3.14159</code></pre>
+</div>
+</div>
+</section>
+<section id="exercices" class="level2">
+<h2 class="anchored" data-anchor-id="exercices">Exercices</h2>
+<section id="exercise-1-temperature-converter" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-temperature-converter">Exercise 1: Temperature Converter</h3>
+<p>Write a function <code>convert_temperature</code> that takes a temperature value and a keyword argument <code>unit</code> that can either be <code>"C"</code> for Celsius or <code>"F"</code> for Fahrenheit. The function should convert the temperature to the other unit and return the converted value. Use a conditional statement to determine the conversion formula:</p>
+<ul>
+<li><p>If the unit is <code>"C"</code>, convert to Fahrenheit using the formula: <span class="math display">
+  F = C \times \frac{9}{5} + 32
+</span></p></li>
+<li><p>If the unit is <code>"F"</code>, convert to Celsius using the formula: <span class="math display">
+  C = (F - 32) \times \frac{5}{9}
+</span></p></li>
+</ul>
+<p><strong>Example Output:</strong></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">100</span>, unit<span class="op">=</span><span class="st">"C"</span>))  <span class="co"># Outputs: 212.0</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">32</span>, unit<span class="op">=</span><span class="st">"F"</span>))    <span class="co"># Outputs: 0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+To go further for Exercise 1: Temperature Converter
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If the <code>unit</code> provided is not <code>"C"</code> or <code>"F"</code>, you can raise an error using the <code>throw</code> statement along with <code>ArgumentError</code>. This way, you can inform the user that the input is invalid.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correction of Exercise 1: Temperature Converter
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="46e9ff87" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">convert_temperature</span>(value; unit)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unit <span class="op">==</span> <span class="st">"C"</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value <span class="op">*</span> <span class="fl">9</span><span class="op">/</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">32</span>  <span class="co"># Convert Celsius to Fahrenheit</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elseif</span> unit <span class="op">==</span> <span class="st">"F"</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (value <span class="op">-</span> <span class="fl">32</span>) <span class="op">*</span> <span class="fl">5</span><span class="op">/</span><span class="fl">9</span>  <span class="co"># Convert Fahrenheit to Celsius</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">throw</span>(<span class="fu">ArgumentError</span>(<span class="st">"Unit must be 'C' or 'F'"</span>))</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">100</span>, unit<span class="op">=</span><span class="st">"C"</span>))  <span class="co"># Outputs: 212.0</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">32</span>, unit<span class="op">=</span><span class="st">"F"</span>))    <span class="co"># Outputs: 0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>212.0
+0.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-manipulating-tuples" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-manipulating-tuples">Exercise 2: Manipulating Tuples</h3>
+<ol type="1">
+<li>Create a <strong>tuple</strong> <code>t</code> with three elements: a string, an integer, and a float.</li>
+<li>Try to mutate the first element of the tuple and handle any errors using a <code>try-catch</code> block.</li>
+<li>Create a <strong>NamedTuple</strong> <code>nt</code> with fields <code>name</code>, <code>age</code>, and <code>height</code>, and initialize it with your details.</li>
+</ol>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint for Exercise 2:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Remember that tuples are immutable, so you can’t modify their elements.</li>
+<li>Use a <code>try-catch</code> block to catch errors if an operation fails.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correction of Exercise 2:
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="73c2eb54" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tuple with three elements: a string, an integer, and a float</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="st">"John"</span>, <span class="fl">25</span>, <span class="fl">5.9</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Attempt to mutate the first element of the tuple with error handling</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    t[<span class="fl">1</span>] <span class="op">=</span> <span class="st">"Alice"</span>  <span class="co"># This will raise an error because tuples are immutable</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="cf">catch</span> <span class="cn">e</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Error: "</span>, <span class="cn">e</span>)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a NamedTuple with fields: name, age, and height</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>nt <span class="op">=</span> (name <span class="op">=</span> <span class="st">"John"</span>, age <span class="op">=</span> <span class="fl">25</span>, height <span class="op">=</span> <span class="fl">5.9</span>)</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"NamedTuple: "</span>, nt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error: MethodError(setindex!, (("John", 25, 5.9), "Alice", 1), 0x0000000000006908)
+NamedTuple: (name = "John", age = 25, height = 5.9)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3-factorial-function-with-closure" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-factorial-function-with-closure">Exercise 3: Factorial Function with Closure</h3>
+<p>Create a function <code>make_factorial</code> that returns a closure. This closure should compute the factorial of a number. The closure should capture a variable that keeps track of the number of times it has been called. When the closure is called, it should return the factorial of the number and the call count.</p>
+<p><strong>Example Output:</strong></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>factorial_closure <span class="op">=</span> <span class="fu">make_factorial</span>()</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">5</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 120</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">3</span>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 6</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Function called "</span>, count, <span class="st">" times"</span>)  <span class="co"># Outputs: 2 times</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint Exercise 3: Factorial Function with Closure
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>When returning the results from the closure, you can return a pair of values by creating a tuple. In Julia, tuples are created using parentheses, like this: <code>(value1, value2)</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correction of Exercise 3: Factorial Function with Closure
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="e6712eac" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_factorial</span>()</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="fl">0</span> <span class="co"># Variable to keep track of calls</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">factorial</span>(n<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="op">∈</span> <span class="fl">2</span><span class="op">:</span>n</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>            y <span class="op">*=</span> i </span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>        counter <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> y, counter</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> factorial </span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>factorial_closure <span class="op">=</span> <span class="fu">make_factorial</span>()</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">5</span>)</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 120</span></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">3</span>)</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 6</span></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Function called "</span>, count, <span class="st">" times"</span>)  <span class="co"># Outputs: 2 times</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>120
+6
+Function called 2 times</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4-filter-even-numbers" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4-filter-even-numbers">Exercise 4: Filter Even Numbers</h3>
+<p>Write a function <code>filter_even</code> that takes an array of integers as input and returns a new array containing only the even numbers from the input array. Use a loop and a conditional statement to check each number.</p>
+<p>Additionally, implement a helper function <code>is_even</code> that checks if a number is even. Use the <code>filter_even</code> function to filter an array of numbers, and print the result.</p>
+<p><strong>Example Output:</strong></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span>]</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>even_numbers <span class="op">=</span> <span class="fu">filter_even</span>(numbers)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(even_numbers)  <span class="co"># Outputs: [2, 4, 6, 8, 10]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint for Exercise 4: Filter Even Numbers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To add elements to an array in Julia, use the <code>push!</code> function. This function takes two arguments: the array you want to modify and the element to add to that array.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correction of Exercise 4: Filter Even Numbers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="a1145afc" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">is_even</span>(x)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">filter_even</span>(numbers)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    even_numbers <span class="op">=</span> []</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> number <span class="kw">in</span> numbers</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">is_even</span>(number)</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(even_numbers, number)</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> even_numbers</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span>]</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>even_numbers <span class="op">=</span> <span class="fu">filter_even</span>(numbers)</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(even_numbers)  <span class="co"># Outputs: [2, 4, 6, 8, 10]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Any[2, 4, 6, 8, 10]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-instructions" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-instructions">Exercise Instructions</h3>
+<ol type="1">
+<li>For each exercise, implement the required functions in a new Julia script or interactive session.</li>
+<li>Test your functions with different inputs to ensure they work as expected.</li>
+<li>Comment on your code to explain the logic behind each part, especially where you utilize control flow and scope.</li>
+</ol>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ocourses\.github\.io\/course-tse-julia\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../src/syntax.html" class="pagination-link" aria-label="Core Syntax and Operations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Core Syntax and Operations</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../src/types.html" class="pagination-link" aria-label="Types">
+        <span class="nav-page-text">Types</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2025, Olivier Cots</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocourses/course-tse-julia/edit/main/src/structure.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ocourses/course-tse-julia/blob/main/src/structure.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/ocourses/course-tse-julia/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
