@@ -1,5 +1,5 @@
 ---
-title: "Basic Types and Data Structures in Julia"
+title: "Types"
 page-layout: article
 jupyter: julia-1.11
 ---
@@ -19,6 +19,21 @@ You'll learn about:
 - How to work with **Collections** and **Composite Types** to model more complex data.
 
 Whether you're a beginner or looking to deepen your understanding of Julia's type system, this page will help you get familiar with the core building blocks for handling data efficiently in Julia.
+
+In this section, we will delve into some of the more advanced features of Julia's type system and error handling. We will explore the hierarchical structure of types, how to define and work with parametric types, as well as how to handle type conversions and promotions. Additionally, we will look at how to manage errors in Julia, including common error types and exception handling mechanisms.
+
+By the end of this page, you'll have a deeper understanding of Julia's flexible and powerful type system, which is essential for writing efficient, type-safe code. We will also cover how to manage and handle errors gracefully to ensure that your programs run smoothly.
+
+Topics Covered:
+
+- **Type Hierarchies**: Understanding Julia's abstract and concrete types.
+- **Type Annotations and Declarations**: How to specify types in functions and variables.
+- **Parametric Types**: Creating generic types and functions.
+- **Type Conversion and Promotion**: Working with different types and converting between them.
+- **Union Types**: Handling multiple types in a single variable.
+- **Special Types**: Working with `Nothing`, `Any`, and `Missing`.
+- **Errors and Exception Handling**: Raising and handling errors with `try`/`catch` blocks.
+
 
 ## Introduction to Types in Julia
 
@@ -84,366 +99,240 @@ Julia’s type system also supports abstract types, allowing for more flexible a
 - Types are inferred from the values assigned to variables.
 - Julia optimizes performance based on types, making type information crucial.
 
-## Basic Types
+## Type Hierarchies
 
-Julia has several basic (or primitive) types that are fundamental to working with the language. These include numerical types, characters, and strings. Understanding these types is crucial as they form the building blocks for more complex data structures.
-
-### Common Basic Types
-
-- **`Int`**: Represents integer values. Julia has multiple types of integers, such as `Int8`, `Int16`, `Int32`, and `Int64` depending on the desired size. By default, `Int` refers to the most appropriate integer type for the system (usually `Int64` on modern systems).
-  
-- **`Float64`**: Represents floating-point numbers with double precision.
-  
-- **`String`**: Represents sequences of characters.
-
-- **`Bool`**: Represents Boolean values, i.e., `true` or `false`.
-
-- **`Char`**: Represents individual Unicode characters.
-
-### Example Usage of Basic Types
+In Julia, types are organized into a hierarchy with `Any` as the root. At the top, `Any` is the most general type, and all other types are subtypes of `Any`. The type hierarchy enables Julia to provide flexibility while supporting efficient dispatch based on types.
 
 ```{julia}
-# Integer type (default is Int64)
-a = 42         # a is of type Int64
-
-# Float type (default is Float64)
-b = 3.14       # b is of type Float64
-
-# String type
-c = "Hello"    # c is of type String
-
-# Boolean type
-d = true       # d is of type Bool
-
-# Char type
-e = 'α'        # e is of type Char
-nothing #| hide
-```
-
-These basic types are often used for simple calculations and conditionals. Julia allows operations between different types, but it will raise an error if the types are incompatible.
-
-## Collections and Data Structures
-
-### Julia as an Array Programming Language
-
-Julia is designed as an [array programming language](https://en.wikipedia.org/wiki/Array_programming), focusing on operations that apply to entire arrays or subarrays rather than individual elements. This paradigm simplifies code for numerical, scientific, and data-intensive applications. By leveraging features like broadcasting and vectorized operations, Julia allows for efficient and concise code, enhancing performance without sacrificing readability. Array programming is central to Julia’s capabilities, enabling fast computation on large datasets and making it ideal for high-performance scientific computing.
-
-### Arrays, Vectors, and Matrices
-
-In Julia, [arrays](https://docs.julialang.org/en/v1/manual/arrays/) are fundamental data structures that can hold elements of any type. Arrays can be one-dimensional (vectors) or two-dimensional (matrices), and they can hold data of various types.
-
-- **Creating an Array**:
-
-```{julia}
-arr = [1, 2, 3, 4]  # A simple 1D array (vector)
-```
-
-```{julia}
-matrix = [1 2 3; 4 5 6]  # A 2D array (matrix)
-```
-
-- **Accessing Array Elements**:
-
-```{julia}
-arr[1]   # Access the first element of the array
-```
-
-```{julia}
-matrix[2, 3]  # Access the element in the second row, third column
-```
-
-#### Slicing of Vectors and Matrices
-
-You can extract slices (sub-arrays) of vectors and matrices in Julia. The slicing syntax allows you to access specific portions of an array.
-
-- **Slicing a vector**:
-
-```{julia}
-arr[2:4]  # Extracts elements from index 2 to 4: [2, 3, 4]
-```
-
-- **Slicing a matrix**:
-
-```{julia}
-matrix[1, :]   # Extracts the first row: [1, 2, 3]
-```
-
-```{julia}
-matrix[:, 2]   # Extracts the second column: [2, 5]
-```
-
-#### Mutation of Arrays
-
-Arrays in Julia are mutable, meaning their elements can be changed after creation. The `.=` operator is commonly used to apply element-wise operations.
-
-- **Modify an individual element**:
-
-```{julia}
-arr[2] = 99  # Change the second element to 99
-```
-
-- **Element-wise operation with `.=`**:
-
-```{julia}
-arr .+= 10  # Adds 10 to each element of the array, resulting in [11, 12, 13, 14]
-```
-
-```{julia}
-matrix .*= 2  # Multiplies each element of the matrix by 2, resulting in [2 4 6; 8 10 12]
-```
-
-- **Push an element into an array** (mutates the array by adding a new element):
-
-```{julia}
-push!(arr, 40)  # Adds 40 to the end of the array
-```
-
-- **Pop an element from an array** (removes the last element):
-
-```{julia}
-pop!(arr)  # Removes the last element, which is 40 in this case
-```
-
-#### Mutation Inside a Function
-
-When working with arrays inside a function, it's important to note that reassigning the entire array (e.g., `v = [1, 2]`) does not mutate the original array but rather creates a new one locally scoped to the function. To modify the contents of an array in place, use either `v[:] = ...` or the more flexible broadcasting syntax `v .= ...`.
-
-- **Incorrect way** (does not mutate the original vector):
-
-```{julia}
-function incorrect_mutate(v)
-    v = [1, 2]  # This creates a new array and does not affect the input
-end
-
-vec = [10, 20]
-incorrect_mutate(vec)
-println(vec)  # Outputs: [10, 20]
-```
-
-- **Correct way** using `v[:] = ...`:
-
-```{julia}
-function correct_mutate(v)
-    v[:] = [1, 2]  # Mutates the input vector
-end
-
-vec = [10, 20]
-correct_mutate(vec)
-println(vec)  # Outputs: [1, 2]
-```
-
-- **Using broadcasting (`v .= ...`)**:
-
-```{julia}
-function flexible_mutate(v)
-    v .= [1, 2]  # More flexible, works for both vectors and matrices
-end
-
-vec = [10, 20]
-flexible_mutate(vec)
-println(vec)  # Outputs: [1, 2]
-
-mat = [10 20; 30 40]
-mat .= [1 2; 3 4]  # Updates all elements in-place
-println(mat)  # Outputs: [1 2; 3 4]
-```
-
-Using `v .= ...` is preferred for its flexibility, as it works seamlessly for arrays of any shape, including matrices. Without broadcasting, you would need to use `M[:, :] = ...` for matrices to achieve the same effect.
-
-::: {.callout-warning}
-To mutate an array within a function, it should be given *by reference*. In pratice, the memory address of the array is passed to the function. Any modifications to the data will thus affect the original array.
-
-Let us focus on the special case where we want to mutate a slice of the array. We can try the following lines of code.
-
-```{julia}
-function mutate_slice(v)
-    @assert(length(v) >= 2)
-    v[1] = -5
-    v[2] = -6
-end
-
-v = [1,2,3,4]
-
-mutate_slice(v[1:2])
-
-v
-```
-
-The first two elements of the array `v` have not been modified. This is because slices are passed *by copy* in Julia. This means that a duplicate of the slice is created. The function will act on the copy rather than the original data.
-
-In order to overcome this issue, let us have a look at the `view` function in Julia. It creates a **view** of an array, meaning it gives you a reference to a subset of the array rather than a copy. So when you modify the view, you're modifying the original array. This is an example of by reference behavior.
-
-```{julia}
-mutate_slice(view(v, 1:2))
-
-v
-```
-
-Great! We have mutated a slice of `v` without producing any copies. Note that copies require extra memory, which can be limited in large scale applications.
-:::
-
-#### Special Arrays
-
-Julia has built-in functions to create arrays with predefined values:
-
-- **Create an array of zeros**:
-
-```{julia}
-zeros(3)  # Creates an array of zeros with 3 elements: [0.0, 0.0, 0.0]
-```
-
-- **Create an array of ones**:
-
-```{julia}
-ones(2, 3)  # Creates a 2x3 matrix filled with ones: [1.0 1.0 1.0; 1.0 1.0 1.0]
-```
-
-### Dictionaries (Dict)
-
-A [`Dict`](https://docs.julialang.org/en/v1/base/collections/#Dictionaries) in Julia is an associative collection that maps keys to values. This allows for efficient lookups, insertions, and deletions based on unique keys.
-
-- **Creating a Dictionary**:
-
-```{julia}
-d = Dict("name" => "Alice", "age" => 25)
-```
-
-This creates a dictionary where `"name"` maps to `"Alice"` and `"age"` maps to `25`.
-
-- **Accessing Values**:
-  
-You can access values in a dictionary using their corresponding keys:
-
-```{julia}
-d["name"]  # Outputs: "Alice"
-```
-
-- **Adding and Updating Values**:
-
-To add a new key-value pair or update an existing one, you can use the following syntax:
-
-```{julia}
-d["location"] = "Paris"  # Adds a new key-value pair
-d["age"] = 26            # Updates the value associated with the key "age"
-display(d)
-```
-
-- **Removing Key-Value Pairs**:
-
-To remove a key-value pair, use the `delete!` function:
-
-```{julia}
-delete!(d, "location")
-```
-
-- **Iteration over Key-Value Pairs**:
-
-You can iterate through the keys, values, or pairs in a dictionary using `keys`, `values`, and `pairs` respectively:
-
-```{julia}
-for (k, v) in pairs(d)
-    println("Key: $k, Value: $v")
-end
-```
-
-### Tuples and Named Tuples
-
-Julia [Tuples](https://docs.julialang.org/en/v1/manual/types/#Tuple-Types) are ordered collections of elements, while [Named Tuples](https://docs.julialang.org/en/v1/manual/types/#Named-Tuple-Types) are tuples where elements are associated with names (keys). Tuples are immutable, meaning their elements cannot be changed after creation.
-
-#### Basic usage of Tuples and Named Tuples
-
-- **Tuple** is an ordered collection of elements, which can hold elements of different types.
-
-```{julia}
-t = (1, "Julia", true)  # A tuple with three elements
-```
-
-- **NamedTuple** is a special kind of tuple where elements are associated with names (keys).
-
-```{julia}
-nt = (name = "Alice", age = 25)  # A NamedTuple with named fields
-```
-
-You can access the elements by their name:
-
-```{julia}
-nt.name  # Access the field 'name' of the NamedTuple, returns "Alice"
-```
-
-- **Mutation of a Tuple**: Tuples are immutable, so attempting to change their elements will result in an error.
-
-```{julia}
-#| error: true
-t[1] = 99  # Trying to modify a tuple element will result in an error
-```
-
-The above line will raise an error because tuples are immutable in Julia, and their elements cannot be modified after creation.
-
-#### Tuples in Function
-
-In Julia, tuples and named tuples play an important role in function definitions and return values.
-
-- **Positional and Keyword Arguments**:  
-  
-When defining functions with a variable number of arguments, Julia uses *tuples* to capture positional arguments and *named tuples* for keyword arguments:
-
-```{julia}
-function example_function(args...; kwargs...)
-    println("Positional arguments type: ", typeof(args))
-    println("Keyword arguments type: ", typeof(kwargs))
-    return kwargs
-end
-
-kw = example_function(1, 2, 3; name="Alice", age=30)
-nothing #| hide
-```
-
-In this example, `args` is of type `Tuple`, containing all positional arguments, while `kwargs` is based on a `NamedTuple`, containing all keyword arguments. The arguments are captured using the `args...` and `kwargs...` syntax. The `kwargs` argument is actually a 'Base.Pairs':
-
-```{julia}
-kw
-```
-
-```{julia}
-@myshow begin #| hide
-typeof(kw)
-kw isa Base.Pairs
-kw isa AbstractDict
-keys(kw)
-values(kw)
-pairs(kw)
-kw[:name]
-kw[:age]
+using GraphRecipes, Plots
+default(size=(800, 800))
+@suppress_err begin #| hide
+plot(AbstractFloat, fontsize=10, nodeshape=:rect, nodesize=0.08)
 end #| hide
 ```
 
-Actually, the values are a `NamedTuple`:
+### Abstract and Concrete Types
+
+Types in Julia can be [**abstract**](https://docs.julialang.org/en/v1/manual/types/#man-abstract-types) or **concrete**:
+
+- **Abstract types** serve as nodes in the hierarchy but cannot be instantiated. They provide a framework for organizing related types.
+- **Concrete types** can be instantiated and are the actual types used for values.
+
+For example, Julia’s `Real` and `AbstractFloat` types are abstract, while `Int64` and `Float64` are concrete subtypes.
 
 ```{julia}
-typeof(values(kw))
+@myshow begin #| hide
+i::Int64 = 42   # Int64 is a concrete type
+typeof(i)       # Output: Int64 (concrete type)
+r::Real = 3.14  # Real is an abstract type
+typeof(r)       # Output: Float64 (concrete type)
+end #| hide
 ```
 
-Contrary to a `Dict`, you cannot add entries to a `Base.Pairs`:
+### Checking if a Type is Concrete
+
+In Julia, you can use the `isconcretetype` function to check if a type is concrete (meaning it can be instantiated) or abstract (which serves as a blueprint for other types but cannot be instantiated directly).
 
 ```{julia}
-#| error: true
-kw[:height] = 5.9
+@myshow begin #| hide
+isconcretetype(Int64)
+isconcretetype(AbstractFloat)
+end  #| hide
+nothing #| hide
 ```
 
-- **Returning Tuples**:
+The `isconcretetype` function returns `true` for concrete types (like `Int64` or `Float64`) and `false` for abstract types (like `AbstractFloat` or `Real`).
 
-In Julia, when a function returns multiple values separated by commas, they are automatically returned as a tuple:
+### Get the Type of a Variable
+
+You can use the `typeof()` function to get the type of a variable:
 
 ```{julia}
-function return_multiple_values()
-    return 1, "Julia", true
+@myshow begin #| hide
+a = 42
+typeof(a)
+end #| hide
+```
+
+The `typeof()` function returns the concrete type of the variable.
+
+### Example
+
+Let's instantiate a variable with a specific concrete type, check its type using `typeof()`, and verify if it’s concrete using `isconcretetype`:
+
+```{julia}
+@myshow begin #| hide
+a = 3.14
+typeof(a)
+isconcretetype(typeof(a))
+end #| hide
+```
+
+
+### The `isa` Operator
+
+The `isa` operator is used to check if a value is an instance of a specific type:
+
+```{julia}
+@myshow begin #| hide
+a = 42
+a isa Int64
+a isa Number
+a isa Float64
+end #| hide
+```
+
+The `isa` operator is often used for type checking within functions or when validating data.
+
+
+### The `<:` Operator
+
+The `<:` operator checks if a type is a subtype of another type in the hierarchy. It can be used for checking if one type is a more general or more specific type than another:
+
+```{julia}
+@myshow begin #| hide
+Int64 <: Real
+Float64 <: Real
+Real <: Number
+Number <: Real
+end #| hide
+```
+
+### Creating Custom Abstract Types
+
+Julia allows you to create your own abstract types. For example, you can define a custom abstract type `Shape`, and create concrete subtypes like `Triangle` and `Rectangle`.
+
+```{julia}
+# Define abstract type
+abstract type Shape end
+
+# Define concrete subtypes
+struct Triangle <: Shape
+    base::Float64
+    height::Float64
 end
 
-result = return_multiple_values()
-println("Result type: ", typeof(result))
+struct Rectangle <: Shape
+    width::Float64
+    height::Float64
+end
+
+# Create instances
+triangle = Triangle(2.0, 3.0)
+rectangle = Rectangle(3.0, 4.0)
+
+# Check if they are subtypes of Shape
+@myshow begin #| hide
+triangle isa Shape
+rectangle isa Shape
+end #| hide
 ```
 
-So, `return_multiple_values()` returns a tuple with three elements.
+### Getting Subtypes and Parent Types
+
+In Julia, you can use the `subtypes()` function to find all direct subtypes of a given type. Additionally, the `supertypes()` function can be used to get the entire chain of parent (super) types for a given type.
+
+#### Getting Subtypes
+
+To find all direct subtypes of a specific type, you can use the `subtypes()` function. Here’s an example:
+
+```{julia}
+subtypes(AbstractFloat)
+```
+
+This will return all direct subtypes of `AbstractFloat`. To visualize the type hierarchy, you can use the `plot` function from the `GraphRecipes` package or for a textual representation, you can do the following:
+
+```{julia}
+using AbstractTrees
+AbstractTrees.children(d::DataType) = subtypes(d)
+print_tree(Real)
+```
+
+#### Getting the Parent Type
+
+To find the immediate supertype (parent type) of a specific type, you can use the `supertype()` function. Here’s an example:
+
+```{julia}
+supertype(Int64)
+```
+
+This will return the immediate parent type of `Int64`.
+
+#### Getting the List of All Parent Types
+
+To get the entire chain of parent types, you can use the `supertypes()` function, which directly returns all the parent types of a given type. Here's an example that shows how to do this for `Float64`:
+
+```{julia}
+supertypes(Float64)
+```
+
+This code will return the list of all parent types of `Float64`, starting from `Float64` itself and going up the type hierarchy to `Any`. This can be useful for understanding the relationships between different types in Julia. To print the list of parent types in a more readable format, you can use the `join` function:
+
+```{julia}
+join(supertypes(Float64), " -> ")
+```
+
+### Type Hierarchies and Performance
+
+The type hierarchy plays a crucial role in enabling multiple dispatch in Julia, allowing for efficient method selection based on the types of function arguments. By organizing types into a well-defined hierarchy, Julia can quickly select the most specific method for a given operation, optimizing performance, especially in scientific and numerical computing.
+
+## Type Conversion and Promotion
+
+In Julia, type conversion and promotion are mechanisms that allow for flexibility when working with different types, enabling smooth interactions and arithmetic between varying data types. Conversion changes the type of a value, while promotion ensures two values have a common type for an operation.
+
+### Type Conversion
+
+Type conversion in Julia is typically achieved with the `convert` function, which tries to change a value from one type to another. For conversions between `Float64` and `Int`, methods like `round` and `floor` are commonly used to handle fractional parts safely. To convert numbers to strings, use the `string()` function instead.
+
+```{julia}
+@myshow begin #| hide
+round(Int, 3.84)   
+floor(Int, 3.14)
+convert(Float64, 5)
+string(123)
+end #| hide
+```
+
+In these examples:
+
+- `round` rounds a `Float64` to the nearest `Int`.
+- `floor` converts a `Float64` to the nearest lower `Int`.
+- Converting an `Int` to `Float64` represents the integer as a floating-point number.
+- `string()` converts an integer to its string representation.
+
+### Automatic Conversion
+
+In many cases, Julia will automatically convert types when it is unambiguous. For instance, you can directly assign an integer to a floating-point variable, and Julia will automatically convert it.
+
+```{julia}
+@myshow begin #| hide
+t::Float64 = 10  # The integer 10 is converted to 10.0 (Float64)
+end #| hide
+```
+
+### Type Promotion
+
+Type promotion is used when combining two values of different types in an operation. Julia promotes values to a common type using the `promote` function, which returns values in their promoted type. This is useful when performing arithmetic on values of different types.
+
+```{julia}
+@myshow begin #| hide
+a, b = promote(3, 4.5)  # Promotes both values to Float64
+typeof(a)
+typeof(b)
+end #| hide
+```
+
+In this example, `promote` converts both `3` (an `Int`) and `4.5` (a `Float64`) to `Float64` so they can be added, subtracted, or multiplied without any type conflicts. 
+
+::: {.callout-warning}
+Be aware that promotion has nothing to do with the type hierarchy. For instance, although every `Int` value can also be represented as a `Float64` value, `Int` is not a subtype of `Float64`.
+:::
+
+### Summary
+
+- `convert(Type, value)`: Converts `value` to the specified `Type`, if possible.
+- `promote(x, y)`: Returns both `x` and `y` promoted to a common type.
+- Type promotion rules allow Julia to handle operations between different types smoothly, making the language both powerful and flexible for numerical and data processing tasks.
 
 ## Composite Types
 
@@ -668,22 +557,122 @@ y = (lt1 ∘ lt2)(4)
 - In Julia, `struct` allows you to create complex custom types that can hold different types of data. Custom constructors provide flexibility for struct initialization, allowing validation and preprocessing of input data. This is especially useful for enforcing constraints and ensuring type consistency. By default, structs are immutable, but you can use `mutable struct` if you need to change the data after creation.
 - Using a callable struct allows you to represent parameterized functions or transformations in a concise and reusable way. The concept can be extended further to support operations like composition or chaining, making it a powerful tool for [functional-style programming](https://en.wikipedia.org/wiki/Functional_programming) in Julia.
 
+### Parametric Composite Types
+
+A parametric struct can take one or more type parameters:
+
+```{julia}
+struct Pair{T, S}
+    first::T
+    second::S
+end
+
+@myshow begin #| hide
+pair1 = Pair(1, "apple")  # Pair of Int and String
+pair2 = Pair(3.14, true)  # Pair of Float64 and Bool
+end #| hide
+```
+
+In this case, `Pair` can be instantiated with any two types `T` and `S`, making it more versatile.
+
+### Parametric Abstract Types
+
+Parametric abstract types allow you to define abstract types that are parameterized by other types.
+
+#### Syntax:
+
+```julia
+abstract type AbstractContainer{T} end
+```
+
+Here, `AbstractContainer` is an abstract type that takes a type parameter `T`. Any concrete type that is a subtype of `AbstractContainer` can specify the concrete type for `T`.
+
+#### Example:
+
+```{julia}
+abstract type AbstractContainer{T} end
+
+struct VectorContainer{T} <: AbstractContainer{T}
+    data::Vector{T}
+end
+
+struct SetContainer{T} <: AbstractContainer{T}
+    data::Set{T}
+end
+
+struct FloatVectorContainer <: AbstractContainer{Float64}
+    data::Vector{Float64}
+end
+
+function print_container_info(container::AbstractContainer{T}) where T
+    println("Container holds values of type: ", T)
+end
+
+# Usage:
+vec = VectorContainer([1, 2, 3])
+set = SetContainer(Set([1, 2, 3]))
+flo = FloatVectorContainer([1.0, 2.0, 3.0])
+
+print_container_info(vec)
+print_container_info(set)
+print_container_info(flo)
+```
+
+#### Explanation:
+
+- `AbstractContainer{T}` is a parametric abstract type, where `T` represents the type of elements contained within the container.
+- `VectorContainer` and `SetContainer` are concrete subtypes of `AbstractContainer`, each using a different data structure (`Vector` and `Set`) to store elements of type `T`.
+- `FloatVectorContainer` is a concrete subtype of `AbstractContainer` that specifies `Float64` as the type for `T`.
+- The function `print_container_info` accepts any container that is a subtype of `AbstractContainer` and prints the type of elements inside the container.
+
+### Constrained Parametric Types
+
+Constrained parametric types allow you to restrict acceptable type parameters using `<:`, ensuring greater control and type safety.
+
+```{julia}
+struct RealPair{T <: Real}
+    first::T
+    second::T
+end
+
+# Valid:
+pair = RealPair(1.0, 2.5)
+
+# Constraining a function:****
+function sum_elements(container::AbstractContainer{T}) where T <: Real
+    return sum(container.data)
+end
+
+vec = VectorContainer([1.0, 2.0, 3.0])
+println(sum_elements(vec))  # Outputs: 6.0
+```
+
+In this example, `RealPair` is a struct that only accepts type parameters that are subtypes of `Real`. Similarly, the `sum_elements` function only works with containers that hold elements of type `T` that are subtypes of `Real`. The following code will throw an error because `String` is not a subtype of `Real`:
+
+```{julia}
+#| error: true
+# Invalid (throws an error):
+invalid_pair = RealPair("a", "b")
+```
+
+Constraints enhance type safety, clarify requirements, and support robust generic programming.
+
 ## Exercises
 
 ### Exercise 1: Creating a Shape System
 
-Create a system to represent different geometric shapes (like a **Rectangle**, **Circle**, and **Point**) using the following requirements:
+Create a system to represent different geometric shapes (like a **Square**, **Circle**, and **Point**) using the following requirements:
 
 1. **Define a `Point` struct** with `x` and `y` coordinates of type `Float64`.
-2. **Define a `Rectangle` struct** with fields `length` and `width` of type `Float64`. Use the `Point` struct to represent the bottom-left corner of the rectangle.
+2. **Define a `Square` struct** with the field `width` of type `Float64`. Use the `Point` struct to represent the bottom-left corner of the square.
 3. **Define a `Circle` struct** with a `Point` for the center and a `radius` of type `Float64`.
 4. Write a **function `area(shape)`** that computes the area of the given shape:
-   - The area of a rectangle is `length * width`.
+   - The area of a square is `width * width`.
    - The area of a circle is `π * radius^2`.
 
 ::: {.callout-tip collapse="true" icon=false}
 ## Hint for Exercise 1:
-- Use **struct** to define `Point`, `Rectangle`, and `Circle`.
+- Use **struct** to define `Point`, `Square`, and `Circle`.
 - Use **dot notation** to access the fields of the structs.
 - Use **conditional logic** (e.g., `typeof()`) to handle different shapes in the `area` function.
 - For the circle, use `π = 3.141592653589793`.
@@ -699,10 +688,9 @@ struct Point
     y::Float64
 end
 
-# Define the Rectangle struct
-struct Rectangle
+# Define the Square struct
+struct Square
     bottom_left::Point
-    length::Float64
     width::Float64
 end
 
@@ -714,8 +702,8 @@ end
 
 # Function to calculate the area
 function area(shape)
-    if typeof(shape) == Rectangle
-        return shape.length * shape.width
+    if typeof(shape) == Square
+        return shape.width * shape.width
     elseif typeof(shape) == Circle
         return π * shape.radius^2
     else
@@ -725,12 +713,12 @@ end
 
 # Example usage
 p1 = Point(0.0, 0.0)
-r1 = Rectangle(p1, 3.0, 4.0)
+r1 = Square(p1, 3.0)
 c1 = Circle(p1, 5.0)
 
-println("Area of rectangle: ", area(r1))  # Should print 12.0
+println("Area of square: ", area(r1))  # Should print 12.0
 println("Area of circle: ", area(c1))     # Should print 78.53981633974483
-```
+``` 
 :::
 
 ### Exercise 2: Working with Complex Numbers and Arrays
@@ -784,35 +772,3 @@ println("Complex number with the largest real part: ", max_z)
 ```
 :::
 
-### Exercise 3: Manipulating Tuples
-
-1. Create a **tuple** `t` with three elements: a string, an integer, and a float.
-2. Try to mutate the first element of the tuple and handle any errors using a `try-catch` block.
-3. Create a **NamedTuple** `nt` with fields `name`, `age`, and `height`, and initialize it with your details.
-
-::: {.callout-tip collapse="true" icon=false}
-## Hint for Exercise 3:
-- Remember that tuples are immutable, so you can't modify their elements.
-- Use a `try-catch` block to catch errors if an operation fails.
-:::
-
-::: {.callout-caution collapse="true" icon=false}
-## Correction of Exercise 3:
-
-```{julia}
-# Create a tuple with three elements: a string, an integer, and a float
-t = ("John", 25, 5.9)
-
-# Attempt to mutate the first element of the tuple with error handling
-try
-    t[1] = "Alice"  # This will raise an error because tuples are immutable
-catch e
-    println("Error: ", e)
-end
-
-# Create a NamedTuple with fields: name, age, and height
-nt = (name = "John", age = 25, height = 5.9)
-
-println("NamedTuple: ", nt)
-```
-:::
