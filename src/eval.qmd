@@ -11,10 +11,204 @@ include("activate.jl")
 
 We have included in this page a series of **quizzes** to help reinforce your learning. These quizzes are designed not only to test your understanding but also to provide you with an opportunity for **self-reflection**. After each quiz, take a moment to review your answers, reflect on what you've learned, and identify areas where you may need further clarification. Do not hesitate to reach out to your lecturer if any questions come up.
 
-### Type Hierarchies
+### Core Syntax
 
-::: {.callout-caution collapse="true" icon=false}
-## Quiz
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which of the following defines a variable `x` with value `10` in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`let x = 10`",
+           "`x := 10`",
+           "`x = 10`",
+           "`int x = 10`"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which keyword is used to define a function in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`func`",
+           "`function`",
+           "`def`",
+           "`lambda`"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which symbol is used for element-wise operations in Julia (e.g., squaring each element of a vector)?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`:`",
+           "`.`",
+           "`->`",
+           "`*`"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the output of this code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+a = [1, 2, 3]
+b = a
+b[1] = 10
+println(a)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`[10, 2, 3]`",
+           "`[1, 2, 3]`",
+           "`[1, 10, 3]`",
+           "Error."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What does the `end` keyword do in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Ends a program.",
+           "Closes a block of code like `if`, `for`, or `function`.",
+           "Skips to the next iteration.",
+           "Marks a breakpoint."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which expression returns the number of elements in a vector `v`?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`count(v)`",
+           "`size(v)`",
+           "`dim(v)`",
+           "`length(v)`"]
+answer = 4
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What does `===` do in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Checks if two expressions are numerically equal.",
+           "Checks if two expressions refer to the exact same object in memory.",
+           "Compares string equality.",
+           "Performs type conversion."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). How do you stop a loop early in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`stop`",
+           "`exit`",
+           "`break`",
+           "`return`"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). How do you skip the current iteration of a loop in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`skip`",
+           "`next`",
+           "`continue`",
+           "`pass`"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which of the following is a valid `for` loop in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`for i = 1 to 10`",
+           "`for i in 1:10`",
+           "`foreach i in 1:10`",
+           "`for (i = 1; i <= 10; i++)`"]
+answer = 2
+radioq(choices, answer)
+```
+
+### Type Hierarchies
 
 ```{julia}
 #| echo: false
@@ -228,12 +422,8 @@ answer = 4
 radioq(choices, answer)
 ```
 
-:::
-
 ### Type Conversion and Promotion
 
-::: {.callout-caution collapse="true" icon=false}
-## Quiz
 
 ```{julia}
 #| echo: false
@@ -363,12 +553,7 @@ answer = 1
 radioq(choices, answer)
 ```
 
-:::
-
 ### Special Types
-
-::: {.callout-caution collapse="true" icon=false}
-## Quiz
 
 ```{julia}
 #| echo: false
@@ -557,12 +742,7 @@ answer = 1
 radioq(choices, answer)
 ```
 
-:::
-
 ### Union Types
-
-::: {.callout-caution collapse="true" icon=false}
-## Quiz
 
 ```{julia}
 #| echo: false
@@ -704,12 +884,7 @@ answer = 1
 radioq(choices, answer)
 ```
 
-:::
-
 ### Type Annotations and Declarations
-
-::: {.callout-caution collapse="true" icon=false}
-## Quiz
 
 ```{julia}
 #| echo: false
@@ -807,12 +982,7 @@ answer = 1
 radioq(choices, answer)
 ```
 
-:::
-
 ### Parametric Types
-
-::: {.callout-caution collapse="true" icon=false}
-## Quiz
 
 ```{julia}
 #| echo: false
@@ -1016,12 +1186,7 @@ answer = 2
 radioq(choices, answer)
 ```
 
-::: 
-
 ### Errors and Exception Handling
-
-::: {.callout-caution collapse="true" icon=false}
-## Quiz
 
 ```{julia}
 #| echo: false
@@ -1183,4 +1348,164 @@ choices = ["Ensuring a file is closed after reading, regardless of errors.",
 answer = 1
 radioq(choices, answer)
 ```
-:::
+
+### Performance
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does it mean for a function in Julia to be *type stable*?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It always returns an Int64.", 
+           "The return type can be predicted at compile time from the input types.", 
+           "It never allocates memory.", 
+           "It always avoids recursion."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which Julia macro is commonly used to check for type stability?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`@time`", 
+           "`@inbounds`", 
+           "`@code_warntype`", 
+           "`@show`"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following best describes a type-unstable function?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["A function where the compiler cannot infer a concrete return type.", 
+           "A function that allocates memory unnecessarily.", 
+           "A function that returns multiple values.", 
+           "A function that runs slower than expected."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Consider the function:**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function g(x)
+    return x > 10 ? 10 : "small"
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["The function is recursive.", 
+           "The function is type stable.", 
+           "The function is type unstable.", 
+           "The function will always error."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). In Julia, which type causes the biggest problems for type inference when used as a return type?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`Int64`", 
+           "`Any`", 
+           "`Float64`", 
+           "`Bool`"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following is volatile (non permanent) memory?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Hard disk.", 
+           "SSD.", 
+           "RAM.", 
+           "Flash drive."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which component temporarily stores instructions and data for quick access by the CPU?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Cache.", 
+           "ROM.", 
+           "Hard disk.", 
+           "GPU."]
+answer = 1
+radioq(choices, answer)
+```
+
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). he basic unit of data in computer hardware is:**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Word.", 
+           "Byte.", 
+           "Bit.", 
+           "Nibble."]
+answer = 3
+radioq(choices, answer)
+```
