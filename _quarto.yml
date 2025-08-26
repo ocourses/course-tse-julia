@@ -43,9 +43,9 @@ website:
   reader-mode: true
   open-graph: true
   twitter-card: true
-  site-url: https://ocourses.github.io/course-tse-julia/
-  repo-url: https://github.com/ocourses/course-tse-julia
-  issue-url: https://github.com/ocourses/course-tse-julia/issues/new/choose
+  site-url: https://ocourses.github.io/julia-tse/
+  repo-url: https://github.com/ocourses/julia-tse
+  issue-url: https://github.com/ocourses/julia-tse/issues/new/choose
   repo-actions: [edit, source, issue]
   page-navigation: true
   back-to-top-navigation: true
@@ -64,7 +64,7 @@ website:
     title: false
     tools:
       - icon: github
-        href: https://github.com/ocourses/course-tse-julia
+        href: https://github.com/ocourses/julia-tse
     left:
       - text: "Content of the course"
         href: src/index.qmd
