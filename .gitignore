@@ -336,5 +336,6 @@ TSWLatexianTemp*
 #*Notes.bib
 /.quarto/
 /_*.local
+/_site/
 
 /.luarc.json
