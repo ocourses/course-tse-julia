@@ -111,7 +111,19 @@ ul.task-list li input[type="checkbox"] {
         // Cacher les éléments
         sidebar.style.visibility = 'hidden';
         marginSidebar.style.visibility = 'hidden';
-        documentContent.className = 'content column-page';
+        documentContent.classList.add('column-page');
+
+        //
+        const sectionElements = document.getElementsByTagName("section");
+        const sectionPageColumn = Array.prototype.filter.call(
+            sectionElements,
+            (element) => element.classList.contains("page-columns") && element.classList.contains("page-full"),
+        );
+        for (const element of sectionPageColumn) {
+            element.classList.remove("page-columns");
+            element.classList.remove("page-full");
+            element.classList.add("page-columns-save");
+        }
     }
 
     // fonction pour rendre visibles les menus de navigation
@@ -124,7 +136,15 @@ ul.task-list li input[type="checkbox"] {
         // Rendre visibles les éléments
         sidebar.style.visibility = 'visible';
         marginSidebar.style.visibility = 'visible';
-        documentContent.className = 'content';
+        documentContent.classList.remove('column-page');
+
+        //
+        var sectionPageColumn = document.getElementsByClassName("page-columns-save");
+        for (const element of sectionPageColumn) {
+            element.classList.remove("page-columns-save");
+            element.classList.add("page-columns");
+            element.classList.add("page-full");
+        }
     }
 
     // fonction pour basculer la visibilité des menus de navigation
