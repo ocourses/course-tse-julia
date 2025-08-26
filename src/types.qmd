@@ -245,7 +245,7 @@ This will return all direct subtypes of `AbstractFloat`. To visualize the type h
 ```{julia}
 using AbstractTrees
 AbstractTrees.children(d::DataType) = subtypes(d)
-print_tree(Real)
+print_tree(AbstractFloat)
 ```
 
 #### Getting the Parent Type
