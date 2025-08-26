@@ -1,0 +1,1511 @@
+---
+title: "Auto-evaluation"
+page-layout: article
+jupyter: julia-1.11
+---
+
+```{julia}
+#| echo: false
+include("activate.jl")
+```
+
+We have included in this page a series of **quizzes** to help reinforce your learning. These quizzes are designed not only to test your understanding but also to provide you with an opportunity for **self-reflection**. After each quiz, take a moment to review your answers, reflect on what you've learned, and identify areas where you may need further clarification. Do not hesitate to reach out to your lecturer if any questions come up.
+
+### Core Syntax
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which of the following defines a variable `x` with value `10` in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`let x = 10`",
+           "`x := 10`",
+           "`x = 10`",
+           "`int x = 10`"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which keyword is used to define a function in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`func`",
+           "`function`",
+           "`def`",
+           "`lambda`"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which symbol is used for element-wise operations in Julia (e.g., squaring each element of a vector)?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`:`",
+           "`.`",
+           "`->`",
+           "`*`"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the output of this code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+a = [1, 2, 3]
+b = a
+b[1] = 10
+println(a)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`[10, 2, 3]`",
+           "`[1, 2, 3]`",
+           "`[1, 10, 3]`",
+           "Error."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What does the `end` keyword do in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Ends a program.",
+           "Closes a block of code like `if`, `for`, or `function`.",
+           "Skips to the next iteration.",
+           "Marks a breakpoint."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which expression returns the number of elements in a vector `v`?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`count(v)`",
+           "`size(v)`",
+           "`dim(v)`",
+           "`length(v)`"]
+answer = 4
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What does `===` do in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Checks if two expressions are numerically equal.",
+           "Checks if two expressions refer to the exact same object in memory.",
+           "Compares string equality.",
+           "Performs type conversion."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). How do you stop a loop early in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`stop`",
+           "`exit`",
+           "`break`",
+           "`return`"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). How do you skip the current iteration of a loop in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`skip`",
+           "`next`",
+           "`continue`",
+           "`pass`"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which of the following is a valid `for` loop in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`for i = 1 to 10`",
+           "`for i in 1:10`",
+           "`foreach i in 1:10`",
+           "`for (i = 1; i <= 10; i++)`"]
+answer = 2
+radioq(choices, answer)
+```
+
+### Type Hierarchies
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the purpose of an abstract type in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It defines a concrete implementation for other types.",
+           "It can be instantiated and used directly.",
+           "It provides a blueprint for organizing related types but cannot be instantiated.",
+           "It is used for type annotations in functions."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). Which of the following types is a concrete type?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["AbstractFloat", "Real", "Int64", "Number"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What does the `isconcretetype` function return for `AbstractFloat`?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["true", "false", "Error: Undefined type", "null"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What will the following code return?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+typeof(42)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Int64", "Integer", "Number", "Real"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the purpose of the `isa` operator in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["To check if a variable's value matches a specific type.",
+           "To check if a variable is an instance of a specific type or any of its subtypes.",
+           "To check if a type is concrete.",
+           "To check if a variable is a subtype of `Any`."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What will be the result of the following code?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+Int64 <: Real
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["true", "false", "Error: Type mismatch", "true for Float64 but not for Int64"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What will the following code return?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+isconcretetype(Int64)
+isconcretetype(AbstractFloat)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["true for Int64 and false for AbstractFloat",
+           "false for both types",
+           "true for AbstractFloat and false for Int64",
+           "false for both types if using a different syntax"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What does the `<:` operator check in Julia?**
+"""
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["If one type is a subtype of another.",
+           "If two types are exactly the same.",
+           "If a type can be instantiated.",
+           "If a type is abstract."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"**Question $(NUMQUESTION). What is the result of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+subtypes(Real)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Returns a list of all types that are subtypes of `Real`.",
+           "Returns an error because `Real` is abstract.",
+           "Returns `Any` as the only subtype of `Real`.",
+           "Shows `Real` as a parent type with no subtypes."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1
+md"""
+**Question $(NUMQUESTION). What does the `supertype` function return for `Float64`?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+supertype(Float64)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Int", "Real", "Number", "AbstractFloat"]
+answer = 4
+radioq(choices, answer)
+```
+
+### Type Conversion and Promotion
+
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `convert` function do in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It converts a value from one type to another, if possible.",
+           "It automatically promotes values to a common type.",
+           "It converts numbers to strings.",
+           "It changes a value to a boolean type."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the output of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+println(round(Int, 3.14))   # Rounds 3.14 to the nearest integer, output: 3
+println(floor(Int, 3.14))   # Floors 3.14 to the nearest integer, output: 3
+println(convert(Float64, 5))  # Converts Int to Float64, output: 5.0
+println(string(123))         # Converts Int to String, output: "123"
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["3, 3, 5.0, '123'",
+           "3, 3, 5.0, 123",
+           "3, 3.14, 5, '123'",
+           "5.0, 3, 5, '123'"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when an integer is assigned to a `Float64` variable in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+y::Float64 = 10  # The integer 10 is automatically converted to 10.0 (Float64)
+println(y)       # Output: 10.0
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Julia automatically converts the integer to a Float64.",
+           "Julia throws a type error because of the type mismatch.",
+           "The conversion needs to be done explicitly using `convert`.",
+           "The variable `y` will be set to the integer value of 10."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `promote` function do in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+a, b = promote(3, 4.5)  # Promotes both values to Float64
+println(a)              # Output: 3.0
+println(b)              # Output: 4.5
+println(typeof(a))      # Output: Float64
+println(typeof(b))      # Output: Float64
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It promotes two values to a common type for an operation.",
+           "It converts both values to integers.",
+           "It converts values to strings for display.",
+           "It checks if two values have the same type."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What will happen if we try to add an `Int` and a `String` in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+println(3 + "Hello")  # Attempting to add Int and String
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will throw a type error.",
+           "It will concatenate the string and the number.",
+           "It will promote the number to a string.",
+           "Julia will automatically convert both to a common type."]
+answer = 1
+radioq(choices, answer)
+```
+
+### Special Types
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `Nothing` type represent in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It represents the absence of a meaningful value.",
+           "It is used for undefined variables.",
+           "It is a placeholder for missing data.",
+           "It is a special type for numeric values."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the result of calling the following function in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+# Example of a function that returns `Nothing`
+function print_message(msg::String)
+    println(msg)
+    return nothing  # Explicitly returns `nothing`
+end
+
+result = print_message("Hello!")
+println(result === nothing)  # Output: true
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`nothing` is returned and the output is true.",
+           "`nothing` is returned but the output is false.",
+           "The function throws an error because nothing cannot be returned.",
+           "The function returns a string 'nothing'."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the advantage of using `Any` as a type in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+# Example of using `Any` as a type
+function describe(value::Any)
+    println("Value: ", value)
+    println("Type: ", typeof(value))
+end
+
+describe(42)         # Works with Int
+describe("Hello")    # Works with String
+describe(3.14)       # Works with Float64
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It allows variables to hold any type, making the code flexible.",
+           "It increases performance by restricting the type of variable.",
+           "It prevents runtime errors related to data types.",
+           "It makes type inference more precise."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the following code do in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+data = [1, 2, missing, 4, 5]
+for item in data
+    if item === missing
+        println("Missing data detected.")
+    else
+        println("Value: ", item)
+    end
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It checks for missing values and prints a message for each.",
+           "It sums all the values and skips missing ones.",
+           "It throws an error when encountering missing data.",
+           "It replaces missing data with a default value."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the purpose of the `skipmissing` function in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+using Statistics
+
+# Example array with missing values
+data = [1, 2, missing, 4, 5, missing, 7]
+
+# Summing values while skipping missing entries
+sum_no_missing = sum(skipmissing(data))
+println("Sum without missing values: ", sum_no_missing)  # Output: 19
+
+# Calculating the mean while skipping missing values
+mean_no_missing = mean(skipmissing(data))
+println("Mean without missing values: ", mean_no_missing)  # Output: 3.8
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It creates an iterator that skips `missing` values during computations.",
+           "It replaces `missing` values with `0`.",
+           "It prints out the number of `missing` values.",
+           "It raises an error if `missing` values are encountered."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the main use of the `Missing` type in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+# Example of using `missing` in an array
+data = [1, 2, missing, 4, 5]
+
+# Check for missing values in the array
+for item in data
+    if item === missing
+        println("Missing data detected.")
+    else
+        println("Value: ", item)
+    end
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["To represent missing or unknown data in a collection.",
+           "To represent variables with no value assigned.",
+           "To hold any type of data including missing entries.",
+           "To prevent errors when dealing with `Nothing`."]
+answer = 1
+radioq(choices, answer)
+```
+
+### Union Types
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is a `Union` type in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["A type that allows a variable to accept multiple types.",
+           "A type that restricts a variable to only one type.",
+           "A built-in function for type conversion.",
+           "A type that can only accept floating-point numbers."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the output of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function process_number(x::Union{Int, Float64})
+    println("The input is: ", x)
+end
+
+process_number(5)       # Works with an Int
+process_number(3.14)    # Works with a Float64
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["The input is: 5, The input is: 3.14",
+           "The input is: 5, The input is: 3",
+           "The input is: 3.14, The input is: 5",
+           "The input is: 5, The input is: 3.0"]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following scenarios would benefit from using a `Union` type?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+# Example using Union to handle multiple types in a function
+function add_one(x::Union{Int, Float64})
+    return x + 1
+end
+
+println(add_one(3))     # Output: 4 (Int)
+println(add_one(2.5))   # Output: 3.5 (Float64)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["When a function needs to accept both integers and floating-point numbers.",
+           "When a function accepts only integers.",
+           "When a function is only designed to accept floating-point numbers.",
+           "When there is a strict requirement to accept a specific type."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when a value of a type not listed in the `Union` is passed to a function?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function process_number(x::Union{Int, Float64})
+    println("The input is: ", x)
+end
+
+process_number("Hello")  # Trying to pass a String
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will throw a `MethodError` because `String` is not part of the Union.",
+           "It will automatically convert the string to an integer.",
+           "It will work without issue because `String` is compatible with `Union`.",
+           "It will throw a `TypeError` due to the type mismatch."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). How does the `add_one` function handle both `Int` and `Float64` types?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function add_one(x::Union{Int, Float64})
+    return x + 1
+end
+
+println(add_one(3))     # Output: 4 (Int)
+println(add_one(2.5))   # Output: 3.5 (Float64)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It works for both types without needing separate methods.",
+           "It throws an error for `Int` but works for `Float64`.",
+           "It requires type checking before execution.",
+           "It only works for `Float64` types."]
+answer = 1
+radioq(choices, answer)
+```
+
+### Type Annotations and Declarations
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the primary purpose of type annotations in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["To make code run faster by skipping type checks.",
+           "To specify the exact memory address of a variable.",
+           "To provide clarity in the code and enable optimizations by the compiler.",
+           "To prevent errors from occurring in the code."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following correctly applies a type annotation to a variable?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["a = 10::Int",
+           "Int::a = 10",
+           "a::Int = 10",
+           "a:Int = 10"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"""
+**Question $(NUMQUESTION). What will happen if the following code is executed?**
+"""
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function add(a::Int, b::Int)
+    return a + b
+end
+
+add(3, "4")
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will throw a type error because `\"4\"` is a String, not an Int.",
+           "It will convert \"4\" to an Int and return 7.",
+           "It will throw a syntax error.",
+           "It will ignore the type annotation and return 7."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). In Julia, what will the following code output?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function multiply(a::Int, b::Int)::Int
+    return a * b
+end
+multiply(3, 4)
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["12", "12.0", "Error: Incorrect type", "Nothing"]
+answer = 1
+radioq(choices, answer)
+```
+
+### Parametric Types
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is a parametric type in Julia?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["A type that is defined for a specific data type.",
+           "A type that can work with multiple data types, specified by parameters.",
+           "A type that can only work with abstract types.",
+           "A type that doesn't require any parameters."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the role of `T` and `S` in the `Pair` struct example?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+struct Pair{T, S}
+    first::T
+    second::S
+end
+
+pair1 = Pair(1, "apple")  # Pair of Int and String
+pair2 = Pair(3.14, true)  # Pair of Float64 and Bool
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`T` and `S` define the data types of the first and second elements of the pair.",
+           "`T` is used for the first element, and `S` is used for the second element.",
+           "`T` and `S` are unused in this case, they are placeholders.",
+           "`T` defines the data type of both elements in the pair."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when you instantiate `Pair(1, 'apple')` in the provided code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+pair1 = Pair(1, "apple")  # Pair of Int and String
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will create a pair with an `Int` and a `String`.",
+           "It will throw an error because `Int` and `String` can't be combined.",
+           "It will create a pair with `Int64` and `String`.",
+           "It will cause a runtime error because the types don't match."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the benefit of using parametric types like `AbstractContainer{T}`?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+abstract type AbstractContainer{T} end
+
+struct VectorContainer{T} <: AbstractContainer{T}
+    data::Vector{T}
+end
+
+struct SetContainer{T} <: AbstractContainer{T}
+    data::Set{T}
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It allows you to specify concrete types directly in the struct.",
+           "It makes the code less flexible and more specific.",
+           "It allows you to create types that can handle any type of data, with type safety.",
+           "It makes the code more complex and harder to maintain."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the `print_container_info` function do?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function print_container_info(container::AbstractContainer{T}) where T
+    println("Container holds values of type: ", T)
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It prints the type of the container.",
+           "It prints the number of elements in the container.",
+           "It prints the values inside the container.",
+           "It returns the type of the container."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the purpose of `AbstractContainer{T}` in the code example?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+abstract type AbstractContainer{T} end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It defines a concrete container type.",
+           "It defines an abstract type that can be used to create containers for any data type `T`.",
+           "It defines a container for a specific type of data.",
+           "It restricts containers to hold only numeric types."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What would be the output of `print_container_info(vec)` if `vec` is `VectorContainer([1, 2, 3])`?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+vec = VectorContainer([1, 2, 3])
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It will print the type `Vector{Int}`.",
+           "It will print the type `AbstractContainer{Int}`.",
+           "It will print the values inside the container.",
+           "It will throw an error because `VectorContainer` is not defined."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). How does using parametric types help with code reusability?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It reduces the need to define separate functions for different data types.",
+           "It forces you to create new types for every use case.",
+           "It makes the code less reusable.",
+           "It requires more boilerplate code."]
+answer = 2
+radioq(choices, answer)
+```
+
+### Errors and Exception Handling
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which error type is raised when an index is out of bounds in an array?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["ArgumentError", 
+           "BoundsError", 
+           "DivisionByZeroError", 
+           "IOError"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does the following code do in Julia?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function divide(a, b)
+    if b == 0
+        throw(DivideError())
+    end
+    return a / b
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It raises a DivideError when b equals 0.",
+           "It raises an ArgumentError when a or b is invalid.",
+           "It throws a BoundsError if a or b are not numbers.",
+           "It performs division and returns the result."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What happens when the following `try`/`catch` block is executed?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+try
+    println(divide(10, 0))  # Will raise an error
+catch e
+    println("Error: ", e)  # Handles the error
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["The program throws an error and stops execution.",
+           "The error is caught and a custom error message is printed.",
+           "The program silently ignores the error.",
+           "The program prints the result of the division."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the purpose of the `finally` block in Julia's exception handling?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["To ensure that cleanup code runs regardless of whether an error occurs.",
+           "To catch all errors and handle them.",
+           "To rethrow any errors that are caught.",
+           "To perform the main logic of the program."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What is the output of the following code?**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function safe_file_read(filename::String)
+    file = nothing
+    try
+        file = open(filename, "r")
+        data = read(file, String)
+        return data
+    catch e
+        println("An error occurred: ", e)
+    finally
+        if file !== nothing
+            close(file)
+            println("File closed.")
+        end
+    end
+end
+
+# Test with a valid file
+println(safe_file_read("example.txt"))
+
+# Test with an invalid file
+println(safe_file_read("nonexistent.txt"))
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["The program prints data from the file and closes it.",
+           "The program raises an error and does not close the file.",
+           "The program tries to read a file, catches errors, and always closes the file.",
+           "The program prints the error but skips file closing."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following is an appropriate use case for the `finally` block?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Ensuring a file is closed after reading, regardless of errors.",
+           "To catch all exceptions without handling them.",
+           "To prevent specific types of errors from being raised.",
+           "To handle errors and return a value from the `finally` block."]
+answer = 1
+radioq(choices, answer)
+```
+
+### Performance
+
+```{julia}
+#| echo: false
+NUMQUESTION = 0
+nothing #| hide
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). What does it mean for a function in Julia to be *type stable*?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["It always returns an Int64.", 
+           "The return type can be predicted at compile time from the input types.", 
+           "It never allocates memory.", 
+           "It always avoids recursion."]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which Julia macro is commonly used to check for type stability?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`@time`", 
+           "`@inbounds`", 
+           "`@code_warntype`", 
+           "`@show`"]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following best describes a type-unstable function?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["A function where the compiler cannot infer a concrete return type.", 
+           "A function that allocates memory unnecessarily.", 
+           "A function that returns multiple values.", 
+           "A function that runs slower than expected."]
+answer = 1
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Consider the function:**"
+```
+
+<p style="margin-top:-30px"> </p>
+
+```julia
+function g(x)
+    return x > 10 ? 10 : "small"
+end
+```
+
+<p style="margin-top:-20px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["The function is recursive.", 
+           "The function is type stable.", 
+           "The function is type unstable.", 
+           "The function will always error."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). In Julia, which type causes the biggest problems for type inference when used as a return type?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["`Int64`", 
+           "`Any`", 
+           "`Float64`", 
+           "`Bool`"]
+answer = 2
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which of the following is volatile (non permanent) memory?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Hard disk.", 
+           "SSD.", 
+           "RAM.", 
+           "Flash drive."]
+answer = 3
+radioq(choices, answer)
+```
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). Which component temporarily stores instructions and data for quick access by the CPU?**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Cache.", 
+           "ROM.", 
+           "Hard disk.", 
+           "GPU."]
+answer = 1
+radioq(choices, answer)
+```
+
+
+```{julia}
+#| echo: false
+NUMQUESTION += 1 
+md"**Question $(NUMQUESTION). he basic unit of data in computer hardware is:**"
+```
+
+<p style="margin-top:-50px"> </p>
+
+```{julia}
+#| echo: false
+choices = ["Word.", 
+           "Byte.", 
+           "Bit.", 
+           "Nibble."]
+answer = 3
+radioq(choices, answer)
+```
