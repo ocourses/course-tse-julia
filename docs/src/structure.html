@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -104,9 +104,95 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script>
 
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+    // fonction pour cacher les menus de navigation
+    function hideNavbar() {
+        // Sélection des éléments par leur ID
+        const sidebar = document.getElementById('quarto-sidebar');
+        const marginSidebar = document.getElementById('quarto-margin-sidebar');
+        const documentContent = document.getElementById('quarto-document-content');
+
+        // Cacher les éléments
+        sidebar.style.visibility = 'hidden';
+        marginSidebar.style.visibility = 'hidden';
+        documentContent.className = 'content column-page';
+    }
+
+    // fonction pour rendre visibles les menus de navigation
+    function showNavbar() {
+        // Sélection des éléments par leur ID
+        const sidebar = document.getElementById('quarto-sidebar');
+        const marginSidebar = document.getElementById('quarto-margin-sidebar');
+        const documentContent = document.getElementById('quarto-document-content');
+
+        // Rendre visibles les éléments
+        sidebar.style.visibility = 'visible';
+        marginSidebar.style.visibility = 'visible';
+        documentContent.className = 'content';
+    }
+
+    // fonction pour basculer la visibilité des menus de navigation
+    function toggleHideNavbar() {
+        // Sélection des éléments par leur ID
+        const sidebar = document.getElementById('quarto-sidebar');
+        const marginSidebar = document.getElementById('quarto-margin-sidebar');
+
+        // Si le menu de navigation est visible, le cacher
+        if (sidebar.style.visibility === 'visible') {
+            hideNavbar();
+        } else {
+            showNavbar();
+        }
+    }
+
+    // fonction pour ajouter des écouteurs d'événements pour basculer la visibilité des menus de navigation
+    function addEventListenerToToggleHideNavbar() {
+
+        // Ajout aux objets de la classe 'quarto-reader-toggle' d'un écouteur d'événements pour le clic
+        document.querySelectorAll('.quarto-reader-toggle').forEach(function(element) {
+            element.addEventListener('click', function() {
+                toggleHideNavbar();
+                return false;
+            });
+        });
+
+        // Ajout d'un écouteur d'événements pour la touche 'r'
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'l') {
+                window.quartoToggleReader();
+                toggleHideNavbar();
+                return false;
+            }
+        });
+    }
+
+    // fonction pour cacher les menus de navigation lors du chargement de la page si 
+    // la classe 'quarto-reader-toggle' est accompagnée de la classe 'reader'
+    // (c'est-à-dire si le mode de lecture est activé)
+    // sinon, on affiche les menus de navigation
+    function hideNavbarIfReader() {
+        if (document.querySelector('.quarto-reader-toggle.reader')) {
+            hideNavbar();
+        } else {
+            showNavbar();
+        }
+    }
+
+    // Ajout d'un écouteur d'événements pour le chargement de la page
+    if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+    ) {
+        // call on next available tick
+        setTimeout(addEventListenerToToggleHideNavbar, 1);
+        setTimeout(hideNavbarIfReader, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", addEventListenerToToggleHideNavbar);
+        document.addEventListener("DOMContentLoaded", hideNavbarIfReader);
+    }
+
+</script>
 <script src="https://unpkg.com/freezeframe/dist/freezeframe.min.js"></script>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -340,7 +426,6 @@ window.Quarto = {
   <li><a href="#raising-errors-with-throw" id="toc-raising-errors-with-throw" class="nav-link" data-scroll-target="#raising-errors-with-throw">Raising Errors with <code>throw</code></a></li>
   <li><a href="#handling-errors-with-trycatch" id="toc-handling-errors-with-trycatch" class="nav-link" data-scroll-target="#handling-errors-with-trycatch">Handling Errors with <code>try</code>/<code>catch</code></a></li>
   <li><a href="#using-finally-for-cleanup" id="toc-using-finally-for-cleanup" class="nav-link" data-scroll-target="#using-finally-for-cleanup">Using <code>finally</code> for Cleanup</a></li>
-  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
   </ul></li>
   <li><a href="#scoping-and-closure" id="toc-scoping-and-closure" class="nav-link" data-scroll-target="#scoping-and-closure">Scoping and Closure</a>
   <ul class="collapse">
@@ -391,7 +476,7 @@ window.Quarto = {
 <section id="defining-functions" class="level3">
 <h3 class="anchored" data-anchor-id="defining-functions">Defining Functions</h3>
 <p>Functions in Julia can be defined using either the <code>function</code> keyword or the assignment syntax.</p>
-<div id="98d41544" class="cell" data-execution_count="2">
+<div id="a094262b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the `function` keyword</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(a, b)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
@@ -429,7 +514,7 @@ Warning
 <li><p><strong>Positional Arguments</strong>: These are listed first in the parameter list and must be provided in the correct order when the function is called. Positional arguments can have default values, but it’s not required.</p></li>
 <li><p><strong>Keyword Arguments</strong>: Keyword arguments are specified after a semicolon (<code>;</code>) in the parameter list. These arguments must be provided by name when calling the function. Like positional arguments, keyword arguments can have default values, but they don’t have to.</p></li>
 </ul>
-<div id="1c158ff1" class="cell" data-execution_count="3">
+<div id="0b71e89d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">greet</span>(name; punctuation <span class="op">=</span> <span class="st">"!"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Hello, "</span> <span class="op">*</span> name <span class="op">*</span> punctuation</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -460,7 +545,7 @@ Note
 <section id="variable-number-of-arguments" class="level3">
 <h3 class="anchored" data-anchor-id="variable-number-of-arguments">Variable Number of Arguments</h3>
 <p>Julia functions can accept an arbitrary number of arguments using the splatting operator <code>...</code>. These arguments are gathered into a tuple.</p>
-<div id="2ae1d273" class="cell" data-execution_count="4">
+<div id="59da7c42" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum_all</span>(args<span class="op">...</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="fl">0</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> args</span>
@@ -478,7 +563,7 @@ Note
 <section id="default-values-for-optional-arguments" class="level3">
 <h3 class="anchored" data-anchor-id="default-values-for-optional-arguments">Default Values for Optional Arguments</h3>
 <p>In Julia, you can assign default values to both positional and keyword arguments. When the function is called without specifying a value for an argument with a default, the default value is used.</p>
-<div id="ecd60175" class="cell" data-execution_count="5">
+<div id="f8af91b6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">power</span>(base, exponent<span class="op">=</span><span class="fl">2</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> base <span class="op">^</span> exponent</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -494,7 +579,7 @@ julia&gt; power(3, 3) = 27</code></pre>
 <section id="multiple-optional-positional-arguments" class="level3">
 <h3 class="anchored" data-anchor-id="multiple-optional-positional-arguments">Multiple Optional Positional Arguments</h3>
 <p>When a function has multiple optional positional arguments, Julia will use the default values for any arguments not provided, allowing flexible combinations.</p>
-<div id="829c5475" class="cell" data-execution_count="6">
+<div id="b9d3bb66" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calculate</span>(a<span class="op">=</span><span class="fl">1</span>, b<span class="op">=</span><span class="fl">2</span>, c<span class="op">=</span><span class="fl">3</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b <span class="op">*</span> c</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
@@ -535,7 +620,7 @@ Tip
 <section id="mutation-and-the-bang-convention" class="level3">
 <h3 class="anchored" data-anchor-id="mutation-and-the-bang-convention">Mutation and the Bang <code>!</code> Convention</h3>
 <p>In Julia, functions that modify or mutate their arguments typically end with a <code>!</code>, following the <a href="https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention">“bang” convention</a>. This is not enforced by the language but is a widely followed convention in Julia to indicate mutation.</p>
-<div id="0753a2c4" class="cell" data-execution_count="7">
+<div id="495b34db" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add_one!</span>(array)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(array)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        array[i] <span class="op">+=</span> <span class="fl">1</span></span>
@@ -556,7 +641,7 @@ julia&gt; arr = [2, 3, 4]</code></pre>
 <section id="broadcasting" class="level3">
 <h3 class="anchored" data-anchor-id="broadcasting">Broadcasting</h3>
 <p>Julia supports <strong>broadcasting</strong>, a powerful feature that applies a function element-wise to arrays or other collections. Broadcasting is denoted by a <code>.</code> placed before the function call or operator.</p>
-<div id="5f415035" class="cell" data-execution_count="8">
+<div id="194a860f" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a simple function</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">square</span>(x)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">^</span><span class="fl">2</span></span>
@@ -605,7 +690,7 @@ Squared vector: [1, 4, 9, 16]</code></pre>
 <section id="raising-errors-with-throw" class="level3">
 <h3 class="anchored" data-anchor-id="raising-errors-with-throw">Raising Errors with <code>throw</code></h3>
 <p>In Julia, you can explicitly raise an error using the <code>throw</code> function. This is useful for defining custom error conditions in your code. To throw an error, call <code>throw</code> with an instance of an error type:</p>
-<div id="fcfcd3ea" class="cell" data-execution_count="9">
+<div id="d53f8189" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">divide</span>(a, b)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="fl">0</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">throw</span>(<span class="fu">DivideError</span>())</span>
@@ -632,7 +717,7 @@ Stacktrace:
 <h3 class="anchored" data-anchor-id="handling-errors-with-trycatch">Handling Errors with <code>try</code>/<code>catch</code></h3>
 <p>Julia provides <code>try</code>/<code>catch</code> blocks for managing exceptions gracefully. Code within a <code>try</code> block runs until an error is encountered. If an error is thrown, control passes to the <code>catch</code> block, where you can handle the error.</p>
 <p>Here’s an example of using <code>try</code>/<code>catch</code> with the <code>divide</code> function:</p>
-<div id="35fda983" class="cell" data-execution_count="10">
+<div id="e2f6f3cb" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>try</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="fu">divide</span>(<span class="fl">10</span>, <span class="fl">0</span>))  <span class="co"># Will raise an error</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>catch <span class="cn">e</span></span>
@@ -654,7 +739,7 @@ Stacktrace:
 <p>The code inside the <code>finally</code> block is always executed, even if an exception is thrown and caught. This makes it ideal for situations where you need to guarantee that some actions occur after the main code runs, like resource deallocation.</p>
 <section id="syntax" class="level4">
 <h4 class="anchored" data-anchor-id="syntax">Syntax:</h4>
-<div id="d266851a" class="cell" data-execution_count="11">
+<div id="8399d372" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>try</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Code that might throw an error</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>catch exception</span>
@@ -666,7 +751,7 @@ Stacktrace:
 </section>
 <section id="example" class="level4">
 <h4 class="anchored" data-anchor-id="example">Example:</h4>
-<div id="ccc8125b" class="cell" data-execution_count="12">
+<div id="b0087c21" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">safe_file_read</span>(filename<span class="op">::</span><span class="dt">String</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    file <span class="op">=</span> <span class="cn">nothing</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    try</span>
@@ -713,704 +798,6 @@ nothing</code></pre>
 </ul>
 </section>
 </section>
-<section id="quiz" class="level3">
-<h3 class="anchored" data-anchor-id="quiz">Quiz</h3>
-<div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Quiz: Errors and Exception Handling in Julia
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="422b829a" class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
-<p><strong>Question 1. Which error type is raised when an index is out of bounds in an array?</strong></p>
-</div>
-</div>
-<p style="margin-top:-50px">
-</p>
-<div id="b0000fa5" class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display" data-execution_count="16">
-<script>
-var ID = "PCMW1B0T"
-</script>
-<form class="mx-2 my-3 mw-100 qqquestion" name="WeaveQuestion" data-id="PCMW1B0T" data-controltype="" onsubmit="return false;">
-  <div class="form-group ">
-    <div class="controls">
-      <div class="form" id="controls_PCMW1B0T" correct="-1" attempts="0">
-
-    <div style="padding-top: 5px">
-    <fieldset style="border:0px">
-<legend style="display: none" aria-label="Select an item">Select an item</legend>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_PCMW1B0T_1">
-    <input class="form-check-input" type="radio" name="radio_PCMW1B0T" id="radio_PCMW1B0T_1" value="1">
-    
-    <span class="label-body px-1">
-        BoundsError
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_PCMW1B0T_2">
-    <input class="form-check-input" type="radio" name="radio_PCMW1B0T" id="radio_PCMW1B0T_2" value="2">
-    
-    <span class="label-body px-1">
-        DivisionByZeroError
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_PCMW1B0T_3">
-    <input class="form-check-input" type="radio" name="radio_PCMW1B0T" id="radio_PCMW1B0T_3" value="3">
-    
-    <span class="label-body px-1">
-        IOError
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_PCMW1B0T_4">
-    <input class="form-check-input" type="radio" name="radio_PCMW1B0T" id="radio_PCMW1B0T_4" value="4">
-    
-    <span class="label-body px-1">
-        ArgumentError
-    </span>
-    </label>
-</div>
-</fieldset>
-
-         </div>
-    </div>
-    <div id="PCMW1B0T_message" class="qqmessage" style="padding-bottom: 15px">
-    </div>
-
-<script>
-document.getElementById('controls_PCMW1B0T').addEventListener("quizquestion_answer", (e) => {
-          var o = document.getElementById('controls_PCMW1B0T')
-          var atts = Number(o.getAttribute("attempts"))
-          o.setAttribute("correct",  e.detail.correct);
-          o.setAttribute("attempts", atts + 1)
-      }, true)
-</script>
-
-<script text="text/javascript">
-document.querySelectorAll('input[name="radio_PCMW1B0T"]').forEach(function(rb) {
-rb.addEventListener("change", function() {
-    var correct = rb.value == 1;
-    var msgBox = document.getElementById('PCMW1B0T_message');
-    
-  if(correct) {
-    msgBox.innerHTML = "<div class='pluto-output admonition note alert alert-success'> <span>✔&nbsp; Correct </span> </div>";
-    var explanation = document.getElementById("explanation_PCMW1B0T")
-    if (explanation != null) {
-       explanation.style.display = "none";
-    }
-      const correct_answer   = new CustomEvent("quizquestion_answer",
-          {bubbles:true, detail:{correct: 1}}
-  );
-  this.dispatchEvent(correct_answer);
-
-  } else {
-    msgBox.innerHTML = "<div class='pluto-output admonition alert alert-danger'> <span>Χ&nbsp; Incorrect </span> </div>";
-    var explanation = document.getElementById("explanation_PCMW1B0T")
-    if (explanation != null) {
-       explanation.style.display = "block";
-    }
-      const incorrect_answer = new CustomEvent("quizquestion_answer",
-           {bubbles:true, detail:{correct: 0}}
-  );
-  this.dispatchEvent(incorrect_answer);
-
-  }
-
-})});
-
-</script>
-</div>
-</div></form>
-<div id="e2b72a8b" class="cell" data-execution_count="16">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="17">
-<p><strong>Question 2. What does the following code do in Julia?</strong></p>
-</div>
-</div>
-<p style="margin-top:-30px">
-</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">divide</span>(a, b)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="fl">0</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">throw</span>(<span class="fu">DivideError</span>())</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">/</span> b</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p style="margin-top:-20px">
-</p>
-<div id="aba3006c" class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display" data-execution_count="18">
-<script>
-var ID = "oFEEQdBs"
-</script>
-<form class="mx-2 my-3 mw-100 qqquestion" name="WeaveQuestion" data-id="oFEEQdBs" data-controltype="" onsubmit="return false;">
-  <div class="form-group ">
-    <div class="controls">
-      <div class="form" id="controls_oFEEQdBs" correct="-1" attempts="0">
-
-    <div style="padding-top: 5px">
-    <fieldset style="border:0px">
-<legend style="display: none" aria-label="Select an item">Select an item</legend>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_oFEEQdBs_1">
-    <input class="form-check-input" type="radio" name="radio_oFEEQdBs" id="radio_oFEEQdBs_1" value="1">
-    
-    <span class="label-body px-1">
-        It throws a BoundsError if a or b are not numbers.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_oFEEQdBs_2">
-    <input class="form-check-input" type="radio" name="radio_oFEEQdBs" id="radio_oFEEQdBs_2" value="2">
-    
-    <span class="label-body px-1">
-        It raises an ArgumentError when a or b is invalid.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_oFEEQdBs_3">
-    <input class="form-check-input" type="radio" name="radio_oFEEQdBs" id="radio_oFEEQdBs_3" value="3">
-    
-    <span class="label-body px-1">
-        It performs division and returns the result.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_oFEEQdBs_4">
-    <input class="form-check-input" type="radio" name="radio_oFEEQdBs" id="radio_oFEEQdBs_4" value="4">
-    
-    <span class="label-body px-1">
-        It raises a DivideError when b equals 0.
-    </span>
-    </label>
-</div>
-</fieldset>
-
-         </div>
-    </div>
-    <div id="oFEEQdBs_message" class="qqmessage" style="padding-bottom: 15px">
-    </div>
-
-<script>
-document.getElementById('controls_oFEEQdBs').addEventListener("quizquestion_answer", (e) => {
-          var o = document.getElementById('controls_oFEEQdBs')
-          var atts = Number(o.getAttribute("attempts"))
-          o.setAttribute("correct",  e.detail.correct);
-          o.setAttribute("attempts", atts + 1)
-      }, true)
-</script>
-
-<script text="text/javascript">
-document.querySelectorAll('input[name="radio_oFEEQdBs"]').forEach(function(rb) {
-rb.addEventListener("change", function() {
-    var correct = rb.value == 4;
-    var msgBox = document.getElementById('oFEEQdBs_message');
-    
-  if(correct) {
-    msgBox.innerHTML = "<div class='pluto-output admonition note alert alert-success'> <span>✔&nbsp; Correct </span> </div>";
-    var explanation = document.getElementById("explanation_oFEEQdBs")
-    if (explanation != null) {
-       explanation.style.display = "none";
-    }
-      const correct_answer   = new CustomEvent("quizquestion_answer",
-          {bubbles:true, detail:{correct: 1}}
-  );
-  this.dispatchEvent(correct_answer);
-
-  } else {
-    msgBox.innerHTML = "<div class='pluto-output admonition alert alert-danger'> <span>Χ&nbsp; Incorrect </span> </div>";
-    var explanation = document.getElementById("explanation_oFEEQdBs")
-    if (explanation != null) {
-       explanation.style.display = "block";
-    }
-      const incorrect_answer = new CustomEvent("quizquestion_answer",
-           {bubbles:true, detail:{correct: 0}}
-  );
-  this.dispatchEvent(incorrect_answer);
-
-  }
-
-})});
-
-</script>
-</div>
-</div></form>
-<div id="62c37a78" class="cell" data-execution_count="18">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="19">
-<p><strong>Question 3. What happens when the following <code>try</code>/<code>catch</code> block is executed?</strong></p>
-</div>
-</div>
-<p style="margin-top:-30px">
-</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>try</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="fu">divide</span>(<span class="fl">10</span>, <span class="fl">0</span>))  <span class="co"># Will raise an error</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>catch <span class="cn">e</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Error: "</span>, <span class="cn">e</span>)  <span class="co"># Handles the error</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p style="margin-top:-20px">
-</p>
-<div id="be0479ec" class="cell" data-execution_count="19">
-<div class="cell-output cell-output-display" data-execution_count="20">
-<script>
-var ID = "s0G1yZr3"
-</script>
-<form class="mx-2 my-3 mw-100 qqquestion" name="WeaveQuestion" data-id="s0G1yZr3" data-controltype="" onsubmit="return false;">
-  <div class="form-group ">
-    <div class="controls">
-      <div class="form" id="controls_s0G1yZr3" correct="-1" attempts="0">
-
-    <div style="padding-top: 5px">
-    <fieldset style="border:0px">
-<legend style="display: none" aria-label="Select an item">Select an item</legend>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_s0G1yZr3_1">
-    <input class="form-check-input" type="radio" name="radio_s0G1yZr3" id="radio_s0G1yZr3_1" value="1">
-    
-    <span class="label-body px-1">
-        The program throws an error and stops execution.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_s0G1yZr3_2">
-    <input class="form-check-input" type="radio" name="radio_s0G1yZr3" id="radio_s0G1yZr3_2" value="2">
-    
-    <span class="label-body px-1">
-        The program prints the result of the division.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_s0G1yZr3_3">
-    <input class="form-check-input" type="radio" name="radio_s0G1yZr3" id="radio_s0G1yZr3_3" value="3">
-    
-    <span class="label-body px-1">
-        The error is caught and a custom error message is printed.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_s0G1yZr3_4">
-    <input class="form-check-input" type="radio" name="radio_s0G1yZr3" id="radio_s0G1yZr3_4" value="4">
-    
-    <span class="label-body px-1">
-        The program silently ignores the error.
-    </span>
-    </label>
-</div>
-</fieldset>
-
-         </div>
-    </div>
-    <div id="s0G1yZr3_message" class="qqmessage" style="padding-bottom: 15px">
-    </div>
-
-<script>
-document.getElementById('controls_s0G1yZr3').addEventListener("quizquestion_answer", (e) => {
-          var o = document.getElementById('controls_s0G1yZr3')
-          var atts = Number(o.getAttribute("attempts"))
-          o.setAttribute("correct",  e.detail.correct);
-          o.setAttribute("attempts", atts + 1)
-      }, true)
-</script>
-
-<script text="text/javascript">
-document.querySelectorAll('input[name="radio_s0G1yZr3"]').forEach(function(rb) {
-rb.addEventListener("change", function() {
-    var correct = rb.value == 3;
-    var msgBox = document.getElementById('s0G1yZr3_message');
-    
-  if(correct) {
-    msgBox.innerHTML = "<div class='pluto-output admonition note alert alert-success'> <span>✔&nbsp; Correct </span> </div>";
-    var explanation = document.getElementById("explanation_s0G1yZr3")
-    if (explanation != null) {
-       explanation.style.display = "none";
-    }
-      const correct_answer   = new CustomEvent("quizquestion_answer",
-          {bubbles:true, detail:{correct: 1}}
-  );
-  this.dispatchEvent(correct_answer);
-
-  } else {
-    msgBox.innerHTML = "<div class='pluto-output admonition alert alert-danger'> <span>Χ&nbsp; Incorrect </span> </div>";
-    var explanation = document.getElementById("explanation_s0G1yZr3")
-    if (explanation != null) {
-       explanation.style.display = "block";
-    }
-      const incorrect_answer = new CustomEvent("quizquestion_answer",
-           {bubbles:true, detail:{correct: 0}}
-  );
-  this.dispatchEvent(incorrect_answer);
-
-  }
-
-})});
-
-</script>
-</div>
-</div></form>
-<div id="cd501672" class="cell" data-execution_count="20">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="21">
-<p><strong>Question 4. What is the purpose of the <code>finally</code> block in Julia’s exception handling?</strong></p>
-</div>
-</div>
-<p style="margin-top:-50px">
-</p>
-<div id="8449982e" class="cell" data-execution_count="21">
-<div class="cell-output cell-output-display" data-execution_count="22">
-<script>
-var ID = "1EeXSSFO"
-</script>
-<form class="mx-2 my-3 mw-100 qqquestion" name="WeaveQuestion" data-id="1EeXSSFO" data-controltype="" onsubmit="return false;">
-  <div class="form-group ">
-    <div class="controls">
-      <div class="form" id="controls_1EeXSSFO" correct="-1" attempts="0">
-
-    <div style="padding-top: 5px">
-    <fieldset style="border:0px">
-<legend style="display: none" aria-label="Select an item">Select an item</legend>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_1EeXSSFO_1">
-    <input class="form-check-input" type="radio" name="radio_1EeXSSFO" id="radio_1EeXSSFO_1" value="1">
-    
-    <span class="label-body px-1">
-        To perform the main logic of the program.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_1EeXSSFO_2">
-    <input class="form-check-input" type="radio" name="radio_1EeXSSFO" id="radio_1EeXSSFO_2" value="2">
-    
-    <span class="label-body px-1">
-        To rethrow any errors that are caught.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_1EeXSSFO_3">
-    <input class="form-check-input" type="radio" name="radio_1EeXSSFO" id="radio_1EeXSSFO_3" value="3">
-    
-    <span class="label-body px-1">
-        To catch all errors and handle them.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_1EeXSSFO_4">
-    <input class="form-check-input" type="radio" name="radio_1EeXSSFO" id="radio_1EeXSSFO_4" value="4">
-    
-    <span class="label-body px-1">
-        To ensure that cleanup code runs regardless of whether an error occurs.
-    </span>
-    </label>
-</div>
-</fieldset>
-
-         </div>
-    </div>
-    <div id="1EeXSSFO_message" class="qqmessage" style="padding-bottom: 15px">
-    </div>
-
-<script>
-document.getElementById('controls_1EeXSSFO').addEventListener("quizquestion_answer", (e) => {
-          var o = document.getElementById('controls_1EeXSSFO')
-          var atts = Number(o.getAttribute("attempts"))
-          o.setAttribute("correct",  e.detail.correct);
-          o.setAttribute("attempts", atts + 1)
-      }, true)
-</script>
-
-<script text="text/javascript">
-document.querySelectorAll('input[name="radio_1EeXSSFO"]').forEach(function(rb) {
-rb.addEventListener("change", function() {
-    var correct = rb.value == 4;
-    var msgBox = document.getElementById('1EeXSSFO_message');
-    
-  if(correct) {
-    msgBox.innerHTML = "<div class='pluto-output admonition note alert alert-success'> <span>✔&nbsp; Correct </span> </div>";
-    var explanation = document.getElementById("explanation_1EeXSSFO")
-    if (explanation != null) {
-       explanation.style.display = "none";
-    }
-      const correct_answer   = new CustomEvent("quizquestion_answer",
-          {bubbles:true, detail:{correct: 1}}
-  );
-  this.dispatchEvent(correct_answer);
-
-  } else {
-    msgBox.innerHTML = "<div class='pluto-output admonition alert alert-danger'> <span>Χ&nbsp; Incorrect </span> </div>";
-    var explanation = document.getElementById("explanation_1EeXSSFO")
-    if (explanation != null) {
-       explanation.style.display = "block";
-    }
-      const incorrect_answer = new CustomEvent("quizquestion_answer",
-           {bubbles:true, detail:{correct: 0}}
-  );
-  this.dispatchEvent(incorrect_answer);
-
-  }
-
-})});
-
-</script>
-</div>
-</div></form>
-<div id="c7ea0131" class="cell" data-execution_count="22">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="23">
-<p><strong>Question 5. What is the output of the following code?</strong></p>
-</div>
-</div>
-<p style="margin-top:-30px">
-</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">safe_file_read</span>(filename<span class="op">::</span><span class="dt">String</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    file <span class="op">=</span> <span class="cn">nothing</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    try</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        file <span class="op">=</span> <span class="fu">open</span>(filename, <span class="st">"r"</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> <span class="fu">read</span>(file, <span class="dt">String</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> data</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    catch <span class="cn">e</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span>(<span class="st">"An error occurred: "</span>, <span class="cn">e</span>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    finally</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> file <span class="op">!==</span> <span class="cn">nothing</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">close</span>(file)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>            <span class="fu">println</span>(<span class="st">"File closed."</span>)</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with a valid file</span></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">safe_file_read</span>(<span class="st">"example.txt"</span>))</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with an invalid file</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">safe_file_read</span>(<span class="st">"nonexistent.txt"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p style="margin-top:-20px">
-</p>
-<div id="41e5739d" class="cell" data-execution_count="23">
-<div class="cell-output cell-output-display" data-execution_count="24">
-<script>
-var ID = "MJJaqJUl"
-</script>
-<form class="mx-2 my-3 mw-100 qqquestion" name="WeaveQuestion" data-id="MJJaqJUl" data-controltype="" onsubmit="return false;">
-  <div class="form-group ">
-    <div class="controls">
-      <div class="form" id="controls_MJJaqJUl" correct="-1" attempts="0">
-
-    <div style="padding-top: 5px">
-    <fieldset style="border:0px">
-<legend style="display: none" aria-label="Select an item">Select an item</legend>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_MJJaqJUl_1">
-    <input class="form-check-input" type="radio" name="radio_MJJaqJUl" id="radio_MJJaqJUl_1" value="1">
-    
-    <span class="label-body px-1">
-        The program prints data from the file and closes it.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_MJJaqJUl_2">
-    <input class="form-check-input" type="radio" name="radio_MJJaqJUl" id="radio_MJJaqJUl_2" value="2">
-    
-    <span class="label-body px-1">
-        The program tries to read a file, catches errors, and always closes the file.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_MJJaqJUl_3">
-    <input class="form-check-input" type="radio" name="radio_MJJaqJUl" id="radio_MJJaqJUl_3" value="3">
-    
-    <span class="label-body px-1">
-        The program raises an error and does not close the file.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_MJJaqJUl_4">
-    <input class="form-check-input" type="radio" name="radio_MJJaqJUl" id="radio_MJJaqJUl_4" value="4">
-    
-    <span class="label-body px-1">
-        The program prints the error but skips file closing.
-    </span>
-    </label>
-</div>
-</fieldset>
-
-         </div>
-    </div>
-    <div id="MJJaqJUl_message" class="qqmessage" style="padding-bottom: 15px">
-    </div>
-
-<script>
-document.getElementById('controls_MJJaqJUl').addEventListener("quizquestion_answer", (e) => {
-          var o = document.getElementById('controls_MJJaqJUl')
-          var atts = Number(o.getAttribute("attempts"))
-          o.setAttribute("correct",  e.detail.correct);
-          o.setAttribute("attempts", atts + 1)
-      }, true)
-</script>
-
-<script text="text/javascript">
-document.querySelectorAll('input[name="radio_MJJaqJUl"]').forEach(function(rb) {
-rb.addEventListener("change", function() {
-    var correct = rb.value == 2;
-    var msgBox = document.getElementById('MJJaqJUl_message');
-    
-  if(correct) {
-    msgBox.innerHTML = "<div class='pluto-output admonition note alert alert-success'> <span>✔&nbsp; Correct </span> </div>";
-    var explanation = document.getElementById("explanation_MJJaqJUl")
-    if (explanation != null) {
-       explanation.style.display = "none";
-    }
-      const correct_answer   = new CustomEvent("quizquestion_answer",
-          {bubbles:true, detail:{correct: 1}}
-  );
-  this.dispatchEvent(correct_answer);
-
-  } else {
-    msgBox.innerHTML = "<div class='pluto-output admonition alert alert-danger'> <span>Χ&nbsp; Incorrect </span> </div>";
-    var explanation = document.getElementById("explanation_MJJaqJUl")
-    if (explanation != null) {
-       explanation.style.display = "block";
-    }
-      const incorrect_answer = new CustomEvent("quizquestion_answer",
-           {bubbles:true, detail:{correct: 0}}
-  );
-  this.dispatchEvent(incorrect_answer);
-
-  }
-
-})});
-
-</script>
-</div>
-</div></form>
-<div id="3dd05803" class="cell" data-execution_count="24">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="25">
-<p><strong>Question 6. Which of the following is an appropriate use case for the <code>finally</code> block?</strong></p>
-</div>
-</div>
-<p style="margin-top:-50px">
-</p>
-<div id="e4eae15d" class="cell" data-execution_count="25">
-<div class="cell-output cell-output-display" data-execution_count="26">
-<script>
-var ID = "OnXpk9Sv"
-</script>
-<form class="mx-2 my-3 mw-100 qqquestion" name="WeaveQuestion" data-id="OnXpk9Sv" data-controltype="" onsubmit="return false;">
-  <div class="form-group ">
-    <div class="controls">
-      <div class="form" id="controls_OnXpk9Sv" correct="-1" attempts="0">
-
-    <div style="padding-top: 5px">
-    <fieldset style="border:0px">
-<legend style="display: none" aria-label="Select an item">Select an item</legend>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_OnXpk9Sv_1">
-    <input class="form-check-input" type="radio" name="radio_OnXpk9Sv" id="radio_OnXpk9Sv_1" value="1">
-    
-    <span class="label-body px-1">
-        To catch all exceptions without handling them.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_OnXpk9Sv_2">
-    <input class="form-check-input" type="radio" name="radio_OnXpk9Sv" id="radio_OnXpk9Sv_2" value="2">
-    
-    <span class="label-body px-1">
-        To prevent specific types of errors from being raised.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_OnXpk9Sv_3">
-    <input class="form-check-input" type="radio" name="radio_OnXpk9Sv" id="radio_OnXpk9Sv_3" value="3">
-    
-    <span class="label-body px-1">
-        To handle errors and return a value from the <code>finally</code> block.
-    </span>
-    </label>
-</div>
-<div class="form-check">
-    <label class="form-check-label qqradio" for="radio_OnXpk9Sv_4">
-    <input class="form-check-input" type="radio" name="radio_OnXpk9Sv" id="radio_OnXpk9Sv_4" value="4">
-    
-    <span class="label-body px-1">
-        Ensuring a file is closed after reading, regardless of errors.
-    </span>
-    </label>
-</div>
-</fieldset>
-
-         </div>
-    </div>
-    <div id="OnXpk9Sv_message" class="qqmessage" style="padding-bottom: 15px">
-    </div>
-
-<script>
-document.getElementById('controls_OnXpk9Sv').addEventListener("quizquestion_answer", (e) => {
-          var o = document.getElementById('controls_OnXpk9Sv')
-          var atts = Number(o.getAttribute("attempts"))
-          o.setAttribute("correct",  e.detail.correct);
-          o.setAttribute("attempts", atts + 1)
-      }, true)
-</script>
-
-<script text="text/javascript">
-document.querySelectorAll('input[name="radio_OnXpk9Sv"]').forEach(function(rb) {
-rb.addEventListener("change", function() {
-    var correct = rb.value == 4;
-    var msgBox = document.getElementById('OnXpk9Sv_message');
-    
-  if(correct) {
-    msgBox.innerHTML = "<div class='pluto-output admonition note alert alert-success'> <span>✔&nbsp; Correct </span> </div>";
-    var explanation = document.getElementById("explanation_OnXpk9Sv")
-    if (explanation != null) {
-       explanation.style.display = "none";
-    }
-      const correct_answer   = new CustomEvent("quizquestion_answer",
-          {bubbles:true, detail:{correct: 1}}
-  );
-  this.dispatchEvent(correct_answer);
-
-  } else {
-    msgBox.innerHTML = "<div class='pluto-output admonition alert alert-danger'> <span>Χ&nbsp; Incorrect </span> </div>";
-    var explanation = document.getElementById("explanation_OnXpk9Sv")
-    if (explanation != null) {
-       explanation.style.display = "block";
-    }
-      const incorrect_answer = new CustomEvent("quizquestion_answer",
-           {bubbles:true, detail:{correct: 0}}
-  );
-  this.dispatchEvent(incorrect_answer);
-
-  }
-
-})});
-
-</script>
-</div>
-</div></form>
-</div>
-</div>
-</div>
-</div></div></div></div></div></div></div></div></div></div></div></div></section>
 </section>
 <section id="scoping-and-closure" class="level2">
 <h2 class="anchored" data-anchor-id="scoping-and-closure">Scoping and Closure</h2>
@@ -1421,14 +808,14 @@ rb.addEventListener("change", function() {
 <ul>
 <li><strong>Global Scope</strong>: Variables defined at the top level of a module or script are in the global scope and can be accessed from anywhere in that file. However, modifying global variables from within functions is generally discouraged.</li>
 </ul>
-<div id="3ab5a2a9" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>global_var <span class="op">=</span> <span class="fl">10</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">access_global</span>()</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> global_var</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">access_global</span>()  <span class="co"># Outputs: 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e86d80f9" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>global_var <span class="op">=</span> <span class="fl">10</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">access_global</span>()</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> global_var</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">access_global</span>()  <span class="co"># Outputs: 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>julia&gt; access_global() = 10</code></pre>
 </div>
@@ -1436,20 +823,20 @@ rb.addEventListener("change", function() {
 <ul>
 <li><strong>Local Scope</strong>: Variables defined within a function or a block (e.g., loops or conditionals) have local scope and cannot be accessed outside of that block.</li>
 </ul>
-<div id="057b815c" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">local_scope_example</span>()</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    local_var <span class="op">=</span> <span class="fl">5</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> local_var</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">local_scope_example</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e5621982" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">local_scope_example</span>()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    local_var <span class="op">=</span> <span class="fl">5</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> local_var</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">local_scope_example</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>julia&gt; local_scope_example() = 5</code></pre>
 </div>
 </div>
 <p>If you try to access <code>local_var</code> outside the function, you will get an error because it is not defined in the global scope.</p>
-<div id="846db954" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>local_var  <span class="co"># This would cause an error, as local_var is not accessible here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="aed3d11b" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>local_var  <span class="co"># This would cause an error, as local_var is not accessible here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>LoadError: UndefVarError: `local_var` not defined in `Main`
 Suggestion: check for spelling errors or missing imports.
@@ -1462,14 +849,14 @@ Suggestion: check for spelling errors or missing imports.</code></pre>
 <h3 class="anchored" data-anchor-id="scope-of-variables-in-for-loops">Scope of Variables in <code>for</code> Loops</h3>
 <p>In Julia, a <code>for</code> loop <em>does</em> create a new local scope for its loop variable when inside a function or another local scope. This means that a variable used as the loop variable will not overwrite an existing global variable with the same name in that context.</p>
 <p>Here’s an example:</p>
-<div id="a882ee97" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="fl">10</span>  <span class="co"># Define a global variable `i`</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)  <span class="co"># Prints 1, 2, and 3</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Outside loop: i = "</span>, i)  <span class="co"># Outputs: 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e8350f04" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="fl">10</span>  <span class="co"># Define a global variable `i`</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)  <span class="co"># Prints 1, 2, and 3</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Outside loop: i = "</span>, i)  <span class="co"># Outputs: 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1
 2
@@ -1483,17 +870,17 @@ Outside loop: i = 10</code></pre>
 <section id="nested-scopes" class="level3">
 <h3 class="anchored" data-anchor-id="nested-scopes">Nested Scopes</h3>
 <p>Julia allows for nested functions, which can access variables in their enclosing scopes. This is known as lexical scoping.</p>
-<div id="db09e3e7" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">outer_function</span>(x)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">inner_function</span>(z)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inner_function</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>closure <span class="op">=</span> <span class="fu">outer_function</span>(<span class="fl">3</span>)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">closure</span>(<span class="fl">4</span>)  <span class="co"># Outputs: 9 (3 + 2 + 4)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="942d15c1" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">outer_function</span>(x)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">inner_function</span>(z)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inner_function</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>closure <span class="op">=</span> <span class="fu">outer_function</span>(<span class="fl">3</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">closure</span>(<span class="fl">4</span>)  <span class="co"># Outputs: 9 (3 + 2 + 4)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>julia&gt; closure(4) = 9</code></pre>
 </div>
@@ -1506,18 +893,18 @@ Outside loop: i = 10</code></pre>
 <section id="example-using-a-global-variable-vs.-capturing-a-variable-in-a-closure" class="level4">
 <h4 class="anchored" data-anchor-id="example-using-a-global-variable-vs.-capturing-a-variable-in-a-closure">Example: Using a Global Variable vs.&nbsp;Capturing a Variable in a Closure</h4>
 <p>To illustrate the difference between referencing a global variable and capturing a variable in a closure, let’s first create a function that uses a global variable:</p>
-<div id="2c7f8ca2" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply_by_global</span>(x)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> factor</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply_by_global</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 10</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Update the global variable `factor`</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">3</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply_by_global</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 15 (factor is now 3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="21b81a5e" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply_by_global</span>(x)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> factor</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply_by_global</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 10</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Update the global variable `factor`</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">multiply_by_global</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 15 (factor is now 3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>julia&gt; factor = 2
 julia&gt; function multiply_by_global(x)
@@ -1533,21 +920,21 @@ julia&gt; multiply_by_global(5) = 15</code></pre>
 <section id="example-capturing-a-variable-in-a-closure" class="level4">
 <h4 class="anchored" data-anchor-id="example-capturing-a-variable-in-a-closure">Example: Capturing a Variable in a Closure</h4>
 <p>Now, let’s use a closure to capture the <code>factor</code> variable inside a function. Here, the captured value of <code>factor</code> remains fixed at the time the closure was created, regardless of changes to the variable afterward.</p>
-<div id="4bf370cb" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_multiplier</span>(factor)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x) <span class="op">-&gt;</span> x <span class="op">*</span> factor  <span class="co"># Returns a closure that captures `factor`</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>double <span class="op">=</span> <span class="fu">make_multiplier</span>(<span class="fl">2</span>)   <span class="co"># `factor` is captured as 2 in this closure</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>triple <span class="op">=</span> <span class="fu">make_multiplier</span>(<span class="fl">3</span>)   <span class="co"># `factor` is captured as 3 in this closure</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 10</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">triple</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 15</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Even if we change `factor` globally, it doesn't affect the closure</span></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">4</span></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(<span class="fl">5</span>)  <span class="co"># Still outputs: 10</span></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="fu">triple</span>(<span class="fl">5</span>)  <span class="co"># Still outputs: 15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="8e96343a" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_multiplier</span>(factor)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x) <span class="op">-&gt;</span> x <span class="op">*</span> factor  <span class="co"># Returns a closure that captures `factor`</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>double <span class="op">=</span> <span class="fu">make_multiplier</span>(<span class="fl">2</span>)   <span class="co"># `factor` is captured as 2 in this closure</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>triple <span class="op">=</span> <span class="fu">make_multiplier</span>(<span class="fl">3</span>)   <span class="co"># `factor` is captured as 3 in this closure</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 10</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">triple</span>(<span class="fl">5</span>)  <span class="co"># Outputs: 15</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Even if we change `factor` globally, it doesn't affect the closure</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>factor <span class="op">=</span> <span class="fl">4</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="fu">double</span>(<span class="fl">5</span>)  <span class="co"># Still outputs: 10</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">triple</span>(<span class="fl">5</span>)  <span class="co"># Still outputs: 15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>julia&gt; function make_multiplier(factor)
     return (x-&gt;begin
@@ -1577,28 +964,28 @@ julia&gt; triple(5) = 15</code></pre>
 <h2 class="anchored" data-anchor-id="modules">Modules</h2>
 <p>Modules can be seen as “boxes” in which you organise related functions. Such a “box” can be reused in other program. To have access to the function from “box” <code>B</code>, you should add <code>using B</code> at the beginning of your program. To call some function <code>f</code> stored in <code>B</code>, you type <code>B.f</code>. Thus modules avoid conflicts on function names by providing a seperate namespace. This means that a function <code>f</code> from the main program will indeed be seen as a different function than <code>B.f</code>.</p>
 <p>Find bellow an example of the definition of a simple module.</p>
-<div id="1e0def7f" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> MyModule</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a function inside the module</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">greet</span>(name)</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Hello, </span><span class="sc">$</span>name<span class="st"> !"</span>)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a constant inside the module</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Pi <span class="op">=</span> <span class="fl">3.14159</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span>  <span class="co"># End of the module</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div id="3b9c3f31" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> MyModule</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a function inside the module</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">greet</span>(name)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Hello, </span><span class="sc">$</span>name<span class="st"> !"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a constant inside the module</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> Pi <span class="op">=</span> <span class="fl">3.14159</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span>  <span class="co"># End of the module</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>Main.MyModule</code></pre>
 </div>
 </div>
 <p>Let us now use the function and variable in another program.</p>
-<div id="34fe0e1d" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">.MyModule</span>  <span class="co"># Importing the module</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>MyModule.<span class="fu">greet</span>(<span class="st">"Alice"</span>)  <span class="co"># Calling the function from MyModule</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(MyModule.Pi)     <span class="co"># Accessing the constant from MyModule</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="638dfdcc" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">.MyModule</span>  <span class="co"># Importing the module</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>MyModule.<span class="fu">greet</span>(<span class="st">"Alice"</span>)  <span class="co"># Calling the function from MyModule</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(MyModule.Pi)     <span class="co"># Accessing the constant from MyModule</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hello, Alice !
 3.14159</code></pre>
@@ -1619,10 +1006,10 @@ julia&gt; triple(5) = 15</code></pre>
 </span></p></li>
 </ul>
 <p><strong>Example Output:</strong></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">100</span>, unit<span class="op">=</span><span class="st">"C"</span>))  <span class="co"># Outputs: 212.0</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">32</span>, unit<span class="op">=</span><span class="st">"F"</span>))    <span class="co"># Outputs: 0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">100</span>, unit<span class="op">=</span><span class="st">"C"</span>))  <span class="co"># Outputs: 212.0</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">32</span>, unit<span class="op">=</span><span class="st">"F"</span>))    <span class="co"># Outputs: 0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1631,14 +1018,14 @@ To go further for Exercise 1: Temperature Converter
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>If the <code>unit</code> provided is not <code>"C"</code> or <code>"F"</code>, you can raise an error using the <code>throw</code> statement along with <code>ArgumentError</code>. This way, you can inform the user that the input is invalid.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1647,21 +1034,21 @@ Correction of Exercise 1: Temperature Converter
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="bb9cc87a" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">convert_temperature</span>(value; unit)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unit <span class="op">==</span> <span class="st">"C"</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value <span class="op">*</span> <span class="fl">9</span><span class="op">/</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">32</span>  <span class="co"># Convert Celsius to Fahrenheit</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elseif</span> unit <span class="op">==</span> <span class="st">"F"</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (value <span class="op">-</span> <span class="fl">32</span>) <span class="op">*</span> <span class="fl">5</span><span class="op">/</span><span class="fl">9</span>  <span class="co"># Convert Fahrenheit to Celsius</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">throw</span>(<span class="fu">ArgumentError</span>(<span class="st">"Unit must be 'C' or 'F'"</span>))</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">100</span>, unit<span class="op">=</span><span class="st">"C"</span>))  <span class="co"># Outputs: 212.0</span></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">32</span>, unit<span class="op">=</span><span class="st">"F"</span>))    <span class="co"># Outputs: 0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="741bff0c" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">convert_temperature</span>(value; unit)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> unit <span class="op">==</span> <span class="st">"C"</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value <span class="op">*</span> <span class="fl">9</span><span class="op">/</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">32</span>  <span class="co"># Convert Celsius to Fahrenheit</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elseif</span> unit <span class="op">==</span> <span class="st">"F"</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (value <span class="op">-</span> <span class="fl">32</span>) <span class="op">*</span> <span class="fl">5</span><span class="op">/</span><span class="fl">9</span>  <span class="co"># Convert Fahrenheit to Celsius</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">throw</span>(<span class="fu">ArgumentError</span>(<span class="st">"Unit must be 'C' or 'F'"</span>))</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">100</span>, unit<span class="op">=</span><span class="st">"C"</span>))  <span class="co"># Outputs: 212.0</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">convert_temperature</span>(<span class="fl">32</span>, unit<span class="op">=</span><span class="st">"F"</span>))    <span class="co"># Outputs: 0.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>212.0
 0.0</code></pre>
@@ -1679,7 +1066,7 @@ Correction of Exercise 1: Temperature Converter
 <li>Create a <strong>NamedTuple</strong> <code>nt</code> with fields <code>name</code>, <code>age</code>, and <code>height</code>, and initialize it with your details.</li>
 </ol>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1688,7 +1075,7 @@ Hint for Exercise 2:
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>Remember that tuples are immutable, so you can’t modify their elements.</li>
@@ -1698,7 +1085,7 @@ Hint for Exercise 2:
 </div>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1707,23 +1094,23 @@ Correction of Exercise 2:
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="ada4902d" class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tuple with three elements: a string, an integer, and a float</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="st">"John"</span>, <span class="fl">25</span>, <span class="fl">5.9</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Attempt to mutate the first element of the tuple with error handling</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>try</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    t[<span class="fl">1</span>] <span class="op">=</span> <span class="st">"Alice"</span>  <span class="co"># This will raise an error because tuples are immutable</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>catch <span class="cn">e</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Error: "</span>, <span class="cn">e</span>)</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a NamedTuple with fields: name, age, and height</span></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>nt <span class="op">=</span> (name <span class="op">=</span> <span class="st">"John"</span>, age <span class="op">=</span> <span class="fl">25</span>, height <span class="op">=</span> <span class="fl">5.9</span>)</span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"NamedTuple: "</span>, nt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7fdd22b1" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tuple with three elements: a string, an integer, and a float</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="st">"John"</span>, <span class="fl">25</span>, <span class="fl">5.9</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Attempt to mutate the first element of the tuple with error handling</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>try</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    t[<span class="fl">1</span>] <span class="op">=</span> <span class="st">"Alice"</span>  <span class="co"># This will raise an error because tuples are immutable</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>catch <span class="cn">e</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Error: "</span>, <span class="cn">e</span>)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a NamedTuple with fields: name, age, and height</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>nt <span class="op">=</span> (name <span class="op">=</span> <span class="st">"John"</span>, age <span class="op">=</span> <span class="fl">25</span>, height <span class="op">=</span> <span class="fl">5.9</span>)</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"NamedTuple: "</span>, nt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Error: MethodError(setindex!, (("John", 25, 5.9), "Alice", 1), 0x00000000000068f3)
 NamedTuple: (name = "John", age = 25, height = 5.9)</code></pre>
@@ -1737,14 +1124,14 @@ NamedTuple: (name = "John", age = 25, height = 5.9)</code></pre>
 <h3 class="anchored" data-anchor-id="exercise-3-factorial-function-with-closure">Exercise 3: Factorial Function with Closure</h3>
 <p>Create a function <code>make_factorial</code> that returns a closure. This closure should compute the factorial of a number. The closure should capture a variable that keeps track of the number of times it has been called. When the closure is called, it should return the factorial of the number and the call count.</p>
 <p><strong>Example Output:</strong></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>factorial_closure <span class="op">=</span> <span class="fu">make_factorial</span>()</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">5</span>)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 120</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">3</span>)</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 6</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Function called "</span>, count, <span class="st">" times"</span>)  <span class="co"># Outputs: 2 times</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>factorial_closure <span class="op">=</span> <span class="fu">make_factorial</span>()</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">5</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 120</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">3</span>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 6</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Function called "</span>, count, <span class="st">" times"</span>)  <span class="co"># Outputs: 2 times</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1753,14 +1140,14 @@ Hint Exercise 3: Factorial Function with Closure
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>When returning the results from the closure, you can return a pair of values by creating a tuple. In Julia, tuples are created using parentheses, like this: <code>(value1, value2)</code>.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1769,28 +1156,28 @@ Correction of Exercise 3: Factorial Function with Closure
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="7d093c7c" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_factorial</span>()</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="fl">0</span> <span class="co"># Variable to keep track of calls</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">factorial</span>(n<span class="op">::</span><span class="dt">Int</span>)</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="op">∈</span> <span class="fl">2</span><span class="op">:</span>n</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>            y <span class="op">*=</span> i </span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>        counter <span class="op">+=</span> <span class="fl">1</span></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> y, counter</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> factorial </span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>factorial_closure <span class="op">=</span> <span class="fu">make_factorial</span>()</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">5</span>)</span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 120</span></span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">3</span>)</span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 6</span></span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Function called "</span>, count, <span class="st">" times"</span>)  <span class="co"># Outputs: 2 times</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="08103e74" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">make_factorial</span>()</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="fl">0</span> <span class="co"># Variable to keep track of calls</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="fu">factorial</span>(n<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="op">∈</span> <span class="fl">2</span><span class="op">:</span>n</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>            y <span class="op">*=</span> i </span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>        counter <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> y, counter</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> factorial </span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>factorial_closure <span class="op">=</span> <span class="fu">make_factorial</span>()</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">5</span>)</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 120</span></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>result, count <span class="op">=</span> <span class="fu">factorial_closure</span>(<span class="fl">3</span>)</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(result)  <span class="co"># Outputs: 6</span></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Function called "</span>, count, <span class="st">" times"</span>)  <span class="co"># Outputs: 2 times</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>120
 6
@@ -1806,11 +1193,11 @@ Function called 2 times</code></pre>
 <p>Write a function <code>filter_even</code> that takes an array of integers as input and returns a new array containing only the even numbers from the input array. Use a loop and a conditional statement to check each number.</p>
 <p>Additionally, implement a helper function <code>is_even</code> that checks if a number is even. Use the <code>filter_even</code> function to filter an array of numbers, and print the result.</p>
 <p><strong>Example Output:</strong></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span>]</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>even_numbers <span class="op">=</span> <span class="fu">filter_even</span>(numbers)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(even_numbers)  <span class="co"># Outputs: [2, 4, 6, 8, 10]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span>]</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>even_numbers <span class="op">=</span> <span class="fu">filter_even</span>(numbers)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(even_numbers)  <span class="co"># Outputs: [2, 4, 6, 8, 10]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1819,14 +1206,14 @@ Hint for Exercise 4: Filter Even Numbers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>To add elements to an array in Julia, use the <code>push!</code> function. This function takes two arguments: the array you want to modify and the element to add to that array.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1835,26 +1222,26 @@ Correction of Exercise 4: Filter Even Numbers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="0ed37511" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">is_even</span>(x)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">filter_even</span>(numbers)</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    even_numbers <span class="op">=</span> []</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> number <span class="kw">in</span> numbers</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">is_even</span>(number)</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(even_numbers, number)</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> even_numbers</span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span>]</span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>even_numbers <span class="op">=</span> <span class="fu">filter_even</span>(numbers)</span>
-<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(even_numbers)  <span class="co"># Outputs: [2, 4, 6, 8, 10]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3898f3f4" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">is_even</span>(x)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">filter_even</span>(numbers)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    even_numbers <span class="op">=</span> []</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> number <span class="kw">in</span> numbers</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">is_even</span>(number)</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(even_numbers, number)</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> even_numbers</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span>]</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>even_numbers <span class="op">=</span> <span class="fu">filter_even</span>(numbers)</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(even_numbers)  <span class="co"># Outputs: [2, 4, 6, 8, 10]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Any[2, 4, 6, 8, 10]</code></pre>
 </div>

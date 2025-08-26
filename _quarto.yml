@@ -18,7 +18,7 @@ filters:
 format:
   html:
     include-in-header:
-#      - file: assets/html/toggle-hide-navbar.html
+      - file: assets/html/toggle-hide-navbar.html
       - file: assets/html/freezeframe.html
     theme:
       light: [cosmo, assets/css/theme-quarto.scss]      

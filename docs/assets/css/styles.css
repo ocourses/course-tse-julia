@@ -1,5 +1,44 @@
-h2 {color:#007fa2;}
-h3 {color:#E39912;}
+/* H1 - Couleur principale et forte */
+h1.anchored,
+h1.anchored:hover,
+h1.anchored:visited {
+    color: #1D1D1D; /* gris très foncé pour fort impact */
+}
+
+/* H2 - Bleu choisi pour Julia */
+h2.anchored,
+h2.anchored:hover,
+h2.anchored:visited {
+    color: #4063D8;
+}
+
+/* H3 - Violet choisi pour Julia */
+h3.anchored,
+h3.anchored:hover,
+h3.anchored:visited {
+    color: #9558B2;
+}
+
+/* H4 - Teinte plus claire et douce */
+h4.anchored,
+h4.anchored:hover,
+h4.anchored:visited {
+    color: #5E5E5E; /* gris moyen */
+}
+
+/* H5 - Couleur subtile mais visible */
+h5.anchored,
+h5.anchored:hover,
+h5.anchored:visited {
+    color: #888888; /* gris clair */
+}
+
+/* H6 - Couleur discrète pour les plus petits titres */
+h6.anchored,
+h6.anchored:hover,
+h6.anchored:visited {
+    color: #AAAAAA; /* gris très clair */
+}
 
 /* 
   Quiz
